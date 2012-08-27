@@ -3,5 +3,74 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='/javascripts/jquery/jquery-1.8.0.min.js')
+    script(src='/socket.io/socket.io.js')
+
+    script
+          var url = window.location.protocol+'//'+window.location.host;
+          //alert(url);
+          var socket = io.connect(url);
+          socket.on('connect', function(){
+                console.log("nicknames 111");
+          });
+
+          socket.on('announcement',function(msg){
+
+              $('#line').append($('<p>').append($('<em>')).text(msg));
+          });
+
+          socket.on('nickname', function(nicknames) {
+                    alert("nickname");
+                    $('#nicknames').empty().append($('<span>On line:<span>'));
+
+                    for(var i in nicknames){
+                         $('#nicknames').append($('<b>').text(nicknames[i]));
+                    }
+          });
+          socket.on('user message', message);
+
+          socket.on('reconnect',function(){
+               $('#line').remove();
+               message('System update','reconnect server');
+          });
+          socket.on('reconnecting', function () {
+               message('System', 'Attempting to re-connect to the server');
+          });
+
+          socket.on('error', function (e) {
+               message('System', e ? e : 'A unknown error occurred');
+          });
+
+          function message(from, msg){
+               alert('received'+msg);
+               $('#lines').append($('<p>').text(msg));
+          }
+
+          $(function(){
+               alert('ss');
+               $('#set-nickname').submit(function(ev){
+                    alert('submit');
+                    socket.emit('nickname',$('#nick').val());
+                    return false;
+
+               });
+
+               $('#send-message').submit(function(){
+                   //message('me', $('#message').val());
+                   //alert( $('#message').val())
+                   socket.emit('user message', $('#message').val());
+
+                   alert("suc")
+                   clear();
+                   //$('#lines').get(0).scrollTop = 10000000;
+                   return false;
+               });
+
+               function clear(){
+                   $('#message').val('').focus();
+               };
+
+          });
+
   body
     block content

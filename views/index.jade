@@ -2,8 +2,21 @@ extends layout
 
 block content
   h1= title
-  p Dear XiaoDongGua to #{title}
-  p      We have went through a few of Valenties'day together. Clear in my memory, seems happen in yesterday. Time elapse, like a killing pig knife we are gonna to get older, nevertheless, there is some place for you in my heart.
-  p      I love you  "Gua".
-  p  Happen Valenties'day
+  p Welcome to #{title}
+  body
+   #chat
+     #nickname
+      form.wrap#set-nickname
+       p please input your nickname and press enter:
+       input#nick
+
+       p#nickname-err Nickname already in use
+
+     #messages.chat-message
+      #nicknames
+      #lines
+     form.send-message#send-message
+      input#message
+      button send
+
 

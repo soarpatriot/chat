@@ -6,3 +6,24 @@ body {
 a {
   color: #00B7FF;
 }
+
+.chat{
+    display:block;
+
+}
+.display-show{
+    display:block;
+}
+.chat-message{
+    background: #eee;
+    width: 968px;
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.send-message{
+
+}
+
+
+
