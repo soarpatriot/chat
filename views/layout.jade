@@ -7,9 +7,8 @@ html
     script(src='/socket.io/socket.io.js')
 
     script
-          var url = window.location.protocol+'//'+window.location.host;
-          //alert(url);
-          var socket = io.connect(url);
+
+          var socket = io.connect();
           socket.on('connect', function(){
                 console.log("nicknames 111");
           });
@@ -20,11 +19,11 @@ html
           });
 
           socket.on('nickname', function(nicknames) {
-                    alert("nickname");
+
                     $('#nicknames').empty().append($('<span>On line:<span>'));
 
                     for(var i in nicknames){
-                         $('#nicknames').append($('<b>').text(nicknames[i]));
+                         $('#nicknames').append($('<b>').text(nicknames[i]+'  '));
                     }
           });
           socket.on('user message', message);
@@ -42,14 +41,23 @@ html
           });
 
           function message(from, msg){
-               alert('received'+msg);
-               $('#lines').append($('<p>').text(msg));
+
+
+               $('#lines').append($('<p>').append('<b>'+from+' : </b>'+msg));
+
+               var p = $('#lines p:last').position();
+
+               var size =  $('#lines p').size();
+              
+
+               $('#lines').get(0).scrollTop = size*200;
+
           }
 
           $(function(){
-               alert('ss');
+
                $('#set-nickname').submit(function(ev){
-                    alert('submit');
+
                     socket.emit('nickname',$('#nick').val());
                     return false;
 
@@ -57,12 +65,12 @@ html
 
                $('#send-message').submit(function(){
                    //message('me', $('#message').val());
-                   //alert( $('#message').val())
+
                    socket.emit('user message', $('#message').val());
 
-                   alert("suc")
+
                    clear();
-                   //$('#lines').get(0).scrollTop = 10000000;
+
                    return false;
                });
 
