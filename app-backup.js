@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies.
  */
@@ -59,10 +58,10 @@ io.sockets.on('connection', function (socket) {
     socket.on('nickname',function(nick){
         console.log('nicknames' + nicknames);
         //if(nicknames[nick]){
-        //  fn(true);
+        // fn(true);
         // console.log("nicknames 111" + nicknames);
         //}else{
-        //  fn(false);
+        // fn(false);
         nicknames[nick] = socket.nickname = nick;
         socket.broadcast.emit('announcement', nick + ' connected');
         socket.emit('nickname', nicknames);
@@ -76,7 +75,7 @@ io.sockets.on('connection', function (socket) {
         if(!socket.nickname){
             return;
         }
-        delete  nicknames[socket.nickname];
+        delete nicknames[socket.nickname];
         socket.broadcast.emit('announcement', socket.nickname + ' disconnected');
         socket.broadcast.emit('nicknames', nicknames);
     });

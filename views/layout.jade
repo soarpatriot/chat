@@ -1,16 +1,22 @@
 doctype 5
 html
   head
+   block head
     title= title
+    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+    link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    script(src='http://html5shim.googlecode.com/svn/trunk/html5.js')
+    <![endif]-->
     script(src='/javascripts/jquery/jquery-1.8.0.min.js')
     script(src='/socket.io/socket.io.js')
-
     script
 
           var socket = io.connect();
           socket.on('connect', function(){
-                console.log("nicknames 111");
+                console.log('nicknames 111');
           });
 
           socket.on('announcement',function(msg){
@@ -82,3 +88,16 @@ html
 
   body
     block content
+    include include/head
+    script(src='/javascripts/bootstrap-transition.js')
+    script(src='/javascripts/bootstrap-alert.js')
+    script(src='/javascripts/bootstrap-modal.js')
+    script(src='/javascripts/bootstrap-dropdown.js')
+    script(src='/javascripts/bootstrap-scrollspy.js')
+    script(src='/javascripts/bootstrap-tab.js')
+    script(src='/javascripts/bootstrap-tooltip.js')
+    script(src='/javascripts/bootstrap-popover.js')
+    script(src='/javascripts/bootstrap-button.js')
+    script(src='/javascripts/bootstrap-collapse.js')
+    script(src='/javascripts/bootstrap-carousel.js')
+    script(src='/javascripts/bootstrap-typeahead.js')
