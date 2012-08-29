@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d561e1f0-d025-40f5-a18e-d659607f8097" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
     </list>
     <ignored path="chat.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,7 +27,7 @@
       <file leaf-file-name="app.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="23" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.425">
+            <state line="62" column="16" selection-start="1707" selection-end="1707" vertical-scroll-proportion="1.9375">
               <folding />
             </state>
           </provider>
@@ -489,7 +488,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="23" selection-start="1037" selection-end="1037" vertical-scroll-proportion="0.425">
+        <state line="62" column="16" selection-start="1707" selection-end="1707" vertical-scroll-proportion="1.9375">
           <folding />
         </state>
       </provider>
