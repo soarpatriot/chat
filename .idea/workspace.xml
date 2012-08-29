@@ -2,60 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d561e1f0-d025-40f5-a18e-d659607f8097" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/ico/apple-touch-icon-114-precomposed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/ico/apple-touch-icon-144-precomposed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/ico/apple-touch-icon-57-precomposed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/ico/apple-touch-icon-72-precomposed.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/ico/favicon.ico" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bootstrap-mdo-sfmoma-01.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bootstrap-mdo-sfmoma-02.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bootstrap-mdo-sfmoma-03.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bs-docs-bootstrap-features.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bs-docs-masthead-pattern.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bs-docs-responsive-illustrations.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/bs-docs-twitter-github.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/example-sites/fleetio.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/example-sites/jshint.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/example-sites/kippt.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/example-sites/soundready.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/examples/bootstrap-example-fluid.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/examples/bootstrap-example-hero.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/examples/bootstrap-example-starter.jpg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/glyphicons-halflings-white.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/glyphicons-halflings.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/grid-baseline-20px.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/less-logo-large.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/images/responsive-illustrations.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/application.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-affix.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-alert.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-button.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-carousel.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-collapse.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-dropdown.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-modal.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-popover.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-scrollspy.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-tab.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-tooltip.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-transition.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap-typeahead.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap.min.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/bootstrap.min.tmp.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/google-code-prettify/prettify.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/google-code-prettify/prettify.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/jquery.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/bootstrap-responsive.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/bootstrap.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/docs.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/include/footer.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/include/head.jade" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/views/layout-back.jade" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app-backup.js" afterPath="$PROJECT_DIR$/app-backup.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.js" afterPath="$PROJECT_DIR$/test.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/index.jade" afterPath="$PROJECT_DIR$/views/index.jade" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layout.jade" afterPath="$PROJECT_DIR$/views/layout.jade" />
     </list>
     <ignored path="chat.iws" />
@@ -78,10 +24,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="layout.jade" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="layout.jade" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/views/layout.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="13" selection-start="35" selection-end="35" vertical-scroll-proportion="-0.9">
+            <state line="13" column="4" selection-start="480" selection-end="480" vertical-scroll-proportion="0.36708862">
               <folding />
             </state>
           </provider>
@@ -96,10 +42,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.jade" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="index.jade" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/index.jade">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="8" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.39873418">
+            <state line="83" column="8" selection-start="1983" selection-end="1983" vertical-scroll-proportion="-3.78">
               <folding />
             </state>
           </provider>
@@ -204,10 +150,10 @@
         <option value="$PROJECT_DIR$/app-backup.js" />
         <option value="$PROJECT_DIR$/test.js" />
         <option value="$PROJECT_DIR$/views/include/head.jade" />
-        <option value="$PROJECT_DIR$/views/layout.jade" />
         <option value="$PROJECT_DIR$/views/layout-back.jade" />
         <option value="$PROJECT_DIR$/views/include/footer.jade" />
         <option value="$PROJECT_DIR$/views/index.jade" />
+        <option value="$PROJECT_DIR$/views/layout.jade" />
       </list>
     </option>
   </component>
@@ -608,13 +554,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.jade">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="13" selection-start="35" selection-end="35" vertical-scroll-proportion="-0.9">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/layout-back.jade">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="0" selection-start="1127" selection-end="1127" vertical-scroll-proportion="0.0">
@@ -631,7 +570,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/index.jade">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="8" selection-start="1983" selection-end="1983" vertical-scroll-proportion="0.39873418">
+        <state line="83" column="8" selection-start="1983" selection-end="1983" vertical-scroll-proportion="-3.78">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/layout.jade">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="4" selection-start="480" selection-end="480" vertical-scroll-proportion="0.36708862">
           <folding />
         </state>
       </provider>
