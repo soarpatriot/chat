@@ -13,9 +13,9 @@ var express = require('express')
 
 
 var app = express()
-    , server = require('http').createServer(app)
-    , io = io.listen(server);
-server.listen(4470);
+   // , server = require('http').createServer(app)
+   // , io = io.listen(server);
+//server.listen(process.env.PORT);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
@@ -36,7 +36,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 
 
+var server = http.createServer(app).listen(app.get('port'), function(){
+    console.log("Express server listening on port " + app.get('port'));
+});
 
+io = io.listen(server);
 //http.createServer(app).listen(app.get('port'), function(){
   //console.log("Express server listening on port " + app.get('port'));
 //});
