@@ -15,7 +15,7 @@ var express = require('express')
 var app = express()
     , server = require('http').createServer(app)
     , io = io.listen(server);
-server.listen(3000);
+server.listen(4470);
 
 app.configure(function(){
   app.set('port', process.env.PORT || 3000);
