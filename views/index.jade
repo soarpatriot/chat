@@ -7,7 +7,7 @@ block append head
 
         var socket = io.connect();
         socket.on('connect', function(){
-              console.log('nicknames 111');
+
         });
 
         socket.on('announcement',function(msg){
@@ -79,7 +79,7 @@ block append head
 block content
 
   body
-    div.container
+
         h1= title
         p Welcome to #{title}
         #chat
@@ -87,9 +87,6 @@ block content
           form.wrap#set-nickname
            p please input your nickname and press enter:
            input#nick
-
-           p#nickname-err Nickname already in use
-
          #messages
           #nicknames
           #lines.chat-message

@@ -1,11 +1,3 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
-
-a {
-  color: #00B7FF;
-}
 
 .chat{
     display:block;
@@ -21,9 +13,17 @@ a {
     max-height: 400px;
     overflow-y: scroll;
 }
-.send-message{
-
+.margin-top20{
+    margin-top: 50px;
 }
 
+.footer-section{
+    margin-top: 20px;
+    width: 1170;
+}
+
+.copy-p{
+    width: auto;
+}
 
 
