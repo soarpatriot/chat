@@ -1,98 +1,78 @@
 extends layout
 
-
 block append head
   script(src='/socket.io/socket.io.js')
   script
+    var socket = io.connect();
+    socket.on('connect', function(){
 
-        var socket = io.connect();
-        socket.on('connect', function(){
+    });
 
-        });
+    socket.on('announcement',function(msg){
+      $('#line').append($('<p>').append($('<em>')).text(msg));
+    });
 
-        socket.on('announcement',function(msg){
+    socket.on('nickname', function(nicknames) {
+      $('#nicknames').empty().append($('<span>On line:<span>'));
 
-            $('#line').append($('<p>').append($('<em>')).text(msg));
-        });
+      for(var i in nicknames){
+           $('#nicknames').append($('<b>').text(nicknames[i]+'  '));
+      }
+    });
+    socket.on('user message', message);
 
-        socket.on('nickname', function(nicknames) {
+    socket.on('reconnect',function(){
+      $('#line').remove();
+      message('System update','reconnect server');
+    });
+    socket.on('reconnecting', function () {
+      message('System', 'Attempting to re-connect to the server');
+    });
 
-                  $('#nicknames').empty().append($('<span>On line:<span>'));
+    socket.on('error', function (e) {
+      message('System', e ? e : 'A unknown error occurred');
+    });
 
-                  for(var i in nicknames){
-                       $('#nicknames').append($('<b>').text(nicknames[i]+'  '));
-                  }
-        });
-        socket.on('user message', message);
+    function message(from, msg){
+      $('#lines').append($('<p>').append('<b>'+from+' : </b>'+msg));
+      var p = $('#lines p:last').position();
+      var size =  $('#lines p').size();
+      $('#lines').get(0).scrollTop = size*200;
+    }
 
-        socket.on('reconnect',function(){
-             $('#line').remove();
-             message('System update','reconnect server');
-        });
-        socket.on('reconnecting', function () {
-             message('System', 'Attempting to re-connect to the server');
-        });
+    $(function(){
 
-        socket.on('error', function (e) {
-             message('System', e ? e : 'A unknown error occurred');
-        });
+      $('#set-nickname').submit(function(ev){
+        socket.emit('nickname',$('#nick').val());
+        return false;
+      });
 
-        function message(from, msg){
+      $('#send-message').submit(function(){
+        //message('me', $('#message').val());
+        socket.emit('user message', $('#message').val());
+        clear();
+        return false;
+      });
 
-
-             $('#lines').append($('<p>').append('<b>'+from+' : </b>'+msg));
-
-             var p = $('#lines p:last').position();
-
-             var size =  $('#lines p').size();
-
-
-             $('#lines').get(0).scrollTop = size*200;
-
-        }
-
-        $(function(){
-
-             $('#set-nickname').submit(function(ev){
-
-                  socket.emit('nickname',$('#nick').val());
-                  return false;
-
-             });
-
-             $('#send-message').submit(function(){
-                 //message('me', $('#message').val());
-
-                 socket.emit('user message', $('#message').val());
-
-
-                 clear();
-
-                 return false;
-             });
-
-             function clear(){
-                 $('#message').val('').focus();
-             };
-
-        });
+      function clear(){
+         $('#message').val('').focus();
+      };
+    });
 block content
-
   body
-
-        h1= title
-        p Welcome to #{title}
-        #chat
-         #nickname
-          form.wrap#set-nickname
-           p please input your nickname and press enter:
-           input#nick
-         #messages
-          #nicknames
-          #lines.chat-message.padding20
-          #flag
-         form.send-message#send-message
-          input#message
-          button send
+    h1= title
+    p Welcome to #{title}
+    #chat
+     #nickname
+      form.wrap#set-nickname
+       p please input your nickname and press enter:
+       input#nick
+     #messages
+      #nicknames
+      #lines.chat-message.padding20
+      #flag
+     form.send-message#send-message
+      input#message
+      button.btn send
 
 

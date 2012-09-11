@@ -1,36 +1,37 @@
 div.navbar.navbar-inverse.navbar-fixed-top
-          div.navbar-inner
-            div.container
-               a.btn.btn-navbar
-                  span.icon-bar
-                  span.icon-bar
-                  span.icon-bar
-               a.brand(href="#") Project name
-               div.nav-collapse.collapse
-                  ul.nav
-                   li.active
-                     a(href="#") Home
-                   li
-                     a(href="#about") About
-                   li
-                     a(href="#contact") Contact
-                   li.dropdown
-                     a.dropdown-toggle(href="#") Dropdown
-                       b.caret
-                  ul.dropdown-menu
-                   li
-                     a(href="#") Action
-                   li
-                     a(href="#") Another action
-                   li
-                     a(href="#") Something else here
-                   li.divider
-                   li.nav-header.Nav.header
-                   li
-                     a(href="#") Separated link
-                   li
-                     a(href="#") One more separated link
-                  form.navbar-form.pull-right
-                    input.span2(type="text")
-                    input.span2(type="password")
-                    button.btn(type="submit") Sign in
+  div.navbar-inner
+    div.container
+      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand(href='#') Project name
+      div.nav-collapse.collapse
+          ul.nav
+            li.active
+              a(href='#') Home
+            li
+              a(href='#about') About
+            li
+              a(href='#contact') Contact
+            li.dropdown
+              a(class='dropdown-toggle', href='#', data-toggle='dropdown') Dropdown
+                b.caret
+              ul.dropdown-menu
+                li
+                  a(href='#') Action
+                li
+                  a(href='#') Another action
+                li
+                  a(href='#') Something else here
+                li.divider
+                li.nav-header Nav header
+                li
+                  a(href='#') Separated link
+                li
+                  a(href='#') One more separated link
+          form(class='navbar-form pull-right')
+            input(id='email', class='span2 margin-left4',type='text', placeholder='Email')
+            input(id='password', class='span2 margin-left4',type='password', placeholder='Password')
+            button.btn(id='sign-in-btn', type='submit') Sign in
+

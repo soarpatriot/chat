@@ -1,11 +1,25 @@
+/*!
+ * chat css
+ *
+ * Copyright 2012 soar, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @chat by @soar.
+ */
+body {
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
 
 .chat{
     display:block;
-
 }
+
 .display-show{
     display:block;
 }
+
 .chat-message{
     background: #eee;
     width: 968px;
@@ -13,13 +27,13 @@
     max-height: 400px;
     overflow-y: scroll;
 }
+
 .margin-top20{
     margin-top: 50px;
 }
 
-.footer-section{
-    margin-top: 20px;
-    width: 1170;
+.margin-left20{
+    margin-left: 20px;
 }
 
 .copy-p{
@@ -28,4 +42,20 @@
 
 .padding20{
     padding: 20px;
+}
+
+.margin-left4{
+    margin-left:4px;
+}
+
+#email{
+    margin-left: 4px;
+}
+
+#password{
+    margin-left: 4px;
+}
+
+#sign-in-btn{
+    margin-left: 4px;
 }
