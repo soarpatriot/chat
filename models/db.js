@@ -6,9 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 var settings = require('../settings');
-var Db = require('mongodb').db;
+var Db = require('mongodb').Db;
 var Connection = require('mongodb').Connection;
-var Server = requires('mongodb').Server;
+var Server = require('mongodb').Server;
 
 var server = new Server(settings.host, settings.port,
     {auto_reconnect:true}

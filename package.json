@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "chat",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -8,7 +8,11 @@
   "dependencies": {
     "socket.io": "0.9.10",
     "express": "3.x",
-    "jade": "*"
+    "jade": "*",
+    "connect-mongo":"0.2.0",
+    "crypto": "0.0.3",
+    "connect-flash": "0.1.0",
+    "express-partials": "0.0.6"
   },
   "engines": {
     "node": "0.8.x",
