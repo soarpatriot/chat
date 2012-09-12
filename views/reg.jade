@@ -1,0 +1,31 @@
+extends layout
+
+block append head
+
+block content
+  body
+    h1= title
+    div.container
+      div(class='alert alert-success')
+        success
+      div(class='alert alert-error')
+        error
+    div.container
+      form(action='/reg',method='post', class='form-horizontal')
+        div.control-group
+          label(class='control-label', for='username') username
+          div.controls
+            input(name='username',type='text')
+        div.control-group
+          label(class='control-label',for='password') password
+          div.controls
+            input(name='password',type='password')
+        div.control-group
+          label(class='control-label',for='password-repeat') password-repeat
+          div.controls
+              input(name='password-repeat',type='password')
+        div.control-group
+          div.controls
+            button(class='btn', type='submit') 提交
+
+
