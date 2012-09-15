@@ -59,3 +59,67 @@ body {
 #sign-in-btn{
     margin-left: 4px;
 }
+
+
+
+.navbar-div {
+    margin-bottom: 0;
+    *zoom: 1;
+
+}
+
+.navbar-div:before,
+.navbar-div:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.navbar-div:after {
+    clear: both;
+}
+.navbar-div p,
+.navbar-div .checkbox {
+    margin-top: 10px;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

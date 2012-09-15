@@ -33,6 +33,10 @@ app.configure(function(){
   app.set('port', process.env.PORT || 3000);
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
+
+  //app.use(partials());
+  app.use(flash());
+
   app.use(express.favicon());
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
@@ -55,8 +59,19 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/blog',routes.blog);
+app.get('/chat', routes.chat);
+
 app.get('/reg', routes.reg);
 app.post('/reg', routes.doReg);
+
+app.get('/post',routes.post);
+app.post('/post',routes.doPost);
+app.get('/u/:user', routes.user);
+
+app.get('/login', routes.login);
+app.post('/login', routes.doLogin);
+app.get('/logout', routes.logout);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

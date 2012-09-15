@@ -4,10 +4,10 @@ block append head
 
 block content
   body
-    h1= title
+
 
     div.container
-      form(action='/reg',method='post', class='form-horizontal')
+      form(action='/login',method='post', class='form-horizontal')
         div.control-group
           label(class='control-label', for='username') username
           div.controls
@@ -16,12 +16,9 @@ block content
           label(class='control-label',for='password') password
           div.controls
             input(name='password',type='password')
-        div.control-group
-          label(class='control-label',for='password-repeat') password-repeat
-          div.controls
-              input(name='password-repeat',type='password')
+
         div.control-group
           div.controls
-            button(class='btn', type='submit') 提交
+            button(class='btn', type='submit') 登录
 
 

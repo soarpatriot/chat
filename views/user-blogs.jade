@@ -1,0 +1,17 @@
+extends layout
+
+block append head
+
+block content
+  body
+    h1= title
+    p Welcome to #{title}
+    div.container
+      if typeof(posts) != 'undefined' && posts.length > 0
+          each post, i in posts
+            if i % 3 == 0
+              div.row
+            div.span3
+              h3 #{post.user} say:
+              small #{post.time}
+              p #{post.post}

@@ -1,3 +1,4 @@
+
 var mongodb = require('./db')
 
 function User(user){
@@ -45,7 +46,7 @@ User.get = function get(username, callback){
             return callback(err);
         }
 
-        db.collection('user', function(err, collection){
+        db.collection('users', function(err, collection){
             if(err){
                 mongodb.close();
                 return callback(err);

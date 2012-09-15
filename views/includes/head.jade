@@ -5,35 +5,42 @@ div.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.brand(href='#') Project name
+      a.brand(href='/') 笑傲江湖
       div.nav-collapse.collapse
           ul.nav
             li.active
-              a(href='#') Home
+              a(href='/') Home
             li
-              a(href='#about') About
+              a(href='/post') Micro Blog
             li
-              a(href='#contact') Contact
+              a(href='#contact') Photos
             li
-              a(href='/reg') Register
+              a(href='/chat') Chat
             li.dropdown
               a(class='dropdown-toggle', href='#', data-toggle='dropdown') Dropdown
                 b.caret
               ul.dropdown-menu
                 li
-                  a(href='#') Action
+                  a(href='#') Micro Blog
                 li
-                  a(href='#') Another action
+                  a(href='#') Photos
                 li
-                  a(href='#') Something else here
+                  a(href='/chat') Chat
                 li.divider
                 li.nav-header Nav header
                 li
                   a(href='#') Separated link
                 li
                   a(href='#') One more separated link
-          form(class='navbar-form pull-right')
-            input(id='email', class='span2 margin-left4',type='text', placeholder='Email')
-            input(id='password', class='span2 margin-left4',type='password', placeholder='Password')
-            button.btn(id='sign-in-btn', type='submit') Sign in
+          div.navbar-div.pull-right
+            if typeof(user) === 'undefined' || user === null
+
+                p
+                 a(href='/login') Sign In
+            else
+                p
+                  a(href='#') #{user.name}
+                  &nbsp;&nbsp;&nbsp
+                  a(href='/logout') log out
+
 
