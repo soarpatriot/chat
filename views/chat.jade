@@ -62,18 +62,24 @@ block content
   body
     h1= title
     p Welcome to #{title}
-      div.container
-        #chat
-         #nickname
-          form.wrap#set-nickname
-           p please input your nickname and press enter:
-           input#nick
-         #messages
-          #nicknames
-          #lines.chat-message.padding20
-          #flag
-         form.send-message#send-message
-          input#message
-          button.btn send
+
+    #chat.row-fluid
+     #nickname
+       form#set-nickname
+         p please input your nickname and press enter:
+         input#nick
+     div.row-fluid
+      #messages.span12
+        #nicknames
+        #lines.chat-message.padding20
+        #flag
+     div.container
+       form(class='well form-inline center',id='send-message')
+         div.control-group
+           div.controls
+             input(id='message',type='text')
+         div.control-group
+           div.controls
+             button.btn send
 
 

@@ -12,9 +12,7 @@ body {
     padding-bottom: 40px;
 }
 
-.chat{
-    display:block;
-}
+
 
 .display-show{
     display:block;
@@ -22,7 +20,7 @@ body {
 
 .chat-message{
     background: #eee;
-    width: 968px;
+
     min-height: 400px;
     max-height: 400px;
     overflow-y: scroll;

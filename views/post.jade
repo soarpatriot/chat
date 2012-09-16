@@ -7,5 +7,9 @@ block content
     h1= title
     div.container
       form(class='well form-inline center',action='/post',method='post')
-        input(type='text', class='span8', name='post')
-        button(type='submit', class='btn btn-success') 发言
+        div.control-group
+          div.controls
+          textarea(class='span4', name='post')
+        div.control-group
+          div.controls
+          button(type='submit', class='btn btn-success') 发言
