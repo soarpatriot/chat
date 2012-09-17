@@ -7,14 +7,14 @@
 
 
 Task:
-1. change chat css to fluid
+1. change chat css to responsive -- done
 2. add only login user can chat
 
-3. only login user can post blog
+3. only login user can post blog -- done
 4. refactor post fields change post to content
 
-5. metero
+5. metero  investigate  -- done
 
 6. register user can redirect to original page where he comes
 
-7. form change to add legend
+7. form change to add legend --done

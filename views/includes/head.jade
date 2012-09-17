@@ -5,17 +5,17 @@ div.navbar.navbar-inverse.navbar-fixed-top
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.brand(href='/') 笑傲江湖
+      a.brand(href='/') 翱翔中国
       div.nav-collapse.collapse
           ul.nav
             li.active
-              a(href='/') Home
+              a(href='/') 主页
             li
-              a(href='/post') Micro Blog
+              a(href='/post') 微薄
             li
-              a(href='#contact') Photos
+              a(href='#contact') 照片
             li
-              a(href='/chat') Chat
+              a(href='/chat') 聊天
             li.dropdown
               a(class='dropdown-toggle', href='#', data-toggle='dropdown') Dropdown
                 b.caret
@@ -36,7 +36,9 @@ div.navbar.navbar-inverse.navbar-fixed-top
             if typeof(user) === 'undefined' || user === null
 
                 p
-                 a(href='/login') Sign In
+                 a(href='/login') 登录 /
+                 &nbsp
+                 a(href='/reg') 注册
             else
                 p
                   a(href='#') #{user.name}

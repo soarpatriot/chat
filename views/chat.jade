@@ -60,24 +60,24 @@ block append head
     });
 block content
   body
-    h1= title
-    p Welcome to #{title}
 
-    #chat.row-fluid
-     #nickname
-       form#set-nickname
+    h3 talk about whatever you want.....
+
+    div(id='chat', class='container')
+     div
+       form(class='well form-inline center',id='set-nickname')
          p please input your nickname and press enter:
-         input#nick
-     div.row-fluid
-      #messages.span12
-        #nicknames
-        #lines.chat-message.padding20
-        #flag
+         input(id='nick',type='text')
+
+     div(id='messages', class='container')
+        div(id='nicknames', class='padding20')
+        div(id='lines', class='chat-message padding20')
+
      div.container
        form(class='well form-inline center',id='send-message')
          div.control-group
            div.controls
-             input(id='message',type='text')
+             textarea(id='message',class='span4')
          div.control-group
            div.controls
              button.btn send
