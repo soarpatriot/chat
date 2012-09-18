@@ -11,6 +11,11 @@ var express = require('express')
   , http = require('http')
   , path = require('path');
 
+//routes
+var post = require('./routes/post'),
+    user = require('./routes/user'),
+    chat = require('./routes/chat')
+
 var settings = require('./settings');
 var MongoStore = require('connect-mongo')(express);
 
@@ -58,20 +63,21 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
+
+
 app.get('/', routes.index);
-app.get('/blog',routes.blog);
-app.get('/chat', routes.chat);
 
-app.get('/reg', routes.reg);
-app.post('/reg', routes.doReg);
+app.get('/chat', chat.index);
 
-app.get('/post',routes.post);
-app.post('/post',routes.doPost);
-app.get('/u/:user', routes.user);
+app.get('/post',post.index);
+app.post('/post',post.publish);
 
-app.get('/login', routes.login);
-app.post('/login', routes.doLogin);
-app.get('/logout', routes.logout);
+app.get('/u/:user', user.index);
+app.get('/reg', user.reg);
+app.post('/reg', user.doReg);
+app.get('/login', user.login);
+app.post('/login', user.doLogin);
+app.get('/logout', user.logout);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
@@ -112,6 +118,7 @@ io.sockets.on('connection', function (socket) {
         if(!socket.nickname){
             return;
         }
+
         delete  nicknames[socket.nickname];
         socket.broadcast.emit('announcement', socket.nickname + ' disconnected');
         socket.broadcast.emit('nicknames', nicknames);
