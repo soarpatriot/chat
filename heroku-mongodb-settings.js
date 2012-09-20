@@ -24,3 +24,11 @@ module.exports = {
     password:'22143521',
     port : 37587
 }
+
+
+
+soarpatriot 22143521
+To connect using the shell:
+    mongo ds037837.mongolab.com:37837/xiaodonggua -u <user> -p <password>
+To connect using a driver via the standard URI (what's this?):
+mongodb://<user>:<password>@ds037837-a.mongolab.com:37837/xiaodonggua

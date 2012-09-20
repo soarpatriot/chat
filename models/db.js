@@ -14,4 +14,5 @@ var server = new Server(settings.host, settings.port,
     {auto_reconnect:true}
 )
 
+
 module.exports = new Db(settings.db, server);

@@ -23,7 +23,8 @@ var partials = require('express-partials');
 var flash = require('connect-flash');
 
 var sessionStore = new MongoStore({
-                        db: settings.db
+                        //url:'mongodb://soarpatriot:22143521@ds037837-a.mongolab.com:37837/xiaodonggua'
+                        db:settings.db
                     }, function(){
                         console.log('connect mongodb success........');
                     });

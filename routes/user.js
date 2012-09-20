@@ -110,7 +110,7 @@ exports.doLogin = function(req,res){
 
         if(req.session.lastUrl!== null){
             req.flash('success','登录成功,请继续您的操作...');
-            return res.redirect(req.session.lastUrl);
+            //return res.redirect(req.session.lastUrl);
         }
         return res.redirect('/');
 
