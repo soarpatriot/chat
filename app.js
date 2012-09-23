@@ -16,6 +16,10 @@ var post = require('./routes/post'),
     user = require('./routes/user'),
     chat = require('./routes/chat')
 
+
+//error-handle
+var error = require('./routes/error')
+
 var settings = require('./settings');
 var MongoStore = require('connect-mongo')(express);
 
@@ -23,8 +27,7 @@ var partials = require('express-partials');
 var flash = require('connect-flash');
 
 var sessionStore = new MongoStore({
-                        //url:'mongodb://soarpatriot:22143521@ds037837-a.mongolab.com:37837/xiaodonggua'
-                        db:settings.db
+                        url:'mongodb://soarpatriot:22143521@ds037837-a.mongolab.com:37837/xiaodonggua'
                     }, function(){
                         console.log('connect mongodb success........');
                     });
@@ -57,6 +60,7 @@ app.configure(function(){
       store : sessionStore
   }));
   app.use(app.router);
+  app.use(error);
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
@@ -65,6 +69,15 @@ app.configure('development', function(){
 });
 
 
+function error(err, req, res, next) {
+
+    console.error('my error!!'+err.stack);
+    // log it
+    if (!test) console.error(err.stack);
+
+    // respond with 500 "Internal Server Error".
+    res.send(500);
+}
 
 app.get('/', routes.index);
 

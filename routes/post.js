@@ -28,7 +28,11 @@ exports.publish = function(req, res){
         return res.redirect('/post');
     }
 
-    var post = new Post(currentUser.name, content);
+
+    var post = new Post({
+        username: currentUser.name,
+        content: content
+    });
 
 
     post.save(function(err){

@@ -1,4 +1,31 @@
 
+
+
+
+var mongoose = require('mongoose');
+var mongodb = require('./mongolab-db');
+
+var PostSchema = mongoose.Schema({
+    username: 'String',
+    content: 'String',
+    pusTime: { type: Date, default: Date.now }
+});
+var Post = mongodb.db.model('Post', PostSchema);
+
+
+function Post(username,content,time){
+    this.username = username
+    this.content = content
+    if(time){
+        this.time = time;
+    }else{
+        this.time = new Date();
+    }
+}
+module.exports = Post;
+
+
+/**
 var mongodb = require('./db')
 
 function Post(username, post, time){
@@ -74,3 +101,4 @@ Post.get = function get(username, callback){
         });
     });
 }
+**/
