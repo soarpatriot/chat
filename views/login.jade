@@ -7,18 +7,20 @@ block content
 
 
     div.container
-      form(action='/login',method='post', class='form-horizontal')
-        div.control-group
-          label(class='control-label', for='username') username
-          div.controls
-            input(name='username',type='text')
-        div.control-group
-          label(class='control-label',for='password') password
-          div.controls
-            input(name='password',type='password')
+      form(action='/login',method='post', class='form-horizontal well form-inline center')
+        fieldset
+            legend 注册
+            div.control-group
+              label(class='control-label', for='username') 用户名：
+              div.controls
+                input(name='username',type='text')
+            div.control-group
+              label(class='control-label',for='password') 密码：
+              div.controls
+                input(name='password',type='password')
 
-        div.control-group
-          div.controls
-            button(class='btn', type='submit') 登录
+            div.control-group
+              div.controls
+                button(class='btn', type='submit') 登录
 
 

@@ -12,37 +12,38 @@ div.navbar.navbar-inverse.navbar-fixed-top
               a(href='/') 主页
             li
               a(href='/post') 微薄
-            li
-              a(href='#contact') 照片
+
             li
               a(href='/chat') 聊天
-            li.dropdown
-              a(class='dropdown-toggle', href='#', data-toggle='dropdown') Dropdown
-                b.caret
-              ul.dropdown-menu
-                li
-                  a(href='#') Micro Blog
-                li
-                  a(href='#') Photos
-                li
-                  a(href='/chat') Chat
-                li.divider
-                li.nav-header Nav header
-                li
-                  a(href='#') Separated link
-                li
-                  a(href='#') One more separated link
-          div.navbar-div.pull-right
+
+          ul.nav.pull-right
             if typeof(user) === 'undefined' || user === null
 
-                p
-                 a(href='/login') 登录 /
-                 &nbsp
-                 a(href='/reg') 注册
+                li.vertical-align.li-padding
+                  span.height-auto
+                   a(href='/login') [登录]
+                   &nbsp / &nbsp
+                   a(href='/reg') [注册]
+
+
             else
-                p
-                  a(href='#') #{user.name}
-                  &nbsp;&nbsp;&nbsp
-                  a(href='/logout') log out
+                li.dropdown
+                  a(class='dropdown-toggle', href='#', data-toggle='dropdown') #{user.name}
+                    b.caret
+                  ul.dropdown-menu
+                    li
+                      a(href='#') Micro Blog
+                    li
+                      a(href='#') Photos
+                    li
+                      a(href='/chat') Chat
+                    li.divider
+                    li.nav-header Nav header
+                    li
+                      a(href='#') Separated link
+                    li
+                      a(href='#') One more separated link
+                li
+                  a(href='/logout') 退出
 
 

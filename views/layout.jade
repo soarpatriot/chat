@@ -1,4 +1,4 @@
-doctype 5
+doctype
 html(lang='en')
   head
    block head
@@ -23,9 +23,9 @@ html(lang='en')
     include includes/head
     include includes/message
 
-    div.container
+    div.container.min-height
      block content
-     include includes/footer
+    include includes/footer
     script(src='/javascripts/bootstrap-transition.js')
     script(src='/javascripts/bootstrap-alert.js')
     script(src='/javascripts/bootstrap-modal.js')

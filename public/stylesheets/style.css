@@ -89,9 +89,18 @@ body {
 
 }
 
+.vertical-align{
+    vertical-align: baseline;
+    position: relative;
+}
+.height-auto{
+    height: auto !important;
+    line-height: 20px;
+}
 
-
-
+.li-padding{
+    padding: 10px 20px;
+}
 
 
 
