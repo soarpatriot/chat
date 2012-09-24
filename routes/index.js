@@ -30,14 +30,24 @@ exports.index = function(req, res){
     });
 };
  **/
+var Post = require('../models/post.js');
 
 exports.index = function(req, res){
-  res.render('index', {
-      title: '江湖',
-      user : req.session.user,
-      success : req.flash('success').toString(),
-      error : req.flash('error').toString()
-  });
+
+    Post.find({}, function(err,posts){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        res.render('index', {
+            title: '江湖',
+            posts: posts,
+            user : req.session.user,
+            success : req.flash('success').toString(),
+            error : req.flash('error').toString()
+        });
+    }).limit(10).sort({'pusTime':'desc'});
+
 };
 
 exports.checkLogin = function(req, res){

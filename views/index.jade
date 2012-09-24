@@ -4,14 +4,11 @@ block append head
 
 block content
   body
-    h1= title
-    p Welcome to #{title}
+    div.row-fluid
 
-    if typeof(posts) != 'undefined' && post.length > 0
-      each post, i in posts
-        if i % 3 == 0
-          div.fluid-row
-        div.span3
-          h3 #{post.user} say:
-          small #{post.time}
-          p #{post.post}
+       div.span4
+         h2 blogs
+         if typeof(posts) != 'undefined' && posts.length > 0
+           each post, i in posts
+              p(class='auto-line') #{post.pusTime} #{post.username} say: #{post.content}
+
