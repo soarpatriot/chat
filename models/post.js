@@ -13,17 +13,14 @@ var PostSchema = mongoose.Schema({
 var Post = mongodb.db.model('Post', PostSchema);
 
 
-function Post(username,content,time){
-    this.username = username
-    this.content = content
-    if(time){
-        this.time = time;
-    }else{
-        this.time = new Date();
-    }
+Post.prototype.searchTop10 = function(callback){
+    return Post.where()
+        .limit(5)
+        .sort('-pusTime')
+        .exec(callback);
+
 }
 module.exports = Post;
-
 
 /**
 var mongodb = require('./db')

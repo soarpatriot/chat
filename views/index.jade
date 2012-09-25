@@ -8,7 +8,7 @@ block content
 
        div.span4
          h2 blogs
-         if typeof(posts) != 'undefined' && posts.length > 0
+         if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
               p(class='auto-line') #{post.pusTime} #{post.username} say: #{post.content}
 

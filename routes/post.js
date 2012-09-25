@@ -1,6 +1,6 @@
 
 /*
- * GET home page.
+ * GET Post
  */
 
 var Post = require('../models/post.js');

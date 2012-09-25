@@ -4,9 +4,6 @@
  */
 
 
-/*
- * GET home page.
- */
 var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
