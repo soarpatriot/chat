@@ -13,10 +13,10 @@ block append head
     });
 
     socket.on('nickname', function(nicknames) {
-      $('#nicknames').empty().append($('<span>On line:<span>'));
+      $('#nicknames').empty();
 
       for(var i in nicknames){
-           $('#nicknames').append($('<b>').text(nicknames[i]+'  '));
+           $('#nicknames').append($('<p>').text(nicknames[i]+'  '));
       }
     });
     socket.on('user message', message);
@@ -64,16 +64,20 @@ block content
     h3 talk about whatever you want.....
 
     div(id='chat', class='container')
-     div
+
        form(class='well form-inline center',id='set-nickname')
          p please input your nickname and press enter:
          input(id='nick',type='text')
 
-     div(id='messages', class='container')
-        div(id='nicknames', class='padding20')
-        div(id='lines', class='chat-message padding20')
+    div(id='messages', class='row-fluid')
 
-     div.container
+        div(class='t3 padding20 auto-line online-user')
+           h3 On Line
+           div(id='nicknames')
+        div(class='t9 chat-message padding20',id='lines')
+
+
+    div.container
        form(class='well form-inline center',id='send-message')
          div.control-group
            div.controls

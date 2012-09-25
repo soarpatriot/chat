@@ -28,10 +28,36 @@ body {
     border-radius: 0 0 5px 5px;
     border-style: solid;
     border-width: 1px 1px 2px;
-    min-height: 400px;
+    height: 400px;
     max-height: 400px;
     overflow-y: scroll;
 }
+.online-user{
+    background: #EAEAEA;
+
+    background-color: #E9F1F4;
+    border-color: #E9F1F4 #D8DEE2 #D8DEE2;
+    border-radius: 0 0 5px 5px;
+    border-style: solid;
+    border-width: 1px 1px 2px;
+    height: 400px;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+.t3{
+    width: 18%;
+    *width:18%;
+}
+
+.t9{
+    width: 74%;
+    *width:74%;
+}
+
+.t9,.t3{
+    float: left;
+}
+
 
 .margin-top20{
     margin-top: 50px;
