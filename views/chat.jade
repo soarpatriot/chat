@@ -2,7 +2,15 @@ extends layout
 
 block append head
   script(src='/socket.io/socket.io.js')
+  script(charset='utf-8', src='/kindeditor/kindeditor.js')
+  script(charset='utf-8', src='/kindeditor/lang/zh_CN.js')
+
   script
+    var editor;
+    KindEditor.ready(function(K) {
+            editor = K.create('#editor_id');
+    });
+
     var socket = io.connect();
     socket.on('connect', function(){
 
@@ -49,13 +57,13 @@ block append head
 
       $('#send-message').submit(function(){
         //message('me', $('#message').val());
-        socket.emit('user message', $('#message').val());
+        socket.emit('user message', $('#editor_id').val());
         clear();
         return false;
       });
 
       function clear(){
-         $('#message').val('').focus();
+         $('#editor_id').val('').focus();
       };
     });
 block content
@@ -81,7 +89,7 @@ block content
        form(class='well form-inline center',id='send-message')
          div.control-group
            div.controls
-             textarea(id='message',class='span4')
+             textarea(id='editor_id',class='span11')
          div.control-group
            div.controls
              button.btn send
