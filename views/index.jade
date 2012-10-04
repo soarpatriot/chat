@@ -14,5 +14,7 @@ block content
          h3 Top five topics
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
-              p(class='auto-line') #{post.fromNow} #{post.username} say: #{post.content}
+              p(class='auto-line') #{post.fromNow} #{post.username} say:
+                a(href='/blog/#{post._id}') #{post.content}
+
 

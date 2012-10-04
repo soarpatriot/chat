@@ -48,3 +48,19 @@ exports.publish = function(req, res){
 
 }
 
+exports.get = function(req,res){
+
+    Post.findOne({'_id':req.params.id}, function(err,post){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        res.render('blog-one',{
+            title: post.username,
+            post: post,
+            user: req.session.user,
+            success : req.flash('success').toString(),
+            error : req.flash('error').toString()
+        })
+    });
+}
