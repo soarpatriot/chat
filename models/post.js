@@ -4,6 +4,9 @@
 
 var mongoose = require('mongoose');
 var mongodb = require('./mongolab-db');
+var moment = require('moment');
+moment.lang('zh-cn');
+
 
 var PostSchema = mongoose.Schema({
     username: 'String',
@@ -19,7 +22,15 @@ Post.prototype.searchTop10 = function(callback){
         .sort('-pusTime')
         .exec(callback);
 
-}
+};
+Post.prototype.formatDate = function(posts){
+    for(var i=0; i<posts.length; i++){
+        posts[i].fromNow = moment(posts[i].pusTime).fromNow();
+    }
+
+    return posts;
+};
+
 module.exports = Post;
 
 /**

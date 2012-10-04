@@ -14,14 +14,18 @@ exports.index = function(req, res){
             req.flash('error', err);
             return res.redirect('/');
         }
+
+        var formattedPosts = post.formatDate(posts);
         res.render('index', {
             title: '江湖',
-            posts: posts,
+            posts: formattedPosts,
             user : req.session.user,
             success : req.flash('success').toString(),
             error : req.flash('error').toString()
         });
-    })
+
+
+    });
 
 
 };

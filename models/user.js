@@ -6,6 +6,8 @@ var mongodb = require('./mongolab-db');
 var UserSchema = mongoose.Schema({ name: 'String',password: 'String' });
 var User = mongodb.db.model('User', UserSchema);
 
+
+
 module.exports = User;
 
 
