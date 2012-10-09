@@ -1,20 +1,51 @@
 extends layout
 
+
 block append head
-
-  script
-
-
+     script
+       $(function(){
+         $('.popover-test').popover()
+       })
 
 block content
   body
     div.row-fluid
 
-       div.span4
-         h3 Top five topics
+       div(class='span4 blog-cnm')
+         h3.title Top five classic topics
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
-              p(class='auto-line') #{post.fromNow} #{post.username} say:
-                a(href='/blog/#{post._id}') #{post.content}
+              div.row-fluid
+                div.span12
+                  p(class='auto-line')
+                    span(class='author') #{post.username} #{post.fromNow}
+                    span 说:
+
+                  div(class="bs-docs-example bs-docs-example-popover")
+                      div(class='popover bottom')
+                         div(class='arrow')
+                         h3(class='popover-title') #{post.fromNow}
+                         div(class='popover-content')
+                           p(class='blog-content')
+                             nobr #{post.content}
 
 
+
+       div(class='span8 blog-cnm')
+            h3.title Top five classic topics
+            if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
+
+                  each post, i in posts
+                   div.row-fluid
+                     div.span12
+                         p(class='auto-line')
+                           span(class='author') #{post.username} #{post.fromNow}
+                           span 说:
+
+                         div(class="bs-docs-example bs-docs-example-popover")
+                             div(class='popover bottom')
+                                div(class='arrow')
+                                h3(class='popover-title') #{post.fromNow}
+                                div(class='popover-content')
+                                  p(class='blog-content')
+                                     nobr #{post.content}

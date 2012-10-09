@@ -132,16 +132,67 @@ body {
 .auto-line{
     word-wrap: break-word; word-break: normal;
 }
+.blog-cnm{
+    background-color: #F5F5F5;
+    border: 1px solid #CCCCCC;
+
+    margin: 5px 0;
+    overflow: auto;
+    padding: 5px;
+
+}
+.blog-content{
+
+    width: 100px;
+    height: 50px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+
+
+}
+
+.title{
+    border-bottom: 1px solid #FAFAFA;
+    color: #334455;
+    font-size: 16px;
+    margin: 0;
+    padding: 2px 10px;
+    text-shadow: 0 1px 0 #FFFFFF, 1px 2px 2px #AAAAAA;
+}
+
+.author{
+    color: #999999;
+}
 
 
 
 
+/* Popovers */
+.bs-docs-example-popover {
+    padding-bottom: 24px;
+    background-color: #f9f9f9;
+}
+.bs-docs-example-popover .popover {
+    position: relative;
+    display: block;
+    float: left;
+    width: 260px;
+    margin: 20px;
+}
 
 
 
-
-
-
+.navbar-inner {
+    background-color: #1A94C9;
+    background-image: -moz-linear-gradient(center top , #049CDB, #3A87AD);
+    background-repeat: repeat-x;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 
 
 
