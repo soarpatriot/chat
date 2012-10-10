@@ -48,7 +48,8 @@ app.configure(function(){
 
   app.use(express.favicon());
   app.use(express.logger('dev'));
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
+  app.use(express.bodyParser({uploadDir:'./public/img'}));
   app.use(express.methodOverride());
 
   app.use(express.cookieParser());
@@ -62,6 +63,8 @@ app.configure(function(){
   app.use(app.router);
   app.use(error);
   app.use(express.static(path.join(__dirname, 'public')));
+
+
 });
 
 app.configure('development', function(){
@@ -94,6 +97,13 @@ app.post('/login', user.doLogin);
 app.get('/logout', user.logout);
 
 app.get('/blog/:id', post.get);
+
+app.get('/user',user.show);
+app.get('/user/edit',user.edit);
+
+app.post('/user',user.saveProfile);
+
+
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

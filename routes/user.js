@@ -8,6 +8,9 @@ var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 
+var fs = require('fs');
+var path = require('path');
+
 
 exports.index = function(req,res){
     User.findOne({'name':req.params.user}, function(err,user){
@@ -135,75 +138,74 @@ exports.logout = function(req, res){
     res.redirect('/');
 }
 
+
 /**
-exports.index = function(req,res){
-    User.get(req.params.user, function(err,user){
-        if(!user){
-            req.flush('error','用户不存在！');
-            return req.redirect('/');
-        }
-        Post.get(user.name, function(err,posts){
-            if(err){
-                req.flash('error', err);
-                return res.redirect('/');
-            }
-            res.render('user-blogs',{
-                title: user.name,
-                posts: posts,
-                user: req.session.user,
-                success : req.flash('success').toString(),
-                error : req.flash('error').toString()
-            })
-        });
+ * user profile show and edit
+ * @param req
+ * @param res
+ */
+exports.show = function(req,res){
+    res.render('user/show',{
+        title: '用户资料',
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
     });
 }
 
-
-
-
-
-exports.login = function(req, res){
-    res.render('login',{
-        title: '用户登录',
+exports.edit = function(req, res){
+    res.render('user/edit',{
+        title: '编辑',
         user: req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
-    })
+    });
 }
 
-exports.doLogin = function(req,res){
-    var md5 = crypto.createHash('md5');
-    var password = md5.update(req.body.password).digest('base64');
-    console.log('login start');
-    User.get(req.body.username, function(err, user){
-        console.log('username: '+req.body.username);
-        if(!user){
-            req.flash('error','用户不存在');
-            console.log('用户不存在');
-            return res.redirect('/');
+exports.saveProfile = function(req, res){
+    // 获得文件的临时路径
+    var tmp_path = req.files.face.path;
+    var extName = path.extname(req.files.face.name);
+    // 指定文件上传后的目录 - 示例为"images"目录。
+    // + req.files.face.name;
+    var target_path =  __dirname + '/../public/images/'+path.basename(tmp_path) + extName;
 
-        }
-        if(user.password !== password){
-            req.flash('error','密码错误');
-            console.log('密码错误');
-            return res.redirect('/');
-        }
-        req.session.user = user;
-        req.flash('success','登录成功');
+    
 
-        if(req.session.lastUrl!== null){
-            req.flash('success','登录成功,请继续您的操作...');
-            //return res.redirect(req.session.lastUrl);
+    fs.readFile(tmp_path, function (err, data) {
+        if (err) {
+            res.send(err);
+            return;
         }
-        return res.redirect('/');
+        console.log('1213');
+        fs.writeFile(target_path, data, function (err) {
+            if (!err) {
+                res.send({uploaded: true});
+            } else {
+                res.send(err);
+            }
+        });
+    });
 
-    })
+    /**
+    // 移动文件
+    fs.rename(tmp_path, target_path, function(err) {
+
+        console.log('123123');
+        if (err) throw err;
+
+    // 删除临时文件夹文件,
+        fs.unlink(tmp_path, function() {
+            console.log('456');
+            if (err) throw err;
+            //res.send('File uploaded to: ' + target_path + ' - ' + req.files.face.size + ' bytes');
+            res.render('user/edit',{
+                title: '编辑',
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        });
+    });
+     **/
 
 }
-
-exports.logout = function(req, res){
-    req.session.user = null;
-    req.flash('success','登出成功！');
-    res.redirect('/');
-}
- **/
