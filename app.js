@@ -14,8 +14,8 @@ var express = require('express')
 //routes
 var post = require('./routes/post'),
     user = require('./routes/user'),
-    chat = require('./routes/chat')
-
+    chat = require('./routes/chat'),
+    uploader = require('./routes/uploader');
 
 //error-handle
 var error = require('./routes/error')
@@ -103,7 +103,7 @@ app.get('/user/edit',user.edit);
 
 app.post('/user',user.saveProfile);
 
-
+app.post('/upload-face',uploader.uploadFace);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

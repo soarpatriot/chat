@@ -167,9 +167,9 @@ exports.saveProfile = function(req, res){
     var extName = path.extname(req.files.face.name);
     // 指定文件上传后的目录 - 示例为"images"目录。
     // + req.files.face.name;
-    var target_path =  __dirname + '/../public/images/'+path.basename(tmp_path) + extName;
+    var target_path =  __dirname + '/../public/images/face/'+path.basename(tmp_path) + extName;
 
-    
+
 
     fs.readFile(tmp_path, function (err, data) {
         if (err) {
