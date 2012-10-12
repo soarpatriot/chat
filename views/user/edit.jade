@@ -12,18 +12,20 @@ block append head
                     action: '/upload-face',
                     debug: true,
                     extraDropzones: [qq.getByClass(document, 'qq-upload-extra-drop-area')[0]],
+                    listElement: document.getElementById('result-list'),
+                    uploadButtonText: '上传',
                     onComplete: function(id, fileName, response){
-                        alert('id: '+id+ '   fileName: '+fileName);
+                        //alert('id: '+id+ '   fileName: '+fileName);
                         if (!response.success){
                             ok(false, 'server did not receive file')
                             return;
                         }
                         var faceUrl = '/images/face/'+fileName;
                         $('#image-face').attr('src',faceUrl);
-                        //delete response.success;
-                        //delete response.qqfile;
+                        delete response.success;
+                        delete response.qqfile;
 
-                        //same(response, data, 'server received file and data');
+                        same(response, data, 'server received file and data');
                     }
                 });
             }
@@ -31,6 +33,7 @@ block append head
             // in your app create uploader as soon as the DOM is ready
             // don't wait for the window to load
             window.onload = createUploader;
+
         });
 
 
@@ -40,23 +43,38 @@ block content
     div(class='container well')
 
         div(class='row-fluid')
-            div(id='file-uploader-demo1')
-                 noscript
-                    p Please enable JavaScript to use file uploader
 
-
-            div(class='qq-upload-extra-drop-area') Drop files here too
 
 
         div(class='row-fluid')
-           img(id='image-face')
 
-           img(id='121',width="270",height="129",src='http://localhost:3000/images/face/e08.gif')
+
 
         div(class='row-fluid')
            form(action='/user',method='post',enctype='multipart/form-data',  class='form-horizontal')
                fieldset
                    legend 编辑
+                   div.control-group
+                     label(class='control-label', for='username') username
+                     div.controls
+                       input(name='username',type='text')
+
+                   div.control-group
+
+                        div(id='result-list')
+
+                   div.control-group
+                     label(class='control-label', for='face') 头像
+
+                     div.controls
+                        div.span2
+                          img(width='80px',height='80px',id='image-face')
+                     div.controls
+                         div(id='file-uploader-demo1')
+                              noscript
+                                 p Please enable JavaScript to use file uploader
+                         div(class='qq-upload-extra-drop-area') Drop files here too
+
                    div.control-group
                      label(class='control-label', for='username') face
                      div.controls
