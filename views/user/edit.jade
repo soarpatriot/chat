@@ -14,6 +14,11 @@ block append head
                     extraDropzones: [qq.getByClass(document, 'qq-upload-extra-drop-area')[0]],
                     listElement: document.getElementById('result-list'),
                     uploadButtonText: '上传',
+                    cancelButtonText: '取消',
+                    failUploadText: '上传失败',
+                    multiple:false,
+                    sizeLimit:4028000,
+                    allowedExtensions:['jpg','gif'],
                     onComplete: function(id, fileName, response){
                         //alert('id: '+id+ '   fileName: '+fileName);
                         if (!response.success){
@@ -59,22 +64,23 @@ block content
                      div.controls
                        input(name='username',type='text')
 
-                   div.control-group
 
-                        div(id='result-list')
+
+
 
                    div.control-group
                      label(class='control-label', for='face') 头像
 
                      div.controls
                         div.span2
-                          img(width='80px',height='80px',id='image-face')
+                          img(width='50px',height='50px',id='image-face')
                      div.controls
                          div(id='file-uploader-demo1')
                               noscript
                                  p Please enable JavaScript to use file uploader
                          div(class='qq-upload-extra-drop-area') Drop files here too
-
+                     div.controls
+                         div(id='result-list')
                    div.control-group
                      label(class='control-label', for='username') face
                      div.controls
