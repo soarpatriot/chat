@@ -18,8 +18,9 @@ block content
               div.row-fluid
                 div.span12
                   p(class='auto-line')
-                    span(class='author') #{post.username} #{post.fromNow}
-                    span 说:
+                    span(class='author')
+                      img(src='#{user.faceUrl}', width='45',height='45')
+                    span #{post.fromNow} 说:
 
                   div(class="bs-docs-example bs-docs-example-popover")
                       div(class='popover bottom')

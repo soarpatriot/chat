@@ -209,3 +209,24 @@ exports.saveProfile = function(req, res){
      **/
 
 }
+
+exports.updateProfile = function(req,res){
+
+    var user = req.session.user;
+    var username = user.name;
+    var faceUrl = req.body.faceUrl;
+
+    console.log('username: '+ username + '  faceUrl'+faceUrl);
+    User.update({ name: username }, { faceUrl: faceUrl }, { multi: true }, function (err, numberAffected, raw) {
+        console.log('The number of updated documents was %d', numberAffected);
+        console.log('The raw response from Mongo was ', raw);
+        if (err) {
+            return handleError(err);
+        }else{
+
+            res.redirect('/');
+
+        }
+
+    });
+}

@@ -27,6 +27,7 @@ block append head
                         }
                         var faceUrl = '/images/face/'+fileName;
                         $('#image-face').attr('src',faceUrl);
+                        $('#image-face-hidden').attr('value',faceUrl);
                         delete response.success;
                         delete response.qqfile;
 
@@ -69,11 +70,12 @@ block content
 
 
                    div.control-group
-                     label(class='control-label', for='face') 头像
 
+                     label(class='control-label', for='face') 头像
+                     input(id='image-face-hidden',type='hidden',name='faceUrl')
                      div.controls
                         div.span2
-                          img(width='50px',height='50px',id='image-face')
+                          img(width='48px',height='48px',id='image-face')
                      div.controls
                          div(id='file-uploader-demo1')
                               noscript

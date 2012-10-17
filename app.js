@@ -101,7 +101,7 @@ app.get('/blog/:id', post.get);
 app.get('/user',user.show);
 app.get('/user/edit',user.edit);
 
-app.post('/user',user.saveProfile);
+app.post('/user',user.updateProfile);
 
 app.post('/upload-face',uploader.uploadFace);
 
