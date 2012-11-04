@@ -19,7 +19,12 @@ block content
                 div.span12
                   p(class='auto-line')
                     span(class='author')
-                      img(src='#{user.faceUrl}', width='45',height='45')
+                      if typeof(user) !== 'undefined' && user !== null
+                        img(src='#{user.faceUrl}', width='45',height='45')
+
+                      if  typeof(post.creator) !== 'undefined' && post.creator !== null
+                         #{post.creator.name}
+
                     span #{post.fromNow} 说:
 
                   div(class="bs-docs-example bs-docs-example-popover")

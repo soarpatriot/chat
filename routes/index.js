@@ -3,19 +3,24 @@
  * GET Home
  */
 
-var Post = require('../models/post.js');
+var post = require('../models/post.js');
 
 exports.index = function(req, res){
 
 
-    var post = new Post();
-    post.searchTop10(function(err, posts){
+
+
+
+    post.top5(function(err, posts){
         if(err){
             req.flash('error', err);
             return res.redirect('/');
         }
 
         var formattedPosts = post.formatDate(posts);
+
+        //formattedPosts = post.top5con(posts);
+
         res.render('index', {
             title: '江湖',
             posts: formattedPosts,

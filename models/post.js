@@ -2,36 +2,137 @@
 
 
 
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 var mongodb = require('./mongolab-db');
+
 var moment = require('moment');
 moment.lang('zh-cn');
 
+//user schema
+var UserSchema = mongoose.Schema({ name: 'String',password: 'String',faceUrl:'String'});
+var User = mongodb.db.model('User', UserSchema);
+
+//Post's comments
+var Comment  = new Schema();
+
+Comment.add({
+    title: {type: String, index: true},
+    date: Date,
+    body: String,
+    comments:[Comment]
+});
 
 var PostSchema = mongoose.Schema({
     username: 'String',
+    title: String,
     content: 'String',
-    pusTime: { type: Date, default: Date.now }
+    comments: [Comment],
+    pusTime: { type: Date, default: Date.now },
+
+    creator: {type: Schema.ObjectId, ref: 'User'}
 });
+
+PostSchema.methods.findCreator = function(callback){
+    return this.db.model('User','UserSchema').findById(this.creator,callback);
+};
+PostSchema.statics.findBytitle = function(title,callback){
+    return this.find({title: title},callback);
+};
+PostSchema.methods.expressiveQuery = function(creator, date, callback){
+    return this.find('creator', creator).where('pusTime').gte(date).run(callback);
+};
+
+
+PostSchema.methods.formatDate = function(){
+    this.fromNow = moment(this.pusTime).fromNow();
+
+};
+
+/**
+PostSchema
+    .virtual('author')
+    .get(function(){
+        if(null!==this.creator){
+            User.findById(this.creator,function(err,user){
+                if(null!== user.name ){
+                    console.log('User inform: ' + user.name);
+                }
+
+                return user;
+            });
+        }
+    })
+    .set(function(){
+        if(null!==this.creator){
+            User.findById(this.creator,function(err,user){
+                if(null!== user.name ){
+                    console.log('User inform: ' + user.name);
+                }
+
+                return user;
+            });
+        }
+    })
+
+**/
+
+PostSchema.methods.top5post = function(callback){
+
+}
+
+
+
 var Post = mongodb.db.model('Post', PostSchema);
 
 
-Post.prototype.searchTop10 = function(callback){
+Post.prototype.top5 = function(callback){
     return Post.where()
         .limit(5)
         .sort('-pusTime')
+        .populate('creator')
         .exec(callback);
 
 };
 Post.prototype.formatDate = function(posts){
     for(var i=0; i<posts.length; i++){
         posts[i].fromNow = moment(posts[i].pusTime).fromNow();
+        if(null!== posts[i].creator && 'undefined' !==  typeof(posts[i].creator)){
+            console.log('post creator: '+ posts[i].creator.name);
+        }
+
     }
 
     return posts;
 };
 
-module.exports = Post;
+
+var post = new Post();
+
+post.top5con = function(posts){
+
+
+
+    return posts.eachPath(function(){
+        this.findCreator(function(err,user){
+            //if(null!= user.faceUrl && 'undefined'!=user.faceUrl){
+            //posts[i].faceUrl = user.faceUrl;
+            //}
+
+            //posts[i].name = users[0].name;
+            if(null!=user){
+                console.log('Users: '+i+'  ' +user.name);
+            }
+
+        });
+
+
+    })
+
+
+}
+
+module.exports = post;
 
 /**
 var mongodb = require('./db')

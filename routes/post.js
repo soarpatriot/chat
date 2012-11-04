@@ -28,10 +28,11 @@ exports.publish = function(req, res){
         return res.redirect('/post');
     }
 
-
+    console.log('user ObjectId:  '+currentUser._id);
     var post = new Post({
         username: currentUser.name,
-        content: content
+        content: content,
+        creator:currentUser._id
     });
 
 
