@@ -9,6 +9,11 @@ heroku scale web=1
 
 
 Task:
+
+1.show user face
+2.success fail tip  spin
+3.post content responsive
+
 1. change chat css to responsive -- done
 2. add only login user can chat --
 

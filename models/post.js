@@ -107,9 +107,8 @@ Post.prototype.formatDate = function(posts){
 };
 
 
-var post = new Post();
 
-post.top5con = function(posts){
+Post.top5con = function(posts){
 
 
 
@@ -132,7 +131,7 @@ post.top5con = function(posts){
 
 }
 
-module.exports = post;
+module.exports = Post;
 
 /**
 var mongodb = require('./db')

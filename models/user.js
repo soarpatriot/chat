@@ -3,7 +3,12 @@
 var mongoose = require('mongoose');
 var mongodb = require('./mongolab-db');
 
-var UserSchema = mongoose.Schema({ name: 'String',password: 'String',faceUrl:'String'});
+var UserSchema = mongoose.Schema({
+    name: 'String',
+    password: 'String',
+    faceUrl:'String',
+    email:'String'
+});
 var User = mongodb.db.model('User', UserSchema);
 
 

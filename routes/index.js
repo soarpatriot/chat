@@ -3,13 +3,13 @@
  * GET Home
  */
 
-var post = require('../models/post.js');
+var Post = require('../models/post.js');
 
 exports.index = function(req, res){
 
 
 
-
+    var post = new Post();
 
     post.top5(function(err, posts){
         if(err){
@@ -20,6 +20,7 @@ exports.index = function(req, res){
         var formattedPosts = post.formatDate(posts);
 
         //formattedPosts = post.top5con(posts);
+
 
         res.render('index', {
             title: '江湖',

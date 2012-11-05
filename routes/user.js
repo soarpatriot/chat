@@ -54,7 +54,8 @@ exports.doReg = function(req, res){
 
     var newUser = new User({
         name: req.body.username,
-        password: password
+        password: password,
+        email: req.body.email
     });
 
     User.findOne({'name': newUser.name}, function(err, user){

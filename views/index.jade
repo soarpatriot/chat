@@ -11,24 +11,21 @@ block content
   body
     div.row-fluid
 
-       div(class='span4 blog-cnm')
+       div(class='span8 blog-cnm')
          h3.title Top five classic topics
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
               div.row-fluid
-                div.span12
-                  p(class='auto-line')
-                    span(class='author')
-                      if typeof(user) !== 'undefined' && user !== null
-                        img(src='#{user.faceUrl}', width='45',height='45')
+                div.span2
+                  div(class='author')
+                      img(src='#{post.creator.faceUrl}', width='45',height='45', alt='user')
+                      br
+                      span(class='author') #{post.creator.name}
 
-                      if  typeof(post.creator) !== 'undefined' && post.creator !== null
-                         #{post.creator.name}
-
-                    span #{post.fromNow} 说:
+                div.span10
 
                   div(class="bs-docs-example bs-docs-example-popover")
-                      div(class='popover bottom')
+                      div(class='popover right')
                          div(class='arrow')
                          h3(class='popover-title') #{post.fromNow}
                          div(class='popover-content')
@@ -37,21 +34,3 @@ block content
 
 
 
-       div(class='span8 blog-cnm')
-            h3.title Top five classic topics
-            if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
-
-                  each post, i in posts
-                   div.row-fluid
-                     div.span12
-                         p(class='auto-line')
-                           span(class='author') #{post.username} #{post.fromNow}
-                           span 说:
-
-                         div(class="bs-docs-example bs-docs-example-popover")
-                             div(class='popover bottom')
-                                div(class='arrow')
-                                h3(class='popover-title') #{post.fromNow}
-                                div(class='popover-content')
-                                  p(class='blog-content')
-                                     nobr #{post.content}
