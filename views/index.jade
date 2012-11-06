@@ -18,9 +18,9 @@ block content
               div.row-fluid
                 div.span2
                   div(class='author')
-                      img(src='#{post.creator.faceUrl}', width='45',height='45', alt='user')
-                      br
-                      span(class='author') #{post.creator.name}
+                     p
+                       img(src='#{post.creator.faceUrl}', width='60',height='60', alt='user')
+                     p #{post.creator.name}
 
                 div.span10
 
@@ -31,6 +31,7 @@ block content
                          div(class='popover-content')
                            p(class='blog-content')
                              nobr #{post.content}
+              hr.soft
 
 
 
