@@ -14,7 +14,8 @@
     "connect-flash": "0.1.0",
     "express-partials": "0.0.6",
     "mongoose":"3.3.1",
-    "moment":"1.7.2"
+    "moment":"1.7.2",
+    "cloudinary": ""
   },
   "engines": {
     "node": "0.8.x",

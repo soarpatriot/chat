@@ -18,6 +18,7 @@ exports.index = function(req,res){
             req.flush('error','用户不存在！');
             return req.redirect('/');
         }
+        console.log('User:'+user)
         Post.find({'username':user.name}, function(err,posts){
             if(err){
                 req.flash('error', err);

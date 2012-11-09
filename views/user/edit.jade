@@ -6,40 +6,16 @@ block append head
     script(src='/javascripts/file-uploader/fileuploader.js')
     script
         $(function(){
-            function createUploader(){
-                var uploader = new qq.FileUploader({
-                    element: document.getElementById('file-uploader-demo1'),
-                    action: '/upload-face',
-                    debug: true,
-                    extraDropzones: [qq.getByClass(document, 'qq-upload-extra-drop-area')[0]],
-                    listElement: document.getElementById('result-list'),
-                    uploadButtonText: '上传',
-                    cancelButtonText: '取消',
-                    failUploadText: '上传失败',
-                    multiple:false,
-                    sizeLimit:4028000,
-                    allowedExtensions:['jpg','gif','png'],
-                    onComplete: function(id, fileName, response){
-                        //alert('id: '+id+ '   fileName: '+fileName);
-                        if (!response.success){
-                            ok(false, 'server did not receive file')
-                            return;
-                        }
-                        var faceUrl = '/images/face/'+fileName;
-                        $('#image-face').attr('src',faceUrl);
-                        $('#image-face-hidden').attr('value',faceUrl);
-                        delete response.success;
-                        delete response.qqfile;
+            $.cloudinary.config({'api_key':'711655996988916','cloud_name':'soar'});
+            $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
+                   $.cloudinary.image(data.result.public_id,
+                       { format: data.result.format, version: data.result.version,
+                         crop: 'scale', width: 200 }));
+                   $('.image_public_id').val(data.result.public_id);
 
-                        same(response, data, 'server received file and data');
-                    }
-                });
-            }
-
-            // in your app create uploader as soon as the DOM is ready
-            // don't wait for the window to load
-            window.onload = createUploader;
-
+                   alert(data);
+              return true;
+            });
         });
 
 
@@ -83,11 +59,18 @@ block content
                          div(class='qq-upload-extra-drop-area') Drop files here too
                      div.controls
                          div(id='result-list')
+                     script(src='/javascripts/file-uploader/upload-face.js')
                    div.control-group
                      label(class='control-label', for='username') face
                      div.controls
-                       input(type='file',name='face')
+                       input(name='file',type='file',
+                              class='cloudinary-fileupload',data-cloudinary-field='image_upload',
+                              data-form-data=' ... html-escaped JSON data ... ')
 
                    div.control-group
                      div.controls
                        button(class='btn', type='submit') 提交
+    script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
+    script(src='/javascripts/jquery-fileuploader/jquery.fileupload.js')
+    script(src='/javascripts/jquery-fileuploader/jquery.iframe-transport.js')
+    script(src='/javascripts/jquery-fileuploader/jquery.ui.widget.js')

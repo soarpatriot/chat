@@ -11,8 +11,8 @@ block content
   body
     div.row-fluid
 
-       div(class='span8 blog-cnm')
-         h3.title Top five classic topics
+       div(class='span8 well-no-back')
+         h3.title 最新
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
               div.row-fluid
@@ -32,6 +32,10 @@ block content
                            p(class='blog-content')
                              nobr #{post.content}
               hr.soft
+
+
+       div(class='span4 well')
+           h3.title 相关信息
 
 
 
