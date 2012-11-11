@@ -6,7 +6,7 @@ block append head
     script(src='/javascripts/file-uploader/fileuploader.js')
     script
         $(function(){
-            $.cloudinary.config({'api_key':'711655996988916','cloud_name':'soar'});
+            $.cloudinary.config({,'cloud_name':'soar'});
             $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
                    $.cloudinary.image(data.result.public_id,
                        { format: data.result.format, version: data.result.version,
@@ -22,13 +22,11 @@ block append head
 
 block content
   body
-    div(class='container well')
+    div(class='container')
 
         div(class='row-fluid')
 
 
-
-        div(class='row-fluid')
 
 
 
@@ -37,21 +35,17 @@ block content
                fieldset
                    legend 编辑
                    div.control-group
-                     label(class='control-label', for='username') username
+                     label(class='control-label', for='username') 用户名
                      div.controls
-                       input(name='username',type='text')
-
-
-
-
+                       label(class='control-label') #{user.name}
 
                    div.control-group
 
                      label(class='control-label', for='face') 头像
-                     input(id='image-face-hidden',type='hidden',name='faceUrl')
+                     input(id='image-face-hidden',type='hidden',name='faceUrl', value='#{user.faceUrl}')
                      div.controls
-                        div.span2
-                          img(width='48px',height='48px',id='image-face')
+                        div.span2.face-container
+                          img(class='img-polaroid img-rounded',id='image-face',src='#{user.faceUrl}',alt='头像')
                      div.controls
                          div(id='file-uploader-demo1')
                               noscript

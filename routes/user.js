@@ -10,6 +10,8 @@ var Post = require('../models/post.js');
 
 var fs = require('fs');
 var path = require('path');
+var _ = require('underscore');
+
 
 
 exports.index = function(req,res){
@@ -55,10 +57,14 @@ exports.doReg = function(req, res){
 
     var newUser = new User({
         name: req.body.username,
+
         password: password,
         email: req.body.email
     });
 
+    //set default value for mongoose bugs;
+    var defaultFaceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg';
+    _.defaults(newUser, {faceUrl: defaultFaceUrl, regTime : Date.now});
     User.findOne({'name': newUser.name}, function(err, user){
         //throw new Error('something broke!');
         if(err){
@@ -155,11 +161,26 @@ exports.show = function(req,res){
 }
 
 exports.edit = function(req, res){
-    res.render('user/edit',{
-        title: '编辑',
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
+
+    var  _id = req.session.user._id;
+    User.findOne({'_id': _id}, function(err, user){
+        if(err){
+
+            req.flash('error',err);
+            console.log(err);
+            return res.redirect('user/show');
+
+        }else{
+
+            //user.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_120,h_120,c_fill,d_avatar2.png/non_existing_id.jpg';
+            console.log("edit::"+user);
+            res.render('user/edit',{
+                title: '编辑',
+                user: user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        }
     });
 }
 

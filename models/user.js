@@ -2,20 +2,52 @@
 
 var mongoose = require('mongoose');
 var mongodb = require('./mongolab-db');
+var cloudinary = require('../models/cloudinary.js');
+var _ = require('underscore');
 
 var UserSchema = mongoose.Schema({
     name: 'String',
     password: 'String',
-    faceUrl:'String',
-    email:'String'
+    faceUrl:{type:'String',default: 'http://res.cloudinary.com/demo/image/facebook/w_100,h_100,c_fill,d_avatar2.png/non_existing_id.jpg'},
+    email:'String',
+    regTime:{ type: Date, default: Date.now }
 });
 var User = mongodb.db.model('User', UserSchema);
 
+var defaultFaceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg';
 
+_.defaults(User, {faceUrl: defaultFaceUrl, regTime : Date.now});
 
 module.exports = User;
+UserSchema.pre('save', function (next) {
+    console.log('user get method internal..');
+    if(null === this.faceUrl || ''===this.faceUrl){
+        console.log('user get method internal..');
+        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
+    }
+    next();
+});
+
+UserSchema.pre('update', function (next) {
+    console.log('user get method internal..');
+    if(null === this.faceUrl || ''===this.faceUrl){
+        console.log('user get method internal..');
+        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
+    }
+    next();
+});
 
 
+
+
+UserSchema.path('faceUrl').set(function () {
+    console.log('user get method..');
+    if(null === this.faceUrl || ''===this.faceUrl){
+        console.log('user get method internal..');
+        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
+    }
+    return this.faceUrl;
+});
 /**
  *
 var mongodb = require('./db')

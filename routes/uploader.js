@@ -11,13 +11,8 @@ var express = require('express'),
     util = require('util'),
     //uuid = require('node-uuid'),
     path = require('path'),
-    cloudinary = require('cloudinary');
-    //cloudinary.CLOUDINARY_URL= 'cloudinary://463734787194182:VPScMiTP4h2wy6C232xExi6rXXk@hdg4eyw5m';
-    cloudinary.config({
-        api_key:'711655996988916',
-            api_secret:'cQR1ZXGWEgi7bOvLpy3UAekZRuU',
-        cloud_name:'soar'
-    })
+    cloudinary = require('../models/cloudinary.js');
+
 
 
 
@@ -122,7 +117,7 @@ var saveTmpFile = function(req, targetdir, callback){
         var fname = req.header('x-file-name');
 
         // Be sure you can write to '/tmp/'
-        var tmpfile = '/tmp/'+'1';   //uuid.v1();
+        var tmpfile = '../tmp'+'1';   //uuid.v1();
 
         // Open a temporary writestream
         var ws = fs.createWriteStream(tmpfile);
@@ -162,7 +157,10 @@ var moveToCloud = function(source,callback){
     req.on('end', function() {
         stream.end();
     });**/
-    fs.createReadStream(source, {encoding: 'binary'}).on('data', stream.write).on('end', stream.end);
+    fs.createReadStream(source, {encoding: 'binary'})
+        .on('data', stream.write)
+        .on('end' ,stream.end);
+
 
     /*
     is.on('error', function(err) {

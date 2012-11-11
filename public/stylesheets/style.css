@@ -258,7 +258,12 @@ body {
     width: 48px;
 }
 
+/**border-color: 1px solid #5DA30C;**/
+.face-container{
 
+    width: 150px;
+    height: 150px;
+}
 
 
 

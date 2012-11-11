@@ -9,7 +9,7 @@ function createUploader(){
         cancelButtonText: '取消',
         failUploadText: '上传失败',
         multiple:false,
-        sizeLimit:4028000,
+        sizeLimit:1024000,
         allowedExtensions:['jpg','gif','png'],
         onComplete: function(id, fileName, response){
             //alert('id: '+id+ '   fileName: '+fileName);
