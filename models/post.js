@@ -9,9 +9,6 @@ var mongodb = require('./mongolab-db');
 var moment = require('moment');
 moment.lang('zh-cn');
 
-//user schema
-var UserSchema = mongoose.Schema({ name: 'String',password: 'String',faceUrl:'String'});
-var User = mongodb.db.model('User', UserSchema);
 
 //Post's comments
 var Comment  = new Schema();

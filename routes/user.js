@@ -40,7 +40,7 @@ exports.index = function(req,res){
 exports.reg = function(req, res){
     res.render('reg',{
         title: 'Register',
-        user : req.session.user,
+
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     })
@@ -62,9 +62,7 @@ exports.doReg = function(req, res){
         email: req.body.email
     });
 
-    //set default value for mongoose bugs;
-    var defaultFaceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg';
-    _.defaults(newUser, {faceUrl: defaultFaceUrl, regTime : Date.now});
+
     User.findOne({'name': newUser.name}, function(err, user){
         //throw new Error('something broke!');
         if(err){
@@ -172,7 +170,6 @@ exports.edit = function(req, res){
 
         }else{
 
-            //user.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_120,h_120,c_fill,d_avatar2.png/non_existing_id.jpg';
             console.log("edit::"+user);
             res.render('user/edit',{
                 title: '编辑',

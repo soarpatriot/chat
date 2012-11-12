@@ -8,46 +8,36 @@ var _ = require('underscore');
 var UserSchema = mongoose.Schema({
     name: 'String',
     password: 'String',
-    faceUrl:{type:'String',default: 'http://res.cloudinary.com/demo/image/facebook/w_100,h_100,c_fill,d_avatar2.png/non_existing_id.jpg'},
+    faceUrl:{type:'String'},
     email:'String',
     regTime:{ type: Date, default: Date.now }
 });
 var User = mongodb.db.model('User', UserSchema);
 
-var defaultFaceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg';
-
-_.defaults(User, {faceUrl: defaultFaceUrl, regTime : Date.now});
-
 module.exports = User;
+
+
 UserSchema.pre('save', function (next) {
-    console.log('user get method internal..');
-    if(null === this.faceUrl || ''===this.faceUrl){
-        console.log('user get method internal..');
-        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
-    }
+    console.log('this face url: '+this.faceUrl);
+    if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
+        console.log('default face url: '+cloudinary.genDefaultFaceUrl());
+        this.faceUrl = cloudinary.genDefaultFaceUrl();
+    };
     next();
 });
 
 UserSchema.pre('update', function (next) {
-    console.log('user get method internal..');
-    if(null === this.faceUrl || ''===this.faceUrl){
-        console.log('user get method internal..');
-        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
-    }
+    console.log('this face url: '+this.faceUrl);
+    if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
+        console.log('default face url: '+cloudinary.genDefaultFaceUrl());
+        this.faceUrl = cloudinary.genDefaultFaceUrl();
+    };
     next();
 });
 
 
 
 
-UserSchema.path('faceUrl').set(function () {
-    console.log('user get method..');
-    if(null === this.faceUrl || ''===this.faceUrl){
-        console.log('user get method internal..');
-        this.faceUrl = 'http://res.cloudinary.com/demo/image/facebook/w_150,h_150,c_fill,d_avatar2.png/non_existing_id.jpg'
-    }
-    return this.faceUrl;
-});
 /**
  *
 var mongodb = require('./db')
