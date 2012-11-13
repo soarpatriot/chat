@@ -16,7 +16,8 @@
     "mongoose":"3.4.0",
     "moment":"1.7.2",
     "cloudinary": "",
-    "underscore": "1.4.2"
+    "underscore": "1.4.2",
+    "node-uuid":"1.4.0"
   },
   "engines": {
     "node": "0.8.x",

@@ -11,7 +11,7 @@ var Post = require('../models/post.js');
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-
+var cloudinary = require('../models/cloudinary.js');
 
 
 exports.index = function(req,res){
@@ -169,7 +169,7 @@ exports.edit = function(req, res){
             return res.redirect('user/show');
 
         }else{
-
+            user.setEditFace(user);
             console.log("edit::"+user);
             res.render('user/edit',{
                 title: '编辑',

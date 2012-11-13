@@ -9,7 +9,7 @@
 var express = require('express'),
     fs = require('fs'),
     util = require('util'),
-    //uuid = require('node-uuid'),
+    uuid = require('node-uuid'),
     path = require('path'),
     cloudinary = require('../models/cloudinary.js');
 
@@ -17,7 +17,7 @@ var express = require('express'),
 
 
 
-    exports.saveProfile = function(req, res){
+exports.saveProfile = function(req, res){
     // 获得文件的临时路径
     var tmp_path = req.files.face.path;
     var extName = path.extname(req.files.face.name);
@@ -53,19 +53,7 @@ exports.uploadFace = function(req, res){
     //path.basename(tmp_path) + extName;
 
     var fname = req.header('x-file-name');
-    /**
-    var fname = req.files.qqfile.name;
-    console.log("ss");
-    cloudinary.uploader.upload(fname,function(result) {
-        console.log("result:  "+result);
 
-        res.send(result);
-
-
-    });**/
-   // var filePath = req.body.file;
-    //'/home/soar/Firefox_wallpaper.png'
-   // console.log('path:'+filePath);
 
     var tmpPath = '/tmp/';
     //console.log('req filename::  '+tmpPath);
@@ -87,39 +75,39 @@ exports.uploadFace = function(req, res){
     //var is = fs.createReadStream(source)
     //is.pipe(os);
 
-    saveTmpFile(req, target_path, function(data) {
-        console.log(data);
-        //if(){
+    saveTmpFile(req, function(data) {
+
+        if(!data.success){
+            console.log('success'+ data.success);
             data.success = true;
             res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 200);
-        //}else{
-          //  res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
-        //}
+        }else{
+            res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
+        };
+
+        /*
+        cloudinary.api.resource(data.public_id,
+           function(result)  { console.log(result)
+               console.log(data);
+               data.success = true;
+               res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
+           }
+        );*/
 
     });
 
 
 
-    /**
-    var fileExtention = req.headers['x-file-name'];
-    05.var fileStream = fs.createWriteStream(filePath);
-    06.req.pipe(fileStream);
-    07.req.on('end', function() {
-        08.//接收数据完毕，需要给客户端返回值，否则，客户端将一直等待，直到失败（其实上传文件已经成功了）
-        09.res.send({success:true});
-        10.})
-
-     **/
 }
 
-var saveTmpFile = function(req, targetdir, callback){
+var saveTmpFile = function(req, callback){
     if(req.xhr) {
-        var fname = req.header('x-file-name');
+        //var fname = req.header('x-file-name');
 
         // Be sure you can write to '/tmp/'
-        var tmpfile = '../tmp'+'1';   //uuid.v1();
+        var tmpfile = '../tmp'+uuid.v1();
 
-        // Open a temporary writestream
+
         var ws = fs.createWriteStream(tmpfile);
         ws.on('error', function(err) {
             console.log("uploadFile() - req.xhr - could not open writestream.");
@@ -138,10 +126,7 @@ var saveTmpFile = function(req, targetdir, callback){
         });
     }
 
-    // Old form-based upload
-    else {
-        moveToDestination(req.files.qqfile.path, targetdir+req.files.qqfile.name);
-    }
+
 }
 
 var moveToCloud = function(source,callback){
@@ -150,46 +135,12 @@ var moveToCloud = function(source,callback){
 
     stream = cloudinary.uploader.upload_stream(callback);
 
-    /**
-    req.on('data', function(data) {
-        stream.write(data);
-    });
-    req.on('end', function() {
-        stream.end();
-    });**/
     fs.createReadStream(source, {encoding: 'binary'})
         .on('data', stream.write)
         .on('end' ,stream.end);
 
 
-    /*
-    is.on('error', function(err) {
-        console.log('moveFile() - Could not open readstream.');
-        callback('Sorry, could not open readstream.')
-    });
-    is.on('end', function() {
-        //fs.unlinkSync(source);
-        //callback();
-        stream.end
-    });
 
-
-    //var os = fs.createWriteStream(dest);
-    stream.on('error', function(err) {
-        console.log('moveFile() - Could not open writestream.');
-        callback('Sorry, could not open writestream.');
-    });
-
-    is.pipe(stream);
-    */
-    /*
-    var os = fs.createWriteStream(dest);
-    os.on('error', function(err) {
-        console.log('moveFile() - Could not open writestream.');
-        callback('Sorry, could not open writestream.');
-    });
-
-    is.pipe(os);*/
 }
 
 // Mainfunction to recieve and process the file upload data asynchronously

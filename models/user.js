@@ -8,13 +8,15 @@ var _ = require('underscore');
 var UserSchema = mongoose.Schema({
     name: 'String',
     password: 'String',
-    faceUrl:{type:'String'},
+    faceId: 'String',
+
     email:'String',
     regTime:{ type: Date, default: Date.now }
 });
 var User = mongodb.db.model('User', UserSchema);
 
 module.exports = User;
+UserSchema.virtual('faceUrl');
 
 
 UserSchema.pre('save', function (next) {
@@ -26,6 +28,8 @@ UserSchema.pre('save', function (next) {
     next();
 });
 
+
+
 UserSchema.pre('update', function (next) {
     console.log('this face url: '+this.faceUrl);
     if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
@@ -36,8 +40,13 @@ UserSchema.pre('update', function (next) {
 });
 
 
+User.prototype.setEditFace = function(user){
+    if(_.isNull(user.faceId) || _.isUndefined(user.faceId)){
+        user.faceUrl = cloudinary.genDefaultFaceUrl();
+    }
 
-
+    return user;
+}
 /**
  *
 var mongodb = require('./db')
