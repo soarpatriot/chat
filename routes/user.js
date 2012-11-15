@@ -153,6 +153,7 @@ exports.logout = function(req, res){
 exports.show = function(req,res){
     res.render('user/show',{
         title: '用户资料',
+
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     });
@@ -169,8 +170,9 @@ exports.edit = function(req, res){
             return res.redirect('user/show');
 
         }else{
-            user.setEditFace(user);
-            console.log("edit::"+user);
+
+            user.faceUrl = cloudinary.genEditFace(user.faceId);
+            console.log("edit:: \n"+user);
             res.render('user/edit',{
                 title: '编辑',
                 user: user,
@@ -235,9 +237,10 @@ exports.updateProfile = function(req,res){
     var user = req.session.user;
     var username = user.name;
     var faceUrl = req.body.faceUrl;
+    var faceId = req.body.faceId;
 
-    console.log('username: '+ username + '  faceUrl'+faceUrl);
-    User.update({ name: username }, { faceUrl: faceUrl }, { multi: true }, function (err, numberAffected, raw) {
+    console.log('username: '+ username + '  faceId:  ' +faceId);
+    User.update({ name: username }, { faceId: faceId }, { multi: true }, function (err, numberAffected, raw) {
         console.log('The number of updated documents was %d', numberAffected);
         console.log('The raw response from Mongo was ', raw);
         if (err) {

@@ -40,15 +40,16 @@ UserSchema.pre('update', function (next) {
 });
 
 
-User.prototype.setEditFace = function(user){
+
+/**
+ *
+ User.prototype.genEditFace = function(user){
     if(_.isNull(user.faceId) || _.isUndefined(user.faceId)){
         user.faceUrl = cloudinary.genDefaultFaceUrl();
     }
 
     return user;
 }
-/**
- *
 var mongodb = require('./db')
 function User(user){
     this.name = user.name;

@@ -17,7 +17,7 @@ exports.index = function(req, res){
             return res.redirect('/');
         }
 
-        var formattedPosts = post.formatDate(posts);
+        var formattedPosts = Post.dealPosts(posts);
 
         //formattedPosts = post.top5con(posts);
 

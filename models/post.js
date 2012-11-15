@@ -5,6 +5,7 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var mongodb = require('./mongolab-db');
+var cloudinary = require('../models/cloudinary.js');
 
 var moment = require('moment');
 moment.lang('zh-cn');
@@ -74,10 +75,6 @@ PostSchema
 
 **/
 
-PostSchema.methods.top5post = function(callback){
-
-}
-
 
 
 var Post = mongodb.db.model('Post', PostSchema);
@@ -91,7 +88,7 @@ Post.prototype.top5 = function(callback){
         .exec(callback);
 
 };
-Post.prototype.formatDate = function(posts){
+Post.formatDate = function(posts){
     for(var i=0; i<posts.length; i++){
         posts[i].fromNow = moment(posts[i].pusTime).fromNow();
         if(null!== posts[i].creator && 'undefined' !==  typeof(posts[i].creator)){
@@ -103,29 +100,23 @@ Post.prototype.formatDate = function(posts){
     return posts;
 };
 
+Post.obtainUserSmallFace = function(posts){
+    for(var i=0; i<posts.length; i++){
+        posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
+        if(null!== posts[i].creator && 'undefined' !==  typeof(posts[i].creator)){
+            console.log('post creator faceUrl: '+ posts[i].creator.faceUrl);
+        }
 
+    }
 
-Post.top5con = function(posts){
+    return posts;
+}
 
+Post.dealPosts = function(posts){
+    posts = Post.formatDate(posts);
+    posts = Post.obtainUserSmallFace(posts);
 
-
-    return posts.eachPath(function(){
-        this.findCreator(function(err,user){
-            //if(null!= user.faceUrl && 'undefined'!=user.faceUrl){
-            //posts[i].faceUrl = user.faceUrl;
-            //}
-
-            //posts[i].name = users[0].name;
-            if(null!=user){
-                console.log('Users: '+i+'  ' +user.name);
-            }
-
-        });
-
-
-    })
-
-
+    return posts;
 }
 
 module.exports = Post;

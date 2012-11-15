@@ -19,8 +19,9 @@ function createUploader(){
             //}
             //var faceUrl = '/images/face/'+fileName;
             var faceUrl = response.url;
+            var faceId = response.public_id;
             $('#image-face').attr('src',faceUrl);
-            $('#image-face-hidden').attr('value',faceUrl);
+            $('#face-id').attr('value',faceId);
             //delete response.success;
             //delete response.qqfile;
 

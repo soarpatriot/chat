@@ -78,8 +78,9 @@ exports.uploadFace = function(req, res){
     saveTmpFile(req, function(data) {
 
         if(!data.success){
-            console.log('success'+ data.success);
+
             data.success = true;
+            console.log('success:  '+ data);
             res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 200);
         }else{
             res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
