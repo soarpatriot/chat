@@ -2,7 +2,7 @@
  *Error controller
  */
 
-exports.index = function(req,res){
+exports.index = function(err,req,res,next){
     res.render('error', {
         title: 'Error',
 

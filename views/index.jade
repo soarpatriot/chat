@@ -13,21 +13,20 @@ block content
 
        div(class='span8 well-no-back')
          h3.title 最新
+         hr
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
               div.row-fluid
-                div.span2
-                  div(class='author')
-                     p
-                       img(src='#{post.creator.faceUrl}', width='60',height='60', alt='user')
-                     p #{post.creator.name}
+
 
                 div.span10
 
                   div(class="bs-docs-example bs-docs-example-popover")
                       div(class='popover right')
                          div(class='arrow')
-                         h3(class='popover-title') #{post.fromNow}
+                         h3(class='popover-title')
+                            img(src='#{post.creator.faceUrl}',alt='user')
+                            #{post.creator.name}  #{post.fromNow}
                          div(class='popover-content')
                            p(class='blog-content')
                              nobr #{post.content}

@@ -4,9 +4,11 @@
  */
 
 var express = require('express')
-  //, stylus = require('stylus')
+  ,expose = require('express-expose')
+
+//, stylus = require('stylus')
   //, nib = require('nib')
-  , io = require('socket.io')
+    ,io = require('./models/socket.js')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path');
@@ -17,8 +19,16 @@ var post = require('./routes/post'),
     chat = require('./routes/chat'),
     uploader = require('./routes/uploader');
 
+
+//helpers
+var Utils = require('./helpers/utils');
+
 //error-handle
 var error = require('./routes/error')
+
+//debugs
+var expressError = require('express-error');
+
 
 var settings = require('./settings');
 var MongoStore = require('connect-mongo')(express);
@@ -27,7 +37,7 @@ var partials = require('express-partials');
 var flash = require('connect-flash');
 
 var sessionStore = new MongoStore({
-                        url:'mongodb://soarpatriot:22143521@ds037837-a.mongolab.com:37837/xiaodonggua'
+                        url:settings.currentDb()
                     }, function(){
                         console.log('connect mongodb success........');
                     });
@@ -65,22 +75,21 @@ app.configure(function(){
   app.use(express.static(path.join(__dirname, 'public')));
 
 
+
+    //expose
+   // app.expose(Utils, 'Utils').helpers(Utils);
 });
 
+/**
 app.configure('development', function(){
   app.use(express.errorHandler());
 });
+ **/
+app.configure('development', function() {
+    app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
+});
 
 
-function error(err, req, res, next) {
-
-    console.error('my error!!'+err.stack);
-    // log it
-    if (!test) console.error(err.stack);
-
-    // respond with 500 "Internal Server Error".
-    res.send(500);
-}
 
 app.get('/', routes.index);
 
@@ -109,46 +118,19 @@ var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
 });
 
-io = io.listen(server);
-//http.createServer(app).listen(app.get('port'), function(){
-  //console.log("Express server listening on port " + app.get('port'));
-//});
 
-var nicknames = {};
-
-io.sockets.on('connection', function (socket) {
-    socket.on('user message',function(msg){
-        socket.broadcast.emit('user message',socket.nickname, msg);
-        socket.emit('user message', socket.nickname, msg);
-        console.log("nicknames and msg" + socket.nickname+msg );
-
-    });
-
-    socket.on('nickname',function(nick){
-        console.log('nicknames' + nicknames);
-        //if(nicknames[nick]){
-          //  fn(true);
-           // console.log("nicknames 111" + nicknames);
-        //}else{
-          //  fn(false);
-            nicknames[nick] = socket.nickname = nick;
-            socket.broadcast.emit('announcement', nick + ' connected');
-            socket.emit('nickname', nicknames);
-
-            console.log("nicknames " + nicknames);
-
-        //}
-    });
-
-    socket.on('disconnect', function(){
-        if(!socket.nickname){
-            return;
-        }
-
-        delete  nicknames[socket.nickname];
-        socket.broadcast.emit('announcement', socket.nickname + ' disconnected');
-        socket.broadcast.emit('nicknames', nicknames);
-    });
+//socket.io  and node js module;
+io.listenServer(server);
 
 
+/**
+ * app.error(function(err, req, res, next){
+    console.error('my error!!'+err.stack);
+    if (err instanceof NotFound) {
+        res.render('404.jade');
+    } else {
+        next(err);
+    }
 });
+
+ **/

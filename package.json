@@ -8,6 +8,7 @@
   "dependencies": {
     "socket.io": "0.9.10",
     "express": "3.x",
+    "express-expose":"0.3.3",
     "jade": "*",
     "connect-mongo":"0.2.0",
     "crypto": "0.0.3",
@@ -17,7 +18,8 @@
     "moment":"1.7.2",
     "cloudinary": "",
     "underscore": "1.4.2",
-    "node-uuid":"1.4.0"
+    "node-uuid":"1.4.0",
+    "express-error":"0.0.3"
   },
   "engines": {
     "node": "0.8.x",
