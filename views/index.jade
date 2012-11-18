@@ -17,19 +17,15 @@ block content
          if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
            each post, i in posts
               div.row-fluid
-
-
                 div.span10
+                   p
+                     img(src='#{post.creator.faceUrl}',alt='user')
+                     |  #{post.creator.name} #{post.fromNow}
 
-                  div(class="bs-docs-example bs-docs-example-popover")
-                      div(class='popover right')
-                         div(class='arrow')
-                         h3(class='popover-title')
-                            img(src='#{post.creator.faceUrl}',alt='user')
-                            #{post.creator.name}  #{post.fromNow}
-                         div(class='popover-content')
-                           p(class='blog-content')
-                             nobr #{post.content}
+
+
+                   p
+                      nobr #{post.content}
               hr.soft
 
 
