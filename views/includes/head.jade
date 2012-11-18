@@ -15,9 +15,22 @@ div.navbar.navbar-inverse.navbar-fixed-top
               a(href='/') 主页
             li
               a(href='/post') 微薄
+            li
+              a(href='/chat') 审阅
+
 
             li
               a(href='/chat') 聊天
+            li
+              a(href='/chat') 关于
+
+            li
+              form(class='form-search navbar-form pull-right')
+                div(class='btn-group input-append')
+                    input(type='text',class='span2 search-query',placeholder='Search')
+                    button(type='submit',class='btn')
+                      i(class='icon-search')
+                      | Search
 
           ul.nav.pull-right
             if typeof(user) === 'undefined' || user === null
@@ -31,7 +44,9 @@ div.navbar.navbar-inverse.navbar-fixed-top
 
             else
                 li.dropdown
-                  a(class='dropdown-toggle', href='#', data-toggle='dropdown') #{user.name}
+                  a(class='dropdown-toggle', href='#', data-toggle='dropdown')
+                    i(class='icon-user')
+                    | #{user.name}
                     b.caret
                   ul.dropdown-menu
                     li

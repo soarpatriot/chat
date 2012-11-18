@@ -9,28 +9,27 @@ block append head
 
 block content
   body
-    div.row-fluid
+      div.row-fluid
+          div(class='span8 well-no-back')
+              div(class='tabbable')
+                  ul(class='nav nav-tabs')
+                      li(class='active')
+                          a(href='#tab1',data-toggle='tab') 最新
+                      li
+                          a(href='#tab2',data-toggle='tab') 帮助
+                      li
+                          a(href='#tab2',data-toggle='tab') 吐槽
 
-       div(class='span8 well-no-back')
-         h3.title 最新
-         hr
-         if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
-           each post, i in posts
-              div.row-fluid
-                div.span10
-                   p
-                     img(src='#{post.creator.faceUrl}',alt='user')
-                     |  #{post.creator.name} #{post.fromNow}
+                  div(class='tab-content')
+                      div(class='tab-pane active',id='tab1')
+                          include home/post-content
 
-
-
-                   p
-                      nobr #{post.content}
-              hr.soft
-
-
-       div(class='span4 well')
-           h3.title 相关信息
+                      div(class='tab-pane',id='tab2')
+                          p Howdy, I'm in Section 2.
+          
+          div(class='span4')
+              h3.title 相关信息
+          
 
 
 
