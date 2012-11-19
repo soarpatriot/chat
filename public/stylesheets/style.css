@@ -279,6 +279,17 @@ body {
 }
 
 
+.navbar-form .input-prepend button {
+    margin-top: 0;
+}
+
+
+.margin-top0{
+    margin-top: 0;
+}
+#search-ico{
+    margin-top: 0;
+}
 
 
 

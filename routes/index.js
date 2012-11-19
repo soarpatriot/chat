@@ -19,13 +19,11 @@ exports.index = function(req, res){
 
         var formattedPosts = Post.dealPosts(posts);
 
-        //formattedPosts = post.top5con(posts);
-
-
         res.render('index', {
-            title: '江湖',
+            title: '翱翔中国',
             posts: formattedPosts,
             user : req.session.user,
+            currentLink: 'HOME',
             success : req.flash('success').toString(),
             error : req.flash('error').toString()
         });

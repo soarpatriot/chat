@@ -11,27 +11,48 @@ div.navbar.navbar-inverse.navbar-fixed-top
       div.nav-collapse.collapse
           ul.nav
 
-            mixin nav-active
-              a(href='/') 主页
-            li
-              a(href='/post') 微薄
-            li
-              a(href='/chat') 审阅
+            if(currentLink === 'HOME')
+                li.active
+                    a(href='/') 主页
+            else
+                li
+                    a(href='/') 主页
+            if(currentLink === 'MICRO')
+                li.active
+                    a(href='/post') 微薄
+            else
+                li
+                    a(href='/post') 微薄
+            if(currentLink === 'CHECK')
+                li.active
+                    a(href='/chat') 审阅
+            else
+                li
+                    a(href='/chat') 审阅
 
 
-            li
-              a(href='/chat') 聊天
-            li
-              a(href='/chat') 关于
+            if currentLink === 'CHAT'
+                li.active
+                    a(href='/chat') 聊天
+            else
+                li
+                    a(href='/chat') 聊天
+            if( currentLink === 'ABOUT')
+                li.active
+                    a(href='/chat') 关于
+            else
+                li
+
+                    a(href='/chat') 关于
 
             li
-              form(class='form-search navbar-form pull-right')
-                div(class='btn-group input-append')
-                    input(type='text',class='span2 search-query',placeholder='Search')
-                    button(type='submit',class='btn')
-                      i(class='icon-search')
-                      | Search
+              div.pull-right
+                  form(class='form-search navbar-form pull-right')
+                     div(class='input-append')
+                        input(type='text',class='input-medium search-query',placeholder='搜索')
 
+                        button(type='submit',class='btn margin-top0', id='search-ico')
+                                i(class='icon-search')
           ul.nav.pull-right
             if typeof(user) === 'undefined' || user === null
 

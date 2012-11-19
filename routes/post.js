@@ -10,6 +10,7 @@ exports.index = function(req, res){
     res.render('post', {
         title: 'Say',
         user : req.session.user,
+        currentLink: 'MICRO',
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
     });
