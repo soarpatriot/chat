@@ -291,13 +291,41 @@ body {
     margin-top: 0;
 }
 
+.login-container{
+    margin: auto;
+}
+
+.margin-top4{
+    margin-top: 40px;
+}
+.padding-top4{
+    padding: 4px 14px;
+}
+
+.input-xlarge325 {
+    width: 325px;
+}
 
 
+.dialog, .message{
 
+    width: 343px;
+    margin: 0 auto;
+    text-align: left;
+    border: 1px solid #E3E3E3;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+    margin-bottom: 20px;
+    min-height: 20px;
+    padding: 30px;
+}
 
-
-
-
+.content {
+    margin-top: 170px;
+    test-align:center;
+    width: 100%;
+    z-index: 5;
+}
 
 
 
