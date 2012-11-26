@@ -124,17 +124,19 @@ exports.doLogin = function(req,res){
             console.log('密码错误');
             return res.redirect('/');
         }
-        req.session.user = user;
-        req.flash('success','登录成功');
 
+        req.session.user = user;
+        console.log('why??');
         if(req.session.lastUrl!== null){
             req.flash('success','登录成功,请继续您的操作...');
             //return res.redirect(req.session.lastUrl);
         }
+        req.flash('currentLink','HOME');
+
+        console.log('hear??');
         return res.redirect('/');
 
-    })
-
+    });
 }
 
 

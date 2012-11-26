@@ -2,32 +2,36 @@ extends logo-layout
 
 block append head
 
+
 block content
   body
 
 
-    div.container-fluid
+    div(id='login-div',class='container-fluid')
+
+        include includes/tip
         div.content
+
               div.dialog.dialog-well-no-back
 
-                  form(action='/login',method='post', class='form-vertical form-inline center')
+                  form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
                     fieldset
 
                         div.control-group
                           label(class='control-label', for='username') 用户名：
                           div.controls
-                            input(name='username',type='text',class='input-xlarge325')
+                            input(id='username-input',name='username',type='text',class='input-xlarge325')
                         div.control-group
                           label(class='control-label',for='password') 密码：
                           div.controls
-                            input(name='password',type='password',class='input-xlarge325')
+                            input(name='password-input',type='password',class='input-xlarge325')
 
                         div.control-group
+                            a(id='login-btn',class='btn btn-success',href='#login') 登录
+                            div.pull-right
+                                a(class='padding-top4', href='/forget') 忘记密码
 
 
-                            a(class='padding-top4', href='/forget') 忘记密码
-
-                                 a(class='btn btn-success',href='/login') 登录
 
 
               div.message.dialog-well-no-back

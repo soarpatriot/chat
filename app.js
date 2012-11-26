@@ -14,7 +14,8 @@ var express = require('express')
   , path = require('path');
 
 //routes
-var post = require('./routes/post'),
+var home = require('./routes/index')
+    post = require('./routes/post'),
     user = require('./routes/user'),
     chat = require('./routes/chat'),
     uploader = require('./routes/uploader');
@@ -91,7 +92,7 @@ app.configure('development', function() {
 
 
 
-app.get('/', routes.index);
+app.get('/', home.index);
 
 app.get('/chat', chat.index);
 
@@ -101,8 +102,10 @@ app.post('/post',post.publish);
 app.get('/u/:user', user.index);
 app.get('/reg', user.reg);
 app.post('/reg', user.doReg);
-app.get('/login', user.login);
+
 app.post('/login', user.doLogin);
+app.get('/login', user.login);
+
 app.get('/logout', user.logout);
 
 app.get('/blog/:id', post.get);
