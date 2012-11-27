@@ -1,20 +1,5 @@
 $(function(){
 
-    alert('sss');
-    var username = $('#username-input').val();
-    var password = $('#password-input').val();
-
-    /**
-    $('#login-btn').click(function(){
-        if(username==='' || password===''){
-
-        }else{
-            $('#login-form').submit();
-        }
-
-    });**/
-
-
     var InfoTip = Backbone.Model.extend({
         defaults:function(){
             return{
@@ -24,7 +9,7 @@ $(function(){
         },
 
         initialize: function(){
-            alert('ss');
+
             if(!this.get("title")){
                 this.set({"title": this.defaults.title});
             }
@@ -44,25 +29,48 @@ $(function(){
         statsTemplate: _.template($('#item-template').html()),
 
         events: {
-
+            "blur #username-input":  "checkUsername",
+            "blur #password-input":  "checkPass",
             "click #login-btn": "login"
         },
         initialize: function() {
             this.tip = this.$('#tip');
-            alert('ssssssss');
+            this.username = this.$('#username-input');
+            this.passwordIn = this.$('#password-input');
             this.render();
         },
         render: function() {
 
-                alert('sss');
-                this.tip.html(this.statsTemplate({title: "sdfadsfaldsfkjad ok okkoook okok okok "}))
-                this.tip.show();
-               // this.footer.html(this.statsTemplate({title: InfoTip.title}));
 
-
+            this.tip.hide();
+            // this.footer.html(this.statsTemplate({title: InfoTip.title}));
         },
         login: function(){
-            alert("kadjfadf");
+            if(this.username.val()==='' || this.passwordIn.val()===''){
+                var title = 'Error';
+                var content = '用户名密码不能为空！';
+                this.tip.html(this.statsTemplate({title: title,content:content}));
+                this.tip.addClass('alert alert-error');
+                this.tip.show();
+                //alert("sdf");
+            }else{
+                $('#login-form').submit();
+            }
+
+        },
+
+        checkUsername: function(){
+
+            this.checkForShow(this.username.val());
+        },
+        checkPass: function(){
+            this.checkForShow(this.passwordIn.val());
+        },
+        checkForShow: function(value){
+
+            if($.trim(value)!==''){
+                this.tip.hide();
+            }
         }
     });
 
