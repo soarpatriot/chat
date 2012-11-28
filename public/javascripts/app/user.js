@@ -34,23 +34,32 @@ $(function(){
             "click #login-btn": "login"
         },
         initialize: function() {
+            this.errorHidden = this.$('#error-hidden');
             this.tip = this.$('#tip');
             this.username = this.$('#username-input');
             this.passwordIn = this.$('#password-input');
             this.render();
         },
         render: function() {
+            if(this.errorHidden.val()!==''){
+                var title = '';
+                var content = this.errorHidden.val();
+                this.tip.html(this.statsTemplate({title: title,content:content}));
+                this.tip.addClass('alert alert-error tip-error');
+                this.tip.show();
+            }else{
+                this.tip.hide();
+            }
 
 
-            this.tip.hide();
             // this.footer.html(this.statsTemplate({title: InfoTip.title}));
         },
         login: function(){
             if(this.username.val()==='' || this.passwordIn.val()===''){
-                var title = 'Error';
+                var title = '';
                 var content = '用户名密码不能为空！';
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error');
+                this.tip.addClass('alert alert-error tip-error');
                 this.tip.show();
                 //alert("sdf");
             }else{
@@ -58,9 +67,7 @@ $(function(){
             }
 
         },
-
         checkUsername: function(){
-
             this.checkForShow(this.username.val());
         },
         checkPass: function(){

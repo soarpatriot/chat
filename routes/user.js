@@ -100,7 +100,8 @@ exports.doReg = function(req, res){
 exports.login = function(req, res){
     res.render('login',{
         title: '用户登录',
-        user: req.session.user,
+        username: '',
+        password:'',
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     })
@@ -114,9 +115,13 @@ exports.doLogin = function(req,res){
     User.findOne({'name': req.body.username}, function(err, user){
         console.log('username: '+req.body.username);
         if(!user){
-            req.flash('error','用户不存在');
+
             console.log('用户不存在');
-            return res.redirect('/');
+            req.flash('username',req.body.username);
+            req.flash('password',req.body.password);
+            req.flash('error','用户不存在!');
+            return res.redirect('/login');
+
 
         }
         if(user.password !== password){

@@ -12,15 +12,15 @@ block content
 
                       form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
                           fieldset
-
+                            input(id='error-hidden',type='hidden',value='#{error}')
                             div.control-group
                               label(class='control-label', for='username') 用户名：
                               div.controls
-                                input(id='username-input',name='username',type='text',class='input-xlarge325')
+                                input(id='username-input',name='username',type='text',class='input-xlarge325',value='#{username}')
                             div.control-group
                               label(class='control-label',for='password') 密码：
                               div.controls
-                                input(id='password-input',name='password',type='password',class='input-xlarge325')
+                                input(id='password-input',name='password',type='password',class='input-xlarge325',value='#{password}')
 
                             div.control-group
                                 a(id='login-btn',class='btn btn-success',href='#login') 登录

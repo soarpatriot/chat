@@ -11,39 +11,39 @@ div.navbar.navbar-inverse.navbar-fixed-top
       div.nav-collapse.collapse
           ul.nav
 
-            if(currentLink === 'HOME')
+            if(typeof(currentLink) !== 'undefined' && currentLink === 'HOME')
                 li.active
                     a(href='/') 主页
             else
                 li
                     a(href='/') 主页
-            if(currentLink === 'MICRO')
+            if(typeof(currentLink) !== 'undefined' && currentLink === 'MICRO')
                 li.active
                     a(href='/post') 微薄
             else
                 li
                     a(href='/post') 微薄
-            if(currentLink === 'CHECK')
+            if(typeof(currentLink) !== 'undefined' && currentLink === 'CHECK')
                 li.active
-                    a(href='/chat') 审阅
+                    a(href='') 审阅
             else
                 li
-                    a(href='/chat') 审阅
+                    a(href='') 审阅
 
 
-            if currentLink === 'CHAT'
+            if typeof(currentLink) !== 'undefined' && currentLink === 'CHAT'
                 li.active
                     a(href='/chat') 聊天
             else
                 li
                     a(href='/chat') 聊天
-            if( currentLink === 'ABOUT')
+            if( typeof(currentLink) !== 'undefined' && currentLink === 'ABOUT')
                 li.active
-                    a(href='/chat') 关于
+                    a(href='') 关于
             else
                 li
 
-                    a(href='/chat') 关于
+                    a(href='') 关于
 
             li
               div.pull-right
