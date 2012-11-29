@@ -8,7 +8,8 @@ each post, i in posts
        p
          a(href='/user/#{post.creator._id}')
            img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
-         a(href='/user/#{post.creator._id}')  我最新写的
+         | &nbsp;&nbsp;&nbsp;
+         a(href='/blog/#{post._id}') #{post.title}
     div.span4
         div.pull-right
           span(class='badge badge-success')•10035 评论

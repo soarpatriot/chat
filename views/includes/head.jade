@@ -19,10 +19,10 @@ div.navbar.navbar-inverse.navbar-fixed-top
                     a(href='/') 主页
             if(typeof(currentLink) !== 'undefined' && currentLink === 'MICRO')
                 li.active
-                    a(href='/post') 微薄
+                    a(href='/post') 标签
             else
                 li
-                    a(href='/post') 微薄
+                    a(href='/post') 标签
             if(typeof(currentLink) !== 'undefined' && currentLink === 'CHECK')
                 li.active
                     a(href='') 审阅
@@ -54,7 +54,7 @@ div.navbar.navbar-inverse.navbar-fixed-top
                         button(type='submit',class='btn margin-top0', id='search-ico')
                                 i(class='icon-search')
           ul.nav.pull-right
-            if typeof(user) === 'undefined' || user === null
+            if typeof(user) === 'undefined' || user === null || user === ''
 
                 li.vertical-align.li-padding
                   span.height-auto
@@ -73,14 +73,14 @@ div.navbar.navbar-inverse.navbar-fixed-top
                     li
                       a(href='/user') 我的资料
                     li
-                      a(href='/u/#{user.name}') 我的微波
+                      a(href='/u/#{user.name}') 我的主页
 
                     li.divider
-                    li.nav-header Nav header
+                    li.nav-header 操作
                     li
-                      a(href='#') Separated link
+                      a(href='/post') 发表
                     li
-                      a(href='#') One more separated link
+                      a(href='#')
                 li
                   a(href='/logout') 退出
 

@@ -18,7 +18,7 @@ exports.index = function(req, res){
 exports.publish = function(req, res){
     var currentUser = req.session.user;
     var content =  req.body.content;
-
+    var title = req.body.title;
     if(currentUser === null){
         req.flash('error','请先登录！ ');
         return res.redirect('/post');
@@ -33,6 +33,7 @@ exports.publish = function(req, res){
     var post = new Post({
         username: currentUser.name,
         content: content,
+        title: title,
         creator:currentUser._id
     });
 

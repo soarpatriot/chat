@@ -10,7 +10,7 @@ var dbConfig = {
 module.exports = dbConfig;
 
 dbConfig.currentDb = function(){
-    return dbConfig.remoteMongolab;
+    return dbConfig.localMongo;
 }
 
 /**

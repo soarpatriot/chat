@@ -3,13 +3,21 @@ extends layout
 block append head
 
 block content
-  body
-    h1= title
-    div.container
-      form(class='well form-inline center',action='/post',method='post')
-        div.control-group
-          div.controls
-          textarea(class='span4', name='content')
-        div.control-group
-          div.controls
-          button(type='submit', class='btn btn-success') 发言
+    body
+
+        div.container
+            div.row-fluid
+                form(class='well form-inline center',action='/post',method='post')
+
+                          legend 发表
+                          div.control-group
+                              label(class='control-label', for='title') 标题：
+                              div.controls
+                                  input(name='title',type='text',class='input-xlarge')
+                          div.control-group
+                              label(class='control-label', for='title') 内容：
+                              div.controls
+                                  textarea(class='span6', name='content',rows='5')
+                          div.control-group
+                              div.controls
+                                  button(type='submit', class='btn btn-success') 发言

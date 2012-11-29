@@ -88,6 +88,12 @@ Post.prototype.top5 = function(callback){
         .exec(callback);
 
 };
+
+/**
+ * format the post pusTime to more readable
+ * @param posts
+ * @return {*}
+ */
 Post.formatDate = function(posts){
     for(var i=0; i<posts.length; i++){
         posts[i].fromNow = moment(posts[i].pusTime).fromNow();
@@ -100,6 +106,11 @@ Post.formatDate = function(posts){
     return posts;
 };
 
+/**
+ * generate an face for very post's author
+ * @param posts
+ * @return {*}
+ */
 Post.obtainUserSmallFace = function(posts){
     for(var i=0; i<posts.length; i++){
         posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
@@ -112,10 +123,25 @@ Post.obtainUserSmallFace = function(posts){
     return posts;
 }
 
+Post.reduce = function(posts){
+    for(var i=0; i<posts.length; i++){
+        var content = posts[i].content;
+        var end = 200;
+        if(null!== content && '' !==  content && content.length > end){
+            posts[i].content = content.substring(0, end);
+        }
+    }
+}
+
+/**
+ * after fetch posts. do some operation on the original data
+ * @param posts
+ * @return {*}
+ */
 Post.dealPosts = function(posts){
     posts = Post.formatDate(posts);
     posts = Post.obtainUserSmallFace(posts);
-
+    //posts = Post.reduce(posts);
     return posts;
 }
 

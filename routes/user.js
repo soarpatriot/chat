@@ -38,9 +38,10 @@ exports.index = function(req,res){
 }
 
 exports.reg = function(req, res){
+    console.log('sss'+user.toString());
     res.render('reg',{
         title: 'Register',
-
+        user : req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     })
@@ -160,7 +161,7 @@ exports.logout = function(req, res){
 exports.show = function(req,res){
     res.render('user/show',{
         title: '用户资料',
-
+        user: req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     });
