@@ -91,7 +91,6 @@ cloudinary.genSmallFace = function(faceId){
 
 
 
-
 cloudinary.genEditFace = function(faceId){
     if(_.isNull(faceId) || _.isUndefined(faceId)){
 
@@ -107,5 +106,11 @@ cloudinary.genEditFace = function(faceId){
     }
 
 };
+
+
+cloudinary.genBlogFace = function(faceId){
+    return this.genEditFace(faceId);
+};
+
 
 module.exports = cloudinary;

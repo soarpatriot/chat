@@ -17,19 +17,24 @@ var cloudinary = require('../models/cloudinary.js');
 exports.index = function(req,res){
     User.findOne({'name':req.params.user}, function(err,user){
         if(!user){
-            req.flush('error','用户不存在！');
-            return req.redirect('/');
+            req.flash('error','用户不存在！');
+            return res.redirect('/');
         }
-        console.log('User:'+user)
+
+        User.generateNormalFaceUrl(user);
+
         Post.find({'username':user.name}, function(err,posts){
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');
             }
+
+            posts = Post.dealPosts(posts);
+
             res.render('user-blogs',{
                 title: user.name,
                 posts: posts,
-                user: req.session.user,
+                user:  user,
                 success : req.flash('success').toString(),
                 error : req.flash('error').toString()
             })

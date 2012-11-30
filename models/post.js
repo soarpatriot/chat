@@ -7,6 +7,18 @@ var mongoose = require('mongoose'),
 var mongodb = require('./mongolab-db');
 var cloudinary = require('../models/cloudinary.js');
 
+
+var _  = require('underscore');
+
+// Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+_.str = require('underscore.string');
+
+// Mix in non-conflict functions to Underscore namespace if you want
+_.mixin(_.str.exports());
+
+// All functions, include conflict, will be available through _.str object
+_.str.include('Underscore.string', 'string'); // => true
+
 var moment = require('moment');
 moment.lang('zh-cn');
 
@@ -123,14 +135,14 @@ Post.obtainUserSmallFace = function(posts){
     return posts;
 }
 
-Post.reduce = function(posts){
-    for(var i=0; i<posts.length; i++){
-        var content = posts[i].content;
-        var end = 200;
-        if(null!== content && '' !==  content && content.length > end){
-            posts[i].content = content.substring(0, end);
-        }
-    }
+Post.truncate = function(posts){
+    var end = 200;
+    _.each(posts,function(post){
+        var content = post.content;
+        post.content = _(content).truncate(end);
+    });
+
+    return posts;
 }
 
 /**
@@ -141,7 +153,7 @@ Post.reduce = function(posts){
 Post.dealPosts = function(posts){
     posts = Post.formatDate(posts);
     posts = Post.obtainUserSmallFace(posts);
-    //posts = Post.reduce(posts);
+    posts = Post.truncate(posts);
     return posts;
 }
 

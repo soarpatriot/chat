@@ -13,11 +13,12 @@ var UserSchema = mongoose.Schema({
     email:'String',
     regTime:{ type: Date, default: Date.now }
 });
+
+
 var User = mongodb.db.model('User', UserSchema);
-
 module.exports = User;
+//virtual property need definded behind User
 UserSchema.virtual('faceUrl');
-
 
 UserSchema.pre('save', function (next) {
     console.log('this face url: '+this.faceUrl);
@@ -38,6 +39,18 @@ UserSchema.pre('update', function (next) {
     };
     next();
 });
+
+
+UserSchema.methods.generateNormalFaceUrl = function(){
+    this.faceUrl = cloudinary.genBlogFace(this.faceId);
+};
+
+
+User.generateNormalFaceUrl= function(user){
+    user.faceUrl = cloudinary.genBlogFace(user.faceId);
+};
+
+
 
 
 

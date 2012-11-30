@@ -3,14 +3,16 @@ extends layout
 block append head
 
 block content
-  body
+    body
+        div.row-fluid
+            div.span3.well-no-back
+                p
+                   img(src='#{user.faceUrl}')
+            div.span9
+                if typeof(posts) != 'undefined' && posts.length > 0
+                    each post, i in posts
 
-      if typeof(posts) != 'undefined' && posts.length > 0
-          each post, i in posts
-            if i % 3 == 0
-              div.row-fluid
-                div.span3
-                  p(class='auto-line') #{post.pusTime} #{post.username} say: #{post.content}
-            else
-                div.span3
-                  p(class='auto-line') #{post.pusTime} #{post.username} say: #{post.content}
+                        p(class='auto-line') #{post.fromNow} #{post.username} say: #{post.content}
+
+
+                        p(class='auto-line') #{post.fromNow} #{post.username} say: #{post.content}
