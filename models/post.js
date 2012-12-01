@@ -24,22 +24,25 @@ moment.lang('zh-cn');
 
 
 //Post's comments
-var Comment  = new Schema();
-
-Comment.add({
+var Comment  = new Schema({
     title: {type: String, index: true},
-    date: Date,
-    body: String,
-    comments:[Comment]
+    replyDate:  { type: Date, default: Date.now },
+    content: String,
+    rank:{type: Number, default: 0},
+    creator: {type: Schema.ObjectId, ref: 'User'}
 });
 
 var PostSchema = mongoose.Schema({
-    username: 'String',
+
     title: String,
     content: 'String',
     comments: [Comment],
     pusTime: { type: Date, default: Date.now },
-
+    rank:{type: Number, default: 0},
+    meta: {
+          votes : Number
+        , favs  : Number
+    },
     creator: {type: Schema.ObjectId, ref: 'User'}
 });
 
@@ -49,6 +52,12 @@ PostSchema.methods.findCreator = function(callback){
 PostSchema.statics.findBytitle = function(title,callback){
     return this.find({title: title},callback);
 };
+
+PostSchema.statics.findCreatorPost = function(userId,callback){
+    return this.find({creator: userId},callback);
+};
+
+
 PostSchema.methods.expressiveQuery = function(creator, date, callback){
     return this.find('creator', creator).where('pusTime').gte(date).run(callback);
 };

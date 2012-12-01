@@ -21,9 +21,9 @@ exports.index = function(req,res){
             return res.redirect('/');
         }
 
-        User.generateNormalFaceUrl(user);
+        User.adjustInformation(user);
 
-        Post.find({'username':user.name}, function(err,posts){
+        Post.findCreatorPost(user._id, function(err,posts){
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');

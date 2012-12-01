@@ -22,7 +22,7 @@ var home = require('./routes/index')
 
 
 //helpers
-var Utils = require('./helpers/utils');
+
 
 //error-handle
 var error = require('./routes/error')
@@ -98,6 +98,9 @@ app.get('/chat', chat.index);
 
 app.get('/post',post.index);
 app.post('/post',post.publish);
+app.get('/post/:id', post.get);
+
+app.post('/comment',post.comment);
 
 app.get('/u/:user', user.index);
 app.get('/reg', user.reg);
@@ -108,7 +111,7 @@ app.get('/login', user.login);
 
 app.get('/logout', user.logout);
 
-app.get('/blog/:id', post.get);
+
 
 app.get('/user',user.show);
 app.get('/user/edit',user.edit);

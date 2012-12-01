@@ -20,7 +20,7 @@ $(function(){
         }**/
     });
 
-    //var infoTip = new InfoTip;
+
 
 
     var infoTip = new InfoTip;

@@ -17,10 +17,34 @@ block content
                     a(class='jiathis_counter_style')
                     script(type='text/javascript',src='http://v2.jiathis.com/code/jia.js',charset='utf-8')
 
-        div.row-fluid
+        div.row-fluid.one-post
             div.span12
                 h3 #{post.title}
                 p #{post.content}
+                hr.soft
+
+
+            each comment, i in post.comments
+              div.row-fluid
+                 div.span12
+                    p #{comment.content}
+                    hr.soft
+
+        div.row-fluid
+            div.span12
+                form(class='well form-inline center',action='/comment',method='post')
+                      legend 评论
+                      div.control-group
+                          label(class='control-label', for='content') 内容：
+                          div.controls
+                              input(name='postId',type='hidden',value='#{post._id}')
+                              textarea(class='span6', name='content',rows='5')
+                      div.control-group
+                          div.controls
+                              button(type='submit', class='btn btn-success') 发言
+
+
+
 
 
 
