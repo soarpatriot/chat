@@ -369,10 +369,20 @@ body {
 .align-center{
     margin: 0 auto;
     text-align: center;
+
 }
 
 .one-post{
     min-height: 400px;
 }
 
+.up-down-post{
+    display: none;
+    z-index: 10;
+}
 
+.up-down-show{
+
+    display: block;
+    z-index: 10;
+}

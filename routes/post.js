@@ -3,8 +3,8 @@
  * GET Post
  */
 
-var Post = require('../models/post.js');
-
+var Post = require('../models/post.js'),
+    utils = require('../models/utils');
 
 exports.index = function(req, res){
     res.render('post', {
@@ -56,12 +56,13 @@ exports.comment = function(req,res){
     var currentUser = req.session.user;
     var content =  req.body.content;
 
-    if(currentUser === null){
+    console.log('current user'+currentUser);
+    if(utils.isObjEmpty(currentUser)){
         req.flash('error','请先登录！ ');
         return res.redirect('/post/'+postId);
     }
 
-    if( content === null ||  content===''){
+    if(utils.isEmpty(content)){
         req.flash('error','发言内容不能为！ ');
         return res.redirect('/post/'+postId);
     }
@@ -71,7 +72,6 @@ exports.comment = function(req,res){
             req.flash('error', err);
             return res.redirect('/post/'+postId);
         }
-        console.log('post'+ post);
 
         post.comments.push({ content: content,creator: currentUser._id});
         post.save(function(err){
@@ -100,4 +100,10 @@ exports.get = function(req,res){
             error : req.flash('error').toString()
         })
     });
+}
+
+
+exports.up = function(req,res){
+    var currentUser = req.session.user;
+    var content =  req.body.content;
 }

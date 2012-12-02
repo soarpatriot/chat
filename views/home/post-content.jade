@@ -22,11 +22,11 @@ if typeof(posts) !== 'undefined' && posts !== null
 
           div.row-fluid
               div.span12
-
-                   a(name='up-post',class='btn')
+                 li.up-and-down
+                   a(name='up-post',class='btn up')
                        i(class='icon-thumbs-up')
                        | 顶(7690)
-                   a(name='down-post',class='btn')
+                   a(name='down-post',class='btn down')
                        i(class='icon-thumbs-down')
                        | 踩(4578)
           div.row-fluid
@@ -39,6 +39,8 @@ if typeof(posts) !== 'undefined' && posts !== null
                        p.marketing-byline
                            #{post.creator.name} 发表于 #{post.fromNow}
           hr.soft
+
+
 
 
 

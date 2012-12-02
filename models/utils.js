@@ -21,11 +21,15 @@ var utils = {};
  * trim space, remove \n
  */
 utils.isEmpty = function(string){
-   return  _.isBlank(string) && _.isNull(string) && _.isUndefined(string);
+   return  _.isBlank(string) || _.isNull(string) ||  _.isUndefined(string);
 }
 
 utils.isNotEmpty = function(string){
     return  !_.isBlank(string) && !_.isNull(string) && !_.isUndefined(string);
+}
+
+utils.isObjEmpty = function(obj){
+    return   _.isNull(obj) || _.isUndefined(obj);
 }
 
 module.exports = utils;

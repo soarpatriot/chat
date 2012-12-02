@@ -1,30 +1,55 @@
 $(function(){
 
+    /**
+    $('a[name="up-post"]').popover({
+        animation:true,
 
-    var InfoTip = Backbone.Model.extend({
-        defaults:function(){
-            return{
-                title:'tip',
-                show: false
-            }
+        placement:'top',
+
+        title:'start',
+        content:'sdfend',
+        delay:{ show: 5000, hide: 2000 }
+    })**/
+    var UpDownView = Backbone.View.extend({
+        el: $("li.up-and-down"),
+        //statsTemplate: _.template($('#item-template').html()),
+
+        events: {
+            "click .up": "upPost"
+
+
         },
+        initialize: function() {
+            alert("sdfljhlsdf");
+            this.upPostLink = this.$('.up');
 
-        initialize: function(){
+        },
+        render: function() {
 
-            if(!this.get("title")){
-                this.set({"title": this.defaults.title});
-            }
+        },
+        upPost: function(){
+
+            var offset = this.upPostLink.offset();
+            alert('offset'+offset.top);
+            //$("a[name='up-post']").popover('show');
+            //$('#divPop').popover('show');
+            /**
+             $("#divPop").addClass('up-down-show');
+             //$("#divPop").css('position',)
+             $("#divPop") .animate({
+                "opacity": "hide",
+                "width": $(window).width()-100,
+                "height": $(window).height()-100,
+                "font-size":"50px"
+            }, 500 );**/
+
         }
-        /**
-         toggle: function(){
-            this.save({show:!this.get("show")});
-        }**/
+
+
     });
 
-
-
-
-    var infoTip = new InfoTip;
+    var upDownView = new UpDownView();
+    /**
     var HomeView = Backbone.View.extend({
         el: $("#home-div"),
         //statsTemplate: _.template($('#item-template').html()),
@@ -42,7 +67,21 @@ $(function(){
 
         },
         upPost: function(){
-            alert('sdfsssss');
+
+            var offset = $("a:last").offset();
+            alert('offset'+offset.top);
+            //$("a[name='up-post']").popover('show');
+            //$('#divPop').popover('show');
+
+            $("#divPop").addClass('up-down-show');
+            //$("#divPop").css('position',)
+            $("#divPop") .animate({
+                "opacity": "hide",
+                "width": $(window).width()-100,
+                "height": $(window).height()-100,
+                "font-size":"50px"
+            }, 500 );
+
         },
         downPost: function(){
             alert('sdf');
@@ -50,5 +89,5 @@ $(function(){
 
     });
 
-    var homeView = new HomeView();
+    var homeView = new HomeView();**/
 })
