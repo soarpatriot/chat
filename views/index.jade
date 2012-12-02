@@ -2,14 +2,10 @@ extends layout
 
 
 block append head
-     script
-       $(function(){
-         $('.popover-test').popover()
-       })
-
+    script(src='/javascripts/app/home.js')
 block content
   body
-      div.row-fluid
+      div(id='home-div',class='row-fluid')
           div(class='span8 well-no-back')
               div(class='tabbable')
                   ul(class='nav nav-tabs')
@@ -18,18 +14,20 @@ block content
                       li
                           a(href='#tab2',data-toggle='tab') 帮助
                       li
-                          a(href='#tab2',data-toggle='tab') 吐槽
+                          a(href='#tab3',data-toggle='tab') 吐槽
 
                   div(class='tab-content')
                       div(class='tab-pane active',id='tab1')
                           include home/post-content
 
                       div(class='tab-pane',id='tab2')
+                          p
+                             button(id='test', value='dsfds') test
+                      div(class='tab-pane',id='tab2')
                           p Howdy, I'm in Section 2.
           
           div(class='span4 well-no-back')
               h3.title 相关信息
-          
 
 
 

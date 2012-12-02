@@ -1,3 +1,10 @@
-mixin nav-active
-    li.active
 
+
+- var func = function(h,e,link) {
+    - if(typeof(h) !== 'undefined' && h === e)
+        li.active
+            #{link}
+    - else
+        li
+            #{link}
+- }

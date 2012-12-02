@@ -2,42 +2,45 @@
 
 
 if typeof(posts) !== 'undefined' && posts !== null
-each post, i in posts
-  div.row-fluid
-    div.span8
-       p
-         a(href='/user/#{post.creator._id}')
-           img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
-         | &nbsp;&nbsp;&nbsp;
-         a(href='/post/#{post._id}') #{post.title}
-    div.span4
-        div.pull-right
-          span(class='badge badge-success') 评论#{post.comments.length}
+    each post, i in posts
+          div.row-fluid
+            div.span8
+               p
+                 a(href='/user/#{post.creator._id}')
+                   img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
+                 | &nbsp;&nbsp;&nbsp;
+                 a(href='/post/#{post._id}') #{post.title}
+            div.span4
+                div.pull-right
+                  span(class='badge badge-success') 评论#{post.comments.length}
 
 
-  div.row-fluid
-      div.span12
-          p.blog-content
-               | #{post.content}
+          div.row-fluid
+              div.span12
+                  p.blog-content
+                       | #{post.content}
 
-  div.row-fluid
-      div.span12
+          div.row-fluid
+              div.span12
 
-           a(class='btn')
-               i(class='icon-thumbs-up')
-               | 顶(7690)
-           a(class='btn')
-               i(class='icon-thumbs-down')
-               | 踩(4578)
-  div.row-fluid
-           div.pull-left
-               p.marketing-byline
-                   | • 206 次浏览
-                   a(href='/post/reply') 回复
+                   a(name='up-post',class='btn')
+                       i(class='icon-thumbs-up')
+                       | 顶(7690)
+                   a(name='down-post',class='btn')
+                       i(class='icon-thumbs-down')
+                       | 踩(4578)
+          div.row-fluid
+                   div.pull-left
+                       p.marketing-byline
+                           | • 206 次浏览
+                           a(href='/post/reply') 回复
 
-           div.pull-right
-               p.marketing-byline
-                   #{post.creator.name} 发表于 #{post.fromNow}
-  hr.soft
+                   div.pull-right
+                       p.marketing-byline
+                           #{post.creator.name} 发表于 #{post.fromNow}
+          hr.soft
+
+
+
 
 

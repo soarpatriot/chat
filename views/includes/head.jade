@@ -1,87 +1,87 @@
 include display-nav
 
 div.navbar.navbar-inverse.navbar-fixed-top
-  div.navbar-inner
-    div.container
-      a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.brand(href='/') 翱翔中国
-      div.nav-collapse.collapse
-          ul.nav
+    div.navbar-inner
+        div.container
+            a.btn.btn-navbar(data-toggle='collapse', data-target='.nav-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.brand(href='/') 翱翔中国
+            div.nav-collapse.collapse
+                ul.nav
 
-            if(typeof(currentLink) !== 'undefined' && currentLink === 'HOME')
-                li.active
-                    a(href='/') 主页
-            else
-                li
-                    a(href='/') 主页
-            if(typeof(currentLink) !== 'undefined' && currentLink === 'MICRO')
-                li.active
-                    a(href='/post') 标签
-            else
-                li
-                    a(href='/post') 标签
-            if(typeof(currentLink) !== 'undefined' && currentLink === 'CHECK')
-                li.active
-                    a(href='') 审阅
-            else
-                li
-                    a(href='') 审阅
-
-
-            if typeof(currentLink) !== 'undefined' && currentLink === 'CHAT'
-                li.active
-                    a(href='/chat') 聊天
-            else
-                li
-                    a(href='/chat') 聊天
-            if( typeof(currentLink) !== 'undefined' && currentLink === 'ABOUT')
-                li.active
-                    a(href='') 关于
-            else
-                li
-
-                    a(href='') 关于
-
-            li
-              div.pull-right
-                  form(class='form-search navbar-form pull-right')
-                     div(class='input-append')
-                        input(type='text',class='input-medium search-query',placeholder='搜索')
-
-                        button(type='submit',class='btn margin-top0', id='search-ico')
-                                i(class='icon-search')
-          ul.nav.pull-right
-            if typeof(user) === 'undefined' || user === null || user === ''
-
-                li.vertical-align.li-padding
-                  span.height-auto
-                   a(href='/login') [登录]
-                   &nbsp / &nbsp
-                   a(href='/reg') [注册]
+                    if(typeof(currentLink) !== 'undefined' && currentLink === 'HOME')
+                        li.active
+                            a(href='/') 主页
+                    else
+                        li
+                            a(href='/') 主页
+                    if(typeof(currentLink) !== 'undefined' && currentLink === 'MICRO')
+                        li.active
+                            a(href='/post') 标签
+                    else
+                        li
+                            a(href='/post') 标签
+                    if(typeof(currentLink) !== 'undefined' && currentLink === 'CHECK')
+                        li.active
+                            a(href='') 审阅
+                    else
+                        li
+                            a(href='') 审阅
 
 
-            else
-                li.dropdown
-                  a(class='dropdown-toggle', href='#', data-toggle='dropdown')
-                    i(class='icon-user')
-                    | #{user.name}
-                    b.caret
-                  ul.dropdown-menu
+                    if typeof(currentLink) !== 'undefined' && currentLink === 'CHAT'
+                        li.active
+                            a(href='/chat') 聊天
+                    else
+                        li
+                            a(href='/chat') 聊天
+                    if( typeof(currentLink) !== 'undefined' && currentLink === 'ABOUT')
+                        li.active
+                            a(href='') 关于
+                    else
+                        li
+
+                            a(href='') 关于
+
                     li
-                      a(href='/user') 我的资料
-                    li
-                      a(href='/u/#{user.name}') 我的主页
+                      div.pull-right
+                          form(class='form-search navbar-form pull-right')
+                             div(class='input-append')
+                                input(type='text',class='input-medium search-query',placeholder='搜索')
 
-                    li.divider
-                    li.nav-header 操作
-                    li
-                      a(href='/post') 发表
-                    li
-                      a(href='#')
-                li
-                  a(href='/logout') 退出
+                                button(type='submit',class='btn margin-top0', id='search-ico')
+                                        i(class='icon-search')
+                ul.nav.pull-right
+                    if typeof(user) === 'undefined' || user === null || user === ''
+
+                        li.vertical-align.li-padding
+                            span.height-auto
+                               a(href='/login') [登录]
+                               &nbsp / &nbsp
+                               a(href='/reg') [注册]
+
+
+                    else
+                        li.dropdown
+                              a(class='dropdown-toggle', href='#', data-toggle='dropdown')
+                                i(class='icon-user')
+                                | #{user.name}
+                                b.caret
+                              ul.dropdown-menu
+                                li
+                                  a(href='/user') 我的资料
+                                li
+                                  a(href='/u/#{user.name}') 我的主页
+
+                                li.divider
+                                li.nav-header 操作
+                                li
+                                  a(href='/post') 发表
+                                li
+                                  a(href='#')
+                        li
+                          a(href='/logout') 退出
 
 

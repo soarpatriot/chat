@@ -58,12 +58,12 @@ exports.comment = function(req,res){
 
     if(currentUser === null){
         req.flash('error','请先登录！ ');
-        return res.redirect('/post');
+        return res.redirect('/post/'+postId);
     }
 
     if( content === null ||  content===''){
         req.flash('error','发言内容不能为！ ');
-        return res.redirect('/post');
+        return res.redirect('/post/'+postId);
     }
 
     Post.findOne({'_id':postId}, function(err,post){
