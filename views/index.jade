@@ -3,8 +3,12 @@ extends layout
 
 block append head
     script(src='/javascripts/app/home.js')
+    script
+
+
 block content
   body
+      input(id='posts-data',type='hidden',value='#{posts}')
       div(id='home-div',class='row-fluid')
           div(class='span8 well-no-back')
               div(class='tabbable')

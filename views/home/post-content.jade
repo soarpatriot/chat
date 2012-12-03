@@ -23,7 +23,7 @@ if typeof(posts) !== 'undefined' && posts !== null
           div.row-fluid
               div.span12
                  li.up-and-down
-                   a(name='up-post',class='btn up')
+                   a(name='up-post',class='btn up',data='#{post._id}')
                        i(class='icon-thumbs-up')
                        | 顶(7690)
                    a(name='down-post',class='btn down')

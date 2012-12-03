@@ -10,8 +10,64 @@ $(function(){
         content:'sdfend',
         delay:{ show: 5000, hide: 2000 }
     })**/
+
+    var postData = $('#posts-data').val();
+    //alert(postData);
+
+
+    var Post = Backbone.Model.extend({
+        idAttribute: "_id"
+
+
+    });
+    var Posts = Backbone.Collection.extend({
+        Model:Post
+    });
+
+    var post = new Post();
+        post.set({title:'sdfadf',content:'kaok'});
+    var posts = new Posts();
+
+    posts.add(post);
+    posts.add(postData);
+   // alert(posts.at(0).pusTime);
+
+
+    alert(JSON.stringify(posts));
+
+
+    posts.each(function(post){
+        alert(post.get('content'));
+    });
+    //alert('collection:  '+collection[0].email);
+    //   alert('posts:'+ posts);
+    var UpDown = Backbone.Model.extend({
+        defaults:function(){
+            return{
+                postId:'',
+                type: ''
+            }
+        },
+
+        initialize: function(){
+
+
+        }
+        /**
+         toggle: function(){
+            this.save({show:!this.get("show")});
+        }**/
+    });
+    var UpDownList = Backbone.Collection.extend({
+
+        // Reference to this collection's model.
+        model: UpDown
+    });
+
+    var UpDowns = new UpDownList;
+
     var UpDownView = Backbone.View.extend({
-        el: $("li.up-and-down"),
+
         //statsTemplate: _.template($('#item-template').html()),
 
         events: {
@@ -20,7 +76,7 @@ $(function(){
 
         },
         initialize: function() {
-            alert("sdfljhlsdf");
+            //alert("123");
             this.upPostLink = this.$('.up');
 
         },
@@ -28,9 +84,10 @@ $(function(){
 
         },
         upPost: function(){
-
+            //alert('sdfdf');
             var offset = this.upPostLink.offset();
-            alert('offset'+offset.top);
+            var postId = this.upPostLink.attr('data');
+            alert('offset'+offset.top+'  postId'+postId);
             //$("a[name='up-post']").popover('show');
             //$('#divPop').popover('show');
             /**
@@ -48,30 +105,36 @@ $(function(){
 
     });
 
-    var upDownView = new UpDownView();
-    /**
+
+
     var HomeView = Backbone.View.extend({
         el: $("#home-div"),
         //statsTemplate: _.template($('#item-template').html()),
 
         events: {
-            "click a[name='up-post']": "upPost",
-            "click a[name='down-post']": "downPost"
+
 
         },
         initialize: function() {
 
-
+            this.addAllUpAndDown();
         },
         render: function() {
 
         },
+
+        addAllUpAndDown: function(){
+
+
+            $("li.up-and-down").each(function(){
+                //var upDown = new UpDown();
+                new UpDownView().setElement($(this)) ;
+            })
+        }
+
+        /**
         upPost: function(){
 
-            var offset = $("a:last").offset();
-            alert('offset'+offset.top);
-            //$("a[name='up-post']").popover('show');
-            //$('#divPop').popover('show');
 
             $("#divPop").addClass('up-down-show');
             //$("#divPop").css('position',)
@@ -85,9 +148,9 @@ $(function(){
         },
         downPost: function(){
             alert('sdf');
-        }
+        }**/
 
     });
 
-    var homeView = new HomeView();**/
+    var homeView = new HomeView();
 })
