@@ -106,4 +106,66 @@ exports.get = function(req,res){
 exports.up = function(req,res){
     var currentUser = req.session.user;
     var content =  req.body.content;
+};
+
+
+exports.all = function(req,res){
+    var post = new Post();
+
+    post.top5(function(err, posts){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+
+        var formattedPosts = Post.dealPosts(posts);
+        var copyPosts = JSON.stringify(formattedPosts);
+        //res.render('posts',{copyPosts});
+        //res.setHeader()
+        res.contentType('json');//返回的数据类型
+        res.send(copyPosts);//给客户端返回一个json格式的数据
+        // res.end();
+
+        /**
+        res.format({
+            html: function(){
+                res.json(copyPosts);
+            },
+
+            text: function(){
+                res.json(copyPosts);
+            },
+
+            json: function(){
+                res.json(copyPosts);
+            }
+        });**/
+
+    });
+};
+
+exports.one = function(req,res){
+    Post.findOne({'_id':req.params.id}, function(err,post){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+        console.log('post:  '+post.toString());
+        res.contentType('json');//返回的数据类型
+        res.send(post);//给客户端返回一个json格式的数据
+        /**
+        res.format({
+            html: function(){
+                res.json(post);
+            },
+
+            text: function(){
+                res.json(post);
+            },
+
+            json: function(){
+                res.json(post);
+            }
+        });**/
+    });
 }

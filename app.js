@@ -100,6 +100,9 @@ app.get('/post',post.index);
 app.post('/post',post.publish);
 app.get('/post/:id', post.get);
 
+app.get('/posts',post.all);
+app.get('/posts/:id',post.one);
+
 app.post('/comment',post.comment);
 
 app.get('/u/:user', user.index);

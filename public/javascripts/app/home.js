@@ -16,28 +16,65 @@ $(function(){
 
 
     var Post = Backbone.Model.extend({
-        idAttribute: "_id"
-
+        idAttribute: "_id",
+        urlRoot : '/posts'
 
     });
     var Posts = Backbone.Collection.extend({
-        Model:Post
+        Model:Post,
+        url: '/posts'
     });
+    //Posts.fetch();
+
 
     var post = new Post();
         post.set({title:'sdfadf',content:'kaok'});
+
     var posts = new Posts();
+    posts.fetch({url:'/posts',
+        success:function(collection,response){
+            collection.each(function(post){
+                //alert(post.get('content'));
+            })
+        },
+        error:function(collection, response){
+            console.log(collection);
+            console.log(response);
+            alert('error');
+        }
+    });
+    //alert(JSON.stringify(p));
 
+    //posts.fetch();
     posts.add(post);
-    posts.add(postData);
+    //posts.add(postData);
    // alert(posts.at(0).pusTime);
+   var post2 = new Post();
+    post2.set('_id','50b775caa523bcab0a000004');
+    post2.fetch({urlRoot:'/posts',
+        success:function(data,response){
+            //alert(JSON.stringify(response) );
+
+            //alert(JSON.stringify(data) );
+
+        },
+        error:function(collection, response){
+            console.log(collection);
+            console.log(response);
+            alert('error');
+        }
+    });
+
+    post2.on("change", function() {
+        alert(post2.get("content"));
+    });
 
 
-    alert(JSON.stringify(posts));
 
 
+    //alert()
     posts.each(function(post){
-        alert(post.get('content'));
+        //alert(post.get('content'));
     });
     //alert('collection:  '+collection[0].email);
     //   alert('posts:'+ posts);

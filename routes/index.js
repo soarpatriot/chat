@@ -18,10 +18,11 @@ exports.index = function(req, res){
         }
 
         var formattedPosts = Post.dealPosts(posts);
-
+        var copyPosts = JSON.stringify(formattedPosts);
         res.render('index', {
             title: '翱翔中国',
             posts: formattedPosts,
+            copyPosts: copyPosts,
             user : req.session.user,
             currentLink: 'HOME',
             success : req.flash('success').toString(),
