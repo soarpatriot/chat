@@ -122,14 +122,22 @@ exports.all = function(req,res){
         var copyPosts = JSON.stringify(formattedPosts);
         //res.render('posts',{copyPosts});
         //res.setHeader()
-        res.contentType('json');//返回的数据类型
+        //res.contentType('json');//返回的数据类型
         res.send(copyPosts);//给客户端返回一个json格式的数据
         // res.end();
 
-        /**
+
         res.format({
             html: function(){
-                res.json(copyPosts);
+                res.render('index', {
+                    title: '翱翔中国',
+                    posts: formattedPosts,
+                    copyPosts: copyPosts,
+                    user : req.session.user,
+                    currentLink: 'HOME',
+                    success : req.flash('success').toString(),
+                    error : req.flash('error').toString()
+                });
             },
 
             text: function(){
@@ -139,7 +147,7 @@ exports.all = function(req,res){
             json: function(){
                 res.json(copyPosts);
             }
-        });**/
+        });
 
     });
 };
@@ -151,21 +159,21 @@ exports.one = function(req,res){
             return res.redirect('/');
         }
         console.log('post:  '+post.toString());
-        res.contentType('json');//返回的数据类型
-        res.send(post);//给客户端返回一个json格式的数据
-        /**
+        //res.contentType('json');//返回的数据类型
+        //res.send(post);//给客户端返回一个json格式的数据
+
         res.format({
             html: function(){
-                res.json(post);
+                //res.json(post);
             },
 
             text: function(){
-                res.json(post);
+                //res.json(post);
             },
 
             json: function(){
                 res.json(post);
             }
-        });**/
+        });
     });
 }

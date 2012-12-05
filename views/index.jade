@@ -14,20 +14,20 @@ block content
               div(class='tabbable')
                   ul(class='nav nav-tabs')
                       li(class='active')
-                          a(href='#tab1',data-toggle='tab') 最新
+                          a(href='#new',data-toggle='tab') 最新
                       li
                           a(href='#tab2',data-toggle='tab') 帮助
                       li
                           a(href='#tab3',data-toggle='tab') 吐槽
 
                   div(class='tab-content')
-                      div(class='tab-pane active',id='tab1')
-                          include home/post-content
+                      div(class='tab-pane active',id='new')
+                          include home/post-content-bone
 
                       div(class='tab-pane',id='tab2')
                           p
                              button(id='test', value='dsfds') test
-                      div(class='tab-pane',id='tab2')
+                      div(class='tab-pane',id='tab3')
                           p Howdy, I'm in Section 2.
           
           div(class='span4 well-no-back')

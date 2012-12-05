@@ -4,15 +4,15 @@
 if typeof(posts) !== 'undefined' && posts !== null
     each post, i in posts
           div.row-fluid
-            div.span8
-               p
-                 a(href='/user/#{post.creator._id}')
-                   img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
-                 | &nbsp;&nbsp;&nbsp;
-                 a(href='/post/#{post._id}') #{post.title}
-            div.span4
-                div.pull-right
-                  span(class='badge badge-success') 评论#{post.comments.length}
+                div.span8
+                   p
+                     a(href='/user/#{post.creator._id}')
+                       img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
+                     | &nbsp;&nbsp;&nbsp;
+                     a(href='/post/#{post._id}') #{post.title}
+                div.span4
+                    div.pull-right
+                      span(class='badge badge-success') 评论#{post.comments.length}
 
 
           div.row-fluid
@@ -39,6 +39,12 @@ if typeof(posts) !== 'undefined' && posts !== null
                        p.marketing-byline
                            #{post.creator.name} 发表于 #{post.fromNow}
           hr.soft
+
+
+<!-- Templates -->
+script(type="text/template",id="item-template")
+    h4 <%- title %>
+    | <%- content %>
 
 
 
