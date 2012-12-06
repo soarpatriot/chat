@@ -116,15 +116,21 @@ Post.prototype.top5 = function(callback){
  * @return {*}
  */
 Post.formatDate = function(posts){
+    var end =200;
     for(var i=0; i<posts.length; i++){
         posts[i].fromNow = moment(posts[i].pusTime).fromNow();
-        if(null!== posts[i].creator && 'undefined' !==  typeof(posts[i].creator)){
-            console.log('post creator: '+ posts[i].creator.name);
-        }
 
+        posts[i].content = _(posts[i].content).truncate(end);
+
+        posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
+
+        if(i===posts.length){
+            return posts;
+        }
     }
 
-    return posts;
+    //console.log('testststs                 '+ posts);
+
 };
 
 /**
@@ -132,14 +138,13 @@ Post.formatDate = function(posts){
  * @param posts
  * @return {*}
  */
-Post.obtainUserSmallFace = function(posts){
-    for(var i=0; i<posts.length; i++){
-        posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
-        if(null!== posts[i].creator && 'undefined' !==  typeof(posts[i].creator)){
-            console.log('post creator faceUrl: '+ posts[i].creator.faceUrl);
-        }
+Post.obtainUserSmallFace = function(posts,callback){
 
-    }
+    _.each(posts,function(post,callback){
+
+        post.creator.faceUrl = cloudinary.genSmallFace(post.creator.faceId);
+        console.log('face:  '+post.creator.faceUrl);
+    });
 
     return posts;
 }
@@ -160,9 +165,11 @@ Post.truncate = function(posts){
  * @return {*}
  */
 Post.dealPosts = function(posts){
-    posts = Post.formatDate(posts);
     posts = Post.obtainUserSmallFace(posts);
-    posts = Post.truncate(posts);
+    //posts = Post.obtainUserSmallFace(posts);
+    //posts = Post.truncate(posts);
+
+    console.log('sadfadfadfadsfadfadfadfadsfad                 '+ posts);
     return posts;
 }
 

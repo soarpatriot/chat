@@ -11,136 +11,111 @@ $(function(){
         delay:{ show: 5000, hide: 2000 }
     })**/
 
-    var postData = $('#posts-data').val();
+    //var postData = $('#posts-data').val();
     //alert(postData);
 
-
-    var Post = Backbone.Model.extend({
-        idAttribute: "_id",
-        urlRoot : '/posts'
+    var User = Backbone.Model.extend({
 
     });
-    var Posts = Backbone.Collection.extend({
+
+    var user  = new User();
+    var Post = Backbone.Model.extend({
+        idAttribute: "_id",
+        urlRoot : '/posts',
+        creator: user
+
+    });
+    var PostList = Backbone.Collection.extend({
         Model:Post,
         url: '/posts'
     });
-    //Posts.fetch();
 
-    /**
-    var post = new Post();
-        post.set({title:'sdfadf',content:'kaok'});
+    var Posts = new PostList;
 
-    var posts = new Posts();
+    var PostView = Backbone.View.extend({
 
+        tagName: "div",
 
-
-    posts.fetch({url:'/posts',
-        success:function(collection,response){
-            collection.each(function(post){
-                //alert(post.get('content'));
-            })
+        template: _.template($('#item-template').html()),
+        // The DOM events specific to an item.
+        events: {
+            "click a[name='up-post']": "upPost",
+            "click a[name='down-post']": "downPost"
         },
-        error:function(collection, response){
-            console.log(collection);
-            console.log(response);
-            alert('error');
-        }
-    });**/
-    //alert(JSON.stringify(p));
 
-    //posts.fetch();
+        // The TodoView listens for changes to its model, re-rendering. Since there's
+        // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+        // app, we set a direct reference on the model for convenience.
+        initialize: function() {
+            //this.upPost = this.$('a[name="up-post"]');
+            //this.downPost = this.$('a[name="down-post"]');
 
-    //posts.add(postData);
-   // alert(posts.at(0).pusTime);
-        /**
-   var post2 = new Post();
-    post2.set('_id','50b775caa523bcab0a000004');
-    post2.fetch({urlRoot:'/posts',
-        success:function(data,response){
-            //alert(JSON.stringify(response) );
-
-            //alert(JSON.stringify(data) );
-
+            //this.model.on('change', this.render, this);
+            //this.model.on('destroy', this.remove, this);
         },
-        error:function(collection, response){
-            console.log(collection);
-            console.log(response);
-            alert('error');
+
+        // Re-render the titles of the todo item.
+        render: function() {
+           // alert(this.model.toJSON());
+            this.$el.html(this.template(this.model.toJSON()));
+            //this.$el.toggleClass('done', this.model.get('done'));
+            //this.input = this.$('.edit');
+            this.upPost = this.$('a[name="up-post"]');
+            this.downPost = this.$('a[name="down-post"]');
+
+
+            return this;
+        },
+        upPost: function(){
+            var offset = this.upPost.offset();
+            alert(offset.top);
+        },
+        downPost:function(){
+            alert('sdfsd');
         }
+
     });
 
-    post2.on("change", function() {
-        alert(post2.get("content"));
-    });
 
-
-
-
-    posts.on("fetch", function() {
-        this.each(function(post){
-            alert(post.get('content'));
-        });
-    },this);**/
-
-    //alert()
-
-    //alert('collection:  '+collection[0].email);
-    //   alert('posts:'+ posts);
 
 
     var NewView = Backbone.View.extend({
         el: $("#new"),
 
         events: {
-            "click a[name='up-post']": "upPost",
-            "click a[name='down-post']": "downPost"
-        },
-        initialize: function() {
-            this.up = $('a[name="up-post"]');
-            this.down = $('a[name="down-post"]');
-        },
-        render: function() {
-
-        },
-        upPost: function(){
-
-        },
-        downPost:function(){
-
-        }
-
-
-    });
-
-
-    var HomeView = Backbone.View.extend({
-        el: $("#home-div"),
-        //statsTemplate: _.template($('#item-template').html()),
-
-        events: {
-
 
         },
         initialize: function() {
+           // this.posts = this.$('#posts');
+            Posts.on('add', this.addOne, this);
+            Posts.on('reset', this.addAll, this);
+            Posts.on('all', this.render, this);
 
-            this.addAllUpAndDown();
+            Posts.fetch();
         },
         render: function() {
 
         },
         addOne: function(post) {
-            var view = new NewView({model: post});
-            this.$("#new").append(view.render().el);
+            //alert(JSON.stringify(post));
+
+            //alert(post.comments.length);
+            var view = new PostView({model: post});
+            this.$('#posts').append(view.render().el);
         },
 
         // Add all items in the **Todos** collection at once.
         addAll: function() {
-            Todos.each(this.addOne);
-        },
-        addAllUpAndDown: function(){
-
-
+            Posts.each(this.addOne);
         }
+
+
+
+
+    });
+
+    var newView = new NewView();
+
 
         /**
         upPost: function(){
@@ -160,7 +135,7 @@ $(function(){
             alert('sdf');
         }**/
 
-    });
 
-    var homeView = new HomeView();
+
+    //var homeView = new HomeView();
 })
