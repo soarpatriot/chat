@@ -68,33 +68,17 @@ PostSchema.methods.formatDate = function(){
 
 };
 
-/**
-PostSchema
-    .virtual('author')
-    .get(function(){
-        if(null!==this.creator){
-            User.findById(this.creator,function(err,user){
-                if(null!== user.name ){
-                    console.log('User inform: ' + user.name);
-                }
 
-                return user;
-            });
-        }
+PostSchema
+    .virtual('fromNow')
+    .get(function(){
+        return moment(this.pusTime).fromNow();
     })
     .set(function(){
-        if(null!==this.creator){
-            User.findById(this.creator,function(err,user){
-                if(null!== user.name ){
-                    console.log('User inform: ' + user.name);
-                }
-
-                return user;
-            });
-        }
+        moment(this.pusTime).fromNow();
     })
 
-**/
+
 
 
 
@@ -159,17 +143,40 @@ Post.truncate = function(posts){
     return posts;
 }
 
+test = function(postsOrigal){
+    var posts = postsOrigal;
+    var end = 200;
+    return {
+        format: function(){
+            for(var i=0; i<posts.length; i++){
+                posts[i].fromNow = moment(posts[i].pusTime).fromNow();
+
+                posts[i].content = _(posts[i].content).truncate(end);
+
+                posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
+
+            }
+        },
+        postsData: function(){
+            return posts;
+        }
+
+    };
+}
+
 /**
  * after fetch posts. do some operation on the original data
  * @param posts
  * @return {*}
  */
 Post.dealPosts = function(posts){
-    posts = Post.obtainUserSmallFace(posts);
+    posts = Post.formatDate(posts);
     //posts = Post.obtainUserSmallFace(posts);
     //posts = Post.truncate(posts);
+    var t = test(posts);
+    t.format();
 
-    console.log('sadfadfadfadsfadfadfadfadsfad                 '+ posts);
+    console.log('sadfadfadfadsfadfadfadfadsfad                 '+ t.postsData());
     return posts;
 }
 
