@@ -11,15 +11,6 @@ exports.index = function(req, res){
 
     var post = new Post();
 
-    res.render('index', {
-        title: '翱翔中国',
-
-        user : req.session.user,
-        currentLink: 'HOME',
-        success : req.flash('success').toString(),
-        error : req.flash('error').toString()
-    });
-    /**
 
     post.top5(function(err, posts){
         if(err){
@@ -27,12 +18,13 @@ exports.index = function(req, res){
             return res.redirect('/');
         }
 
-        var formattedPosts = Post.dealPosts(posts);
-        var copyPosts = JSON.stringify(formattedPosts);
+        //var formattedPosts = Post.dealPosts(posts);
+
+
+
         res.render('index', {
             title: '翱翔中国',
-            posts: formattedPosts,
-            copyPosts: copyPosts,
+
             user : req.session.user,
             currentLink: 'HOME',
             success : req.flash('success').toString(),
@@ -40,7 +32,7 @@ exports.index = function(req, res){
         });
 
 
-    });**/
+    });
 
 
 };

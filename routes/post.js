@@ -6,6 +6,29 @@
 var Post = require('../models/post.js'),
     utils = require('../models/utils');
 
+
+
+var cloudinary = require('../models/cloudinary.js');
+
+
+var _  = require('underscore');
+
+// Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+_.str = require('underscore.string');
+
+// Mix in non-conflict functions to Underscore namespace if you want
+_.mixin(_.str.exports());
+
+// All functions, include conflict, will be available through _.str object
+_.str.include('Underscore.string', 'string'); // => true
+
+var moment = require('moment');
+moment.lang('zh-cn');
+
+
+
+
+
 exports.index = function(req, res){
     res.render('post', {
         title: 'Say',
@@ -118,12 +141,25 @@ exports.all = function(req,res){
             return res.redirect('/');
         }
 
+        /**
+        var end =200;
+        for(var i=0; i<posts.length; i++){
+            posts[i].set('fromNow',moment(posts[i].pusTime).fromNow());
+
+            posts[i].content = _(posts[i].content).truncate(end);
+
+            posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
+            //console.log(posts[i]);
+
+        }**/
+
         var formattedPosts = Post.dealPosts(posts);
-        var copyPosts = JSON.stringify(formattedPosts);
+        //var formattedPosts = Post.dealPosts(posts);
+        //var copyPosts = JSON.stringify(formattedPosts);
         //res.render('posts',{copyPosts});
         //res.setHeader()
         //res.contentType('json');//返回的数据类型
-        //console.log(formattedPosts);
+        //console.log(posts);
         res.send(formattedPosts);//给客户端返回一个json格式的数据
         // res.end();
 

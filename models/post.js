@@ -7,6 +7,7 @@ var mongoose = require('mongoose'),
 var mongodb = require('./mongolab-db');
 var cloudinary = require('../models/cloudinary.js');
 
+//Schema.set('toJSON', { virtuals: true });
 
 var _  = require('underscore');
 
@@ -46,6 +47,8 @@ var PostSchema = mongoose.Schema({
     creator: {type: Schema.ObjectId, ref: 'User'}
 });
 
+
+
 PostSchema.methods.findCreator = function(callback){
     return this.db.model('User','UserSchema').findById(this.creator,callback);
 };
@@ -68,21 +71,21 @@ PostSchema.methods.formatDate = function(){
 
 };
 
+PostSchema.set('toJSON', { virtuals: true });
 
-PostSchema
-    .virtual('fromNow')
-    .get(function(){
+
+var fromNow = PostSchema.virtual('fromNow')
+fromNow.get(function(){
         return moment(this.pusTime).fromNow();
-    })
-    .set(function(){
+    });
+fromNow.set(function(){
         moment(this.pusTime).fromNow();
-    })
-
-
-
+    });
 
 
 var Post = mongodb.db.model('Post', PostSchema);
+
+
 
 
 Post.prototype.top5 = function(callback){
@@ -101,18 +104,26 @@ Post.prototype.top5 = function(callback){
  */
 Post.formatDate = function(posts){
     var end =200;
-    for(var i=0; i<posts.length; i++){
-        posts[i].fromNow = moment(posts[i].pusTime).fromNow();
+    var i = 0;
+
+    for(; i<posts.length; i++){
+        posts[i].toObject({ getters: true, virtuals: true });
+        //posts[i].fromNow = moment(posts[i].pusTime).fromNow();
+
+        //copiedPost[i].fromNow = moment(posts[i].pusTime).fromNow();
 
         posts[i].content = _(posts[i].content).truncate(end);
+        posts[i].set({'fromNow':'1nian'});
+        posts[i].set({'content':'好的'});
+        posts[i].set({'creator.faceUrl':cloudinary.genSmallFace(posts[i].creator.faceId)});
 
-        posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
-
-        if(i===posts.length){
-            return posts;
-        }
+        console.log('12    '+ posts[i].get('fromNow'));
+        console.log('34    '+ posts[i].get('creator.faceUrl'));
+        console.log('22    '+ posts[i].get('content'));
+        console.log('56    '+ posts[i]);
     }
 
+    return posts;
     //console.log('testststs                 '+ posts);
 
 };
@@ -143,26 +154,6 @@ Post.truncate = function(posts){
     return posts;
 }
 
-test = function(postsOrigal){
-    var posts = postsOrigal;
-    var end = 200;
-    return {
-        format: function(){
-            for(var i=0; i<posts.length; i++){
-                posts[i].fromNow = moment(posts[i].pusTime).fromNow();
-
-                posts[i].content = _(posts[i].content).truncate(end);
-
-                posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
-
-            }
-        },
-        postsData: function(){
-            return posts;
-        }
-
-    };
-}
 
 /**
  * after fetch posts. do some operation on the original data
@@ -170,17 +161,59 @@ test = function(postsOrigal){
  * @return {*}
  */
 Post.dealPosts = function(posts){
-    posts = Post.formatDate(posts);
-    //posts = Post.obtainUserSmallFace(posts);
-    //posts = Post.truncate(posts);
-    var t = test(posts);
-    t.format();
 
-    console.log('sadfadfadfadsfadfadfadfadsfad                 '+ t.postsData());
+    posts = Post.formatDate(posts);
+
     return posts;
 }
 
+
+
 module.exports = Post;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
 var mongodb = require('./db')
