@@ -160,7 +160,7 @@ exports.all = function(req,res){
         //res.setHeader()
         //res.contentType('json');//返回的数据类型
         //console.log(posts);
-        res.send(formattedPosts);//给客户端返回一个json格式的数据
+        res.send(JSON.stringify(formattedPosts));//给客户端返回一个json格式的数据
         // res.end();
 
         /**

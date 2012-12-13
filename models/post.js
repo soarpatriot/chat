@@ -23,15 +23,19 @@ _.str.include('Underscore.string', 'string'); // => true
 var moment = require('moment');
 moment.lang('zh-cn');
 
-
+var schemaOptions = {
+    toJSON: {
+        virtuals: true
+    }
+};
 //Post's comments
 var Comment  = new Schema({
-    title: {type: String, index: true},
+    title: {type: String, index: true,default: '无标题'},
     replyDate:  { type: Date, default: Date.now },
     content: String,
     rank:{type: Number, default: 0},
     creator: {type: Schema.ObjectId, ref: 'User'}
-});
+},schemaOptions);
 
 var PostSchema = mongoose.Schema({
 
@@ -45,7 +49,7 @@ var PostSchema = mongoose.Schema({
         , favs  : Number
     },
     creator: {type: Schema.ObjectId, ref: 'User'}
-});
+},schemaOptions);
 
 
 
@@ -71,7 +75,6 @@ PostSchema.methods.formatDate = function(){
 
 };
 
-PostSchema.set('toJSON', { virtuals: true });
 
 
 var fromNow = PostSchema.virtual('fromNow')
@@ -107,20 +110,22 @@ Post.formatDate = function(posts){
     var i = 0;
 
     for(; i<posts.length; i++){
-        posts[i].toObject({ getters: true, virtuals: true });
+        //posts[i].toObject({ getters: true, virtuals: true });
         //posts[i].fromNow = moment(posts[i].pusTime).fromNow();
 
         //copiedPost[i].fromNow = moment(posts[i].pusTime).fromNow();
 
-        posts[i].content = _(posts[i].content).truncate(end);
-        posts[i].set({'fromNow':'1nian'});
-        posts[i].set({'content':'好的'});
-        posts[i].set({'creator.faceUrl':cloudinary.genSmallFace(posts[i].creator.faceId)});
+         // posts[i].content = _(posts[i].content).truncate(end);
 
-        console.log('12    '+ posts[i].get('fromNow'));
-        console.log('34    '+ posts[i].get('creator.faceUrl'));
-        console.log('22    '+ posts[i].get('content'));
+        posts[i].set({'content':_(posts[i].content).truncate(end)});
+        //posts[i].creator.set({'creator.faceUrl':cloudinary.genSmallFace(posts[i].creator.faceId)});
+
+
         console.log('56    '+ posts[i]);
+
+        console.log('78    '+ JSON.stringify(posts[i]));
+
+
     }
 
     return posts;

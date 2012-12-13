@@ -25,20 +25,41 @@ var moment = require('moment');
 moment.lang('zh-cn');
 
 
+var schemaOptions = {
+    toJSON: {
+        virtuals: true
+    }
+};
+
 var UserSchema = mongoose.Schema({
     name: 'String',
     password: 'String',
     faceId: 'String',
     gender: { type: String, default: '未知' },
     email:'String',
-    regTime:{ type: Date, default: Date.now }
-});
+    regTime:{ type: Date, default: Date.now },
+    face: {
+        thumbnails : String
+        ,media  : String
+        ,big:   String
+    }
+},schemaOptions);
+
+
+
 
 
 var User = mongodb.db.model('User', UserSchema);
 module.exports = User;
+
 //virtual property need definded behind User
-UserSchema.virtual('faceUrl');
+var faceUrl = UserSchema.virtual('faceUrl');
+faceUrl.get(function(){
+    this.face.thumbnails = cloudinary.genSmallFace(this.faceId);
+    this.faceUrl = this.face.thumbnails;
+    return this.faceUrl;
+});
+
 UserSchema.virtual('regTimeStr');
 UserSchema.virtual('flyAge');
 
