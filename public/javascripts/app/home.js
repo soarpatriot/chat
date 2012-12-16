@@ -1,7 +1,7 @@
 $(function(){
 
     /**
-    $('a[name="up-post"]').popover({
+     $('a[name="up-post"]').popover({
         animation:true,
 
         placement:'top',
@@ -52,11 +52,12 @@ $(function(){
 
             //this.model.on('change', this.render, this);
             //this.model.on('destroy', this.remove, this);
+            //this.upDownCover = $('#smart-cover');
         },
 
         // Re-render the titles of the todo item.
         render: function() {
-           // alert(this.model.toJSON());
+            // alert(this.model.toJSON());
             this.$el.html(this.template(this.model.toJSON()));
             //this.$el.toggleClass('done', this.model.get('done'));
             //this.input = this.$('.edit');
@@ -68,7 +69,55 @@ $(function(){
         },
         upPost: function(){
             var offset = this.upPost.offset();
-            alert(offset.top);
+
+            //var $upDownCover= $('<div>sdfsdfsdfsdfsdfds</div>');
+            var top = offset.top;
+            var left = offset.left;
+
+            var linkHalfHeight = 15;
+            var linkHalfWidth = 50;
+
+            var targetTop = top - linkHalfHeight;
+            var targetLeft = left - linkHalfWidth;
+
+            //$('#smart-cover').css('width','100px');
+            //$('#smart-cover').css('height','30px');
+            $('#smart-cover').css('font-size','20px');
+            //$('#smart-cover').css('padding-top','7.5px');
+            //$('#smart-cover').css('padding-bottom','7.5px');
+            $('#smart-cover').css('display','none');
+            $('#smart-cover').css('opacity', '1');
+            $('#smart-cover').css('top', top);
+            $('#smart-cover').css('left', left);
+            $('#smart-cover').css('display', 'block');
+
+            $('#smart-cover').animate({
+
+                'font-size': "30px",
+
+                top: targetTop,
+                left: targetLeft,
+                opacity: "0.5"
+            }, 1000).fadeOut(5000);
+
+            /**
+            $upDownCover.removeClass();
+            $upDownCover.addClass("up-down-cover");
+            this.$el.append($upDownCover);
+            $upDownCover.css("opacity", "1");
+            $upDownCover.css("top", top);
+            $upDownCover.css("left", left);
+            $upDownCover.css("display", "block");
+            //alert($upDownCover.html());
+            $upDownCover.animate({
+                width: "200px",
+                height: "60px",
+
+                opacity: "0.5"
+            }, 5000).fadeOut("slow");**/
+
+            //$upDownCover.remove();
+            //alert(offset.top);
         },
         downPost:function(){
             alert('sdfsd');
@@ -86,7 +135,7 @@ $(function(){
 
         },
         initialize: function() {
-           // this.posts = this.$('#posts');
+            // this.posts = this.$('#posts');
             Posts.on('add', this.addOne, this);
             Posts.on('reset', this.addAll, this);
             Posts.on('all', this.render, this);
@@ -117,8 +166,8 @@ $(function(){
     var newView = new NewView();
 
 
-        /**
-        upPost: function(){
+    /**
+     upPost: function(){
 
 
             $("#divPop").addClass('up-down-show');
@@ -131,7 +180,7 @@ $(function(){
             }, 500 );
 
         },
-        downPost: function(){
+     downPost: function(){
             alert('sdf');
         }**/
 

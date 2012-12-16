@@ -1,37 +1,34 @@
-
-
-
 <!-- Templates -->
 script(type="text/template",id="item-template")
+    div.row-fluid
+        div.span8
+            p
+                a('href=/user/"<%- _id %>"')
+                    img('src="<%- creator.faceUrl %>"')
+                | &nbsp;&nbsp;&nbsp;
+                a('href=/post/"<%- _id %>"') sdfsdf <%- title %>
 
-        div.row-fluid
-            div.span8
-               p
-                 a('href=/user/"<%- _id %>"')
+        div.span4
+            div.pull-right
+                span(class='badge badge-success') 评论 <%= comments.length %>
+    div.row-fluid
+        div.span12
+            p.blog-content
+                | <%- content %>
+    div.row-fluid
+        div.span12
+            a(name='up-post',class='btn up','data="<%- _id %>"')
+                i(class='icon-thumbs-up')
+                | 顶(7690)
+            | &nbsp;
+            a(name='down-post',class='btn down')
+                i(class='icon-thumbs-down')
+                | 踩(4578)
+    hr.soft
 
-                   img('src="<%- creator.faceUrl %>"')
-                 | &nbsp;&nbsp;&nbsp;
-                 a('href=/post/"<%- _id %>"') sdfsdf <%- title %>
+div(id='smart-cover',class='up-down-cover')
+    | 顶+1
 
-            div.span4
-                div.pull-right
-                  span(class='badge badge-success') 评论 <%= comments.length %>
-
-
-        div.row-fluid
-              div.span12
-                  p.blog-content
-                       | <%- content %>
-
-        div.row-fluid
-               div.span12
-                   li.up-and-down
-                       a(name='up-post',class='btn up','data="<%- _id %>"')
-                           i(class='icon-thumbs-up')
-                           | 顶(7690)
-                       a(name='down-post',class='btn down')
-                           i(class='icon-thumbs-down')
-                           | 踩(4578)
 
 
 

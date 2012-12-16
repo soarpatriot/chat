@@ -9,9 +9,17 @@ exports.index = function(req, res){
 
 
 
-    var post = new Post();
+    //var post = new Post();
 
+    res.render('index', {
+        title: '翱翔中国',
+        user : req.session.user,
+        currentLink: 'HOME',
+        success : req.flash('success').toString(),
+        error : req.flash('error').toString()
+    });
 
+    /**
     post.top5(function(err, posts){
         if(err){
             req.flash('error', err);
@@ -22,17 +30,9 @@ exports.index = function(req, res){
 
 
 
-        res.render('index', {
-            title: '翱翔中国',
-
-            user : req.session.user,
-            currentLink: 'HOME',
-            success : req.flash('success').toString(),
-            error : req.flash('error').toString()
-        });
 
 
-    });
+    });**/
 
 
 };

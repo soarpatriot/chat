@@ -386,3 +386,13 @@ body {
     display: block;
     z-index: 10;
 }
+
+.up-down-cover{
+    border: 3px solid #E3E3E3;
+
+    text-align: center;
+    position: absolute;
+    display: none;
+    padding: 10px;
+    z-index: 100;
+}
