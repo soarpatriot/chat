@@ -39,7 +39,7 @@ $(function(){
         template: _.template($('#item-template').html()),
         // The DOM events specific to an item.
         events: {
-            "click a[name='up-post']": "upPost",
+            "click a[name='up-post'][disabled!=true]": "upPost",
             "click a[name='down-post']": "downPost"
         },
 
@@ -52,7 +52,7 @@ $(function(){
 
             //this.model.on('change', this.render, this);
             //this.model.on('destroy', this.remove, this);
-            //this.upDownCover = $('#smart-cover');
+            //this.upDownCover = $upDownCover;
         },
 
         // Re-render the titles of the todo item.
@@ -69,8 +69,11 @@ $(function(){
         },
         upPost: function(){
             var offset = this.upPost.offset();
+            //this.$el.remove($upDownCover);
+            this.$('a[name="up-post"]').attr("disabled",true);
+            this.$('a[name="down-post"]').attr("disabled",true);
 
-            //var $upDownCover= $('<div>sdfsdfsdfsdfsdfds</div>');
+            var $upDownCover= $('<div class="up-down-cover">顶 +1</div>');
             var top = offset.top;
             var left = offset.left;
 
@@ -79,26 +82,25 @@ $(function(){
 
             var targetTop = top - linkHalfHeight;
             var targetLeft = left - linkHalfWidth;
+            this.$el.append($upDownCover);
+            $upDownCover.css('width','100px');
+            $upDownCover.css('height','30px');
+            $upDownCover.css('font-size','20px');
+            $upDownCover.css('padding-top','10px');
+            //$upDownCover.css('padding-bottom','7.5px');
+            $upDownCover.css('display','none');
+            $upDownCover.css('opacity', '1');
+            $upDownCover.css('top', top);
+            $upDownCover.css('left', left);
+            $upDownCover.css('display', 'block');
 
-            //$('#smart-cover').css('width','100px');
-            //$('#smart-cover').css('height','30px');
-            $('#smart-cover').css('font-size','20px');
-            //$('#smart-cover').css('padding-top','7.5px');
-            //$('#smart-cover').css('padding-bottom','7.5px');
-            $('#smart-cover').css('display','none');
-            $('#smart-cover').css('opacity', '1');
-            $('#smart-cover').css('top', top);
-            $('#smart-cover').css('left', left);
-            $('#smart-cover').css('display', 'block');
-
-            $('#smart-cover').animate({
+            $upDownCover.animate({
 
                 'font-size': "30px",
 
-                top: targetTop,
-                left: targetLeft,
+
                 opacity: "0.5"
-            }, 1000).fadeOut(5000);
+            }, 1000).fadeOut(1000);
 
             /**
             $upDownCover.removeClass();
