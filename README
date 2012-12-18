@@ -3,27 +3,7 @@
 *Author Soar
 *All rights reserved
 *
-* v0.1.1
+* v 0.1.1
 **/
 heroku scale web=1
 
-
-Task:
-
-1.show user face
-2.success fail tip  spin
-3.post content responsive
-
-1. change chat css to responsive -- done
-2. add only login user can chat --
-
-3. only login user can post blog -- done
-4. refactor post fields change post to content -- done
-
-5. metero  investigate  -- done
-
-6. register user can redirect to original page where he comes -- consider
-
-7. form change to add legend --done
-
-8. chat list and private chat ----------

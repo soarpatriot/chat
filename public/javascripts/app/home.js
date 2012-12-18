@@ -122,7 +122,7 @@ $(function(){
             //alert(offset.top);
         },
         downPost:function(){
-            alert('sdfsd');
+
         }
 
     });
@@ -168,25 +168,5 @@ $(function(){
     var newView = new NewView();
 
 
-    /**
-     upPost: function(){
 
-
-            $("#divPop").addClass('up-down-show');
-            //$("#divPop").css('position',)
-            $("#divPop") .animate({
-                "opacity": "hide",
-                "width": $(window).width()-100,
-                "height": $(window).height()-100,
-                "font-size":"50px"
-            }, 500 );
-
-        },
-     downPost: function(){
-            alert('sdf');
-        }**/
-
-
-
-    //var homeView = new HomeView();
 })
