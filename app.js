@@ -102,6 +102,8 @@ app.get('/post/:id', post.get);
 
 app.get('/posts',post.all);
 app.get('/posts/:id',post.one);
+app.post('/posts',post.up);
+app.put('/posts/:id',post.up);
 
 app.post('/comment',post.comment);
 

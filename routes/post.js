@@ -126,10 +126,6 @@ exports.get = function(req,res){
 }
 
 
-exports.up = function(req,res){
-    var currentUser = req.session.user;
-    var content =  req.body.content;
-};
 
 
 exports.all = function(req,res){
@@ -204,5 +200,47 @@ exports.one = function(req,res){
                 res.json(post);
             }
         });
+    });
+}
+
+exports.up = function(req,res){
+
+
+
+    console.log("sdfadfadfadfadf..........");
+    Post.findOne({'_id':req.params.id}, function(err,post){
+        if(err){
+            req.flash('error', err);
+            return res.redirect('/');
+        }
+
+        var up = post.get("up")+1;
+
+        post.update({ up: up }, { multi: true }, function (err, numberAffected, raw) {
+            console.log('The number of updated documents was %d', numberAffected);
+            console.log('The raw response from Mongo was ', raw);
+            if (err) {
+                return handleError(err);
+            }else{
+
+                res.format({
+                    html: function(){
+                        //res.json(post);
+                    },
+
+                    text: function(){
+                        //res.json(post);
+                    },
+
+                    json: function(){
+                        res.json(post);
+                    }
+                });
+
+            }
+
+        });
+
+
     });
 }

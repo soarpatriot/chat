@@ -19,11 +19,11 @@ script(type="text/template",id="item-template")
         div(class='span12',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
             a(name='up-post',class='btn up','data="<%- _id %>"')
                 i(class='icon-thumbs-up')
-                | 顶(0)
+                | 顶(<%- up %>)
             | &nbsp;
             a(name='down-post',class='btn down')
                 i(class='icon-thumbs-down')
-                | 踩(0)
+                | 踩(<%- down %>)
     hr.soft
 
 div(id='smart-cover',class='up-down-cover')

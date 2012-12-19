@@ -44,6 +44,8 @@ var PostSchema = mongoose.Schema({
     comments: [Comment],
     pusTime: { type: Date, default: Date.now },
     rank:{type: Number, default: 0},
+    up:{type:Number,default: 0},
+    down:{type:Number,default: 0},
     meta: {
           votes : Number
         , favs  : Number

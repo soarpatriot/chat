@@ -102,6 +102,22 @@ $(function(){
                 opacity: "0.5"
             }, 1000).fadeOut(1000);
 
+            this.model.on("change:up", function(model, up) {
+
+                alert(model.toJSON());
+                render();
+
+            });
+
+            var upNumber = this.model.get("up")+1;
+            this.model.set("up",upNumber);
+            this.model.save(function(err,response){
+                console.log("success!");
+                this.render();
+            });
+
+
+
             /**
             $upDownCover.removeClass();
             $upDownCover.addClass("up-down-cover");
