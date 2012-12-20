@@ -11,8 +11,6 @@ $(function(){
         delay:{ show: 5000, hide: 2000 }
     })**/
 
-    //var postData = $('#posts-data').val();
-    //alert(postData);
 
     var User = Backbone.Model.extend({
 
@@ -20,6 +18,7 @@ $(function(){
 
     var user  = new User();
     var Post = Backbone.Model.extend({
+        done:"",
         idAttribute: "_id",
         urlRoot : '/posts',
         creator: user
@@ -43,99 +42,98 @@ $(function(){
             "click a[name='down-post']": "downPost"
         },
 
-        // The TodoView listens for changes to its model, re-rendering. Since there's
-        // a one-to-one correspondence between a **Todo** and a **TodoView** in this
+
         // app, we set a direct reference on the model for convenience.
         initialize: function() {
+
+            this.$el.html(this.template(this.model.toJSON()));
             //this.upPost = this.$('a[name="up-post"]');
             //this.downPost = this.$('a[name="down-post"]');
+            this.$upDownCover= $('<div class="up-down-cover">顶 +1</div>');
+            this.$el.append(this.$upDownCover);
+            this.model.on('change:up', this.up, this);
 
-            //this.model.on('change', this.render, this);
+            //this.listenTo(this.model, 'save', this.up);
             //this.model.on('destroy', this.remove, this);
             //this.upDownCover = $upDownCover;
+            //this.listenTo(this.model, 'change', this.render);
+            //this.listenTo(this.model, 'destroy', this.remove);
         },
 
         // Re-render the titles of the todo item.
         render: function() {
-            // alert(this.model.toJSON());
+            //alert(JSON.stringify(this.model));
             this.$el.html(this.template(this.model.toJSON()));
             //this.$el.toggleClass('done', this.model.get('done'));
             //this.input = this.$('.edit');
+
+
             this.upPost = this.$('a[name="up-post"]');
             this.downPost = this.$('a[name="down-post"]');
+            if(this.model.get("done")){
 
+
+                this.$('a[name="up-post"]').attr("disabled",true);
+                this.$('a[name="down-post"]').attr("disabled",true);
+
+
+            }
 
             return this;
         },
+
+        up: function(){
+            //alert(this.model.get("up"));
+
+            this.model.set("done",true);
+
+            this.render();
+
+        },
         upPost: function(){
-            var offset = this.upPost.offset();
-            //this.$el.remove($upDownCover);
-            this.$('a[name="up-post"]').attr("disabled",true);
-            this.$('a[name="down-post"]').attr("disabled",true);
 
-            var $upDownCover= $('<div class="up-down-cover">顶 +1</div>');
-            var top = offset.top;
-            var left = offset.left;
+            if(!this.model.get("done")){
+                var offset = this.upPost.offset();
+                //this.$el.remove($upDownCover);
 
-            var linkHalfHeight = 15;
-            var linkHalfWidth = 50;
+                var $upDownCover= $('<div class="up-down-cover">顶 +1</div>');
+                var top = offset.top;
+                var left = offset.left;
 
-            var targetTop = top - linkHalfHeight;
-            var targetLeft = left - linkHalfWidth;
-            this.$el.append($upDownCover);
-            $upDownCover.css('width','100px');
-            $upDownCover.css('height','30px');
-            $upDownCover.css('font-size','20px');
-            $upDownCover.css('padding-top','10px');
-            //$upDownCover.css('padding-bottom','7.5px');
-            $upDownCover.css('display','none');
-            $upDownCover.css('opacity', '1');
-            $upDownCover.css('top', top);
-            $upDownCover.css('left', left);
-            $upDownCover.css('display', 'block');
+                var linkHalfHeight = 15;
+                var linkHalfWidth = 50;
 
-            $upDownCover.animate({
-
-                'font-size': "30px",
+                var targetTop = top - linkHalfHeight;
+                var targetLeft = left - linkHalfWidth;
+                this.$el.append($upDownCover);
+                $upDownCover.css('width','100px');
+                $upDownCover.css('height','30px');
+                $upDownCover.css('font-size','20px');
+                $upDownCover.css('padding-top','10px');
+                //$upDownCover.css('padding-bottom','7.5px');
+                $upDownCover.css('display','none');
+                $upDownCover.css('opacity', '1');
+                $upDownCover.css('top', top);
+                $upDownCover.css('left', left);
+                $upDownCover.css('display', 'block');
 
 
-                opacity: "0.5"
-            }, 1000).fadeOut(1000);
+                $upDownCover.animate({
 
-            this.model.on("change:up", function(model, up) {
+                    'font-size': "30px",
+                    opacity: "0.5"
+                }, 1000).fadeOut(1000,function(){
+                            alert("sdf");
+                            model.save();
+                            model.fetch();
 
-                alert(model.toJSON());
-                render();
-
-            });
-
-            var upNumber = this.model.get("up")+1;
-            this.model.set("up",upNumber);
-            this.model.save(function(err,response){
-                console.log("success!");
-                this.render();
-            });
+                    });
 
 
 
-            /**
-            $upDownCover.removeClass();
-            $upDownCover.addClass("up-down-cover");
-            this.$el.append($upDownCover);
-            $upDownCover.css("opacity", "1");
-            $upDownCover.css("top", top);
-            $upDownCover.css("left", left);
-            $upDownCover.css("display", "block");
-            //alert($upDownCover.html());
-            $upDownCover.animate({
-                width: "200px",
-                height: "60px",
+            }
 
-                opacity: "0.5"
-            }, 5000).fadeOut("slow");**/
 
-            //$upDownCover.remove();
-            //alert(offset.top);
         },
         downPost:function(){
 
@@ -166,7 +164,7 @@ $(function(){
         addOne: function(post) {
             //alert(JSON.stringify(post));
 
-            //alert(post.comments.length);
+
             var view = new PostView({model: post});
             this.$('#posts').append(view.render().el);
         },

@@ -178,7 +178,7 @@ exports.all = function(req,res){
 };
 
 exports.one = function(req,res){
-    Post.findOne({'_id':req.params.id}, function(err,post){
+    Post.findPostWithCreator(req.params.id, function(err,post){
         if(err){
             req.flash('error', err);
             return res.redirect('/');
@@ -204,13 +204,10 @@ exports.one = function(req,res){
 }
 
 exports.up = function(req,res){
-
-
-
-    console.log("sdfadfadfadfadf..........");
-    Post.findOne({'_id':req.params.id}, function(err,post){
+    console.log(req.params.post);
+    Post.findPostWithCreator(req.params.id, function(err,post){
         if(err){
-            req.flash('error', err);
+            req.flash('error', err.toString());
             return res.redirect('/');
         }
 

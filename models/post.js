@@ -58,6 +58,11 @@ var PostSchema = mongoose.Schema({
 PostSchema.methods.findCreator = function(callback){
     return this.db.model('User','UserSchema').findById(this.creator,callback);
 };
+
+PostSchema.statics.findPostWithCreator = function(id,callback){
+    return this.findOne({'_id': id},callback).populate('creator');
+};
+
 PostSchema.statics.findBytitle = function(title,callback){
     return this.find({title: title},callback);
 };
