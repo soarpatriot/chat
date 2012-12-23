@@ -66,8 +66,8 @@ div.navbar.navbar-inverse.navbar-fixed-top
                     else
                         li.dropdown
                               a(class='dropdown-toggle', href='#', data-toggle='dropdown')
-                                i(class='icon-user')
-                                | #{user.name}
+                                img(src='#{user.miniFace}')
+                                | &nbsp;&nbsp #{user.name}
                                 b.caret
                               ul.dropdown-menu
                                 li

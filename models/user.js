@@ -62,6 +62,10 @@ faceUrl.get(function(){
 
 UserSchema.virtual('regTimeStr');
 UserSchema.virtual('flyAge');
+var miniFace = UserSchema.virtual('miniFace');
+miniFace.get(function(){
+    return cloudinary.genMiniFace(this.faceId);
+})
 
 UserSchema.pre('save', function (next) {
     console.log('this face url: '+this.faceUrl);

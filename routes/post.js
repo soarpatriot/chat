@@ -115,6 +115,13 @@ exports.get = function(req,res){
             req.flash('error', err);
             return res.redirect('/');
         }
+
+        //update the number of being looked
+        var lookedNumber = post.get("looked")+1;
+        post.update({ looked:lookedNumber}, { multi: true }, function (err, numberAffected, raw) {
+
+        });
+
         res.render('blog-one',{
             title: post.username,
             post: post,
@@ -129,50 +136,23 @@ exports.get = function(req,res){
 
 
 exports.all = function(req,res){
-    var post = new Post();
 
-    post.top5(function(err, posts){
+    Post.top5(function(err, posts){
+
         if(err){
-            req.flash('error', err);
-            return res.redirect('/');
+            res.send(err);
         }
 
-        /**
-        var end =200;
-        for(var i=0; i<posts.length; i++){
-            posts[i].set('fromNow',moment(posts[i].pusTime).fromNow());
-
-            posts[i].content = _(posts[i].content).truncate(end);
-
-            posts[i].creator.faceUrl = cloudinary.genSmallFace(posts[i].creator.faceId);
-            //console.log(posts[i]);
-
-        }**/
-
         var formattedPosts = Post.dealPosts(posts);
-        //var formattedPosts = Post.dealPosts(posts);
-        //var copyPosts = JSON.stringify(formattedPosts);
-        //res.render('posts',{copyPosts});
-        //res.setHeader()
-        //res.contentType('json');//返回的数据类型
-        //console.log(posts);
-        res.send(JSON.stringify(formattedPosts));//给客户端返回一个json格式的数据
-        // res.end();
+        if(_.isNull(req.session.user) || _.isUndefined(req.session.user)){
+            console.log('sessioin user null or undefined:  '+ req.session.user);
+            formattedPosts = Post.doDone(posts);
+        }else{
+            formattedPosts = Post.unDoDone(posts);
 
-        /**
-        res.format({
-            html: function(){
+        }
 
-            },
-
-            text: function(){
-                res.json(formattedPosts);
-            },
-
-            json: function(){
-                res.json(formattedPosts);
-            }
-        });**/
+        res.send(formattedPosts);
 
     });
 };
@@ -183,10 +163,10 @@ exports.one = function(req,res){
             req.flash('error', err);
             return res.redirect('/');
         }
-        console.log('post:  '+post.toString());
+
         //res.contentType('json');//返回的数据类型
         //res.send(post);//给客户端返回一个json格式的数据
-
+        post = Post.truncateOne(post);
         res.format({
             html: function(){
                 //res.json(post);
@@ -204,16 +184,16 @@ exports.one = function(req,res){
 }
 
 exports.up = function(req,res){
-    console.log(req.params.post);
+
+    var upNumber = req.body.up;
+    var downNumber = req.body.down;
+
     Post.findPostWithCreator(req.params.id, function(err,post){
         if(err){
             req.flash('error', err.toString());
             return res.redirect('/');
         }
-
-        var up = post.get("up")+1;
-
-        post.update({ up: up }, { multi: true }, function (err, numberAffected, raw) {
+        post.update({ up: upNumber,down: downNumber }, { multi: true }, function (err, numberAffected, raw) {
             console.log('The number of updated documents was %d', numberAffected);
             console.log('The raw response from Mongo was ', raw);
             if (err) {
@@ -233,11 +213,8 @@ exports.up = function(req,res){
                         res.json(post);
                     }
                 });
-
             }
-
         });
-
 
     });
 }

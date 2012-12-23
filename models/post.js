@@ -1,7 +1,7 @@
-
-
-
-
+/**
+ * post model
+ * @type {*}
+ */
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 var mongodb = require('./mongolab-db');
@@ -23,6 +23,7 @@ _.str.include('Underscore.string', 'string'); // => true
 var moment = require('moment');
 moment.lang('zh-cn');
 
+// schema options include virtual properties
 var schemaOptions = {
     toJSON: {
         virtuals: true
@@ -46,6 +47,7 @@ var PostSchema = mongoose.Schema({
     rank:{type: Number, default: 0},
     up:{type:Number,default: 0},
     down:{type:Number,default: 0},
+    looked:{type:Number,default: 0},
     meta: {
           votes : Number
         , favs  : Number
@@ -54,7 +56,7 @@ var PostSchema = mongoose.Schema({
 },schemaOptions);
 
 
-
+//custom method
 PostSchema.methods.findCreator = function(callback){
     return this.db.model('User','UserSchema').findById(this.creator,callback);
 };
@@ -76,29 +78,19 @@ PostSchema.methods.expressiveQuery = function(creator, date, callback){
     return this.find('creator', creator).where('pusTime').gte(date).run(callback);
 };
 
-
-PostSchema.methods.formatDate = function(){
-    this.fromNow = moment(this.pusTime).fromNow();
-
-};
-
-
-
-var fromNow = PostSchema.virtual('fromNow')
+//virtual properties
+var fromNow = PostSchema.virtual('fromNow');
 fromNow.get(function(){
         return moment(this.pusTime).fromNow();
     });
-fromNow.set(function(){
-        moment(this.pusTime).fromNow();
-    });
-
+var done = PostSchema.virtual('done');
+    done.get(function(){
+        return true;
+    })
 
 var Post = mongodb.db.model('Post', PostSchema);
 
-
-
-
-Post.prototype.top5 = function(callback){
+Post.top5 = function(callback){
     return Post.where()
         .limit(5)
         .sort('-pusTime')
@@ -108,64 +100,31 @@ Post.prototype.top5 = function(callback){
 };
 
 /**
- * format the post pusTime to more readable
+ * if the content length than a number, then truncate it.
  * @param posts
  * @return {*}
  */
-Post.formatDate = function(posts){
-    var end =200;
-    var i = 0;
-
-    for(; i<posts.length; i++){
-        //posts[i].toObject({ getters: true, virtuals: true });
-        //posts[i].fromNow = moment(posts[i].pusTime).fromNow();
-
-        //copiedPost[i].fromNow = moment(posts[i].pusTime).fromNow();
-
-         // posts[i].content = _(posts[i].content).truncate(end);
-
-        posts[i].set({'content':_(posts[i].content).truncate(end)});
-        //posts[i].creator.set({'creator.faceUrl':cloudinary.genSmallFace(posts[i].creator.faceId)});
-
-
-        console.log('56    '+ posts[i]);
-
-        console.log('78    '+ JSON.stringify(posts[i]));
-
-
-    }
-
-    return posts;
-    //console.log('testststs                 '+ posts);
-
-};
-
-/**
- * generate an face for very post's author
- * @param posts
- * @return {*}
- */
-Post.obtainUserSmallFace = function(posts,callback){
-
-    _.each(posts,function(post,callback){
-
-        post.creator.faceUrl = cloudinary.genSmallFace(post.creator.faceId);
-        console.log('face:  '+post.creator.faceUrl);
-    });
-
-    return posts;
-}
-
-Post.truncate = function(posts){
+Post.truncateAll = function(posts){
     var end = 200;
     _.each(posts,function(post){
-        var content = post.content;
-        post.content = _(content).truncate(end);
+        Post.truncateOne(post);
     });
-
     return posts;
 }
 
+
+/**
+ * truncate one
+ * if the content length than a number, then truncate it.
+ * @param posts
+ * @return {*}
+ */
+Post.truncateOne = function(post){
+    var end = 200;
+    var content = post.content;
+    post.content = _(content).truncate(end);
+    return post;
+}
 
 /**
  * after fetch posts. do some operation on the original data
@@ -173,11 +132,30 @@ Post.truncate = function(posts){
  * @return {*}
  */
 Post.dealPosts = function(posts){
-
-    posts = Post.formatDate(posts);
-
+    posts = Post.truncateAll(posts);
     return posts;
 }
+
+/**
+ *
+ * @param posts
+ * @return {*}
+ */
+Post.doDone = function(posts){
+    _.each(posts,function(post){
+
+
+    });
+    return posts;
+}
+Post.unDoDone = function(posts){
+    _.each(posts,function(post){
+        post.done = false
+
+    });
+    return posts;
+}
+
 
 
 

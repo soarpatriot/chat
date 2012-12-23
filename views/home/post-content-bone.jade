@@ -16,7 +16,7 @@ script(type="text/template",id="item-template")
             p.blog-content
                 | <%- content %>
     div.row-fluid
-        div(class='span12',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
+        div(class='span8',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
             a(name='up-post',class='btn up','data="<%- _id %>"')
                 i(class='icon-thumbs-up')
                 | 顶(<%- up %>)
@@ -24,6 +24,18 @@ script(type="text/template",id="item-template")
             a(name='down-post',class='btn down')
                 i(class='icon-thumbs-down')
                 | 踩(<%- down %>)
+        div(class='span4')
+            div(class='pull-right')
+                a(name='reply',class='btn btn-link') 回复
+    div.row-fluid
+        div.pull-left
+            p.marketing-byline
+                | • <%- looked %> 次浏览
+
+
+        div.pull-right
+            p.marketing-byline
+                <%- creator.name %> 发表于 <%- fromNow %>
     hr.soft
 
 div(id='smart-cover',class='up-down-cover')
