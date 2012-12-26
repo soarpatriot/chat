@@ -211,3 +211,14 @@ var moveFile = function(source, dest, callback) {
 
     is.pipe(os);
 };
+
+
+exports.filePicker = function(req,res){
+    res.render('file-test', {
+        title: 'Say',
+        user : req.session.user,
+        currentLink: 'MICRO',
+        success : req.flash('success').toString(),
+        error : req.flash('error').toString()
+    });
+};

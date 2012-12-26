@@ -1,0 +1,26 @@
+extends layout
+
+
+block append head
+    script(type="text/javascript",src="//api.filepicker.io/v1/filepicker.js")
+    script
+        $(function(){
+            filepicker.setKey('Super_Awesome_Key');
+            filepicker.pick(function(FPFile){
+                 //console.log(FPFile.url);
+                $('#file-show').attr('src',FPFile.url);
+            });
+
+        });
+
+
+block content
+    body
+        input(type="filepicker",name="myName")
+        button(data-fp-url="http://www.filepicker.io/static/img/success.png") Save to Cloud
+
+        div.row
+            div.span12
+                img(id='file-show',src='')
+
+

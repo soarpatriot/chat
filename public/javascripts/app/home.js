@@ -19,7 +19,7 @@
 
         var user  = new User();
         var Post = Backbone.Model.extend({
-            done:"",
+
             idAttribute: "_id",
             urlRoot : '/posts',
             creator: user

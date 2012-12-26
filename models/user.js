@@ -1,7 +1,8 @@
 
 
 var mongoose = require('mongoose');
-var mongodb = require('./mongolab-db');
+var mongodb = require('./mongolab-db'),
+    Schema = mongoose.Schema;
 var cloudinary = require('../models/cloudinary.js');
 var utils = require('./utils');
 
@@ -31,6 +32,13 @@ var schemaOptions = {
     }
 };
 
+//Post's Vote
+var Vote  = mongoose.Schema({
+    postId: {type: Schema.ObjectId, ref: 'Post'},
+    favor:Boolean,
+    voteDate:  { type: Date, default: Date.now }
+},schemaOptions);
+
 var UserSchema = mongoose.Schema({
     name: 'String',
     password: 'String',
@@ -42,7 +50,8 @@ var UserSchema = mongoose.Schema({
         thumbnails : String
         ,media  : String
         ,big:   String
-    }
+    },
+    votePosts:[Vote]
 },schemaOptions);
 
 

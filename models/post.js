@@ -52,6 +52,7 @@ var PostSchema = mongoose.Schema({
           votes : Number
         , favs  : Number
     },
+    done:{type:Boolean,default:false},
     creator: {type: Schema.ObjectId, ref: 'User'}
 },schemaOptions);
 
@@ -83,11 +84,13 @@ var fromNow = PostSchema.virtual('fromNow');
 fromNow.get(function(){
         return moment(this.pusTime).fromNow();
     });
+
+/**
 var done = PostSchema.virtual('done');
     done.get(function(){
         return true;
-    })
-
+    });
+**/
 var Post = mongodb.db.model('Post', PostSchema);
 
 Post.top5 = function(callback){
@@ -124,7 +127,7 @@ Post.truncateOne = function(post){
     var content = post.content;
     post.content = _(content).truncate(end);
     return post;
-}
+};
 
 /**
  * after fetch posts. do some operation on the original data
@@ -134,7 +137,8 @@ Post.truncateOne = function(post){
 Post.dealPosts = function(posts){
     posts = Post.truncateAll(posts);
     return posts;
-}
+};
+
 
 /**
  *
@@ -143,21 +147,18 @@ Post.dealPosts = function(posts){
  */
 Post.doDone = function(posts){
     _.each(posts,function(post){
-
+        post.done = true;
 
     });
     return posts;
 }
 Post.unDoDone = function(posts){
     _.each(posts,function(post){
-        post.done = false
-
+        post.done = false;
+        console.log('post un do done: '+ post.get('done'));
     });
     return posts;
 }
-
-
-
 
 module.exports = Post;
 

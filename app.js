@@ -125,6 +125,9 @@ app.post('/user',user.updateProfile);
 
 app.post('/upload-face',uploader.uploadFace);
 
+app.get('/file-picker',uploader.filePicker)
+
+
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
 });

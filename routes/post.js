@@ -6,7 +6,8 @@
 var Post = require('../models/post.js'),
     utils = require('../models/utils');
 
-
+var User = require('../models/user.js');
+//var client = require('../models/redis.js')
 
 var cloudinary = require('../models/cloudinary.js');
 
@@ -133,9 +134,14 @@ exports.get = function(req,res){
 }
 
 
-
-
+/**
+ * backbone used, home page top5 posts
+ * @param req
+ * @param res
+ */
 exports.all = function(req,res){
+
+    var user = req.session.user;
 
     Post.top5(function(err, posts){
 
@@ -144,15 +150,29 @@ exports.all = function(req,res){
         }
 
         var formattedPosts = Post.dealPosts(posts);
+
         if(_.isNull(req.session.user) || _.isUndefined(req.session.user)){
-            console.log('sessioin user null or undefined:  '+ req.session.user);
+
             formattedPosts = Post.doDone(posts);
+            res.send(formattedPosts);
+
         }else{
-            formattedPosts = Post.unDoDone(posts);
+            //done and undone user's up and down
+            User.findOne({'_id':user._id}, function(err,user){
+                var votes = user.votePosts;
+                _.each(votes,function(vote){
+                    _.each(posts,function(post){
+
+                        if(_.isEqual(vote.postId ,post._id)){
+
+                            post.done = true;
+                        }
+                    });
+                });
+                res.send(formattedPosts);
+            });
 
         }
-
-        res.send(formattedPosts);
 
     });
 };
@@ -187,6 +207,27 @@ exports.up = function(req,res){
 
     var upNumber = req.body.up;
     var downNumber = req.body.down;
+
+    var user = req.session.user;
+    var postId = req.params.id;
+
+    User.findOne({'_id':user._id}, function(err,user){
+        var favor = false;
+        if(!_.isNull(upNumber) && !_.isUndefined(upNumber)){
+
+            favor = true;
+        }
+        console.log("upNumber: "+upNumber);
+        console.log("favor: "+favor);
+        user.votePosts.push({ postId: postId,favor: favor});
+        user.save(function(err){
+            if(err){
+                //console.log('error'+err);
+            }else{
+                //console.log("user: "+JSON.stringify(user));
+            }
+        });
+    });
 
     Post.findPostWithCreator(req.params.id, function(err,post){
         if(err){
