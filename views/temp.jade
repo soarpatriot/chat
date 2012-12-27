@@ -1,42 +1,12 @@
-extends layout
-
-
-block append head
-     script
-       $(function(){
-         $('.popover-test').popover()
-       })
-
-block content
-  body
-    div.row-fluid
-
-       div(class='span8 well-no-back')
-         h3.title 最新
-         hr
-         if typeof(posts) !== 'undefined' && posts !== null && posts.length > 0
-           each post, i in posts
-              div.row-fluid
-
-
-                div.span10
-
-                  div(class="bs-docs-example bs-docs-example-popover")
-                      div(class='popover right')
-                         div(class='arrow')
-                         h3(class='popover-title')
-                            img(src='#{post.creator.faceUrl}',alt='user')
-                            #{post.creator.name} #{post.fromNow}
-                            p
-
-                         div(class='popover-content')
-                           p(class='blog-content')
-                             nobr #{post.content}
-              hr.soft
-
-
-       div(class='span4 well')
-           h3.title 相关信息
+li
+    a(href='#tab2',data-toggle='tab') 帮助
+li
+    a(href='#tab3',data-toggle='tab') 吐槽
 
 
 
+    div(class='tab-pane',id='tab2')
+                              p
+                                 button(id='test', value='dsfds') test
+                          div(class='tab-pane',id='tab3')
+                              p Howdy, I'm in Section 2.

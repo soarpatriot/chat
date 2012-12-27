@@ -1,0 +1,36 @@
+if(typeof(currentLink) !== 'undefined' && currentLink === 'MICRO')
+    li.active
+        a(href='/post') 标签
+else
+    li
+        a(href='/post') 标签
+if(typeof(currentLink) !== 'undefined' && currentLink === 'CHECK')
+    li.active
+        a(href='') 审阅
+else
+    li
+        a(href='') 审阅
+
+
+if typeof(currentLink) !== 'undefined' && currentLink === 'CHAT'
+    li.active
+        a(href='/chat') 聊天
+else
+    li
+        a(href='/chat') 聊天
+if( typeof(currentLink) !== 'undefined' && currentLink === 'ABOUT')
+    li.active
+        a(href='') 关于
+else
+    li
+
+        a(href='') 关于
+
+li
+  div.pull-right
+      form(class='form-search navbar-form pull-right')
+         div(class='input-append')
+            input(type='text',class='input-medium search-query',placeholder='搜索')
+
+            button(type='submit',class='btn margin-top0', id='search-ico')
+                    i(class='icon-search')

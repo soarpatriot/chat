@@ -161,6 +161,7 @@ exports.all = function(req,res){
             User.findOne({'_id':user._id}, function(err,user){
                 var votes = user.votePosts;
                 _.each(votes,function(vote){
+
                     _.each(posts,function(post){
 
                         if(_.isEqual(vote.postId ,post._id)){
@@ -222,9 +223,7 @@ exports.up = function(req,res){
         user.votePosts.push({ postId: postId,favor: favor});
         user.save(function(err){
             if(err){
-                //console.log('error'+err);
-            }else{
-                //console.log("user: "+JSON.stringify(user));
+                console.log('error'+err);
             }
         });
     });
@@ -235,8 +234,7 @@ exports.up = function(req,res){
             return res.redirect('/');
         }
         post.update({ up: upNumber,down: downNumber }, { multi: true }, function (err, numberAffected, raw) {
-            console.log('The number of updated documents was %d', numberAffected);
-            console.log('The raw response from Mongo was ', raw);
+
             if (err) {
                 return handleError(err);
             }else{
