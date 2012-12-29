@@ -47,9 +47,11 @@ var UserSchema = mongoose.Schema({
     email:'String',
     regTime:{ type: Date, default: Date.now },
     face: {
-        thumbnails : String
-        ,media  : String
-        ,big:   String
+        mini :String,
+        thumbnails : String,
+        media  : String,
+        normal: String,
+        big:   String
     },
     votePosts:[Vote]
 },schemaOptions);
@@ -59,7 +61,12 @@ var UserSchema = mongoose.Schema({
 
 
 var User = mongodb.db.model('User', UserSchema);
-module.exports = User;
+
+//virtual properties
+var fromNow = UserSchema.virtual('fromNow');
+fromNow.get(function(){
+    return moment(this.regTime).fromNow();
+});
 
 //virtual property need definded behind User
 var faceUrl = UserSchema.virtual('faceUrl');
@@ -68,6 +75,9 @@ faceUrl.get(function(){
     this.faceUrl = this.face.thumbnails;
     return this.faceUrl;
 });
+
+
+
 
 UserSchema.virtual('regTimeStr');
 UserSchema.virtual('flyAge');
@@ -124,7 +134,9 @@ User.adjustInformation = function(user){
     User.generateNormalFaceUrl(user);
     User.formatRegTime(user);
     User.computeFlyAge(user);
+    console.log("user"+user);
     return user;
 }
 
 
+module.exports = User;

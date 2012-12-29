@@ -107,7 +107,7 @@ app.put('/posts/:id',post.up);
 
 app.post('/comment',post.comment);
 
-app.get('/u/:user', user.index);
+
 app.get('/reg', user.reg);
 app.post('/reg', user.doReg);
 
@@ -116,10 +116,9 @@ app.get('/login', user.login);
 
 app.get('/logout', user.logout);
 
-
-
-app.get('/user',user.show);
 app.get('/user/edit',user.edit);
+app.get('/user/:userId', user.index);
+app.get('/user',user.show);
 
 app.post('/user',user.updateProfile);
 

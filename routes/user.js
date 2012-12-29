@@ -15,7 +15,8 @@ var cloudinary = require('../models/cloudinary.js');
 
 
 exports.index = function(req,res){
-    User.findOne({'name':req.params.user}, function(err,user){
+
+    User.findOne({'_id':req.params.userId}, function(err,user){
         if(!user){
             req.flash('error','用户不存在！');
             return res.redirect('/');
@@ -40,19 +41,22 @@ exports.index = function(req,res){
             })
         });
     });
+
 }
 
 exports.reg = function(req, res){
-    console.log('sss'+user.toString());
+
     res.render('reg',{
         title: 'Register',
         user : req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
-    })
+    });
+
 }
 
 exports.doReg = function(req, res){
+
     if(req.body['password-repeat'] != req.body['password']){
         req.flash('error','两次输入密码不一致');
         return res.redirect('/reg');
@@ -67,7 +71,6 @@ exports.doReg = function(req, res){
         password: password,
         email: req.body.email
     });
-
 
     User.findOne({'name': newUser.name}, function(err, user){
         //throw new Error('something broke!');
@@ -98,8 +101,7 @@ exports.doReg = function(req, res){
             });
         }
 
-
-    })
+    });
 }
 
 
@@ -157,7 +159,37 @@ exports.logout = function(req, res){
     res.redirect('/');
 }
 
-var findUser = function(req,res){
+/**
+ * user profile show and edit
+ * @param req
+ * @param res
+ */
+exports.show = function(req,res){
+
+    var  _id = req.session.user._id;
+    User.findOne({'_id': _id}, function(err, user){
+        if(err){
+
+            req.flash('error',err);
+            console.log(err);
+            return res.redirect('user/show');
+
+        }else{
+            user = User.adjustInformation(user);
+            user.faceUrl = cloudinary.genEditFace(user.faceId);
+            //console.log("edit:: \n"+user);
+            res.render('user/show',{
+                title: '用户资料',
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        }
+    });
+}
+
+exports.edit = function(req, res){
+
     var  _id = req.session.user._id;
     User.findOne({'_id': _id}, function(err, user){
         if(err){
@@ -178,46 +210,6 @@ var findUser = function(req,res){
             });
         }
     });
-}
-/**
- * user profile show and edit
- * @param req
- * @param res
- */
-exports.show = function(req,res){
-
-    /**
-    res.render('user/show',{
-        title: '用户资料',
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
-    });**/
-    var  _id = req.session.user._id;
-    User.findOne({'_id': _id}, function(err, user){
-        if(err){
-
-            req.flash('error',err);
-            console.log(err);
-            return res.redirect('user/show');
-
-        }else{
-            user = User.adjustInformation(user);
-            //user.faceUrl = cloudinary.genEditFace(user.faceId);
-            //console.log("edit:: \n"+user);
-            res.render('user/show',{
-                title: '用户资料',
-                user: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString()
-            });
-        }
-    });
-}
-
-exports.edit = function(req, res){
-    findUser(req,res);
-
 }
 
 
