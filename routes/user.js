@@ -157,23 +157,7 @@ exports.logout = function(req, res){
     res.redirect('/');
 }
 
-
-/**
- * user profile show and edit
- * @param req
- * @param res
- */
-exports.show = function(req,res){
-    res.render('user/show',{
-        title: '用户资料',
-        user: req.session.user,
-        success: req.flash('success').toString(),
-        error: req.flash('error').toString()
-    });
-}
-
-exports.edit = function(req, res){
-
+var findUser = function(req,res){
     var  _id = req.session.user._id;
     User.findOne({'_id': _id}, function(err, user){
         if(err){
@@ -185,7 +169,7 @@ exports.edit = function(req, res){
         }else{
 
             user.faceUrl = cloudinary.genEditFace(user.faceId);
-            console.log("edit:: \n"+user);
+            //console.log("edit:: \n"+user);
             res.render('user/edit',{
                 title: '编辑',
                 user: user,
@@ -195,6 +179,48 @@ exports.edit = function(req, res){
         }
     });
 }
+/**
+ * user profile show and edit
+ * @param req
+ * @param res
+ */
+exports.show = function(req,res){
+
+    /**
+    res.render('user/show',{
+        title: '用户资料',
+        user: req.session.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });**/
+    var  _id = req.session.user._id;
+    User.findOne({'_id': _id}, function(err, user){
+        if(err){
+
+            req.flash('error',err);
+            console.log(err);
+            return res.redirect('user/show');
+
+        }else{
+            user = User.adjustInformation(user);
+            //user.faceUrl = cloudinary.genEditFace(user.faceId);
+            //console.log("edit:: \n"+user);
+            res.render('user/show',{
+                title: '用户资料',
+                user: req.session.user,
+                success: req.flash('success').toString(),
+                error: req.flash('error').toString()
+            });
+        }
+    });
+}
+
+exports.edit = function(req, res){
+    findUser(req,res);
+
+}
+
+
 
 exports.saveProfile = function(req, res){
     // 获得文件的临时路径
