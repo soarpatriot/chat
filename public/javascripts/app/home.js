@@ -157,8 +157,6 @@
             },
             addOne: function(post) {
                 //alert(JSON.stringify(post));
-
-
                 var view = new PostView({model: post});
                 this.$('#posts').append(view.render().el);
             },

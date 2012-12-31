@@ -20,9 +20,6 @@ $(function(){
         }**/
     });
 
-
-
-
     var infoTip = new InfoTip;
     var LoginView = Backbone.View.extend({
         el: $("#login-div"),
@@ -74,7 +71,6 @@ $(function(){
             this.checkForShow(this.passwordIn.val());
         },
         checkForShow: function(value){
-
             if($.trim(value)!==''){
                 this.tip.hide();
             }

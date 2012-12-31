@@ -8,6 +8,17 @@ var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
 
+var _  = require('underscore');
+
+// Import Underscore.string to separate object, because there are conflict functions (include, reverse, contains)
+_.str = require('underscore.string');
+
+// Mix in non-conflict functions to Underscore namespace if you want
+_.mixin(_.str.exports());
+
+// All functions, include conflict, will be available through _.str object
+_.str.include('Underscore.string', 'string'); // => true
+
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
@@ -44,6 +55,11 @@ exports.index = function(req,res){
 
 }
 
+/**
+ * nav to register page
+ * @param req
+ * @param res
+ */
 exports.reg = function(req, res){
 
     res.render('reg',{
@@ -55,6 +71,13 @@ exports.reg = function(req, res){
 
 }
 
+/**
+ * do the register function
+ *
+ * @param req
+ * @param res
+ * @return {*}
+ */
 exports.doReg = function(req, res){
 
     if(req.body['password-repeat'] != req.body['password']){
@@ -104,55 +127,65 @@ exports.doReg = function(req, res){
     });
 }
 
-
+/**
+ * nav to log page
+ * @param req
+ * @param res
+ */
 exports.login = function(req, res){
     res.render('login',{
         title: '用户登录',
-        username: '',
-        password:'',
+        username: req.flash('username'),
+        password: req.flash('password'),
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     })
 }
 
-
+/**
+ * user login check
+ * @param req
+ * @param res
+ */
 exports.doLogin = function(req,res){
+
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
     console.log('login start');
+    var valid = true;
     User.findOne({'name': req.body.username}, function(err, user){
-        console.log('username: '+req.body.username);
-        if(!user){
 
-            console.log('用户不存在');
+        if(!user){
+            valid = false;
+        }else if(user.password !== password){
+            valid = false;
+        }
+
+        if(valid === false){
+            req.flash('error','用户不存在,或用户名密码错误');
             req.flash('username',req.body.username);
             req.flash('password',req.body.password);
-            req.flash('error','用户不存在!');
             return res.redirect('/login');
-
-
-        }
-        if(user.password !== password){
-            req.flash('error','密码错误');
-            console.log('密码错误');
-            return res.redirect('/');
         }
 
         req.session.user = user;
-        console.log('why??');
+
         if(req.session.lastUrl!== null){
             req.flash('success','登录成功,请继续您的操作...');
             //return res.redirect(req.session.lastUrl);
         }
         req.flash('currentLink','HOME');
 
-        console.log('hear??');
         return res.redirect('/');
 
     });
 }
 
-
+/**
+ * user logout
+ * @param req
+ * @param res
+ */
 exports.logout = function(req, res){
     req.session.user = null;
     req.flash('success','登出成功！');
@@ -188,6 +221,11 @@ exports.show = function(req,res){
     });
 }
 
+/**
+ * to user edit page
+ * @param req
+ * @param res
+ */
 exports.edit = function(req, res){
 
     var  _id = req.session.user._id;
@@ -213,7 +251,36 @@ exports.edit = function(req, res){
 }
 
 
+/**
+ * user update profile
+ * @param req
+ * @param res
+ */
+exports.updateProfile = function(req,res){
 
+    var user = req.session.user;
+    var username = user.name;
+    var faceUrl = req.body.faceUrl;
+    var faceId = req.body.faceId;
+
+    console.log('username: '+ username + '  faceId:  ' +faceId);
+    User.update({ name: username }, { faceId: faceId }, { multi: true }, function (err, numberAffected, raw) {
+        console.log('The number of updated documents was %d', numberAffected);
+        console.log('The raw response from Mongo was ', raw);
+        if (err) {
+            return handleError(err);
+        }else{
+
+            res.redirect('/');
+
+        }
+
+    });
+}
+
+
+
+/**
 exports.saveProfile = function(req, res){
     // 获得文件的临时路径
     var tmp_path = req.files.face.path;
@@ -239,9 +306,13 @@ exports.saveProfile = function(req, res){
         });
     });
 
-    /**
-    // 移动文件
-    fs.rename(tmp_path, target_path, function(err) {
+
+
+}
+**/
+/**
+ // 移动文件
+ fs.rename(tmp_path, target_path, function(err) {
 
         console.log('123123');
         if (err) throw err;
@@ -259,28 +330,4 @@ exports.saveProfile = function(req, res){
             });
         });
     });
-     **/
-
-}
-
-exports.updateProfile = function(req,res){
-
-    var user = req.session.user;
-    var username = user.name;
-    var faceUrl = req.body.faceUrl;
-    var faceId = req.body.faceId;
-
-    console.log('username: '+ username + '  faceId:  ' +faceId);
-    User.update({ name: username }, { faceId: faceId }, { multi: true }, function (err, numberAffected, raw) {
-        console.log('The number of updated documents was %d', numberAffected);
-        console.log('The raw response from Mongo was ', raw);
-        if (err) {
-            return handleError(err);
-        }else{
-
-            res.redirect('/');
-
-        }
-
-    });
-}
+ **/

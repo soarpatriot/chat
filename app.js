@@ -18,11 +18,11 @@ var home = require('./routes/index')
     post = require('./routes/post'),
     user = require('./routes/user'),
     chat = require('./routes/chat'),
+    review = require('./routes/review'),
     uploader = require('./routes/uploader');
 
 
 //helpers
-
 
 //error-handle
 var error = require('./routes/error')
@@ -44,7 +44,7 @@ var sessionStore = new MongoStore({
                     });
 
 
-var app = express()
+var app = express();
    // , server = require('http').createServer(app)
    // , io = io.listen(server);
 //server.listen(process.env.PORT);
@@ -75,8 +75,6 @@ app.configure(function(){
   app.use(error);
   app.use(express.static(path.join(__dirname, 'public')));
 
-
-
     //expose
    // app.expose(Utils, 'Utils').helpers(Utils);
 });
@@ -90,20 +88,21 @@ app.configure('development', function() {
     app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
 });
 
-
-
 app.get('/', home.index);
 
 app.get('/chat', chat.index);
 
 app.get('/post',post.index);
 app.post('/post',post.publish);
+
+app.get('/posts/review',post.review);
 app.get('/post/:id', post.get);
 
 app.get('/posts',post.all);
 app.get('/posts/:id',post.one);
 app.post('/posts',post.up);
 app.put('/posts/:id',post.up);
+
 
 app.post('/comment',post.comment);
 
@@ -119,13 +118,13 @@ app.get('/logout', user.logout);
 app.get('/user/edit',user.edit);
 app.get('/user/:userId', user.index);
 app.get('/user',user.show);
-
 app.post('/user',user.updateProfile);
 
 app.post('/upload-face',uploader.uploadFace);
+app.get('/file-picker',uploader.filePicker);
 
-app.get('/file-picker',uploader.filePicker)
-
+//review post
+app.get('/review',review.index)
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

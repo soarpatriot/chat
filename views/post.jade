@@ -1,23 +1,27 @@
 extends layout
 
 block append head
-
+    script(charset='utf-8', src='/kindeditor/kindeditor.js')
+    script(charset='utf-8', src='/kindeditor/lang/zh_CN.js')
+    script
+        var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#editor_id');
+        });
 block content
     body
-
         div.container
             div.row-fluid
                 form(class='well form-inline center',action='/post',method='post')
-
-                          legend 发表
-                          div.control-group
-                              label(class='control-label', for='title') 标题：
-                              div.controls
-                                  input(name='title',type='text',class='input-xlarge')
-                          div.control-group
-                              label(class='control-label', for='title') 内容：
-                              div.controls
-                                  textarea(class='span6', name='content',rows='5')
-                          div.control-group
-                              div.controls
-                                  button(type='submit', class='btn btn-success') 发言
+                    legend 发表
+                    div.control-group
+                        label(class='control-label', for='title') 标题：
+                        div.controls
+                            input(name='title',type='text',class='input-xlarge')
+                    div.control-group
+                        label(class='control-label', for='title') 内容：
+                        div.controls
+                            textarea(id='editor_id',class='span6', name='content',rows='5')
+                    div.control-group
+                        div.controls
+                            button(type='submit', class='btn btn-success') 发言

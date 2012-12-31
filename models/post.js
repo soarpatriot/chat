@@ -38,22 +38,32 @@ var Comment  = new Schema({
     creator: {type: Schema.ObjectId, ref: 'User'}
 },schemaOptions);
 
+var Review = new Schema({
+    agree:{type:Boolean,default: false},            // the number of this post  can publish or can not publish
+    reason:{type:String},
+    reviewer: {type: Schema.ObjectId, ref: 'User'}
+},schemaOptions);
+
 var PostSchema = mongoose.Schema({
 
     title: String,
     content: 'String',
     comments: [Comment],
     pusTime: { type: Date, default: Date.now },
+
     rank:{type: Number, default: 0},
-    up:{type:Number,default: 0},
+    up:{type:Number,default: 0},                //the number of this post is up or down
     down:{type:Number,default: 0},
-    looked:{type:Number,default: 0},
-    meta: {
-          votes : Number
-        , favs  : Number
-    },
-    done:{type:Boolean,default:false},
+    done:{type:Boolean,default:false},          // adjust if current person operate up or down in this post.
+
+    looked:{type:Number,default: 0},            // the number of being looked
+
+    passed:{type:Boolean, default:false},       // when post passed === true, user can see the post  10 points passed
+    score:{type:Number,default: 0},             // the number of this post  can publish or can not publish
+    beReviewed:[Review],
+
     creator: {type: Schema.ObjectId, ref: 'User'}
+
 },schemaOptions);
 
 
@@ -74,9 +84,17 @@ PostSchema.statics.findCreatorPost = function(userId,callback){
     return this.find({creator: userId},callback);
 };
 
+//find one post for review
+PostSchema.methods.findByRank = function(creator, date, callback){
+    return this.findOne('creator', creator).where('passed').eq('false').run(callback);
+};
 
-PostSchema.methods.expressiveQuery = function(creator, date, callback){
-    return this.find('creator', creator).where('pusTime').gte(date).run(callback);
+PostSchema.statics.findPostForReview = function(callback){
+    return this.findOne({})
+        .where('passed').equals(false)
+        .where('score').gt(-10)
+        .sort('-pusTime')
+        .exec(callback);
 };
 
 //virtual properties
@@ -85,16 +103,11 @@ fromNow.get(function(){
         return moment(this.pusTime).fromNow();
     });
 
-/**
-var done = PostSchema.virtual('done');
-    done.get(function(){
-        return true;
-    });
-**/
+
 var Post = mongodb.db.model('Post', PostSchema);
 
 Post.top5 = function(callback){
-    return Post.where()
+    return Post.where('passed').equals(true)
         .limit(5)
         .sort('-pusTime')
         .populate('creator')
@@ -155,7 +168,6 @@ Post.doDone = function(posts){
 Post.unDoDone = function(posts){
     _.each(posts,function(post){
         post.done = false;
-        console.log('post un do done: '+ post.get('done'));
     });
     return posts;
 }

@@ -32,13 +32,14 @@ moment.lang('zh-cn');
 
 exports.index = function(req, res){
     res.render('post', {
-        title: 'Say',
+        title: '发表',
         user : req.session.user,
         currentLink: 'MICRO',
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
     });
 };
+
 exports.publish = function(req, res){
     var currentUser = req.session.user;
     var content =  req.body.content;
@@ -68,7 +69,7 @@ exports.publish = function(req, res){
             return res.redirect('/post');
         }else{
             req.flash('success','发表成功！');
-            res.redirect('/u/'+currentUser.name);
+            res.redirect('/user/'+currentUser._id);
         }
     });
 
@@ -109,6 +110,11 @@ exports.comment = function(req,res){
     });
 }
 
+/**
+ * view post
+ * @param req
+ * @param res
+ */
 exports.get = function(req,res){
 
     Post.findOne({'_id':req.params.id}, function(err,post){
@@ -133,6 +139,22 @@ exports.get = function(req,res){
     });
 }
 
+/**
+ * find post for user review
+ */
+exports.review = function(req,res){
+
+    Post.findPostForReview(function(err,post){
+        if(err){
+            res.send(err);
+        }else{
+            console.log(post);
+            res.json(post);
+
+        }
+    });
+
+};
 
 /**
  * backbone used, home page top5 posts

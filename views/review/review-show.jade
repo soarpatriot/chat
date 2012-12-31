@@ -1,0 +1,33 @@
+extends ../layout
+
+block append head
+    script(src='/javascripts/app/review.js')
+block content
+    body
+        div(id='review-container',class='container')
+            div(class='row-fluid')
+                div(id='post-content',class='span8') sdfsdf
+
+                div(class='span4')
+                    p 不能发表
+                    ul
+                        li 政治
+                        li 低俗
+                        li 广告
+                        li 坟
+                        li 无意义
+                    p
+                        button(id='support', class='btn',name='support',value='可以发表') 可以发表
+                    p 可以发表
+                        ul
+                            li 内容真实
+                            li 有积极意义
+                            li 需要援助
+                    p
+                        button(id='veto', class='btn',name='veto',value='不能发表') 不能发表
+                <!-- Templates -->
+                script(type='text/template',id='post-template')
+                    div(class='row-fluid')
+                        div(class='span8') <%- title %>
+                    div(class='row-fluid')
+                        div(class='span8') <%- content %>
