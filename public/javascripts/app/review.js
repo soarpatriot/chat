@@ -5,8 +5,6 @@
  */
 (function(){
 
-
-
     $(function(){
 
         var Post = Backbone.Model.extend({
@@ -15,8 +13,11 @@
             urlRoot : '/posts'
 
         });
-        //var post = new Post();
 
+        var Review = Backbone.Model.extend({
+            agree:false,
+            reason:''
+        });
 
         var ReviewView  = Backbone.View.extend({
 
@@ -31,12 +32,11 @@
             initialize: function() {
 
                 this.postContent = this.$('#post-content');
-
                 //this.model.on('all', this.render, this);
-
                 var post = new Post();
                 this.model = post;
-                this.model.on('change', this.render, this);
+                //this.score = this.model.get('score');
+                this.model.on('change:_id', this.render, this);
 
                 this.fetchNew();
             },
@@ -47,22 +47,25 @@
                 return this;
             },
             support: function(){
-                alert("sdf");
+                //this.score = this.score + 1;
+                var score = this.model.get('score')+1;
+                this.model.set("score",score);
+                this.model.save();
                 this.fetchNew();
             },
             veto:function(){
-                alert("sdfdf");
+                var score = this.model.get('score')-1;
+                this.model.set("score",score);
+                this.model.save();
+
                 this.fetchNew();
             },
             fetchNew:function(){
 
                 this.model.fetch({url:'/posts/review/',success:function(model,response){
-                    //alert('success');
-                    //model为获取到的数据
-                    //alert(JSON.stringify(model));
+
                     this.model = model;
-                    //this.postContent.html(this.template(this.model.toJSON()));
-                    //this.render();
+
                 },error:function(){
                     alert(response);
                 }});

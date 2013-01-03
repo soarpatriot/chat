@@ -30,13 +30,19 @@ var error = require('./routes/error')
 //debugs
 var expressError = require('express-error');
 
-
 var settings = require('./settings');
+
 var MongoStore = require('connect-mongo')(express);
 
 var partials = require('express-partials');
 var flash = require('connect-flash');
 
+
+
+var app = express();
+   // , server = require('http').createServer(app)
+   // , io = io.listen(server);
+//server.listen(process.env.PORT);
 var sessionStore = new MongoStore({
                         url:settings.currentDb()
                     }, function(){
@@ -44,49 +50,75 @@ var sessionStore = new MongoStore({
                     });
 
 
-var app = express();
-   // , server = require('http').createServer(app)
-   // , io = io.listen(server);
-//server.listen(process.env.PORT);
-
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000);
-  app.set('views', __dirname + '/views');
-  app.set('view engine', 'jade');
+    app.set('port', process.env.PORT || 3000);
+    app.set('views', __dirname + '/views');
+    app.set('view engine', 'jade');
 
-  //app.use(partials());
-  app.use(flash());
+      //app.use(partials());
+    app.use(flash());
 
-  app.use(express.favicon());
-  app.use(express.logger('dev'));
-  //app.use(express.bodyParser());
-  app.use(express.bodyParser({uploadDir:__dirname+'/tmp'}));
-  app.use(express.methodOverride());
+    app.use(express.favicon());
 
-  app.use(express.cookieParser());
-  app.use(express.session({
-      secret : settings.cookie_secret,
-      cookie : {
-          maxAge :  60000 * 30
-      },
-      store : sessionStore
-  }));
-  app.use(app.router);
-  app.use(error);
-  app.use(express.static(path.join(__dirname, 'public')));
+      //app.use(express.bodyParser());
+    app.use(express.bodyParser({uploadDir:__dirname+'/tmp'}));
+    app.use(express.methodOverride());
 
-    //expose
-   // app.expose(Utils, 'Utils').helpers(Utils);
+    app.use(express.cookieParser());
+    app.use(express.session({
+        secret : settings.cookie_secret,
+        cookie : {
+            maxAge :  1000 * 60 * 60 * 24 * 365
+        },
+        store : sessionStore
+    }));
+    app.use(app.router);
+    //app.use(error);
+    app.use(express.static(path.join(__dirname, 'public')));
+
+    app.use(express.logger('dev'));
+    app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
+
+
+        //expose
+       // app.expose(Utils, 'Utils').helpers(Utils);
 });
+
+
+
+// the defination of development
 
 /**
-app.configure('development', function(){
+// the defination of production
+app.configure('production', function(){
+    var sessionStore = new MongoStore({
+        url:settings.remoteMongolab
+    }, function(){
+        console.log('connect mongodb success........');
+    });
+
+    app.use(express.logger('dev'));
+    app.use(express.session({
+        secret : settings.cookie_secret,
+        cookie : {
+            maxAge :  1000 * 60 * 60 * 24 * 60    //one year
+        },
+        store : sessionStore
+    }));
+});
+
+ app.configure('development', function(){
   app.use(express.errorHandler());
 });
+
  **/
-app.configure('development', function() {
+app.configure('development', function(){
     app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
 });
+
+
+
+
 
 app.get('/', home.index);
 
@@ -102,7 +134,7 @@ app.get('/posts',post.all);
 app.get('/posts/:id',post.one);
 app.post('/posts',post.up);
 app.put('/posts/:id',post.up);
-
+app.post('/posts/createReview',post.createReview);
 
 app.post('/comment',post.comment);
 
@@ -119,6 +151,7 @@ app.get('/user/edit',user.edit);
 app.get('/user/:userId', user.index);
 app.get('/user',user.show);
 app.post('/user',user.updateProfile);
+app.put('/users',user.update);
 
 app.post('/upload-face',uploader.uploadFace);
 app.get('/file-picker',uploader.filePicker);

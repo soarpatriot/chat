@@ -144,17 +144,32 @@ exports.get = function(req,res){
  */
 exports.review = function(req,res){
 
-    Post.findPostForReview(function(err,post){
-        if(err){
-            res.send(err);
-        }else{
-            console.log(post);
-            res.json(post);
+    Post.countPostForReview(function(err,number){
 
-        }
+        var random = _.random(0, number-1);
+
+        Post.findPostForReview(random,function(err,post){
+            if(err){
+                res.send(err);
+            }else{
+                console.log(post);
+                res.json(post);
+            }
+        });
+
     });
-
 };
+
+/**
+ * create review
+ * @param req
+ * @param res
+ */
+exports.createReview = function(req,res){
+
+    console.log('ssss ok');
+}
+
 
 /**
  * backbone used, home page top5 posts
@@ -230,37 +245,40 @@ exports.up = function(req,res){
 
     var upNumber = req.body.up;
     var downNumber = req.body.down;
+    var score = req.body.score;
+    var opt = req.body.opt;
+    var postId = req.body._id;
 
     var user = req.session.user;
-    var postId = req.params.id;
 
-    User.findOne({'_id':user._id}, function(err,user){
-        var favor = false;
-        if(!_.isNull(upNumber) && !_.isUndefined(upNumber)){
+    if(!_.isNull(user) && !_.isUndefined(user)){
+        User.findOne({'_id':user._id}, function(err,user){
+            var favor = false;
+            if(!_.isNull(upNumber) && !_.isUndefined(upNumber)){
 
-            favor = true;
-        }
-        console.log("upNumber: "+upNumber);
-        console.log("favor: "+favor);
-        user.votePosts.push({ postId: postId,favor: favor});
-        user.save(function(err){
-            if(err){
-                console.log('error'+err);
+                favor = true;
             }
-        });
-    });
 
-    Post.findPostWithCreator(req.params.id, function(err,post){
+            user.votePosts.push({ postId: postId,favor: favor});
+            user.save(function(err){
+                if(err){
+                    console.log('error'+err);
+                }
+            });
+        });
+    }
+
+    Post.findPostWithCreator(postId, function(err,post){
         if(err){
             req.flash('error', err.toString());
             return res.redirect('/');
         }
-        post.update({ up: upNumber,down: downNumber }, { multi: true }, function (err, numberAffected, raw) {
+        post.update({ up: upNumber,down: downNumber,score:score }, { multi: true }, function (err, numberAffected, raw) {
 
             if (err) {
                 return handleError(err);
             }else{
-
+                console.log(raw);
                 res.format({
                     html: function(){
                         //res.json(post);
@@ -271,7 +289,8 @@ exports.up = function(req,res){
                     },
 
                     json: function(){
-                        res.json(post);
+                        console.log("update");
+                        //res.json(post);
                     }
                 });
             }

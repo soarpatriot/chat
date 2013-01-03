@@ -278,6 +278,30 @@ exports.updateProfile = function(req,res){
     });
 }
 
+exports.update = function(req,res){
+    var user = req.session.user;
+    var upNumber = req.body.up;
+    var downNumber = req.body.down;
+
+    if(!_.isNull(user) && !_.isUndefined(user)){
+        User.findOne({'_id':user._id}, function(err,user){
+            var favor = false;
+            if(!_.isNull(upNumber) && !_.isUndefined(upNumber)){
+
+                favor = true;
+            }
+            console.log("upNumber: "+upNumber);
+            console.log("favor: "+favor);
+            user.votePosts.push({ postId: postId,favor: favor});
+            user.save(function(err){
+                if(err){
+                    console.log('error'+err);
+                }
+            });
+        });
+    }
+}
+
 
 
 /**

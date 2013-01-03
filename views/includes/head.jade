@@ -17,6 +17,12 @@ div.navbar.navbar-inverse.navbar-fixed-top
                     else
                         li
                             a(href='/') 主页
+                    if(typeof(currentLink) !== 'undefined' && currentLink === 'REVIEW')
+                        li.active
+                            a(href='/review') 审阅
+                    else
+                        li
+                            a(href='/review') 审阅
 
                 ul.nav.pull-right
                     if typeof(user) === 'undefined' || user === null || user === ''

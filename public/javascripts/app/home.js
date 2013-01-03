@@ -12,12 +12,13 @@
         delay:{ show: 5000, hide: 2000 }
     })**/
 
-
+        
         var User = Backbone.Model.extend({
-
+            idAttribute: "_id",
+            urlRoot : '/users'
         });
 
-        var user  = new User();
+        var user = new User();
         var Post = Backbone.Model.extend({
 
             idAttribute: "_id",
@@ -53,7 +54,6 @@
 
             // Re-render the titles of the todo item.
             render: function() {
-                //alert(JSON.stringify(this.model));
                 this.$el.html(this.template(this.model.toJSON()));
                 //this.$el.toggleClass('done', this.model.get('done'));
                 //this.input = this.$('.edit');
@@ -65,6 +65,7 @@
                     this.$('a[name="up-post"]').attr("disabled",true);
                     this.$('a[name="down-post"]').attr("disabled",true);
                 }
+
                 return this;
             },
 
@@ -75,22 +76,30 @@
                 this.render();
 
                 //after post was uped, display an animation
-                this.optAnimation();
+                this.optAnimation("up");
+
             },
             down: function(){
 
                 this.model.set("done",true);
                 this.render();
 
-                //after post was uped, display an animation
-                this.optAnimation();
+                //after post was downed, display an animation
+                this.optAnimation("down");
+
             },
 
             //animateion, after post was up or down
-            optAnimation: function(){
-                var offset = this.upPost.offset();
+            optAnimation: function(upOrDown){
 
-                this.$upDownCover= $('<div class="up-down-cover">顶 +1</div>');
+                if(upOrDown==="up"){
+                    var offset = this.upPost.offset();
+                    this.$upDownCover= $('<div class="up-down-cover"> +1</div>');
+                }else{
+                    var offset = this.downPost.offset();
+                    this.$upDownCover= $('<div class="up-down-cover"> -1</div>');
+                }
+
                 var top = offset.top;
                 var left = offset.left;
 
@@ -120,19 +129,21 @@
 
             upPost: function(){
                 if(!this.model.get("done")){
-                    //alert(JSON.stringify(model));
                     var upNumber = this.model.get("up")+1;
-                    this.model.save({"up":upNumber});
-                    this.model.fetch();
+                    this.model.set("up",upNumber);
+                    this.model.save();
+
+                    //alert(this.model.get("creator").get("_id"));
+                    //this.model.fetch();
                 }
             },
 
             downPost:function(){
                 if(!this.model.get("done")){
-                    //alert(JSON.stringify(model));
-                    var downNumber = this.model.get("down")+1;
-                    this.model.save({"down":downNumber});
-                    this.model.fetch();
+                    var downNumber = this.model.get("down")-1;
+                    this.model.set("down",downNumber);
+                    this.model.save();
+                    //this.model.fetch();
                 }
             }
 
@@ -145,7 +156,6 @@
 
             },
             initialize: function() {
-                // this.posts = this.$('#posts');
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
@@ -156,12 +166,11 @@
 
             },
             addOne: function(post) {
-                //alert(JSON.stringify(post));
                 var view = new PostView({model: post});
                 this.$('#posts').append(view.render().el);
             },
 
-            // Add all items in the **Todos** collection at once.
+            // Add all items in the **Posts** collection at once.
             addAll: function() {
                 Posts.each(this.addOne);
             }

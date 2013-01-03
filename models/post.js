@@ -89,11 +89,18 @@ PostSchema.methods.findByRank = function(creator, date, callback){
     return this.findOne('creator', creator).where('passed').eq('false').run(callback);
 };
 
-PostSchema.statics.findPostForReview = function(callback){
-    return this.findOne({})
-        .where('passed').equals(false)
+PostSchema.statics.countPostForReview = function(callback){
+    return this.where('passed').equals(false)
         .where('score').gt(-10)
         .sort('-pusTime')
+        .count(callback);
+};
+
+PostSchema.statics.findPostForReview = function(startRowNumber,callback){
+    return this.findOne().where('passed').equals(false)
+        .where('score').gt(-10)
+        .sort('-pusTime')
+        .skip(startRowNumber)
         .exec(callback);
 };
 
@@ -107,7 +114,7 @@ fromNow.get(function(){
 var Post = mongodb.db.model('Post', PostSchema);
 
 Post.top5 = function(callback){
-    return Post.where('passed').equals(true)
+    return Post.where('passed').equals(false)
         .limit(5)
         .sort('-pusTime')
         .populate('creator')
