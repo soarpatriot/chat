@@ -1,72 +1,59 @@
 doctype
 html(lang='en')
-  head
-   block head
-    title= title
-    meta(charset='utf-8')
-    meta(content='width=device-width, initial-scale=1.0', name='viewport')
-    link(rel='stylesheet', href='/stylesheets/bootstrap.css')
-    link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    head
+        block head
+            title= title
+            meta(charset='utf-8')
+            meta(content='width=device-width, initial-scale=1.0', name='viewport')
+            link(rel='stylesheet', href='/stylesheets/bootstrap.css')
+            link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
+            link(rel='stylesheet', href='/stylesheets/style.css')
+            link(rel='stylesheet', href='/stylesheets/alertify.core.css')
+            link(rel='stylesheet', href='/stylesheets/alertify.default.css')
 
+            link(href='/ico/apple-touch-icon-144-precomposed.png', sizes='144x144', rel='apple-touch-icon-precomposed')
+            link(href='/ico/apple-touch-icon-114-precomposed.png', sizes='114x114', rel='apple-touch-icon-precomposed')
+            link(href='/ico/apple-touch-icon-72-precomposed.png', sizes='72x72', rel='apple-touch-icon-precomposed')
+            link(href='/ico/apple-touch-icon-57-precomposed.png', rel='apple-touch-icon-precomposed')
 
-    link(href='/ico/apple-touch-icon-144-precomposed.png', sizes='144x144', rel='apple-touch-icon-precomposed')
-    link(href='/ico/apple-touch-icon-114-precomposed.png', sizes='114x114', rel='apple-touch-icon-precomposed')
-    link(href='/ico/apple-touch-icon-72-precomposed.png', sizes='72x72', rel='apple-touch-icon-precomposed')
-    link(href='/ico/apple-touch-icon-57-precomposed.png', rel='apple-touch-icon-precomposed')
+            include includes/head
+            include includes/message
 
+            div.container.min-height
+                block content
+            include includes/footer
 
+            script(src='/javascripts/jquery/jquery-1.8.0.min.js')
+            script(src='/javascripts/bootstrap/bootstrap.min.js')
+            script(src='/javascripts/bootstrap/application.js')
 
+            script(src='/javascripts/backbone/underscore.js')
+            script(src='/javascripts/backbone/backbone.js')
 
-    include includes/head
-    include includes/message
+            script(src='/javascripts/alertify/alertify.min.js')
+            script(src='/javascripts/spin/spin.min.js')
 
-    div.container.min-height
-        block content
-    include includes/footer
+            script(src='/javascripts/noty/jquery.noty.js')
+            script(src='/javascripts/noty/layouts/bottom.js')
+            script(src='/javascripts/noty/layouts/bottomCenter.js')
+            script(src='/javascripts/noty/layouts/bottomLeft.js')
+            script(src='/javascripts/noty/layouts/bottomRight.js')
+            script(src='/javascripts/noty/layouts/center.js')
+            script(src='/javascripts/noty/layouts/centerLeft.js')
+            script(src='/javascripts/noty/layouts/centerRight.js')
+            script(src='/javascripts/noty/layouts/inline.js')
+            script(src='/javascripts/noty/layouts/top.js')
+            script(src='/javascripts/noty/layouts/topCenter.js')
+            script(src='/javascripts/noty/layouts/topLeft.js')
+            script(src='/javascripts/noty/layouts/topRight.js')
+            script(src='/javascripts/noty/themes/default.js')
 
+            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+            script(src='/javascripts/google-code-prettify/html5.js')
+            <![endif]-->
+            script(src='/javascripts/google-code-prettify/prettify.js')
 
-    script(src='/javascripts/jquery/jquery-1.8.0.min.js')
-    script(src='/javascripts/bootstrap/bootstrap-transition.js')
-    script(src='/javascripts/bootstrap/bootstrap-alert.js')
-    script(src='/javascripts/bootstrap/bootstrap-modal.js')
-    script(src='/javascripts/bootstrap/bootstrap-dropdown.js')
-    script(src='/javascripts/bootstrap/bootstrap-scrollspy.js')
-    script(src='/javascripts/bootstrap/bootstrap-tab.js')
-    script(src='/javascripts/bootstrap/bootstrap-tooltip.js')
-    script(src='/javascripts/bootstrap/bootstrap-popover.js')
-    script(src='/javascripts/bootstrap/bootstrap-button.js')
-    script(src='/javascripts/bootstrap/bootstrap-collapse.js')
-    script(src='/javascripts/bootstrap/bootstrap-carousel.js')
-    script(src='/javascripts/bootstrap/bootstrap-typeahead.js')
-    script(src='/javascripts/bootstrap/utils.js')
-
-    script(src='/javascripts/backbone/underscore.js')
-    script(src='/javascripts/backbone/backbone.js')
-
-
-    script(src='/javascripts/noty/jquery.noty.js')
-    script(src='/javascripts/noty/layouts/bottom.js')
-    script(src='/javascripts/noty/layouts/bottomCenter.js')
-    script(src='/javascripts/noty/layouts/bottomLeft.js')
-    script(src='/javascripts/noty/layouts/bottomRight.js')
-    script(src='/javascripts/noty/layouts/center.js')
-    script(src='/javascripts/noty/layouts/centerLeft.js')
-    script(src='/javascripts/noty/layouts/centerRight.js')
-    script(src='/javascripts/noty/layouts/inline.js')
-    script(src='/javascripts/noty/layouts/top.js')
-    script(src='/javascripts/noty/layouts/topCenter.js')
-    script(src='/javascripts/noty/layouts/topLeft.js')
-    script(src='/javascripts/noty/layouts/topRight.js')
-    script(src='/javascripts/noty/themes/default.js')
-
-
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-    script(src='/javascripts/google-code-prettify/html5.js')
-    <![endif]-->
-    script(src='/javascripts/google-code-prettify/prettify.js')
-
-    script(src='/javascripts/impress/impress.js')
-    script
-        impress().init();
+            script(src='/javascripts/impress/impress.js')
+            script
+                impress().init();

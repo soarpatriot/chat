@@ -4,7 +4,7 @@ script(type="text/template",id="item-template")
         div.span8
             p
                 a('href=/user/"<%- _id %>"')
-                    img('src="<%- creator.faceUrl %>"')
+                    img('src="<%- creator.faceUrl %>"',class='img-polaroid img-rounded')
                 | &nbsp;&nbsp;&nbsp;
                 a('href=/post/"<%- _id %>"') <%- title %>
 

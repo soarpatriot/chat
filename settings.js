@@ -14,7 +14,10 @@ dbConfig.currentDb = function(){
 }
 
 /**
-module.exports = {
+ *
+ * heroku scale web=1
+
+ module.exports = {
     cookie_secret : 'secret_meteoric',
     db : 'microblog',
     host : 'localhost',

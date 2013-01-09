@@ -3,6 +3,8 @@
  * @type {*}
  */
 var mongoose = require('mongoose'),
+    md = require('github-flavored-markdown').parse,
+    utils = require('../helpers/utils'),
     Schema = mongoose.Schema;
 var mongodb = require('./mongolab-db');
 var cloudinary = require('../models/cloudinary.js');
@@ -127,6 +129,21 @@ Post.top5 = function(callback){
  * @param posts
  * @return {*}
  */
+Post.markdownComment = function(post){
+
+    _.each(post.comments,function(comment){
+        comment.content = md(comment.content);
+
+    });
+    return post;
+}
+
+
+/**
+ * if the content length than a number, then truncate it.
+ * @param posts
+ * @return {*}
+ */
 Post.truncateAll = function(posts){
     var end = 200;
     _.each(posts,function(post){
@@ -145,6 +162,7 @@ Post.truncateAll = function(posts){
 Post.truncateOne = function(post){
     var end = 200;
     var content = post.content;
+    content = utils.delHtmlTag(content);
     post.content = _(content).truncate(end);
     return post;
 };

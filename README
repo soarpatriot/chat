@@ -5,5 +5,4 @@
 *
 * v 0.1.1
 **/
-heroku scale web=1
 

@@ -4,6 +4,7 @@
  */
 
 var Post = require('../models/post.js'),
+    md = require('github-flavored-markdown').parse,
     utils = require('../models/utils');
 
 var User = require('../models/user.js');
@@ -123,6 +124,14 @@ exports.get = function(req,res){
             return res.redirect('/');
         }
 
+        post = Post.markdownComment(post)
+        var html = md(post.content);
+        html = html.replace(/\{([^}]+)\}/g, function(_, name){
+            return options[name] || '';
+        })
+
+        console.log("html:  "+ html);
+        post.content = html;
         //update the number of being looked
         var lookedNumber = post.get("looked")+1;
         post.update({ looked:lookedNumber}, { multi: true }, function (err, numberAffected, raw) {
@@ -278,7 +287,7 @@ exports.up = function(req,res){
             if (err) {
                 return handleError(err);
             }else{
-                console.log(raw);
+                //console.log(raw);
                 res.format({
                     html: function(){
                         //res.json(post);

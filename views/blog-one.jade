@@ -10,14 +10,14 @@ block content
         div.row-fluid.one-post
             div.span12
                 h3 #{post.title}
-                p #{post.content}
+                p !{post.content}
                 hr.soft
 
 
             each comment, i in post.comments
               div.row-fluid
                  div.span12
-                    p #{comment.content}
+                    p !{comment.content}
                     hr.soft
 
         div.row-fluid

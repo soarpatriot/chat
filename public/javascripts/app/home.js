@@ -1,6 +1,26 @@
 (function(){
     $(function(){
 
+
+        var opts = {
+            lines: 13, // The number of lines to draw
+            length: 27, // The length of each line
+            width: 5, // The line thickness
+            radius: 31, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            color: '#000', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 83, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+        };
+
+     //alertify.success( "ssdfsadfa" );
         /**
          $('a[name="up-post"]').popover({
         animation:true,
@@ -12,7 +32,7 @@
         delay:{ show: 5000, hide: 2000 }
     })**/
 
-        
+
         var User = Backbone.Model.extend({
             idAttribute: "_id",
             urlRoot : '/users'
@@ -156,6 +176,12 @@
 
             },
             initialize: function() {
+                //var spin = document.getElementById('foo');
+                //var target = document.getElementById('new');
+                //var spinner = new Spinner(opts).spin($("#foo"));
+                //var spinner = new Spinner(opts).spin(spin);
+                //target.appendChild(spinner.el);
+
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
@@ -172,6 +198,7 @@
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
+                //this.spin.remove();
                 Posts.each(this.addOne);
             }
         });
