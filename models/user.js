@@ -46,21 +46,9 @@ var UserSchema = mongoose.Schema({
     gender: { type: String, default: '未知' },
     email:'String',
     regTime:{ type: Date, default: Date.now },
-    face: {
-        mini :String,
-        thumbnails : String,
-        media  : String,
-        normal: String,
-        big:   String
-    },
     votePosts:[Vote]
 },schemaOptions);
 
-
-
-
-
-var User = mongodb.db.model('User', UserSchema);
 
 //virtual properties
 var fromNow = UserSchema.virtual('fromNow');
@@ -69,74 +57,63 @@ fromNow.get(function(){
 });
 
 //virtual property need definded behind User
-var faceUrl = UserSchema.virtual('faceUrl');
-faceUrl.get(function(){
-    this.face.thumbnails = cloudinary.genSmallFace(this.faceId);
-    this.faceUrl = this.face.thumbnails;
-    return this.faceUrl;
-});
-
-
-
-
-UserSchema.virtual('regTimeStr');
-UserSchema.virtual('flyAge');
-var miniFace = UserSchema.virtual('miniFace');
-miniFace.get(function(){
+var mini = UserSchema.virtual('mini');
+mini.get(function(){
     return cloudinary.genMiniFace(this.faceId);
-})
-
-UserSchema.pre('save', function (next) {
-    console.log('this face url: '+this.faceUrl);
-    if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
-        console.log('default face url: '+cloudinary.genDefaultFaceUrl());
-        this.faceUrl = cloudinary.genDefaultFaceUrl();
-    };
-    next();
 });
 
-
-
-UserSchema.pre('update', function (next) {
-    console.log('this face url: '+this.faceUrl);
-    if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
-        console.log('default face url: '+cloudinary.genDefaultFaceUrl());
-        this.faceUrl = cloudinary.genDefaultFaceUrl();
-    };
-    next();
+var thumbnails = UserSchema.virtual('thumbnails');
+thumbnails.get(function(){
+    return cloudinary.genSmallFace(this.faceId);
 });
 
+var normalFace = UserSchema.virtual('normalFace');
+normalFace.get(function(){
+    return cloudinary.genBlogFace(this.faceId);
+});
 
-User.computeFlyAge = function(user){
+var regTimeStr = UserSchema.virtual('regTimeStr');
+regTimeStr.get(function(){
+    if(utils.isNotEmpty(this.regTime)){
+        return moment(this.regTime).format('YYYY年MMMDD a h:mm:ss');
+    }
+});
 
-    if(utils.isNotEmpty(user.regTime)){
+var flyAge = UserSchema.virtual('flyAge');
+flyAge.get(function(){
+    if(utils.isNotEmpty(this.regTime)){
         var now = moment(new Date());
-        var regTime = moment(user.regTime);
-        user.flyAge = now.diff(regTime,'days');
+        var regTime = moment(this.regTime);
+        return now.diff(regTime,'days');
     }
-    return user;
-};
+});
 
 
-User.generateNormalFaceUrl = function(user){
-    user.faceUrl = cloudinary.genBlogFace(user.faceId);
-};
-
-User.formatRegTime = function(user){
-    if(utils.isNotEmpty(user.regTime)){
-        user.regTimeStr = moment(user.regTime).format('YYYY年MMMDD a h:mm:ss');
-        console.log('user regtime: '+ user.regTimeStr);
-    }
-    return user;
-};
-
-User.adjustInformation = function(user){
-    User.generateNormalFaceUrl(user);
-    User.formatRegTime(user);
-    User.computeFlyAge(user);
-    console.log("user"+user);
-    return user;
-}
-
-
+var User = mongodb.db.model('User', UserSchema);
 module.exports = User;
+
+
+
+
+
+
+/*
+ UserSchema.pre('save', function (next) {
+ console.log('this face url: '+this.faceUrl);
+ if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
+ console.log('default face url: '+cloudinary.genDefaultFaceUrl());
+ this.faceUrl = cloudinary.genDefaultFaceUrl();
+ };
+ next();
+ });
+
+
+
+ UserSchema.pre('update', function (next) {
+ console.log('this face url: '+this.faceUrl);
+ if(_.isNull(this.faceUrl) || _.isUndefined(this.faceUrl)){
+ console.log('default face url: '+cloudinary.genDefaultFaceUrl());
+ this.faceUrl = cloudinary.genDefaultFaceUrl();
+ };
+ next();
+ });**/

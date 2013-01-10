@@ -9,13 +9,15 @@ exports.index = function(req, res){
 
     res.render('index', {
         title: '翱翔中国',
-        user : req.session.user,
+        user:req.user,
         currentLink: 'HOME',
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
     });
 
 };
+
+
 
 exports.checkLogin = function(req, res){
 

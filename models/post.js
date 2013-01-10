@@ -124,6 +124,8 @@ Post.top5 = function(callback){
 
 };
 
+
+
 /**
  * if the content length than a number, then truncate it.
  * @param posts

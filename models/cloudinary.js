@@ -118,15 +118,10 @@ cloudinary.genDefaultMiniFaceUrl = function(){
  */
 cloudinary.genSmallFace = function(faceId){
     if(_.isNull(faceId) || _.isUndefined(faceId)){
-
         var faceUrl = cloudinary.genSmallDefaultFaceUrl();
-        //console.log('face1: '+ faceUrl);
         return faceUrl;
     }else{
-        console.log('face: '+faceId);
-
         var faceUrl = cloudinary.genSmallFaceUrl(faceId);
-        console.log('faceUrl: '+ faceUrl);
         return faceUrl;
     }
 
@@ -158,9 +153,7 @@ cloudinary.genMiniFace = function(faceId){
         var faceUrl = cloudinary.genDefaultMiniFaceUrl();
         return faceUrl;
     }else{
-        //console.log('face: '+faceId);
         var faceUrl = cloudinary.genMiniFaceUrl(faceId);
-        //console.log('faceUrl: '+ faceUrl);
         return faceUrl;
     }
 

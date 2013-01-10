@@ -120,7 +120,7 @@ app.configure('development', function(){
 
 
 
-app.get('/', home.index);
+app.get('/',user.loadUser, home.index);
 
 app.get('/chat', chat.index);
 
@@ -149,7 +149,7 @@ app.get('/logout', user.logout);
 
 app.get('/user/edit',user.edit);
 app.get('/user/:userId', user.index);
-app.get('/user',user.show);
+app.get('/user',user.loadUser,user.show);
 app.post('/user',user.updateProfile);
 app.put('/users',user.update);
 

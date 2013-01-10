@@ -3,7 +3,6 @@
  * User controller
  */
 
-
 var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
@@ -22,8 +21,6 @@ _.str.include('Underscore.string', 'string'); // => true
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
-var cloudinary = require('../models/cloudinary.js');
-
 
 exports.index = function(req,res){
 
@@ -32,8 +29,6 @@ exports.index = function(req,res){
             req.flash('error','用户不存在！');
             return res.redirect('/');
         }
-
-        User.adjustInformation(user);
 
         Post.findCreatorPost(user._id, function(err,posts){
             if(err){
@@ -64,7 +59,6 @@ exports.reg = function(req, res){
 
     res.render('reg',{
         title: 'Register',
-        user : req.session.user,
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     });
@@ -139,7 +133,7 @@ exports.login = function(req, res){
         password: req.flash('password'),
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
-    })
+    });
 }
 
 /**
@@ -151,7 +145,6 @@ exports.doLogin = function(req,res){
 
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
-    console.log('login start');
     var valid = true;
     User.findOne({'name': req.body.username}, function(err, user){
 
@@ -168,11 +161,11 @@ exports.doLogin = function(req,res){
             return res.redirect('/login');
         }
 
-        req.session.user = user;
+        //req.session.user = user;
+        req.session.userId = user._id;
 
         if(req.session.lastUrl!== null){
             req.flash('success','登录成功,请继续您的操作...');
-            //return res.redirect(req.session.lastUrl);
         }
         req.flash('currentLink','HOME');
 
@@ -187,7 +180,8 @@ exports.doLogin = function(req,res){
  * @param res
  */
 exports.logout = function(req, res){
-    req.session.user = null;
+
+    req.session.userId = null;
     req.flash('success','登出成功！');
     res.redirect('/');
 }
@@ -199,25 +193,11 @@ exports.logout = function(req, res){
  */
 exports.show = function(req,res){
 
-    var  _id = req.session.user._id;
-    User.findOne({'_id': _id}, function(err, user){
-        if(err){
-
-            req.flash('error',err);
-            console.log(err);
-            return res.redirect('user/show');
-
-        }else{
-            user = User.adjustInformation(user);
-            user.faceUrl = cloudinary.genEditFace(user.faceId);
-            //console.log("edit:: \n"+user);
-            res.render('user/show',{
-                title: '用户资料',
-                user: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString()
-            });
-        }
+    res.render('user/show',{
+        title: '用户资料',
+        user: req.user,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
     });
 }
 
@@ -238,8 +218,6 @@ exports.edit = function(req, res){
 
         }else{
 
-            user.faceUrl = cloudinary.genEditFace(user.faceId);
-            //console.log("edit:: \n"+user);
             res.render('user/edit',{
                 title: '编辑',
                 user: user,
@@ -272,9 +250,7 @@ exports.updateProfile = function(req,res){
         }else{
 
             res.redirect('/');
-
         }
-
     });
 }
 
@@ -302,8 +278,28 @@ exports.update = function(req,res){
     }
 }
 
+/**
+ * load user to pages
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.loadUser = function(req, res, next) {
+    // You would fetch your user from the db
+    var userId = req.session.userId;
+    User.findOne({'_id': userId}, function(err, user){
+        if(err){
 
+            req.flash('error',err);
+            console.log(err);
+            return res.redirect('/');
 
+        }else{
+            req.user = user;
+            next();
+        }
+    });
+}
 /**
 exports.saveProfile = function(req, res){
     // 获得文件的临时路径
