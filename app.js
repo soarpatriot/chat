@@ -4,14 +4,14 @@
  */
 
 var express = require('express')
-  ,expose = require('express-expose')
+    ,expose = require('express-expose')
 
-//, stylus = require('stylus')
-  //, nib = require('nib')
+    //, stylus = require('stylus')
+    //, nib = require('nib')
     ,io = require('./models/socket.js')
-  , routes = require('./routes')
-  , http = require('http')
-  , path = require('path');
+    , routes = require('./routes')
+    , http = require('http')
+    , path = require('path');
 
 //routes
 var home = require('./routes/index')
@@ -23,7 +23,8 @@ var home = require('./routes/index')
 
 
 //helpers
-
+var _  = require('underscore');
+var redis = require('./models/redis');
 //error-handle
 var error = require('./routes/error')
 
@@ -33,6 +34,7 @@ var expressError = require('express-error');
 var settings = require('./settings');
 
 var MongoStore = require('connect-mongo')(express);
+var RedisStore = require('connect-redis')(express);
 
 var partials = require('express-partials');
 var flash = require('connect-flash');
@@ -49,6 +51,10 @@ var sessionStore = new MongoStore({
                         console.log('connect mongodb success........');
                     });
 
+
+var redisStore = new  RedisStore({
+                        client:redis.client
+                    });
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -70,7 +76,7 @@ app.configure(function(){
         cookie : {
             maxAge :  1000 * 60 * 60 * 24 * 365
         },
-        store : sessionStore
+        store : redisStore
     }));
     app.use(app.router);
     //app.use(error);
@@ -80,46 +86,11 @@ app.configure(function(){
     app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
 
 
-        //expose
-       // app.expose(Utils, 'Utils').helpers(Utils);
 });
-
-
-
-// the defination of development
 
 /**
-// the defination of production
-app.configure('production', function(){
-    var sessionStore = new MongoStore({
-        url:settings.remoteMongolab
-    }, function(){
-        console.log('connect mongodb success........');
-    });
-
-    app.use(express.logger('dev'));
-    app.use(express.session({
-        secret : settings.cookie_secret,
-        cookie : {
-            maxAge :  1000 * 60 * 60 * 24 * 60    //one year
-        },
-        store : sessionStore
-    }));
-});
-
- app.configure('development', function(){
-  app.use(express.errorHandler());
-});
-
- **/
-app.configure('development', function(){
-    app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
-});
-
-
-
-
-
+ * detail routes
+ */
 app.get('/',user.loadUser, home.index);
 
 app.get('/chat', chat.index);
@@ -178,4 +149,81 @@ io.listenServer(server);
     }
 });
 
+ **/
+
+
+// the defination of development
+
+/**
+ // the defination of production
+ app.configure('production', function(){
+    var sessionStore = new MongoStore({
+        url:settings.remoteMongolab
+    }, function(){
+        console.log('connect mongodb success........');
+    });
+
+    app.use(express.logger('dev'));
+    app.use(express.session({
+        secret : settings.cookie_secret,
+        cookie : {
+            maxAge :  1000 * 60 * 60 * 24 * 60    //one year
+        },
+        store : sessionStore
+    }));
+});
+
+ app.configure('development', function(){
+  app.use(express.errorHandler());
+});
+
+
+
+
+ app.use(app.router,function(req, res, next){
+        res.locals.expose = {};
+        // you could alias this as req or res.expose
+        // to make it shorter and less annoying
+        console.log("sssssssssssssssssssssssssssssssss");
+        next();
+    });
+
+ // pretend we loaded a user
+
+ app.use(function(req, res, next){
+        var userId = req.session.userId;
+        if(!_.isNull(userId) && !_.isUndefined(userId)){
+            User.findOne({'_id': userId}, function(err, user){
+                if(err){
+                    req.flash('error',err);
+                    console.log(err);
+                    return res.redirect('/');
+                }else{
+                    req.user = user;
+                    res.locals.expose.user = user;
+
+                    console.log("sd load user:");
+                }
+                next();
+            });
+        }else{
+            console.log("sd load user:");
+            next();
+        }
+    });
+
+ app.configure('development', function(){
+    app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
+
+
+});
+ app.use(app.router,function(req, res, next){
+        res.locals.expose = {};
+        // you could alias this as req or res.expose
+        // to make it shorter and less annoying
+        console.log("sssssssssssssssssssssssssssssssss");
+        next();
+    });
+ //expose
+ // app.expose(Utils, 'Utils').helpers(Utils);
  **/

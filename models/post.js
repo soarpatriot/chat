@@ -9,6 +9,7 @@ var mongoose = require('mongoose'),
 var mongodb = require('./mongolab-db');
 var cloudinary = require('../models/cloudinary.js');
 
+//var redis  = require('../models/redis');
 //Schema.set('toJSON', { virtuals: true });
 
 var _  = require('underscore');

@@ -30,7 +30,7 @@ exports.index = function(req, res){
     res.render('review/review-show', {
         title: '审阅',
         currentLink: 'REVIEW',
-        user : req.session.user,
+        user:req.user,
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
     });

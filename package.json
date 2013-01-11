@@ -23,6 +23,7 @@
     "underscore.string":"2.3.0",
     "redis":"0.8.2",
     "hiredis":"0.1.14",
+    "connect-redis":"1.4.5",
     "github-flavored-markdown":"1.0.1"
 },
   "engines": {
