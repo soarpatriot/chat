@@ -1,13 +1,7 @@
 extends layout
 
 block append head
-    script(charset='utf-8', src='/kindeditor/kindeditor.js')
-    script(charset='utf-8', src='/kindeditor/lang/zh_CN.js')
-    script
-        var editor;
-        KindEditor.ready(function(K) {
-                editor = K.create('#editor_id');
-        });
+
 block content
     body
         div.container

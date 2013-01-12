@@ -44,36 +44,16 @@ exports.saveProfile = function(req, res){
 };
 
 
-
-
-
+/**
+ * uploader ajax
+ * @param req
+ * @param res
+ */
 exports.uploadFace = function(req, res){
 
     var target_path =  __dirname + '/../public/images/face/';
-    //path.basename(tmp_path) + extName;
-
     var fname = req.header('x-file-name');
-
-
     var tmpPath = '/tmp/';
-    //console.log('req filename::  '+tmpPath);
-
-    /**
-    stream = cloudinary.uploader.upload_stream(function(result) {
-        console.log(result);
-
-
-        res.send('Done:<br/> <img src="' + result.url + '"/><br/>' +
-            cloudinary.image(result.public_id, { format: "png", width: 100, height: 130, crop: "fill" }));
-        res.send(result);
-    }, { public_id: req.body.title } );**/
-
-
-    //fs.createReadStream(tmpPath, {encoding: 'binary'}).on('data', stream.write).on('end', stream.end);
-
-    //var os = fs.createWriteStream(dest);
-    //var is = fs.createReadStream(source)
-    //is.pipe(os);
 
     saveTmpFile(req, function(data) {
 
@@ -86,18 +66,7 @@ exports.uploadFace = function(req, res){
             res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
         };
 
-        /*
-        cloudinary.api.resource(data.public_id,
-           function(result)  { console.log(result)
-               console.log(data);
-               data.success = true;
-               res.send(JSON.stringify(data), {'Content-Type': 'text/plain'}, 404);
-           }
-        );*/
-
     });
-
-
 
 }
 
@@ -128,7 +97,7 @@ var saveTmpFile = function(req, callback){
     }
 
 
-}
+};
 
 var moveToCloud = function(source,callback){
     //var is = fs.createReadStream(source)
@@ -142,8 +111,19 @@ var moveToCloud = function(source,callback){
 
 
 
-}
+};
 
+exports.filePicker = function(req,res){
+    res.render('file-test', {
+        title: 'Say',
+        user : req.session.user,
+        currentLink: 'MICRO',
+        success : req.flash('success').toString(),
+        error : req.flash('error').toString()
+    });
+};
+
+/**
 // Mainfunction to recieve and process the file upload data asynchronously
 var uploadFile = function(req, targetdir, callback) {
 
@@ -213,12 +193,4 @@ var moveFile = function(source, dest, callback) {
 };
 
 
-exports.filePicker = function(req,res){
-    res.render('file-test', {
-        title: 'Say',
-        user : req.session.user,
-        currentLink: 'MICRO',
-        success : req.flash('success').toString(),
-        error : req.flash('error').toString()
-    });
-};
+};**/

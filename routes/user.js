@@ -22,6 +22,11 @@ var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
 
+/**
+ * redirect to user blog page
+ * @param req
+ * @param res
+ */
 exports.index = function(req,res){
 
     User.findOne({'_id':req.params.userId}, function(err,user){
@@ -208,7 +213,7 @@ exports.show = function(req,res){
  */
 exports.edit = function(req, res){
 
-    var  _id = req.session.user._id;
+    var  _id = req.user._id;
     User.findOne({'_id': _id}, function(err, user){
         if(err){
 
@@ -236,7 +241,7 @@ exports.edit = function(req, res){
  */
 exports.updateProfile = function(req,res){
 
-    var user = req.session.user;
+    var user = req.user;
     var username = user.name;
     var faceUrl = req.body.faceUrl;
     var faceId = req.body.faceId;
@@ -255,7 +260,7 @@ exports.updateProfile = function(req,res){
 }
 
 exports.update = function(req,res){
-    var user = req.session.user;
+    var user = req.user;
     var upNumber = req.body.up;
     var downNumber = req.body.down;
 

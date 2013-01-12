@@ -27,22 +27,29 @@ _.str.include('Underscore.string', 'string'); // => true
 var moment = require('moment');
 moment.lang('zh-cn');
 
-
-
-
-
+/**
+ * redirect to post page
+ * @param req
+ * @param res
+ */
 exports.index = function(req, res){
     res.render('post', {
         title: '发表',
-        user : req.session.user,
+        user : req.user,
         currentLink: 'MICRO',
         success : req.flash('success').toString(),
         error : req.flash('error').toString()
     });
 };
 
+/**
+ * publish a post
+ * @param req
+ * @param res
+ * @return {*}
+ */
 exports.publish = function(req, res){
-    var currentUser = req.session.user;
+    var currentUser = req.user;
     var content =  req.body.content;
     var title = req.body.title;
     if(currentUser === null){
@@ -77,9 +84,15 @@ exports.publish = function(req, res){
 
 }
 
+/**
+ * publish a comment
+ * @param req
+ * @param res
+ * @return {*}
+ */
 exports.comment = function(req,res){
     var postId = req.body.postId;
-    var currentUser = req.session.user;
+    var currentUser = req.user;
     var content =  req.body.content;
 
     console.log('current user'+currentUser);
@@ -187,7 +200,7 @@ exports.createReview = function(req,res){
  */
 exports.all = function(req,res){
 
-    var user = req.session.user;
+    var user = req.user;
 
     Post.top5(function(err, posts){
 
@@ -197,7 +210,7 @@ exports.all = function(req,res){
 
         var formattedPosts = Post.dealPosts(posts);
 
-        if(_.isNull(req.session.user) || _.isUndefined(req.session.user)){
+        if(_.isNull(user) || _.isUndefined(user)){
 
             formattedPosts = Post.doDone(posts);
             res.send(formattedPosts);
@@ -224,6 +237,11 @@ exports.all = function(req,res){
     });
 };
 
+/**
+ * get one post for backbone
+ * @param req
+ * @param res
+ */
 exports.one = function(req,res){
     Post.findPostWithCreator(req.params.id, function(err,post){
         if(err){
@@ -250,6 +268,13 @@ exports.one = function(req,res){
     });
 }
 
+/**
+ * user up and down a post
+ * only login user can up and down a post
+ *
+ * @param req
+ * @param res
+ */
 exports.up = function(req,res){
 
     var upNumber = req.body.up;
@@ -258,7 +283,7 @@ exports.up = function(req,res){
     var opt = req.body.opt;
     var postId = req.body._id;
 
-    var user = req.session.user;
+    var user = req.user;
 
     if(!_.isNull(user) && !_.isUndefined(user)){
         User.findOne({'_id':user._id}, function(err,user){
