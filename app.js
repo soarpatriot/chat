@@ -76,7 +76,7 @@ app.configure(function(){
         cookie : {
             maxAge :  1000 * 60 * 60 * 24 * 365
         },
-        store : redisStore
+        store : sessionStore
     }));
     app.use(app.router);
     //app.use(error);

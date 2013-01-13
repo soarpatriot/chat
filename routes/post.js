@@ -131,11 +131,18 @@ exports.comment = function(req,res){
  */
 exports.get = function(req,res){
 
-    Post.findOne({'_id':req.params.id}, function(err,post){
+    var postId = req.params.id;
+    Post.populateCommentsCreatorByPostId(postId, function(err,post){
         if(err){
             req.flash('error', err);
             return res.redirect('/');
         }
+
+        /***
+        Post.findCommentsByPostId(post._id,function(err,comments){
+            console.log("comment: "+JSON.stringify(comments));
+        });**/
+
 
         post = Post.markdownComment(post)
         var html = md(post.content);
@@ -143,7 +150,7 @@ exports.get = function(req,res){
             return options[name] || '';
         })
 
-        console.log("html:  "+ html);
+
         post.content = html;
         //update the number of being looked
         var lookedNumber = post.get("looked")+1;
@@ -154,7 +161,7 @@ exports.get = function(req,res){
         res.render('blog-one',{
             title: post.username,
             post: post,
-            user: req.session.user,
+            user: req.user,
             success : req.flash('success').toString(),
             error : req.flash('error').toString()
         })

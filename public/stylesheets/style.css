@@ -15,6 +15,33 @@ body {
     min-height: 600px;
 }
 
+.post-content header {
+    color: #777777;
+    font-size: 12px;
+    line-height: 16px;
+    position: relative;
+}
+.post-content header a, .post-content header .name {
+    font-weight: 600;
+}
+.post-content header .bullet {
+    padding: 0 3px;
+}
+.post-content .bullet {
+    color: #CCCCCC;
+    font-size: 75%;
+    line-height: 1.4;
+    padding: 0;
+}
+
+.post-content header .time-ago, .post-content header .parent-link {
+    color: inherit;
+    font-size: 95%;
+    font-weight: 400;
+}
+.publisher-anchor-color a {
+    color: #555555 !important;
+}
 
 .well-no-back {
 

@@ -33,13 +33,21 @@ var schemaOptions = {
     }
 };
 //Post's comments
-var Comment  = new Schema({
+var CommentSchema  = new Schema({
     title: {type: String, index: true,default: '无标题'},
     replyDate:  { type: Date, default: Date.now },
     content: String,
     rank:{type: Number, default: 0},
     creator: {type: Schema.ObjectId, ref: 'User'}
 },schemaOptions);
+
+//virtual properties
+var commentFromNow = CommentSchema.virtual('fromNow');
+commentFromNow.get(function(){
+    return moment(this.replyDate).fromNow();
+});
+
+
 
 var Review = new Schema({
     agree:{type:Boolean,default: false},            // the number of this post  can publish or can not publish
@@ -51,7 +59,7 @@ var PostSchema = mongoose.Schema({
 
     title: String,
     content: 'String',
-    comments: [Comment],
+    comments: [CommentSchema],
     pusTime: { type: Date, default: Date.now },
 
     rank:{type: Number, default: 0},
@@ -114,7 +122,27 @@ fromNow.get(function(){
     });
 
 
+
+//comment
+CommentSchema.statics.commentsByPostId = function(postId,callback){
+    return this.find({}).where('creator').equals(postId)
+        .where('score').gt(-10)
+        .sort('-pusTime')
+        .skip(startRowNumber)
+        .exec(callback);
+};
+
+
+PostSchema.statics.populateCommentsCreatorByPostId = function(postId,callback){
+    return this
+                .findOne({'_id':postId})
+                .populate('creator')
+                .populate('comments.creator')
+                .exec(callback);
+};
+
 var Post = mongodb.db.model('Post', PostSchema);
+var Comment = mongodb.db.model('Comment', CommentSchema);
 
 Post.top5 = function(callback){
     return Post.where('passed').equals(false)
@@ -122,7 +150,6 @@ Post.top5 = function(callback){
         .sort('-pusTime')
         .populate('creator')
         .exec(callback);
-
 };
 
 

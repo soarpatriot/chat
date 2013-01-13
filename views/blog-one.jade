@@ -8,15 +8,32 @@ block content
             div.span12
                 include includes/share
         div.row-fluid.one-post
-            div.span12
-                h3 #{post.title}
+            div.span1
+                img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
+            div.span11.post-content
+                header
+                    span.publisher-anchor-color
+                        a(href='#user') #{post.creator.name}
+                    span(class='bullet',aria-hidden='true') •
+                    a(href='#comment-693320343',class='time-ago') #{post.fromNow}
+                h5 #{post.title}
                 p !{post.content}
                 hr.soft
 
+        div.row-fluid
+            h4 #{post.comments.length} 评论
 
-            each comment, i in post.comments
-              div.row-fluid
-                 div.span12
+        each comment, i in post.comments
+            div.row-fluid
+                div.span1
+                    img(src='#{comment.creator.thumbnails}',class='img-polaroid img-rounded')
+
+                div.span11.post-content
+                    header
+                        span.publisher-anchor-color
+                            a(href='#user') #{comment.creator.name}
+                        span(class='bullet',aria-hidden='true') •
+                        a(href='#comment-693320343',class='time-ago') #{comment.fromNow}
                     p !{comment.content}
                     hr.soft
 
