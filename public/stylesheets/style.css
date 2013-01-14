@@ -43,6 +43,150 @@ body {
     color: #555555 !important;
 }
 
+
+/* discuss css
+   ---------------------------------------------------------------------------------------------------------------------
+*/
+.discussion-bubble {
+    margin: 20px 0;
+}
+
+
+.discussion-topic-header {
+    padding: 10px;
+    position: relative;
+}
+
+.discussion-topic-header .discussion-topic-author {
+    color: #666666;
+    font-size: 12px;
+}
+
+
+.discussion-topic-header .discussion-topic-title {
+    border-bottom: medium none;
+    margin: 0;
+}
+
+
+.discusion-topic-infobar {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    -moz-box-sizing: border-box;
+    background: none repeat scroll 0 0 #F5F5F5;
+    border-color: #E5E5E5;
+    border-image: none;
+    border-style: solid;
+    border-width: 1px 0;
+    height: 47px;
+    padding: 10px 10px 4px;
+    
+}
+.discussion-topic .comment-content {
+    position: relative;
+}
+.comment-content {
+    background: none repeat scroll 0 0 #FBFBFB;
+    color: #333333;
+    font-size: 12px;
+    padding: 0;
+}
+.comment-content .comment-body {
+    -moz-box-sizing: border-box;
+    font-size: 13px;
+    overflow: auto;
+    padding: 10px;
+    width: 100%;
+}
+
+.discussion-bubble .discussion-bubble-avatar {
+    border-radius: 3px 3px 3px 3px;
+    float: left;
+    position: relative;
+}
+
+.discussion-bubble .discussion-bubble-content:before {
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: transparent #EEEEEE transparent transparent;
+    border-image: none;
+    border-style: solid;
+    border-width: 10px 10px 10px 0;
+    content: "";
+    display: block;
+    height: 0;
+    left: -10px;
+    position: absolute;
+    top: 15px;
+    width: 0;
+}
+.discussion-bubble .discussion-bubble-content {
+    margin-left: 60px;
+    position: relative;
+}
+.bubble {
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 3px 3px 3px 3px;
+    padding: 3px;
+}
+
+.discussion-bubble-inner {
+    background-color: #FFFFFF;
+    border: 1px solid #CACACA;
+    min-height: 60px;
+}
+
+.comment-header {
+    background-color: #E1E1E1;
+    background-image: -moz-linear-gradient(#F8F8F8, #E1E1E1);
+    background-image: linear-gradient(#F8F8F8, #E1E1E1);
+    background-image: -webkit-linear-gradient(#F8F8F8, #E1E1E1);
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #CCCCCC;
+    font-size: 12px;
+    height: 33px;
+    padding: 0 10px 0 6px;
+}
+.comment-header a {
+    color: #666666;
+}
+
+.comment-header .comment-header-date {
+    color: #777777;
+    display: inline-block;
+    font-size: 11px;
+    font-style: normal;
+    height: 33px;
+    line-height: 33px;
+    margin: 0;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.698);
+}
+
+.comment-header .comment-header-author {
+    color: #222222;
+    font-weight: bold;
+    line-height: 33px;
+    max-width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.698);
+    white-space: nowrap;
+}
+
+.comment-content {
+    background: none repeat scroll 0 0 #FBFBFB;
+    color: #333333;
+    font-size: 12px;
+    padding: 5px 10px;
+}
+
+
+
+
 .well-no-back {
 
     border: 1px solid #E3E3E3;
@@ -324,3 +468,8 @@ body {
 
     z-index: 100;
 }
+
+
+
+
+

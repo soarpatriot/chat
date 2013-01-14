@@ -7,49 +7,55 @@ block content
         div.row-fluid
             div.span12
                 include includes/share
-        div.row-fluid.one-post
-            div.span1
-                img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
-            div.span11.post-content
-                header
-                    span.publisher-anchor-color
-                        a(href='#user') #{post.creator.name}
-                    span(class='bullet',aria-hidden='true') •
-                    a(href='#comment-693320343',class='time-ago') #{post.fromNow}
-                h5 #{post.title}
-                p !{post.content}
-                hr.soft
 
+        div.row-fluid
+            div.span12
+                div.discussion-bubble
+                    img(src='#{post.creator.thumbnails}',class='discussion-bubble-avatar img-polaroid img-rounded')
+                    div(class='discussion-bubble-content bubble')
+                        div(class='discussion-bubble-inner')
+                            div(class='discussion-topic-header')
+                                a(href='#user',class='discussion-topic-author') #{post.creator.name}
+                                time #{post.fromNow}
+                                h2(class='discussion-topic-title') #{post.title}
+                            div.discusion-topic-infobar
+                                | OK
+
+                            div(class='comment-content')
+                                !{post.content}
+        hr.soft
         div.row-fluid
             h4 #{post.comments.length} 评论
 
         each comment, i in post.comments
             div.row-fluid
-                div.span1
-                    img(src='#{comment.creator.thumbnails}',class='img-polaroid img-rounded')
+                div.span12
+                    div.discussion-bubble
+                        img(src='#{comment.creator.thumbnails}',class='discussion-bubble-avatar img-polaroid img-rounded')
+                        div(class='discussion-bubble-content bubble')
+                            div(class='discussion-bubble-inner')
+                                div(class='comment-header')
+                                    a(href='#user',class='comment-header-author') #{comment.creator.name}
+                                    span(class='pull-right comment-header-date') #{comment.fromNow}
 
-                div.span11.post-content
-                    header
-                        span.publisher-anchor-color
-                            a(href='#user') #{comment.creator.name}
-                        span(class='bullet',aria-hidden='true') •
-                        a(href='#comment-693320343',class='time-ago') #{comment.fromNow}
-                    p !{comment.content}
-                    hr.soft
+                                div(class='comment-content')
+                                    !{comment.content}
+
+        hr.soft
+
 
         div.row-fluid
             div.span12
-                form(class='well form-inline center',action='/comment',method='post')
-                      legend 评论
+                form(class='form-inline center',action='/comment',method='post')
+
                       div.control-group
-                          label(class='control-label', for='content') 内容：
+
                           div.controls
                               input(name='postId',type='hidden',value='#{post._id}')
-                              textarea(class='span6', name='content',rows='5')
+                              textarea(class='span6', name='content',rows='2')
                       div.control-group
                           div.controls
                               button(type='submit', class='btn btn-success') 发言
-
 
 
 
