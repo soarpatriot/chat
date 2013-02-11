@@ -108,7 +108,7 @@ app.put('/posts/:id',post.up);
 app.get('/posts/review',post.review);
 app.post('/posts/createReview',post.createReview);
 
-app.post('/comment',post.comment);
+app.post('/comment',user.loadUser,post.comment);
 
 
 app.get('/reg', user.reg);
