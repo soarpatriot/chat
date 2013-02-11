@@ -16,7 +16,8 @@ block content
                         div(class='discussion-bubble-inner')
                             div(class='discussion-topic-header')
                                 a(href='#user',class='discussion-topic-author') #{post.creator.name}
-                                time #{post.fromNow}
+                                time
+                                    | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
                                 h2(class='discussion-topic-title') #{post.title}
                             div.discusion-topic-infobar
                                 | OK
@@ -25,17 +26,19 @@ block content
                                 !{post.content}
         hr
         div.row-fluid
-            div.span12
-                form(class='form-inline center',action='/comment',method='post')
-
-                      div.control-group
-
-                          div.controls
-                              input(name='postId',type='hidden',value='#{post._id}')
-                              textarea(class='span6', name='content',rows='2',placeholder='发表评论')
-                      div.control-group
-                          div.controls
-                              button(type='submit', class='btn btn-success') 发言
+            div.span8
+                div.row-fluid
+                    div(class='span1')
+                        img(class='img-polaroid img-rounded post-face-img',src='/img/noavatar92.png')
+                    div(class='span11')
+                        form(action='/comment',method='post')
+                            div.control-group
+                                div.controls
+                                    input(name='postId',type='hidden',value='#{post._id}')
+                                    textarea(class='span12', name='content',placeholder='发表评论')
+                            div.control-group
+                                div.controls
+                                    button(type='submit', class='btn btn-success') 发言
         hr.soft
         div.row-fluid
             h4 #{post.comments.length} 评论

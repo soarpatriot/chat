@@ -188,8 +188,16 @@ body {
 }
 
 
+.post-face-img{
+    width: 40px;
+    height: 40px;
+}
 
 
+
+
+
+/*background*/
 .well-no-back {
 
     border: 1px solid #E3E3E3;
