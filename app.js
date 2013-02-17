@@ -102,10 +102,12 @@ app.get('/post/:id', post.get);
 
 app.all('/posts*',user.loadUser)
 app.get('/posts',post.all);
+
+app.get('/posts/review',post.review);
 app.get('/posts/:id',post.one);
 app.post('/posts',post.up);
 app.put('/posts/:id',post.up);
-app.get('/posts/review',post.review);
+
 app.post('/posts/createReview',post.createReview);
 
 app.post('/comment',user.loadUser,post.comment);
@@ -129,7 +131,7 @@ app.post('/upload-face',user.loadUser,uploader.uploadFace);
 app.get('/file-picker',uploader.filePicker);
 
 //review post
-app.get('/review',review.index)
+app.get('/review',user.loadUser,review.index)
 
 var server = http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));

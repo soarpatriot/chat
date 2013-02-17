@@ -24,9 +24,7 @@ script(type="text/template",id="item-template")
             a(name='down-post',class='btn down')
                 i(class='icon-thumbs-down')
                 | 踩(<%- down %>)
-        div(class='span4')
-            div(class='pull-right')
-                a(name='reply',class='btn btn-link') 回复
+
     div.row-fluid
         div.pull-left
             p.marketing-byline
@@ -38,8 +36,6 @@ script(type="text/template",id="item-template")
                 <%- creator.name %> 发表于 <%- fromNow %>
     hr.soft
 
-div(id='smart-cover',class='up-down-cover')
-    | 顶+1
 
 
 

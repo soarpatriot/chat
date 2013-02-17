@@ -173,15 +173,17 @@ exports.get = function(req,res){
  */
 exports.review = function(req,res){
 
+    console.log("viewed post start");
     Post.countPostForReview(function(err,number){
 
         var random = _.random(0, number-1);
 
         Post.findPostForReview(random,function(err,post){
             if(err){
+
                 res.send(err);
             }else{
-                console.log(post);
+
                 res.json(post);
             }
         });
