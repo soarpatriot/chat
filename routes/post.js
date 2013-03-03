@@ -158,7 +158,7 @@ exports.get = function(req,res){
 
         });
 
-        res.render('blog-one',{
+        res.render('post/blog-one',{
             title: post.username,
             post: post,
             user: req.user,
@@ -218,7 +218,7 @@ exports.all = function(req,res){
         }
 
         var formattedPosts = Post.dealPosts(posts);
-
+        console.log("posts:"+posts.length);
         if(_.isNull(user) || _.isUndefined(user)){
 
             formattedPosts = Post.doDone(posts);

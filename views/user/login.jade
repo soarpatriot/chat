@@ -1,4 +1,4 @@
-extends logo-layout
+extends ../layout/logo-layout
 
 block append head
 
@@ -7,7 +7,7 @@ block content
     body
         div(id='login-div',class='container-fluid')
             div.content
-                include includes/tip
+                include tip
                 div.dialog.dialog-well-no-back
                     form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
                         fieldset

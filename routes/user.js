@@ -43,7 +43,7 @@ exports.index = function(req,res){
 
             posts = Post.dealPosts(posts);
 
-            res.render('user-blogs',{
+            res.render('user/user-blogs',{
                 title: user.name,
                 posts: posts,
                 user:  user,
@@ -62,7 +62,7 @@ exports.index = function(req,res){
  */
 exports.reg = function(req, res){
 
-    res.render('reg',{
+    res.render('user/reg',{
         title: 'Register',
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
@@ -132,7 +132,7 @@ exports.doReg = function(req, res){
  * @param res
  */
 exports.login = function(req, res){
-    res.render('login',{
+    res.render('user/login',{
         title: '用户登录',
         username: req.flash('username'),
         password: req.flash('password'),
