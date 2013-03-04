@@ -18,7 +18,7 @@ exports.createRoutes = function(app){
     app.get('/chat', chat.index);
 
     app.all('/post*',user.loadUser)
-    app.get('/post',post.index);
+    app.get('/post',post.new);
     app.post('/post',post.publish);
     app.get('/post/:id', post.get);
 
@@ -30,7 +30,6 @@ exports.createRoutes = function(app){
     app.post('/posts',post.up);
     app.put('/posts/:id',post.up);
 
-    app.post('/posts/createReview',post.createReview);
 
     app.post('/comment',user.loadUser,post.comment);
 

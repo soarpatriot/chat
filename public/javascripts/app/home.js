@@ -152,7 +152,7 @@
                 //this.$cover= $('<div></div>');
 
 
-                this.spinner = new Spinner(opts).spin();
+                //this.spinner = new Spinner(opts).spin();
                 //this.render();
                 //this.$cover.append(this.spinner.el);
                 //this.$el.append(this.spinner.el);

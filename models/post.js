@@ -69,7 +69,7 @@ var PostSchema = mongoose.Schema({
 
     looked:{type:Number,default: 0},            // the number of being looked
 
-    passed:{type:Boolean, default:false},       // when post passed === true, user can see the post  10 points passed
+    passed:{type:Boolean},       // when post passed === true, user can see the post  10 points passed
     score:{type:Number,default: 0},             // the number of this post  can publish or can not publish
     beReviewed:[Review],
 
@@ -107,11 +107,14 @@ PostSchema.statics.countPostForReview = function(callback){
         .count(callback);
 };
 
-PostSchema.statics.findPostForReview = function(startRowNumber,callback){
-    return this.findOne().where('passed').equals(false)
-        .where('score').gt(-10)
-        .sort('-pusTime')
-        .skip(startRowNumber)
+/**
+ * query one post for review
+ * @param callback
+ * @return {*}
+ */
+PostSchema.statics.findPostForReview = function(callback){
+    return this.findOne().where('passed').equals(null)
+        .sort('+pusTime')
         .exec(callback);
 };
 
@@ -145,7 +148,7 @@ var Post = mongodb.db.model('Post', PostSchema);
 var Comment = mongodb.db.model('Comment', CommentSchema);
 
 Post.top5 = function(callback){
-    return Post.where('passed').equals(false)
+    return Post.where('passed').equals(true)
         .limit(5)
         .sort('-pusTime')
         .populate('creator')

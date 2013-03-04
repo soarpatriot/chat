@@ -7,18 +7,6 @@
 
 $(function(){
 
-    var Post = Backbone.Model.extend({
-
-        idAttribute: "_id",
-        urlRoot : '/posts'
-
-    });
-
-    var Review = Backbone.Model.extend({
-        agree:false,
-        reason:''
-    });
-
     var ReviewView  = Backbone.View.extend({
 
         el: $("#review-container"),
@@ -32,40 +20,47 @@ $(function(){
         initialize: function() {
 
             this.postContent = this.$('#post-content');
-            //this.model.on('all', this.render, this);
             var post = new Post();
             this.model = post;
-            //this.score = this.model.get('score');
-            this.model.on('change:_id', this.render, this);
+            this.model.on('change', this.render, this);
 
             this.fetchNew();
         },
 
         render: function() {
+            
+            if(this.model.isNew()){
+                this.postContent.html('');
+            }else{
+                this.postContent.html(this.template(this.model.toJSON()));
+            }
 
-            this.postContent.html(this.template(this.model.toJSON()));
             return this;
+
         },
         support: function(){
-            //this.score = this.score + 1;
-            var score = this.model.get('score')+1;
-            this.model.set("score",score);
-            this.model.save();
-            this.fetchNew();
+            this.model.set("passed",true);
+            this.operation(this.model);
         },
         veto:function(){
-            var score = this.model.get('score')-1;
-            this.model.set("score",score);
-            this.model.save();
-
-            this.fetchNew();
+            this.model.set("passed",false);
+            this.operation(this.model);
         },
+
+        operation:function(model){
+            var result = model.save();
+            if(result.readyState === 1){
+                this.fetchNew();
+            }
+        },
+
         fetchNew:function(){
-
             this.model.fetch({url:'/posts/review',success:function(model,response){
-
-                this.model = model;
-
+                if(null === response){
+                    this.model.clear();
+                }else{
+                    this.model = model;
+                }
             },error:function(){
                 alert("fetch error!");
             }});

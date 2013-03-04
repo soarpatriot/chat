@@ -32,8 +32,8 @@ moment.lang('zh-cn');
  * @param req
  * @param res
  */
-exports.index = function(req, res){
-    res.render('post', {
+exports.new = function(req, res){
+    res.render('post/new', {
         title: '发表',
         user : req.user,
         currentLink: 'MICRO',
@@ -173,33 +173,22 @@ exports.get = function(req,res){
  */
 exports.review = function(req,res){
 
-    console.log("viewed post start");
-    Post.countPostForReview(function(err,number){
 
-        var random = _.random(0, number-1);
+    //Post.countPostForReview(function(err,number){
+    Post.findPostForReview(function(err,post){
+        if(err){
 
-        Post.findPostForReview(random,function(err,post){
-            if(err){
+            res.send(err);
+        }else{
 
-                res.send(err);
-            }else{
-
-                res.json(post);
-            }
-        });
-
+            res.json(post);
+            console.log("viewed post start:"+post);
+        }
     });
+
+    //});
 };
 
-/**
- * create review
- * @param req
- * @param res
- */
-exports.createReview = function(req,res){
-
-    console.log('ssss ok');
-}
 
 
 /**
@@ -257,7 +246,7 @@ exports.one = function(req,res){
             req.flash('error', err);
             return res.redirect('/');
         }
-
+        console.log("post one");
         //res.contentType('json');//返回的数据类型
         //res.send(post);//给客户端返回一个json格式的数据
         post = Post.truncateOne(post);
@@ -286,37 +275,15 @@ exports.one = function(req,res){
  */
 exports.up = function(req,res){
 
-    var upNumber = req.body.up;
-    var downNumber = req.body.down;
-    var score = req.body.score;
-    var opt = req.body.opt;
     var postId = req.body._id;
-
-    var user = req.user;
-
-    if(!_.isNull(user) && !_.isUndefined(user)){
-        User.findOne({'_id':user._id}, function(err,user){
-            var favor = false;
-            if(!_.isNull(upNumber) && !_.isUndefined(upNumber)){
-
-                favor = true;
-            }
-
-            user.votePosts.push({ postId: postId,favor: favor});
-            user.save(function(err){
-                if(err){
-                    console.log('error'+err);
-                }
-            });
-        });
-    }
+    var passed = req.body.passed;
 
     Post.findPostWithCreator(postId, function(err,post){
         if(err){
             req.flash('error', err.toString());
             return res.redirect('/');
         }
-        post.update({ up: upNumber,down: downNumber,score:score }, { multi: true }, function (err, numberAffected, raw) {
+        post.update({ passed: passed}, { multi: true }, function (err, numberAffected, raw) {
 
             if (err) {
                 return handleError(err);
@@ -332,7 +299,8 @@ exports.up = function(req,res){
                     },
 
                     json: function(){
-                        console.log("update");
+                        console.log("update:"+numberAffected);
+                        console.log("raw:"+JSON.stringify(raw));
                         //res.json(post);
                     }
                 });
