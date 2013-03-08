@@ -28,7 +28,7 @@ $(function(){
         },
 
         render: function() {
-            
+
             if(this.model.isNew()){
                 this.postContent.html('');
             }else{
