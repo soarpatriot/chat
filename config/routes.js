@@ -4,12 +4,12 @@
 
 exports.createRoutes = function(app){
 
-    var home = require('../controllers/index')
-        post = require('../controllers/post'),
-        user = require('../controllers/user'),
-        chat = require('../controllers/chat'),
-        review = require('../controllers/review'),
-        uploader = require('../controllers/uploader');
+    var home = require('index_controller')
+        post = require('../controllers/posts_controller'),
+        user = require('../controllers/users_controller'),
+        chat = require('../controllers/chat_controller'),
+        review = require('../controllers/reviews_controller'),
+        uploader = require('../controllers/uploader_controller');
 
 
 

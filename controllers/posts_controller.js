@@ -158,7 +158,7 @@ exports.get = function(req,res){
 
         });
 
-        res.render('post/blog-one',{
+        res.render('post/show',{
             title: post.username,
             post: post,
             user: req.user,
