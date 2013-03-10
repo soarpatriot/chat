@@ -27,7 +27,7 @@ var moment = require('moment');
 moment.lang('zh-cn');
 
 exports.index = function(req, res){
-    res.render('review/review-show', {
+    res.render('review/show', {
         title: '审阅',
         currentLink: 'REVIEW',
         user:req.user,

@@ -1,0 +1,7 @@
+div.container
+    if typeof(success) !== 'undefined' && success !== null && success!==''
+        div(class='alert alert-success')
+            #{success}
+    if typeof(error) !== 'undefined' && error !== null && error!==''
+        div(class='alert alert-error')
+            #{error}

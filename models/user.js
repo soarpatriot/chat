@@ -3,7 +3,7 @@
 var mongoose = require('mongoose');
 var mongodb = require('./mongolab-db'),
     Schema = mongoose.Schema;
-var cloudinary = require('../models/cloudinary.js');
+var cloudinary = require('./cloudinary.js');
 var utils = require('./utils');
 
 

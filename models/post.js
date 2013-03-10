@@ -7,7 +7,7 @@ var mongoose = require('mongoose'),
     utils = require('../helpers/utils'),
     Schema = mongoose.Schema;
 var mongodb = require('./mongolab-db');
-var cloudinary = require('../models/cloudinary.js');
+var cloudinary = require('./cloudinary.js');
 
 //var redis  = require('../models/redis');
 //Schema.set('toJSON', { virtuals: true });

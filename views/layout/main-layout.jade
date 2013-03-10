@@ -7,8 +7,12 @@ html(lang='en')
             include _meta
             include _css
 
+            link(rel='stylesheet', href='/stylesheets/alertify.core.css')
+            link(rel='stylesheet', href='/stylesheets/alertify.default.css')
+
             include _ico
-            include _logo
+            include _head
+            include _message
 
             div.container.min-height
                 block content
