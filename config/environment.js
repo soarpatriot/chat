@@ -13,11 +13,6 @@ exports.createEnv = function (options) {
     var MongoStore = require('connect-mongo')(express);
     var RedisStore = require('connect-redis')(express);
 
-    var weibo = require('weibo');
-    weibo.init('weibo', '1122960051', 'e678e06f627ffe0e60e2ba48abe3a1e3');
-    weibo.init('github', '8e14edfda73a71f1f226', '1796ac639a8ada0dff6acfee2d63390440ca0f3b');
-    weibo.init('tqq', '801196838', '9f1a88caa8709de7dccbe3cae4bdc962');
-
     var app = express();
 
     var sessionStore = new MongoStore({
@@ -36,8 +31,10 @@ exports.createEnv = function (options) {
 
     app.configure(function(){
         app.set('port', process.env.PORT || 3000);
+        app.set('env', options.env || 'development');
         app.set('views',options.path+'/views');
         app.set('view engine', 'jade');
+        app.set('path',options.path);
 
         //app.use(partials());
         app.use(flash());
@@ -56,28 +53,14 @@ exports.createEnv = function (options) {
             },
             store : sessionStore
         }));
-        app.use(app.router);
-        //app.use(error);
-        app.use(express.static(path.join(options.path, 'public')));
 
         app.use(express.logger('dev'));
+
+        app.use(app.router);
+        app.use(express.static(path.join(options.path, 'public')));
         app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
 
-        weibo.oauth({
-            loginPath: '/login',
-            logoutPath: '/logout',
-            blogtypeField: 'type',
-            afterLogin: function (req, res, callback) {
-                console.log(req.session.oauthUser.screen_name, 'login success');
-                //process.nextTick(callback);
-                next();
-            },
-            beforeLogout: function (req, res, callback) {
-                console.log(req.session.oauthUser.screen_name, 'loging out');
-                //process.nextTick(callback);
-                next();
-            }
-        });
+
         //connect.errorHandler({ stack: true, dump: true })
         app.use(function(err, req, res, next){
             console.error(err.stack);
@@ -85,7 +68,7 @@ exports.createEnv = function (options) {
         });
 
     });
-
+    //db.init(app);
     route.createRoutes(app);
     return app;
 };
