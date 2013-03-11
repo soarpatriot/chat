@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var settings = require('../settings');
+var settings = require('../../settings');
 var dbUrl = settings.currentDb();
 var mongoose = require('mongoose');
 var db = mongoose.createConnection(dbUrl);

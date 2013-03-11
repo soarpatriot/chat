@@ -1,5 +1,4 @@
-module.exports = function (compound) {
-    var app = compound.app;
+module.exports = function (app) {
 
     app.configure('production', function () {
         app.enable('merge javascripts');
