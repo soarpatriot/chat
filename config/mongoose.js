@@ -1,6 +1,6 @@
-exports.init = function (compound) {
-    var conf = require('./database.js')[compound.app.set('env')];
+exports.init = function (app) {
+    var conf = require('./database.js')[app.get('env')];
     var mongoose = require('mongoose');
     mongoose.connect(conf.url);
-    require(compound.root + '/db/schema')(mongoose, compound);
+    require(app.path + '/db/schema')(mongoose, app);
 };

@@ -6,13 +6,15 @@
 
     //, stylus = require('stylus')
     //, nib = require('nib')
-var io = require('./models/socket.js')
+var io = require('./app/models/socket.js')
     , http = require('http');
 
 //config
 var env = require('./config/environment');
 
 
+//NODE_ENV=development supervisor app
+console.log("run environment: "+ process.env.NODE_ENV);
 //var app = express();
 //set environments
 options={

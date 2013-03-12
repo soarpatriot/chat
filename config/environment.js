@@ -8,7 +8,7 @@ exports.createEnv = function (options) {
 
     var cookie_secret = 'secret_meteoric';
     var settings = require('../settings');
-    var redis = require('../models/redis');
+    var redis = require('../app/models/redis');
     var route = require('./routes')
     var MongoStore = require('connect-mongo')(express);
     var RedisStore = require('connect-redis')(express);
@@ -28,8 +28,10 @@ exports.createEnv = function (options) {
 
     app.configure(function(){
         app.set('port', process.env.PORT || 3000);
-        app.set('views',options.path+'/views');
+        app.set('env', options.env || 'development');
+        app.set('views',options.path+'/app/views');
         app.set('view engine', 'jade');
+        app.set('path',options.path);
 
         //app.use(partials());
         app.use(flash());
@@ -48,16 +50,20 @@ exports.createEnv = function (options) {
             },
             store : sessionStore
         }));
-        app.use(app.router);
-        //app.use(error);
         app.use(express.static(path.join(options.path, 'public')));
-
         app.use(express.logger('dev'));
+
+        app.use(app.router);
         app.use(expressError.express3({contextLinesCount: 3, handleUncaughtException: true}));
 
+        //connect.errorHandler({ stack: true, dump: true })
+        app.use(function(err, req, res, next){
+            console.error(err.stack);
+            res.send(500, 'Something broke!');
+        });
 
     });
-
+    //db.init(app);
     route.createRoutes(app);
     return app;
 };

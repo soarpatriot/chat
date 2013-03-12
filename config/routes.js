@@ -4,12 +4,12 @@
 
 exports.createRoutes = function(app){
 
-    var home = require('../routes/index')
-        post = require('../routes/post'),
-        user = require('../routes/user'),
-        chat = require('../routes/chat'),
-        review = require('../routes/review'),
-        uploader = require('../routes/uploader');
+    var home = require('../app/controllers/index_controller')
+        post = require('../app/controllers/posts_controller'),
+        user = require('../app/controllers/users_controller'),
+        chat = require('../app/controllers/chat_controller'),
+        review = require('../app/controllers/reviews_controller'),
+        uploader = require('../app/controllers/uploader_controller');
 
 
 
@@ -18,7 +18,7 @@ exports.createRoutes = function(app){
     app.get('/chat', chat.index);
 
     app.all('/post*',user.loadUser)
-    app.get('/post',post.index);
+    app.get('/post',post.new);
     app.post('/post',post.publish);
     app.get('/post/:id', post.get);
 
@@ -30,7 +30,6 @@ exports.createRoutes = function(app){
     app.post('/posts',post.up);
     app.put('/posts/:id',post.up);
 
-    app.post('/posts/createReview',post.createReview);
 
     app.post('/comment',user.loadUser,post.comment);
 

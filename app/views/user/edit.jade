@@ -1,0 +1,73 @@
+extends ../layout/logo-layout
+
+block append head
+    link(rel='stylesheet', href='/stylesheets/fileuploader.css')
+    script(src='/javascripts/file-uploader/fileuploader.js')
+    script
+        $(function(){
+            $.cloudinary.config({,'cloud_name':'soar'});
+            $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
+                   $.cloudinary.image(data.result.public_id,
+                       { format: data.result.format, version: data.result.version,
+                         crop: 'scale', width: 200 }));
+                   $('.image_public_id').val(data.result.public_id);
+
+                   alert(data);
+              return true;
+            });
+        });
+
+
+
+block content
+    body
+        div(class='container')
+            div(class='row-fluid')
+                form(action='/user',method='post',enctype='multipart/form-data',  class='form-horizontal')
+                    fieldset
+                        legend 编辑
+                            div.control-group
+                                label(class='control-label', for='face') 头像
+                                input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
+                                div.controls
+                                    div.span2
+                                        img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
+                                    div.controls
+                                        div(id='file-uploader-demo1')
+                                            noscript
+                                                p Please enable JavaScript to use file uploader
+                                        div(class='qq-upload-extra-drop-area') Drop files here too
+                                    div.controls
+                                        div(id='result-list')
+                                    script(src='/javascripts/file-uploader/upload-face.js')
+                            div.control-group
+                                label(class='control-label', for='username') 用户名
+                                div.controls
+                                  label(class='control-label') #{user.name}
+                            div.control-group
+                                label(class='control-label', for='regTime') 注册时间
+                                div.controls
+                                    label(class='control-label') #{user.regTime}
+                            div.control-group
+                                label(class='control-label', for='gender') 性别
+                                div.controls
+                                    label(class='control-label') #{user.gender}
+                            div.control-group
+                                label(class='control-label', for='gender') 出生日期
+                                div.controls
+                                    label(class='control-label')
+                            div.control-group
+                                label(class='control-label', for='gender') 家乡
+                                div.controls
+                                    label(class='control-label')
+                            div.control-group
+                                label(class='control-label', for='gender') 现居住
+                                div.controls
+                                    label(class='control-label')
+                            div.control-group
+                                div.controls
+                                    button(class='btn', type='submit') 提交
+        script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
+        script(src='/javascripts/jquery-fileuploader/jquery.fileupload.js')
+        script(src='/javascripts/jquery-fileuploader/jquery.iframe-transport.js')
+        script(src='/javascripts/jquery-fileuploader/jquery.ui.widget.js')

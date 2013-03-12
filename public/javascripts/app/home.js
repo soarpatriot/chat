@@ -1,55 +1,23 @@
 (function(){
     $(function(){
 
-
         var opts = {
             lines: 13, // The number of lines to draw
-            length: 27, // The length of each line
-            width: 5, // The line thickness
-            radius: 31, // The radius of the inner circle
+            length: 7, // The length of each line
+            width: 4, // The line thickness
+            radius: 10, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
             color: '#000', // #rgb or #rrggbb
             speed: 1, // Rounds per second
-            trail: 83, // Afterglow percentage
+            trail: 60, // Afterglow percentage
             shadow: false, // Whether to render a shadow
             hwaccel: false, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: 'auto', // Top position relative to parent in px
-            left: 'auto' // Left position relative to parent in px
+            top: '100', // Top position relative to parent in px
+            left: '100' // Left position relative to parent in px
         };
-
-     //alertify.success( "ssdfsadfa" );
-        /**
-         $('a[name="up-post"]').popover({
-        animation:true,
-
-        placement:'top',
-
-        title:'start',
-        content:'sdfend',
-        delay:{ show: 5000, hide: 2000 }
-    })**/
-
-
-        var User = Backbone.Model.extend({
-            idAttribute: "_id",
-            urlRoot : '/users'
-        });
-
-        var user = new User();
-        var Post = Backbone.Model.extend({
-
-            idAttribute: "_id",
-            urlRoot : '/posts',
-            creator: user
-
-        });
-        var PostList = Backbone.Collection.extend({
-            Model:Post,
-            url: '/posts'
-        });
 
         var Posts = new PostList;
 
@@ -181,15 +149,22 @@
                 //var spinner = new Spinner(opts).spin($("#foo"));
                 //var spinner = new Spinner(opts).spin(spin);
                 //target.appendChild(spinner.el);
+                //this.$cover= $('<div></div>');
 
+
+                //this.spinner = new Spinner(opts).spin();
+                //this.render();
+                //this.$cover.append(this.spinner.el);
+                //this.$el.append(this.spinner.el);
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
 
                 Posts.fetch();
+                //
             },
             render: function() {
-
+                this.$el.append(this.spinner.el);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -199,10 +174,13 @@
             // Add all items in the **Posts** collection at once.
             addAll: function() {
                 //this.spin.remove();
+                //this.spinner.stop();
+
                 Posts.each(this.addOne);
             }
         });
 
         var newView = new NewView();
+
     });
 })();

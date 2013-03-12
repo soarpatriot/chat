@@ -1,7 +1,6 @@
 var express = require('express');
 
-module.exports = function (compound) {
-    var app = compound.app;
+module.exports = function (app) {
 
     app.configure('development', function () {
         app.enable('log actions');
