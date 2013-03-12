@@ -26,9 +26,6 @@ exports.createEnv = function (options) {
         client:redis.client
     });
 
-
-
-
     app.configure(function(){
         app.set('port', process.env.PORT || 3000);
         app.set('views',options.path+'/views');
