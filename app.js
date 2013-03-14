@@ -12,19 +12,17 @@ var io = require('./app/models/socket.js')
 //config
 var env = require('./config/environment');
 
-
 //NODE_ENV=development supervisor app
-console.log("run environment: "+ process.env.NODE_ENV);
-//var app = express();
-//set environments
-options={
-    path: __dirname
+
+options = {
+    path: __dirname,
+    port:process.env.PORT || 3000,
+    env: process.env.NODE_ENV || "development"
 }
 var app = env.createEnv(options);
 
-var port = process.env.PORT || 3000;
-var server = http.createServer(app).listen(port, function(){
-    console.log("Express server listening on port " + port);
+var server = http.createServer(app).listen(options.port, function(){
+    console.log("Express server listening on port " + options.port);
 });
 
 //socket.io  and node js module;

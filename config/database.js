@@ -14,5 +14,6 @@ module.exports =
   , "production":
     { "driver":   "mongoose"
         , "url":      "mongodb://localhost:27017/xiaodonggua"
+
     }
   };

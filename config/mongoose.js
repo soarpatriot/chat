@@ -1,6 +1,7 @@
-exports.init = function (app) {
-    var conf = require('./database.js')[app.get('env')];
+
+exports.init = function (app,options) {
+    var conf = require('./database.js')[options.env];
     var mongoose = require('mongoose');
     mongoose.connect(conf.url);
-    require(app.path + '/db/schema')(mongoose, app);
+    require(options.path + '/db/schema')(mongoose, app);
 };

@@ -9,7 +9,7 @@
 var redis = require("redis"),
     client = redis.createClient("9585","spadefish.redistogo.com");
     client.auth("7f1833cf57a21657371835dcae43e016",function(data){
-        console.log("sdfsd: "+data);
+        console.log("redis start: "+data);
     });
 
     /**
