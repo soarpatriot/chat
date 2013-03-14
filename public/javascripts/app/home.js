@@ -164,7 +164,7 @@
                 //
             },
             render: function() {
-                this.$el.append(this.spinner.el);
+                //this.$el.append(this.spinner.el);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});

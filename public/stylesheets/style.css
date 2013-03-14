@@ -212,30 +212,7 @@ body {
     display:block;
 }
 
-.chat-message{
-    background: #EAEAEA;
 
-    background-color: #E9F1F4;
-    border-color: #E9F1F4 #D8DEE2 #D8DEE2;
-    border-radius: 0 0 5px 5px;
-    border-style: solid;
-    border-width: 1px 1px 2px;
-    height: 400px;
-    max-height: 400px;
-    overflow-y: scroll;
-}
-.online-user{
-    background: #EAEAEA;
-
-    background-color: #E9F1F4;
-    border-color: #E9F1F4 #D8DEE2 #D8DEE2;
-    border-radius: 0 0 5px 5px;
-    border-style: solid;
-    border-width: 1px 1px 2px;
-    height: 400px;
-    max-height: 400px;
-    overflow-y: scroll;
-}
 
 
 .margin-top20{
@@ -290,26 +267,6 @@ body {
 
 .auto-line{
     word-wrap: break-word; word-break: normal;
-}
-.blog-cnm{
-    /**background-color: #F5F5F5;**/
-    border-radius: 6px 6px 6px 6px;
-    border: 1px solid #CCCCCC;
-
-
-    overflow: auto;
-
-
-}
-.blog-content{
-
-
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-
-
 }
 
 .title{
