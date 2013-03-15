@@ -119,7 +119,7 @@ exports.comment = function(req,res){
                 req.flash('error',err);
             }else{
                 req.flash('success','发表成功！');
-                return res.redirect('/post/'+postId);
+                return res.redirect('/posts/'+postId);
             }
         });
     });

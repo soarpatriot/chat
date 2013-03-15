@@ -41,6 +41,10 @@
 
 
 /**all page css**/
+.min-container{
+  min-height: @min-height;
+}
+
 .grey-font{
     color: #999999;
     font-size: 12px;
@@ -53,6 +57,16 @@ body {
 }
 
 /**home page cess**/
+.login-bar{
+    vertical-align: baseline;
+    position: relative;
+    padding: 10px 20px;
+}
+.height-auto{
+    height: auto !important;
+    line-height: 20px;
+}
+
 .marketing-byline{
     .grey-font;
 }
@@ -73,9 +87,6 @@ body {
 @width-full:100%;
 @tip-height:60px;
 
-.min-container{
-    min-height: @min-height;
-}
 
 .image-back{
     background: @grey repeat-x url("/images/laoluo.jpg");

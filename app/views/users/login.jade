@@ -1,4 +1,4 @@
-extends ../layout/logo-layout
+extends ../layouts/logo-layout
 
 block append head
 
@@ -6,9 +6,9 @@ block append head
 block content
     body
         div(id='login-div',class='container-fluid')
-            div.content
-                include tip
-                div.dialog.dialog-well-no-back
+            section
+                include _tip
+                div.dialog
                     form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
                         fieldset
                             input(id='error-hidden',type='hidden',value='#{error}')
@@ -26,13 +26,10 @@ block content
                                 div.pull-right
                                     a(class='padding-top4', href='/forget') 忘记密码
 
-                div.message.dialog-well-no-back
-                    fieldset
-                        div.control-group
-                            div.controls
-                                a(href='/reg')
-                                    | 开始你的翱翔之旅
-                                    span.pull-right 注册
+                div.dialog-footer
+                    span
+                        a(href='/reg') 开始你的翱翔之旅
+                    span.pull-right 注册
 
 
 

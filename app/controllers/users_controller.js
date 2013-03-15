@@ -132,7 +132,7 @@ exports.doReg = function(req, res){
  * @param res
  */
 exports.login = function(req, res){
-    res.render('user/login',{
+    res.render('users/login',{
         title: '用户登录',
         username: req.flash('username'),
         password: req.flash('password'),
