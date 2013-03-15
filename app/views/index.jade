@@ -1,4 +1,4 @@
-extends layout/main-layout
+extends layouts/main-layout
 
 block append head
     script(src='/javascripts/app/models.js')
@@ -15,11 +15,5 @@ block content
                         div(class='tab-pane active',id='new')
                             div(id='posts')
                                 include home/post-content-bone
-            div(class='span4 well-no-back')
+            div(class='span4 relative')
                 h3.title 相关信息
-                div(id='divPop',class='popover up-post')
-                    p
-                        | 顶
-                        | +1
-            div(id='foo')
-

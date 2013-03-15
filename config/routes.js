@@ -5,7 +5,7 @@
 exports.createRoutes = function(app){
 
     var home = require('../app/controllers/index_controller')
-        post = require('../app/controllers/posts_controller'),
+        posts = require('../app/controllers/posts_controller'),
         user = require('../app/controllers/users_controller'),
         chat = require('../app/controllers/chat_controller'),
         review = require('../app/controllers/reviews_controller'),
@@ -17,21 +17,18 @@ exports.createRoutes = function(app){
 
     app.get('/chat', chat.index);
 
-    app.all('/post*',user.loadUser)
-    app.get('/post',post.new);
-    app.post('/post',post.publish);
-    app.get('/post/:id', post.get);
-
-    app.all('/posts*',user.loadUser)
-    app.get('/posts',post.all);
-
-    app.get('/posts/review',post.review);
-    app.get('/posts/:id',post.one);
-    app.post('/posts',post.up);
-    app.put('/posts/:id',post.up);
+    app.all('/posts*',user.loadUser);
+    app.get('/posts',posts.index);
+    app.get('/posts/new',posts.new);
+    app.post('/posts',posts.create);
+    app.get('/posts/review',posts.review);
+    app.get('/posts/:id', posts.show);
 
 
-    app.post('/comment',user.loadUser,post.comment);
+    app.get('/posts/:id',posts.one);
+    app.post('/posts',posts.up);
+    app.put('/posts/:id',posts.up);
+    app.post('/comment',user.loadUser,posts.comment);
 
 
     app.get('/reg', user.reg);

@@ -9,7 +9,7 @@ if typeof(posts) !== 'undefined' && posts !== null
                      a(href='/user/#{post.creator._id}')
                        img(class='face-border img-rounded', src='#{post.creator.faceUrl}',alt='user')
                      | &nbsp;&nbsp;&nbsp;
-                     a(href='/post/#{post._id}') #{post.title}
+                     a(href='/posts/#{post._id}') #{post.title}
                 div.span4
                     div.pull-right
                       span(class='badge badge-success') 评论#{post.comments.length}

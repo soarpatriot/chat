@@ -1,11 +1,19 @@
 
-@grey:#E0E0E0;
+/**global var**/
 @min-height:500px;
 @z-index:10000;
-@margin-top:140px;
-@dialog-width:343px;
-@width-full:100%;
-@tip-height:60px;
+@global-font-family:tahoma,sans-serif;
+@global-font-size: 13px;
+
+/**global settings**/
+.global-font{
+    font-family: @global-font-family;
+    font-size: @global-font-size;
+}
+.page-padding{
+    padding-top: 60px;
+    padding-bottom: 40px;
+}
 
 /**utilies css for other**/
 .text-center{
@@ -24,29 +32,47 @@
     -webkit-border-radius: @radius;
     -moz-border-radius: @radius;
 }
-.background-image(  @alpha: 0.1){
+.background-image(@alpha: 0.1){
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #E0E0E0), color-stop(100%, rgba(44, 38, 63, @alpha)));
     background-image: -moz-linear-gradient(top, #E0E0E0 0%, rgba(44, 38, 63, @alpha) 100%);
     background-image: linear-gradient(top, #E0E0E0 0%, rgba(44, 38, 63, @alpha) 100%);
 }
 
-/**global css**/
-body {
-    font-family: tahoma,sans-serif;
-    font-size: 13px;
-    padding-top: 60px;
-    padding-bottom: 40px;
-}
 
-/**home page cess**/
-.marketing-byline{
+
+/**all page css**/
+.grey-font{
     color: #999999;
     font-size: 12px;
     font-weight: 300;
     line-height: 25px;
 }
+body {
+    .global-font;
+    .page-padding;
+}
+
+/**home page cess**/
+.marketing-byline{
+    .grey-font;
+}
+.relative{
+    h3{
+        .text-center
+    }
+    min-height: @min-height;
+    border: 1px solid;
+    .rounded-corners
+}
+
 
 /**login page cess**/
+@grey:#E0E0E0;
+@margin-top:140px;
+@dialog-width:343px;
+@width-full:100%;
+@tip-height:60px;
+
 .min-container{
     min-height: @min-height;
 }

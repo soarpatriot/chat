@@ -1,6 +1,7 @@
-
-/*
- * GET Post
+/**
+ * posts controller
+ * @author Soar
+ *
  */
 
 var Post = require('../models/post.js'),
@@ -33,7 +34,7 @@ moment.lang('zh-cn');
  * @param res
  */
 exports.new = function(req, res){
-    res.render('post/new', {
+    res.render('posts/new', {
         title: '发表',
         user : req.user,
         currentLink: 'MICRO',
@@ -48,7 +49,7 @@ exports.new = function(req, res){
  * @param res
  * @return {*}
  */
-exports.publish = function(req, res){
+exports.create = function(req, res){
     var currentUser = req.user;
     var content =  req.body.content;
     var title = req.body.title;
@@ -125,11 +126,11 @@ exports.comment = function(req,res){
 }
 
 /**
- * view post
+ * view one post by id
  * @param req
  * @param res
  */
-exports.get = function(req,res){
+exports.show = function(req,res){
 
     var postId = req.params.id;
     Post.populateCommentsCreatorByPostId(postId, function(err,post){
@@ -138,18 +139,11 @@ exports.get = function(req,res){
             return res.redirect('/');
         }
 
-        /***
-        Post.findCommentsByPostId(post._id,function(err,comments){
-            console.log("comment: "+JSON.stringify(comments));
-        });**/
-
-
         post = Post.markdownComment(post)
         var html = md(post.content);
         html = html.replace(/\{([^}]+)\}/g, function(_, name){
             return options[name] || '';
         })
-
 
         post.content = html;
         //update the number of being looked
@@ -158,7 +152,7 @@ exports.get = function(req,res){
 
         });
 
-        res.render('post/show',{
+        res.render('posts/show',{
             title: post.username,
             post: post,
             user: req.user,
@@ -173,8 +167,6 @@ exports.get = function(req,res){
  */
 exports.review = function(req,res){
 
-
-    //Post.countPostForReview(function(err,number){
     Post.findPostForReview(function(err,post){
         if(err){
 
@@ -186,7 +178,6 @@ exports.review = function(req,res){
         }
     });
 
-    //});
 };
 
 
@@ -196,8 +187,8 @@ exports.review = function(req,res){
  * @param req
  * @param res
  */
-exports.all = function(req,res){
-
+exports.index = function(req,res){
+    console.log("posts start");
     var user = req.user;
 
     Post.top5(function(err, posts){
@@ -205,9 +196,8 @@ exports.all = function(req,res){
         if(err){
             res.send(err);
         }
-
         var formattedPosts = Post.dealPosts(posts);
-        console.log("posts:"+posts.length);
+
         if(_.isNull(user) || _.isUndefined(user)){
 
             formattedPosts = Post.doDone(posts);
