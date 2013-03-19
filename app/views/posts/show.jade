@@ -9,7 +9,7 @@ block content
                 div.span8
                     div.row-fluid
                         div.span12
-                        include _share
+                            include _share
 
                     div.row-fluid
                         div.span12
@@ -18,13 +18,19 @@ block content
                                     img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
 
                                 div.span11
-                                        div(class='marketing-byline')
-                                            a(href='#user',class='discussion-topic-author') #{post.creator.name}
-                                            time
-                                                | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
-                                        h4(class='discussion-topic-title') #{post.title}
-                                        div(class='comment-content')
-                                            !{post.content}
+                                    div.article
+                                        div.row-fluid.title
+                                            div.span10
+                                                h4(class='discussion-topic-title') #{post.title}
+                                            div.span2
+                                                div(class='marketing-byline')
+                                                    a(href='#user',class='discussion-topic-author') #{post.creator.name}
+                                                    time
+                                                        | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+                                        div.row-fluid.content
+                                            div.span11
+                                                div(class='comment-content')
+                                                    !{post.content}
                     hr
                     div.row-fluid
                         div.span12
