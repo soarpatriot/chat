@@ -51,18 +51,18 @@ block content
                         h4 #{post.comments.length} 评论
 
                     each comment, i in post.comments
-                        div.row-fluid
-                            div.span12
+                        div.row-fluid.comment
+                            div.span1
                                 div.discussion-bubble
-                                    img(src='#{comment.creator.thumbnails}',class='discussion-bubble-avatar img-polaroid img-rounded')
-                                    div(class='discussion-bubble-content bubble')
-                                        div(class='discussion-bubble-inner')
-                                            div(class='comment-header')
-                                                a(href='#user',class='comment-header-author') #{comment.creator.name}
-                                                span(class='pull-right comment-header-date') #{comment.fromNow}
-
-                                            div(class='comment-content')
-                                                !{comment.content}
+                                    img(src='#{comment.creator.thumbnails}',class='img-polaroid img-rounded')
+                            div.span11.article
+                                div.row-fluid
+                                    div.span2.offset10.marketing-byline
+                                        a(href='#user',class='comment-header-author') #{comment.creator.name}
+                                        span(class='pull-right comment-header-date') #{comment.fromNow}
+                                div.row-fluid
+                                    div.span12
+                                        !{comment.content}
 
 
 

@@ -1,7 +1,8 @@
-extends ../layout/logo-layout
+extends ../layouts/main-layout
 
 block append head
     link(rel='stylesheet', href='/stylesheets/fileuploader.css')
+    script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
     script(src='/javascripts/file-uploader/fileuploader.js')
     script
         $(function(){
@@ -67,7 +68,4 @@ block content
                             div.control-group
                                 div.controls
                                     button(class='btn', type='submit') 提交
-        script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
-        script(src='/javascripts/jquery-fileuploader/jquery.fileupload.js')
-        script(src='/javascripts/jquery-fileuploader/jquery.iframe-transport.js')
-        script(src='/javascripts/jquery-fileuploader/jquery.ui.widget.js')
+
