@@ -6,7 +6,7 @@ block append head
     script(src='/javascripts/file-uploader/fileuploader.js')
     script
         $(function(){
-            $.cloudinary.config({,'cloud_name':'soar'});
+            $.cloudinary.config({'cloud_name':'soar'});
             $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
                    $.cloudinary.image(data.result.public_id,
                        { format: data.result.format, version: data.result.version,
@@ -24,7 +24,7 @@ block content
     body
         div(class='container')
             div(class='row-fluid')
-                form(action='/user',method='post',enctype='multipart/form-data',  class='form-horizontal')
+                form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
                     fieldset
                         legend 编辑
                             div.control-group

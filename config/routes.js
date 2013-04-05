@@ -38,11 +38,11 @@ exports.createRoutes = function(app){
     app.get('/login', user.login);
     app.get('/logout', user.logout);
 
-    app.all('/user*',user.loadUser);
-    app.get('/user/edit',user.edit);
-    app.get('/user/:userId', user.index);
-    app.get('/user',user.show);
-    app.post('/user',user.updateProfile);
+    app.all('/users*',user.loadUser);
+    app.get('/users/edit',user.edit);
+    app.get('/users/:userId', user.index);
+    app.get('/users',user.show);
+    app.post('/users',user.updateProfile);
     app.put('/users',user.update);
 
     app.post('/upload-face',user.loadUser,uploader.uploadFace);
