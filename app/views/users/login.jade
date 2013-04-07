@@ -6,7 +6,7 @@ block append head
 block content
     body
         div(id='login-div',class='container-fluid')
-            section
+            section.margin-top100
                 include _tip
                 div.dialog
                     form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
@@ -15,11 +15,11 @@ block content
                             div.control-group
                                 label(class='control-label', for='username') 用户名：
                                 div.controls
-                                    input(id='username-input',name='username',type='text',class='input-xlarge325',value='#{username}')
+                                    input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='input-xlarge325',value='#{username}')
                             div.control-group
                                 label(class='control-label',for='password') 密码：
                                 div.controls
-                                    input(id='password-input',name='password',type='password',class='input-xlarge325',value='#{password}')
+                                    input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='input-xlarge325',value='#{password}')
 
                             div.control-group
                                 a(id='login-btn',class='btn btn-success',href='#login') 登录
