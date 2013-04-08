@@ -1,4 +1,6 @@
-(function(){
+require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
+
+
     $(function(){
 
         var opts = {
@@ -19,7 +21,7 @@
             left: '100' // Left position relative to parent in px
         };
 
-        var Posts = new PostList;
+        var Posts = new Models.PostList;
 
         var PostView = Backbone.View.extend({
 
@@ -183,4 +185,7 @@
         var newView = new NewView();
 
     });
-})();
+
+});
+
+define("home", function(){});

@@ -1,7 +1,8 @@
 extends ../layouts/logo-layout
 
 block append head
-    script(src='/javascripts/app/user.js')
+
+
 
 block content
     body
@@ -32,5 +33,5 @@ block content
                     span.pull-right 注册
 
 
-
+        script(data-main='/javascripts/app/user.js',src='/javascripts/require-jquery.js')
 

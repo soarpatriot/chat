@@ -3,68 +3,72 @@
  * @author  Soar
  *
  */
+require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
 
+    $(function(){
 
-$(function(){
+        var Post = Models.Post;
 
-    var ReviewView  = Backbone.View.extend({
+        var ReviewView  = Backbone.View.extend({
 
-        el: $("#review-container"),
+            el: $("#review-container"),
 
-        template: _.template($('#post-template').html()),
+            template: _.template($('#post-template').html()),
 
-        events: {
-            "click #support": "support",
-            "click #veto": "veto"
-        },
-        initialize: function() {
+            events: {
+                "click #support": "support",
+                "click #veto": "veto"
+            },
+            initialize: function() {
 
-            this.postContent = this.$('#post-content');
-            var post = new Post();
-            this.model = post;
-            this.model.on('change', this.render, this);
+                this.postContent = this.$('#post-content');
+                var post = new Post();
+                this.model = post;
+                this.model.on('change', this.render, this);
 
-            this.fetchNew();
-        },
-
-        render: function() {
-
-            if(this.model.isNew()){
-                this.postContent.html('');
-            }else{
-                this.postContent.html(this.template(this.model.toJSON()));
-            }
-
-            return this;
-
-        },
-        support: function(){
-            this.model.set("passed",true);
-            this.operation(this.model);
-        },
-        veto:function(){
-            this.model.set("passed",false);
-            this.operation(this.model);
-        },
-
-        operation:function(model){
-            var result = model.save();
-            if(result.readyState === 1){
                 this.fetchNew();
-            }
-        },
+            },
 
-        fetchNew:function(){
-            this.model.fetch({url:'/posts/review',success:function(model,response){
-                if(null === response){
-                    this.model.clear();
+            render: function() {
+
+                if(this.model.isNew()){
+                    this.postContent.html('');
                 }else{
-                    this.model = model;
+                    this.postContent.html(this.template(this.model.toJSON()));
                 }
-            },error:function(){
-                alert("fetch error!");
-            }});
-        }
+
+                return this;
+
+            },
+            support: function(){
+                this.model.set("passed",true);
+                this.operation(this.model);
+            },
+            veto:function(){
+                this.model.set("passed",false);
+                this.operation(this.model);
+            },
+
+            operation:function(model){
+                var result = model.save();
+                if(result.readyState === 1){
+                    this.fetchNew();
+                }
+            },
+
+            fetchNew:function(){
+                this.model.fetch({url:'/posts/review',success:function(model,response){
+                    if(null === response){
+                        this.model.clear();
+                    }else{
+                        this.model = model;
+                    }
+                },error:function(){
+                    alert("fetch error!");
+                }});
+            }
+        });
+        var reviewView = new ReviewView();
     });
-    var reviewView = new ReviewView();
+
 });

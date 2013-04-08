@@ -1,8 +1,7 @@
 extends ../layouts/review-layout
 
 block append head
-    script(src='/javascripts/app/models.js')
-    script(src='/javascripts/app/review.js')
+
 block content
     body
         div(id='review-container',class='container')
@@ -33,3 +32,5 @@ block content
                         div(class='span8') <%- title %>
                     div(class='row-fluid')
                         div(class='span8') <%- content %>
+
+        script(data-main='/javascripts/app/review.js',src='/javascripts/require-jquery.js')

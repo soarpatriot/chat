@@ -1,3 +1,6 @@
+
+require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
+
 $(function(){
 
     var InfoTip = Backbone.Model.extend({
@@ -62,7 +65,7 @@ $(function(){
                 this.tip.html(this.statsTemplate({title: title,content:content}));
                 this.tip.addClass('alert alert-error');
 
-            }else if(this.username.val().length>50 || this.passwordIn.val()>30){
+            }else if(this.username.val().length > 50 || this.passwordIn.val().length > 30){
                 var content = '用户名或密码过长！';
                 this.tip.html(this.statsTemplate({title: title,content:content}));
                 this.tip.addClass('alert alert-error');
@@ -88,4 +91,6 @@ $(function(){
     });
 
     var loginView = new LoginView;
-})
+});
+
+});

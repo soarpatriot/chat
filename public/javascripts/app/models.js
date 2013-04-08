@@ -3,24 +3,30 @@
  * @author  Soar
  *
  */
+define(["backbone"],function(Backbone) {
 
-var User = Backbone.Model.extend({
-    idAttribute: "_id",
-    urlRoot : '/users'
+    return {
+        User : Backbone.Model.extend({
+            idAttribute: "_id",
+            urlRoot : '/users'
+        }),
+
+        Post : Backbone.Model.extend({
+            idAttribute: "_id",
+            urlRoot : '/posts',
+            creator: this.User
+        }),
+
+        PostList : Backbone.Collection.extend({
+            Model:this.Post,
+            url: '/posts'
+        }),
+
+        Review : Backbone.Model.extend({
+            agree:false,
+            reason:''
+        })
+    }
+
 });
 
-var Post = Backbone.Model.extend({
-    idAttribute: "_id",
-    urlRoot : '/posts',
-    creator: new User
-});
-
-var PostList = Backbone.Collection.extend({
-    Model:Post,
-    url: '/posts'
-});
-
-var Review = Backbone.Model.extend({
-    agree:false,
-    reason:''
-});
