@@ -58,7 +58,7 @@ require(["require","jquery","underscore","backbone","models"],function(require,$
 
             fetchNew:function(){
                 this.model.fetch({url:'/posts/review',success:function(model,response){
-                    if(null === response){
+                    if(null === response && !_.isNull(this.model) && !_.isUndefined(this.model)){
                         this.model.clear();
                     }else{
                         this.model = model;

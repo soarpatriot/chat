@@ -1,4 +1,4 @@
-require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
+require(["require","jquery","underscore","backbone","models","bootstrap"],function(require,$,_,Backbone,Models) {
 
 
     $(function(){
