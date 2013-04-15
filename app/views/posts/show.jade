@@ -17,17 +17,16 @@ block content
                                 div.span1
                                     img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
 
-                                div.span11
-                                    div.article
-                                        div.row-fluid.title
-                                            div.span10
-                                                h4(class='discussion-topic-title') #{post.title}
-                                            div.span2
+                                div.span11.popover.right
+                                        div.arrow
+                                        h4(class='discussion-topic-title popover-title') #{post.title}
+                                        div.row-fluid
+                                            div.span2.offset10
                                                 div(class='marketing-byline')
                                                     a(href='#user',class='discussion-topic-author') #{post.creator.name}
                                                     time
                                                         | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
-                                        hr
+
                                         div.row-fluid.content
                                             div.span11
                                                 div(class='comment-content')
@@ -37,7 +36,7 @@ block content
                         div.span12
                             div.row-fluid
                                 div(class='span1')
-                                    img(class='img-polaroid img-rounded post-face-img',src='/img/noavatar92.png')
+                                    img(class='img-polaroid img-rounded face-thumbnails',src='/img/noavatar92.png')
                                 div(class='span11')
                                     form(action='/comment',method='post')
                                         div.control-group
@@ -55,15 +54,16 @@ block content
                         div.row-fluid.comment
                             div.span1
                                 div.discussion-bubble
-                                    img(src='#{comment.creator.thumbnails}',class='img-polaroid img-rounded')
-                            div.span11.article
+                                    img(src='#{comment.creator.thumbnails}',class='img-rounded face-thumbnails')
+                            div.span11
                                 div.row-fluid
-                                    div.span2.offset10.marketing-byline
+                                    div.span2.marketing-byline
                                         a(href='#user',class='comment-header-author') #{comment.creator.name}
                                         span(class='pull-right comment-header-date') #{comment.fromNow}
                                 div.row-fluid
                                     div.span12
                                         !{comment.content}
+                        hr
 
 
 

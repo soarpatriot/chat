@@ -60,19 +60,20 @@ body {
 .relative h3 {
   text-align: center;
 }
+.face-thumbnails {
+  width: 40px;
+  height: 40px;
+}
 /**one post**/
-.article {
-  border: 1px solid #CACACA;
-  padding: 5px 10px;
-  border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
+.popover {
+  display: block;
+  position: relative;
 }
-.article .title div {
-  vertical-align: bottom;
+.popover.right .arrow {
+  top: 20%;
 }
-.article .content {
-  margin-top: 10px;
+.content {
+  padding: 5px 10px 5px 10px;
 }
 .comment {
   margin-bottom: 10px;
