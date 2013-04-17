@@ -35,6 +35,11 @@ body {
   padding-bottom: 40px;
 }
 /**home page cess**/
+.up-down-cover {
+  position: absolute;
+  text-align: center;
+  color: #cc0000;
+}
 .login-bar {
   vertical-align: baseline;
   position: relative;

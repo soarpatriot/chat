@@ -26,7 +26,6 @@ exports.createRoutes = function(app){
 
 
     app.get('/posts/:id',posts.one);
-    app.post('/posts',posts.up);
     app.put('/posts/:id',posts.up);
     app.post('/comment',user.loadUser,posts.comment);
 

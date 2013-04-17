@@ -93,11 +93,11 @@ require(["require","jquery","underscore","backbone","models","bootstrap"],functi
                 var top = offset.top;
                 var left = offset.left;
 
-                var linkHalfHeight = 15;
-                var linkHalfWidth = 50;
+                //var linkHalfHeight = 15;
+                //var linkHalfWidth = 50;
 
-                var targetTop = top - linkHalfHeight;
-                var targetLeft = left - linkHalfWidth;
+                var targetTop =  top - 8;
+                var targetLeft = left - 15;
                 this.$el.append(this.$upDownCover);
                 this.$upDownCover.css('width','100px');
                 this.$upDownCover.css('height','30px');
@@ -112,7 +112,9 @@ require(["require","jquery","underscore","backbone","models","bootstrap"],functi
                 this.$upDownCover.animate({
 
                     'font-size': "30px",
-                    opacity: "0.5"
+                    'opacity': "0.5",
+                    'top': targetTop,
+                    'left' : targetLeft
                 }, 1000).fadeOut(2000);
 
             },

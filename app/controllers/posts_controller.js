@@ -55,12 +55,12 @@ exports.create = function(req, res){
     var title = req.body.title;
     if(currentUser === null){
         req.flash('error','请先登录！ ');
-        return res.redirect('/post');
+        return res.redirect('/posts');
     }
 
     if( content === null ||  content===''){
         req.flash('error','发言内容不能为！ ');
-        return res.redirect('/post');
+        return res.redirect('/posts');
     }
 
     console.log('user ObjectId:  '+currentUser._id);
@@ -75,10 +75,10 @@ exports.create = function(req, res){
     post.save(function(err){
         if(err){
             req.flash('error',err);
-            return res.redirect('/post');
+            return res.redirect('/posts');
         }else{
             req.flash('success','发表成功！');
-            res.redirect('/user/'+currentUser._id);
+            res.redirect('/users/'+currentUser._id);
         }
     });
 
@@ -188,7 +188,7 @@ exports.review = function(req,res){
  * @param res
  */
 exports.index = function(req,res){
-    console.log("posts start");
+
     var user = req.user;
 
     Post.top5(function(err, posts){
@@ -199,7 +199,7 @@ exports.index = function(req,res){
         var formattedPosts = Post.dealPosts(posts);
 
         if(_.isNull(user) || _.isUndefined(user)){
-
+            console.log("user is null");
             formattedPosts = Post.doDone(posts);
             res.send(formattedPosts);
 
@@ -267,12 +267,54 @@ exports.up = function(req,res){
 
     var postId = req.body._id;
     var passed = req.body.passed;
+    var up = req.body.up;
+    var down = req.body.down;
+
+    var user = req.user;
 
     Post.findPostWithCreator(postId, function(err,post){
         if(err){
             req.flash('error', err.toString());
             return res.redirect('/');
         }
+
+        //review post pass or not
+        if(!_.isNull(passed) && !_.isUndefined(passed)){
+            post.passed = passed;
+        }
+
+        //up and down post
+        if(!_.isNull(up) && !_.isUndefined(up)){
+            post.up = up;
+        }
+        if(!_.isNull(down) && !_.isUndefined(down)){
+            post.down = down;
+        }
+        post.save(function(err){
+            if(err){
+                res.send("error!");
+            }else{
+                User.findOne({'_id':user._id}, function(err,user){
+
+                    var favor = false;
+                    if(!_.isNull(up) && !_.isUndefined(up)){
+                        favor = true;
+                    }
+
+                    user.votePosts.push({ postId: post._id, favor:favor});
+                    user.save(function(err){
+                        if(err){
+                            res.send("error!");
+                        }else{
+                            res.send("success!");
+                        }
+                    });
+
+                });
+
+            }
+        });
+        /**
         post.update({ passed: passed}, { multi: true }, function (err, numberAffected, raw) {
 
             if (err) {
@@ -295,7 +337,7 @@ exports.up = function(req,res){
                     }
                 });
             }
-        });
+        });**/
 
     });
 }
