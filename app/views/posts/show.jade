@@ -23,7 +23,7 @@ block content
                                         div.row-fluid
                                             div.span2.offset10
                                                 div(class='marketing-byline')
-                                                    a(href='#user',class='discussion-topic-author') #{post.creator.name}
+                                                    a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
                                                     time
                                                         | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
 
@@ -58,7 +58,7 @@ block content
                             div.span11
                                 div.row-fluid
                                     div.span2.marketing-byline
-                                        a(href='#user',class='comment-header-author') #{comment.creator.name}
+                                        a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
                                         span(class='pull-right comment-header-date') #{comment.fromNow}
                                 div.row-fluid
                                     div.span12
