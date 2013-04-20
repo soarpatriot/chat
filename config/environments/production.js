@@ -1,4 +1,8 @@
+var express = require('express');
+
 module.exports = function (app) {
+
+    var cookie_secret = 'secret_meteoric';
 
     var redis = require(app.get('path')+'/app/models/redis');
 

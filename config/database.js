@@ -13,7 +13,7 @@ module.exports =
     }
   , "production":
     { "driver":   "mongoose"
-        , "url":      "mongodb://localhost:27017/xiaodonggua"
+        , "url":      "mongodb://soarpatriot:22143521@ds037837-a.mongolab.com:37837/xiaodonggua"
 
     }
   };
