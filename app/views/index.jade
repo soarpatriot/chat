@@ -9,7 +9,9 @@ block content
                 div(class='tabbable')
                     ul(class='nav nav-tabs')
                         li(class='active')
-                            a(href='#new',data-toggle='tab') 最新
+                            a(href='#new',data-toggle='tab')
+                                div(id='spinner')
+                                | 最新
                     div(class='tab-content')
                         div(class='tab-pane active',id='new')
                             div(id='posts')

@@ -33,6 +33,7 @@ require.config({
         "underscore": "underscore",
         "backbone": "backbone",
         "bootstrap":"bootstrap.min",
+        "Spinner": "spin.min",
         jquery: [
 
             //If the CDN location fails, load from this location
