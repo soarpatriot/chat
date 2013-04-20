@@ -36,8 +36,8 @@ exports.createEnv = function (options) {
     });
 
     //init db and schema
-    var mongoose = require("./mongoose");
-    mongoose.init(app,options);
+    //var mongoose = require("./mongoose");
+    //mongoose.init(app,options);
 
     //load environments configure
     require("./environments/"+options.env)(app);

@@ -300,6 +300,7 @@ exports.update = function(req,res){
 exports.loadUser = function(req, res, next) {
     // You would fetch your user from the db
     var userId = req.session.userId;
+   
     if(!_.isNull(userId) && !_.isUndefined(userId)){
         User.findOne({'_id': userId}, function(err, user){
             if(err){

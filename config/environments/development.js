@@ -4,8 +4,13 @@ module.exports = function (app) {
     var cookie_secret = 'secret_meteoric';
     var MongoStore = require('connect-mongo')(express);
     var db = require('../database');
+
+    var settings = require('../../settings');
+    var dbUrl = settings.currentDb();
+
     var sessionStore = new MongoStore({
-        url:db[app.get('env')].url
+        //url:db[app.get('env')].url
+        url: dbUrl
     }, function(){
         console.log('connect mongodb success........');
     });
