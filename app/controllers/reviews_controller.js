@@ -27,11 +27,70 @@ var moment = require('moment');
 moment.lang('zh-cn');
 
 exports.index = function(req, res){
-    res.render('review/show', {
-        title: '审阅',
-        currentLink: 'REVIEW',
-        user:req.user,
-        success : req.flash('success').toString(),
-        error : req.flash('error').toString()
+
+    var error = req.flash('error').toString();
+
+    Post.findPostForReview(function(err,post){
+        if(err){
+            res.render('review/show', {
+                title: '审阅',
+                currentLink: 'REVIEW',
+                user:req.user,
+                error : error
+            });
+        }else{
+
+            if(_.isEmpty(post)){
+                post = new Post({
+                    title: 'meiyou',
+                    content: 'ye meiyou'
+                });
+                error = '暂无需要审阅的文章！'
+            }else{
+
+            }
+            res.render('review/show', {
+                title: '审阅',
+                currentLink: 'REVIEW',
+                user:req.user,
+                post:post,
+                error : error
+            });
+        }
     });
+
 };
+
+
+/**
+ * find post for user review
+ */
+exports.do = function(req,res){
+
+    var postId = req.body.postId;
+    var passed = req.body.passed;
+
+    Post.findOne({'_id':postId},function(err,post){
+        if(err){
+            req.flash('error','sorry, 查找文章出现错误！ ');
+            return res.redirect('/review');
+        }else{
+            if(_.isEmpty(post)){
+                req.flash('error','找不到此文章！ ');
+                return res.redirect('/review');
+            }else{
+                post.passed = passed;
+                post.save(function(err){
+                    if(err){
+                        req.flash('error','审察错误！ ');
+                    }else{
+                        return res.redirect('/review');
+                    }
+                });
+            }
+
+        }
+    });
+
+};
+

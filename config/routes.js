@@ -21,7 +21,7 @@ exports.createRoutes = function(app){
     app.get('/posts',posts.index);
     app.get('/posts/new',posts.new);
     app.post('/posts',posts.create);
-    app.get('/posts/review',posts.review);
+    //app.get('/posts/review',posts.review);
     app.get('/posts/:id', posts.show);
 
 
@@ -49,4 +49,5 @@ exports.createRoutes = function(app){
 
     //review post
     app.get('/review',user.loadUser,review.index);
+    app.post('/review',user.loadUser,review.do);
 }

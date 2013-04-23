@@ -162,24 +162,6 @@ exports.show = function(req,res){
     });
 }
 
-/**
- * find post for user review
- */
-exports.review = function(req,res){
-
-    Post.findPostForReview(function(err,post){
-        if(err){
-
-            res.send(err);
-        }else{
-
-            res.json(post);
-            console.log("viewed post start:"+post);
-        }
-    });
-
-};
-
 
 
 /**
@@ -265,55 +247,58 @@ exports.one = function(req,res){
  */
 exports.up = function(req,res){
 
-    var postId = req.body._id;
-    var passed = req.body.passed;
+
     var up = req.body.up;
     var down = req.body.down;
 
     var user = req.user;
 
     Post.findPostWithCreator(postId, function(err,post){
+
         if(err){
-            req.flash('error', err.toString());
-            return res.redirect('/');
+            res.send("error!");
         }
 
-        //review post pass or not
-        if(!_.isNull(passed) && !_.isUndefined(passed)){
-            post.passed = passed;
-        }
+        if(user){
+            //review post pass or not
+            if(!_.isNull(passed) && !_.isUndefined(passed)){
+                post.passed = passed;
+            }
 
-        //up and down post
-        if(!_.isNull(up) && !_.isUndefined(up)){
-            post.up = up;
-        }
-        if(!_.isNull(down) && !_.isUndefined(down)){
-            post.down = down;
-        }
-        post.save(function(err){
-            if(err){
-                res.send("error!");
-            }else{
-                User.findOne({'_id':user._id}, function(err,user){
+            //up and down post
+            if(!_.isNull(up) && !_.isUndefined(up)){
+                post.up = up;
+            }
+            if(!_.isNull(down) && !_.isUndefined(down)){
+                post.down = down;
+            }
+            
+            post.save(function(err){
+                if(err){
+                    res.send("error!");
+                }else{
+                    User.findOne({'_id':user._id}, function(err,user){
 
-                    var favor = false;
-                    if(!_.isNull(up) && !_.isUndefined(up)){
-                        favor = true;
-                    }
-
-                    user.votePosts.push({ postId: post._id, favor:favor});
-                    user.save(function(err){
-                        if(err){
-                            res.send("error!");
-                        }else{
-                            res.send("success!");
+                        var favor = false;
+                        if(!_.isNull(up) && !_.isUndefined(up)){
+                            favor = true;
                         }
+
+                        user.votePosts.push({ postId: post._id, favor:favor});
+                        user.save(function(err){
+                            if(err){
+                                res.send("error!");
+                            }else{
+                                res.send("success!");
+                            }
+                        });
+
                     });
 
-                });
+                }
+            });
+        }
 
-            }
-        });
         /**
         post.update({ passed: passed}, { multi: true }, function (err, numberAffected, raw) {
 
