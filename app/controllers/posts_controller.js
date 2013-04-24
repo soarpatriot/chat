@@ -77,7 +77,7 @@ exports.create = function(req, res){
             req.flash('error',err);
             return res.redirect('/posts');
         }else{
-            req.flash('success','发表成功！');
+            req.flash('success','发表成功待审核！');
             res.redirect('/users/'+currentUser._id);
         }
     });
@@ -199,6 +199,7 @@ exports.index = function(req,res){
                         }
                     });
                 });
+                console.log('formatted:'+formattedPosts);
                 res.send(formattedPosts);
             });
 

@@ -42,8 +42,8 @@ exports.index = function(req, res){
 
             if(_.isEmpty(post)){
                 post = new Post({
-                    title: 'meiyou',
-                    content: 'ye meiyou'
+                    title: '无需要审阅的内容',
+                    content: '赶快发布自己的。。。。'
                 });
                 error = '暂无需要审阅的文章！'
             }else{
@@ -70,6 +70,12 @@ exports.do = function(req,res){
     var postId = req.body.postId;
     var passed = req.body.passed;
 
+    if(passed ==='false'){
+        passed = false;
+    }else{
+        passed = true;
+    }
+
     Post.findOne({'_id':postId},function(err,post){
         if(err){
             req.flash('error','sorry, 查找文章出现错误！ ');
@@ -79,16 +85,22 @@ exports.do = function(req,res){
                 req.flash('error','找不到此文章！ ');
                 return res.redirect('/review');
             }else{
-                post.passed = passed;
-                post.save(function(err){
-                    if(err){
-                        req.flash('error','审察错误！ ');
-                    }else{
-                        return res.redirect('/review');
-                    }
-                });
-            }
 
+                Post.update({ _id: postId }, { passed: passed }, { multi: true }, function (err, numberAffected, raw) {
+                    console.log('The number of updated documents was %d', numberAffected);
+                    console.log('The raw response from Mongo was ', raw);
+                    if (err){
+                        req.flash('error','审察错误！ ');
+                        res.redirect('/review');
+                    }else{
+                        req.flash('success','审察成功！ ');
+                        res.redirect('/review');
+                    }
+                    //console.log('The number of updated documents was %d', numberAffected);
+                    //console.log('The raw response from Mongo was ', raw);
+                });
+
+            }
         }
     });
 
