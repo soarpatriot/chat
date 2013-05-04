@@ -181,7 +181,7 @@ exports.index = function(req,res){
         var formattedPosts = Post.dealPosts(posts);
 
         if(_.isNull(user) || _.isUndefined(user)){
-            console.log("user is null");
+
             formattedPosts = Post.doDone(posts);
             res.send(formattedPosts);
 
@@ -199,7 +199,7 @@ exports.index = function(req,res){
                         }
                     });
                 });
-                console.log('formatted:'+formattedPosts);
+                //console.log('formatted:'+formattedPosts);
                 res.send(formattedPosts);
             });
 
@@ -219,9 +219,7 @@ exports.one = function(req,res){
             req.flash('error', err);
             return res.redirect('/');
         }
-        console.log("post one");
-        //res.contentType('json');//返回的数据类型
-        //res.send(post);//给客户端返回一个json格式的数据
+
         post = Post.truncateOne(post);
         res.format({
             html: function(){
@@ -251,79 +249,45 @@ exports.up = function(req,res){
 
     var up = req.body.up;
     var down = req.body.down;
-
+    var postId = req.body._id;
     var user = req.user;
 
-    Post.findPostWithCreator(postId, function(err,post){
+    var updateValue = {};
+    if(!_.isNull(up) && !_.isUndefined(up)){
+        updateValue = {up:up};
+    }
+    if(!_.isNull(down) && !_.isUndefined(down)){
+        updateValue = {down:down};
+    }
 
-        if(err){
+    //update up or down the post and update the user's operation
+    Post.update({ _id: postId }, updateValue, { multi: true }, function (err, numberAffected, raw) {
+
+        console.log('The number of updated documents was %d', numberAffected);
+        console.log('The raw response from Mongo was ', raw);
+
+        if (err){
             res.send("error!");
-        }
+        }else{
+            User.findOne({'_id':user._id}, function(err,user){
 
-        if(user){
-            //review post pass or not
-            if(!_.isNull(passed) && !_.isUndefined(passed)){
-                post.passed = passed;
-            }
-
-            //up and down post
-            if(!_.isNull(up) && !_.isUndefined(up)){
-                post.up = up;
-            }
-            if(!_.isNull(down) && !_.isUndefined(down)){
-                post.down = down;
-            }
-            
-            post.save(function(err){
-                if(err){
-                    res.send("error!");
-                }else{
-                    User.findOne({'_id':user._id}, function(err,user){
-
-                        var favor = false;
-                        if(!_.isNull(up) && !_.isUndefined(up)){
-                            favor = true;
-                        }
-
-                        user.votePosts.push({ postId: post._id, favor:favor});
-                        user.save(function(err){
-                            if(err){
-                                res.send("error!");
-                            }else{
-                                res.send("success!");
-                            }
-                        });
-
-                    });
-
+                var favor = false;
+                if(!_.isNull(up) && !_.isUndefined(up)){
+                    favor = true;
                 }
-            });
-        }
 
-        /**
-        post.update({ passed: passed}, { multi: true }, function (err, numberAffected, raw) {
-
-            if (err) {
-                return handleError(err);
-            }else{
-                //console.log(raw);
-                res.format({
-                    html: function(){
-                        //res.json(post);
-                    },
-
-                    text: function(){
-                        //res.json(post);
-                    },
-
-                    json: function(){
-                        console.log("update:"+numberAffected);
-                        console.log("raw:"+JSON.stringify(raw));
-                        //res.json(post);
+                user.votePosts.push({ postId: postId, favor:favor});
+                user.save(function(err){
+                    if(err){
+                        res.send("error!");
+                    }else{
+                        res.send("success!");
                     }
                 });
-            }
-        });**/
+
+            });
+            res.send("success!");
+        }
 
     });
 }
