@@ -1,8 +1,10 @@
+@charset "utf-8";
 /**global var**/
+/** Helvetica, Tahoma, Arial, \5b8b\4f53, sans-serif; **/
 /**global settings**/
 .global-font {
-  font-family: tahoma, sans-serif;
-  font-size: 13px;
+  font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
+  font-size: 14px;
 }
 .page-padding {
   padding-top: 60px;
@@ -29,8 +31,8 @@
   line-height: 25px;
 }
 body {
-  font-family: tahoma, sans-serif;
-  font-size: 13px;
+  font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
+  font-size: 14px;
   padding-top: 60px;
   padding-bottom: 40px;
 }
