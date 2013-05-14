@@ -4,13 +4,16 @@ block append head
 
 block content
     body
-        div(class='row-fluid ')
-            h3.title 我的资料
-        div(class='row-fluid well-no-back')
-            p
-                a(href='users/edit')  编辑
+
+        div(class='row-fluid')
+            ul(class='breadcrumb')
+                li(class='active') 个人资料
+                    span(class='divider') /
+                li(class='active')
+                    a(href='users/edit') 编辑
+            hr
             div(class='span6')
-                table(class='table table-striped')
+                table(class='table table-striped table-bordered table-hover')
                     tbody
                         tr
                            td 头像
@@ -27,7 +30,7 @@ block content
                            td #{user.gender}
                         tr
                            td 注册时间
-                           td #{user.fromNow}
+                           td #{user.regTimeStr}
 
 
 

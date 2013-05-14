@@ -5,18 +5,17 @@ block append head
 block content
     body
         div.row-fluid
-            div.span3.well-no-back.align-center
-                div
-                    p
-                       img(src='#{user.normalFace}')
-                    p  #{user.name}
-                    p  #{user.regTimeStr}
-                    p  #{user.flyAge}
-                    p  #{user.email}
-                div
+            div.span2
+                img(src='#{user.normalFace}',class='img-polaroid img-rounded')
+                p
+                p 我的名字： #{user.name}
+                p 注册时间： #{user.regTimeStr}
+                p @年龄： #{user.flyAge}
+                p 邮箱： #{user.email}
 
 
-            div.span9.well-no-back
+
+            div.span10
                 if typeof(posts) !== 'undefined' && posts.length > 0
                     each post, i in posts
                         div.row-fluid

@@ -8,13 +8,11 @@ block append head
         $(function(){
             $.cloudinary.config({'cloud_name':'soar'});
             $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
-                   $.cloudinary.image(data.result.public_id,
-                       { format: data.result.format, version: data.result.version,
-                         crop: 'scale', width: 200 }));
-                   $('.image_public_id').val(data.result.public_id);
-
-                   alert(data);
-              return true;
+                $.cloudinary.image(data.result.public_id,
+                    { format: data.result.format, version: data.result.version,
+                      crop: 'scale', width: 200 }));
+                $('.image_public_id').val(data.result.public_id);
+                return true;
             });
         });
 
@@ -23,10 +21,20 @@ block append head
 block content
     body
         div(class='container')
+
             div(class='row-fluid')
+                ul(class='breadcrumb')
+                    li
+                        a(href='/users') 个人资料
+                        span(class='divider') /
+
+                    li(class='active') 编辑
+
+
                 form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
                     fieldset
-                        legend 编辑
+
+                            hr
                             div.control-group
                                 label(class='control-label', for='face') 头像
                                 input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
@@ -48,7 +56,7 @@ block content
                             div.control-group
                                 label(class='control-label', for='regTime') 注册时间
                                 div.controls
-                                    label(class='control-label') #{user.regTime}
+                                    label(class='control-label') #{user.regTimeStr}
                             div.control-group
                                 label(class='control-label', for='gender') 性别
                                 div.controls
