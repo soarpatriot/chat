@@ -1,79 +1,58 @@
 extends ../layouts/main-layout
 
 block append head
-    link(rel='stylesheet', href='/stylesheets/fileuploader.css')
-    script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
-    script(src='/javascripts/file-uploader/fileuploader.js')
-    script
-        $(function(){
-            $.cloudinary.config({'cloud_name':'soar'});
-            $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
-                $.cloudinary.image(data.result.public_id,
-                    { format: data.result.format, version: data.result.version,
-                      crop: 'scale', width: 200 }));
-                $('.image_public_id').val(data.result.public_id);
-                return true;
-            });
-        });
-
 
 
 block content
     body
-        div(class='container')
 
-            div(class='row-fluid')
-                ul(class='breadcrumb')
-                    li
-                        a(href='/users') 个人资料
-                        span(class='divider') /
+        div(class='row-fluid')
+            ul(class='breadcrumb')
+                li
+                    a(href='/users') 个人资料
+                    span(class='divider') /
+                li(class='active') 编辑
 
-                    li(class='active') 编辑
+            form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
+                hr
+                div.control-group
+                    label(class='control-label', for='face') 头像
+                    input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
+                    div.controls
+                        div.span2
+                            img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
+
+                            p
+                            p
+                                input(id='upload-face-btn',type='button',name='myName',class='btn',value='上传')
 
 
-                form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
-                    fieldset
+                div.control-group
+                    label(class='control-label', for='username') 用户名
+                    div.controls
+                        label(class='control-label') #{user.name}
+                div.control-group
+                    label(class='control-label', for='regTime') 注册时间
+                    div.controls
+                        label(class='control-label') #{user.regTimeStr}
+                div.control-group
+                    label(class='control-label', for='gender') 性别
+                    div.controls
+                        label(class='control-label') #{user.gender}
+                div.control-group
+                    label(class='control-label', for='gender') 出生日期
+                    div.controls
+                        label(class='control-label')
+                div.control-group
+                    label(class='control-label', for='gender') 家乡
+                    div.controls
+                        label(class='control-label')
+                div.control-group
+                    label(class='control-label', for='gender') 现居住
+                    div.controls
+                        label(class='control-label')
+                div.control-group
+                    div.controls
+                        button(class='btn btn-primary', type='submit') 提交
 
-                            hr
-                            div.control-group
-                                label(class='control-label', for='face') 头像
-                                input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
-                                div.controls
-                                    div.span2
-                                        img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
-                                    div.controls
-                                        div(id='file-uploader-demo1')
-                                            noscript
-                                                p Please enable JavaScript to use file uploader
-                                        div(class='qq-upload-extra-drop-area') Drop files here too
-                                    div.controls
-                                        div(id='result-list')
-                                    script(src='/javascripts/file-uploader/upload-face.js')
-                            div.control-group
-                                label(class='control-label', for='username') 用户名
-                                div.controls
-                                  label(class='control-label') #{user.name}
-                            div.control-group
-                                label(class='control-label', for='regTime') 注册时间
-                                div.controls
-                                    label(class='control-label') #{user.regTimeStr}
-                            div.control-group
-                                label(class='control-label', for='gender') 性别
-                                div.controls
-                                    label(class='control-label') #{user.gender}
-                            div.control-group
-                                label(class='control-label', for='gender') 出生日期
-                                div.controls
-                                    label(class='control-label')
-                            div.control-group
-                                label(class='control-label', for='gender') 家乡
-                                div.controls
-                                    label(class='control-label')
-                            div.control-group
-                                label(class='control-label', for='gender') 现居住
-                                div.controls
-                                    label(class='control-label')
-                            div.control-group
-                                div.controls
-                                    button(class='btn', type='submit') 提交
-
+    script(data-main='/javascripts/app/edit-profile.js',src='/javascripts/require.js')

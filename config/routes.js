@@ -44,6 +44,7 @@ exports.createRoutes = function(app){
     app.post('/users',user.updateProfile);
     app.put('/users',user.update);
 
+    app.post('/upload',user.loadUser,uploader.face);
     app.post('/upload-face',user.loadUser,uploader.uploadFace);
     app.get('/file-picker',uploader.filePicker);
 

@@ -14,8 +14,14 @@ var express = require('express'),
     cloudinary = require('../models/cloudinary.js');
 
 
-
-
+/**
+ *
+ * @param req
+ * @param res
+ */
+exports.face = function(req,res){
+    console.log('dddd');
+}
 
 exports.saveProfile = function(req, res){
     // 获得文件的临时路径
@@ -26,13 +32,12 @@ exports.saveProfile = function(req, res){
     var target_path =  __dirname + '/../public/images/face/'+path.basename(tmp_path) + extName;
 
 
-
     fs.readFile(tmp_path, function (err, data) {
         if (err) {
             res.send(err);
             return;
         }
-        console.log('1213');
+
         fs.writeFile(target_path, data, function (err) {
             if (!err) {
                 res.send({uploaded: true});
@@ -114,7 +119,7 @@ var moveToCloud = function(source,callback){
 };
 
 exports.filePicker = function(req,res){
-    res.render('file-test', {
+    res.render('temp/file-test', {
         title: 'Say',
         user : req.session.user,
         currentLink: 'MICRO',
