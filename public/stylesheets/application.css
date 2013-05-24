@@ -1,0 +1,168 @@
+@charset "utf-8";
+/**global var**/
+/** Helvetica, Tahoma, Arial, \5b8b\4f53, sans-serif; **/
+/**global settings**/
+.global-font {
+  font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
+  font-size: 14px;
+}
+.page-padding {
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/**utilies css for other**/
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.auto-center-layout {
+  margin: 0 auto;
+}
+/**all page css**/
+.min-container {
+  min-height: 500px;
+}
+.grey-font {
+  color: #999999;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 25px;
+}
+body {
+  font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
+  font-size: 14px;
+  padding-top: 60px;
+  padding-bottom: 40px;
+}
+/**home page cess**/
+.up-down-cover {
+  position: absolute;
+  text-align: center;
+  color: #cc0000;
+}
+.login-bar {
+  vertical-align: baseline;
+  position: relative;
+  padding: 10px 20px;
+}
+.height-auto {
+  height: auto !important;
+  line-height: 20px;
+}
+.marketing-byline {
+  color: #999999;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 25px;
+}
+.relative {
+  min-height: 500px;
+  border: 1px solid;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+.relative h4 {
+  text-align: center;
+}
+.face-thumbnails {
+  width: 40px;
+  height: 40px;
+}
+/**one post**/
+.popover {
+  display: block;
+  position: relative;
+}
+.popover.right .arrow {
+  top: 20%;
+}
+.content {
+  padding: 5px 10px 5px 10px;
+}
+.comment {
+  margin-bottom: 10px;
+}
+/**login page cess**/
+.margin-top100 {
+  margin-top: 60px;
+}
+.image-back {
+  background: #e0e0e0 repeat-x url("/images/laoluo.jpg");
+  width: 100%;
+  height: 100%;
+}
+.dialog-section {
+  margin-top: 140px;
+  text-align: center;
+  width: 100%;
+  z-index: 10000;
+}
+.padding-20 {
+  padding: 20px 40px 5px 40px;
+}
+.login-common {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 343px;
+  margin: 0 auto;
+  text-align: center;
+}
+.dialog {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 343px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 40px 5px 40px;
+  color: #BFB8E5;
+  border: 1px solid #373553;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
+  background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+  background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+}
+.dialog form {
+  text-align: left;
+  color: #0A0A0A;
+}
+.dialog form input[type=text] {
+  width: 328px;
+}
+.dialog form input[type=password] {
+  width: 328px;
+}
+.tip {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 343px;
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 10px;
+  height: 30px;
+  padding: 10px 40px 1px 40px;
+  display: block;
+}
+.dialog-footer {
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  width: 343px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px 40px 1px 40px;
+  margin-top: 10px;
+  height: 30px;
+  color: #0A0A0A;
+  border: 1px solid #373553;
+  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
+  background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+  background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+}
+.dialog-footer a {
+  color: #04C;
+}

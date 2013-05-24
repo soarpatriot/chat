@@ -5,7 +5,7 @@
 exports.createRoutes = function(app){
 
     var home = require('../app/controllers/index_controller')
-        post = require('../app/controllers/posts_controller'),
+        posts = require('../app/controllers/posts_controller'),
         user = require('../app/controllers/users_controller'),
         chat = require('../app/controllers/chat_controller'),
         review = require('../app/controllers/reviews_controller'),
@@ -17,21 +17,17 @@ exports.createRoutes = function(app){
 
     app.get('/chat', chat.index);
 
-    app.all('/post*',user.loadUser)
-    app.get('/post',post.new);
-    app.post('/post',post.publish);
-    app.get('/post/:id', post.get);
-
-    app.all('/posts*',user.loadUser)
-    app.get('/posts',post.all);
-
-    app.get('/posts/review',post.review);
-    app.get('/posts/:id',post.one);
-    app.post('/posts',post.up);
-    app.put('/posts/:id',post.up);
+    app.all('/posts*',user.loadUser);
+    app.get('/posts',posts.index);
+    app.get('/posts/new',posts.new);
+    app.post('/posts',posts.create);
+    //app.get('/posts/review',posts.review);
+    app.get('/posts/:id', posts.show);
 
 
-    app.post('/comment',user.loadUser,post.comment);
+    app.get('/posts/:id',posts.one);
+    app.put('/posts/:id',posts.up);
+    app.post('/comment',user.loadUser,posts.comment);
 
 
     app.get('/reg', user.reg);
@@ -41,16 +37,18 @@ exports.createRoutes = function(app){
     app.get('/login', user.login);
     app.get('/logout', user.logout);
 
-    app.all('/user*',user.loadUser);
-    app.get('/user/edit',user.edit);
-    app.get('/user/:userId', user.index);
-    app.get('/user',user.show);
-    app.post('/user',user.updateProfile);
+    app.all('/users*',user.loadUser);
+    app.get('/users/edit',user.edit);
+    app.get('/users/:userId', user.index);
+    app.get('/users',user.show);
+    app.post('/users',user.updateProfile);
     app.put('/users',user.update);
 
+    app.post('/upload',user.loadUser,uploader.face);
     app.post('/upload-face',user.loadUser,uploader.uploadFace);
     app.get('/file-picker',uploader.filePicker);
 
     //review post
     app.get('/review',user.loadUser,review.index);
+    app.post('/review',user.loadUser,review.do);
 }

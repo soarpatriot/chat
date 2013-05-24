@@ -1,3 +1,6 @@
+
+require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
+
 $(function(){
 
     var InfoTip = Backbone.Model.extend({
@@ -14,13 +17,16 @@ $(function(){
                 this.set({"title": this.defaults.title});
             }
         }
-        /**
-        toggle: function(){
-            this.save({show:!this.get("show")});
-        }**/
+
     });
 
     var infoTip = new InfoTip;
+
+    /**
+     * user login view,
+     * check username and password
+     *
+    * */
     var LoginView = Backbone.View.extend({
         el: $("#login-div"),
         statsTemplate: _.template($('#item-template').html()),
@@ -38,28 +44,34 @@ $(function(){
             this.render();
         },
         render: function() {
+
             if(this.errorHidden.val()!==''){
                 var title = '';
                 var content = this.errorHidden.val();
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error tip-error');
-                this.tip.show();
+                this.tip.addClass('alert alert-error');
+
             }else{
-                this.tip.hide();
+                this.tip.text("");
+                this.tip.removeClass('alert alert-error');
+
             }
 
-
-            // this.footer.html(this.statsTemplate({title: InfoTip.title}));
         },
         login: function(){
             if(this.username.val()==='' || this.passwordIn.val()===''){
                 var title = '';
                 var content = '用户名密码不能为空！';
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error tip-error');
-                this.tip.show();
-                //alert("sdf");
+                this.tip.addClass('alert alert-error');
+
+            }else if(this.username.val().length > 50 || this.passwordIn.val().length > 30){
+                var content = '用户名或密码过长！';
+                this.tip.html(this.statsTemplate({title: title,content:content}));
+                this.tip.addClass('alert alert-error');
             }else{
+                this.tip.text("");
+                this.tip.removeClass('alert alert-error');
                 $('#login-form').submit();
             }
 
@@ -72,10 +84,13 @@ $(function(){
         },
         checkForShow: function(value){
             if($.trim(value)!==''){
-                this.tip.hide();
+                this.tip.text("");
+                this.tip.removeClass('alert alert-error');
             }
         }
     });
 
     var loginView = new LoginView;
-})
+});
+
+});

@@ -43,7 +43,7 @@ exports.index = function(req,res){
 
             posts = Post.dealPosts(posts);
 
-            res.render('user/user-blogs',{
+            res.render('users/user-blogs',{
                 title: user.name,
                 posts: posts,
                 user:  user,
@@ -62,8 +62,9 @@ exports.index = function(req,res){
  */
 exports.reg = function(req, res){
 
-    res.render('user/reg',{
-        title: 'Register',
+    res.render('users/reg',{
+        title: '注册',
+
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
     });
@@ -79,8 +80,15 @@ exports.reg = function(req, res){
  */
 exports.doReg = function(req, res){
 
+    //console.log("jj:"+JSON.stringify(req.body.user));
     if(req.body['password-repeat'] != req.body['password']){
         req.flash('error','两次输入密码不一致');
+
+        req.flash('username',req.body.username);
+        //req.flash('password',req.body.password);
+        //req.flash('password-repeat',req.body.password-repeat);
+        req.flash('email',req.body.email);
+
         return res.redirect('/reg');
     }
 
@@ -132,7 +140,7 @@ exports.doReg = function(req, res){
  * @param res
  */
 exports.login = function(req, res){
-    res.render('user/login',{
+    res.render('users/login',{
         title: '用户登录',
         username: req.flash('username'),
         password: req.flash('password'),
@@ -198,7 +206,7 @@ exports.logout = function(req, res){
  */
 exports.show = function(req,res){
 
-    res.render('user/show',{
+    res.render('users/show',{
         title: '用户资料',
         user: req.user,
         success: req.flash('success').toString(),
@@ -223,7 +231,7 @@ exports.edit = function(req, res){
 
         }else{
 
-            res.render('user/edit',{
+            res.render('users/edit',{
                 title: '编辑',
                 user: user,
                 success: req.flash('success').toString(),
@@ -292,6 +300,7 @@ exports.update = function(req,res){
 exports.loadUser = function(req, res, next) {
     // You would fetch your user from the db
     var userId = req.session.userId;
+
     if(!_.isNull(userId) && !_.isUndefined(userId)){
         User.findOne({'_id': userId}, function(err, user){
             if(err){

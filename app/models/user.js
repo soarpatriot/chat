@@ -59,18 +59,41 @@ fromNow.get(function(){
 //virtual property need definded behind User
 var mini = UserSchema.virtual('mini');
 mini.get(function(){
-    return cloudinary.genMiniFace(this.faceId);
+
+    if(utils.isEmpty(this.faceId)){
+        return cloudinary.genMiniFace(this.faceId);
+    }else{
+        return face(this.faceId,35,35);
+    }
+
 });
 
 var thumbnails = UserSchema.virtual('thumbnails');
 thumbnails.get(function(){
-    return cloudinary.genSmallFace(this.faceId);
+
+    if(utils.isEmpty(this.faceId)){
+        return cloudinary.genSmallFace(this.faceId);
+    }else{
+        return face(this.faceId,48,48);
+    }
+
 });
 
 var normalFace = UserSchema.virtual('normalFace');
 normalFace.get(function(){
-    return cloudinary.genBlogFace(this.faceId);
+
+    if(utils.isEmpty(this.faceId)){
+        return cloudinary.genBlogFace(this.faceId);
+    }else{
+        return face(this.faceId,154,118);
+    }
+
 });
+
+var face = function(faceId, width,height){
+
+    return faceId+'/convert?w='+width+'&h='+height
+}
 
 var regTimeStr = UserSchema.virtual('regTimeStr');
 regTimeStr.get(function(){
@@ -78,6 +101,7 @@ regTimeStr.get(function(){
         return moment(this.regTime).format('YYYY年MMMDD a h:mm:ss');
     }
 });
+
 
 var flyAge = UserSchema.virtual('flyAge');
 flyAge.get(function(){

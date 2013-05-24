@@ -9,6 +9,8 @@
 var settings = require('../../settings');
 var dbUrl = settings.currentDb();
 var mongoose = require('mongoose');
+
 var db = mongoose.createConnection(dbUrl);
+
 //var db = mongoose.createConnection('mongodb://soarpatriot:22143521@localhost:27017/xiaodonggua')
 exports.db = db;

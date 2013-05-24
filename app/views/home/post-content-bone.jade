@@ -3,10 +3,10 @@ script(type="text/template",id="item-template")
     div.row-fluid
         div.span8
             p
-                a('href=/user/"<%- creator._id %>"')
+                a('href=/users/"<%- creator._id %>"')
                     img('src="<%- creator.thumbnails %>"',class='img-polaroid img-rounded')
                 | &nbsp;&nbsp;&nbsp;
-                a('href=/post/"<%- _id %>"') <%- title %>
+                a('href=/posts/"<%- _id %>"') <%- title %>
 
         div.span4
             div.pull-right

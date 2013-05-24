@@ -1,14 +1,22 @@
-extends ../layout/review-layout
+extends ../layouts/main-layout
 
 block append head
-    script(src='/javascripts/app/models.js')
-    script(src='/javascripts/app/review.js')
+
 block content
     body
         div(id='review-container',class='container')
             div(class='row-fluid')
-                div(id='post-content',class='span8')
 
+                div(id='post-content',class='span8')
+                    div(class='row-fluid')
+                        div(class='span8')
+                            h4 #{post.title}
+                    hr
+                    div(class='row-fluid')
+                        div(class='span8') #{post.content}
+                form(id='review-form',action='/review',method='post')
+                    input(id='post-id',type='hidden',name='postId',value='#{post._id}')
+                    input(id='passed',type='hidden',name='passed',value='')
                 div(class='span4 well-no-back')
                     h3 我觉得这篇文章
                     p 有下列情景
@@ -33,3 +41,5 @@ block content
                         div(class='span8') <%- title %>
                     div(class='row-fluid')
                         div(class='span8') <%- content %>
+
+        script(data-main='/javascripts/app/review.js',src='/javascripts/require.js')

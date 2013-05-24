@@ -70,3 +70,27 @@ li
 
 
         -->
+
+
+script(src='/javascripts/jquery-fileuploader/jquery.cloudinary.js')
+
+
+    script
+        $(function(){
+            $.cloudinary.config({'cloud_name':'soar'});
+            $('.cloudinary-fileupload').bind('cloudinarydone', function(e, data) {  $('.preview').html(
+                $.cloudinary.image(data.result.public_id,
+                    { format: data.result.format, version: data.result.version,
+                      crop: 'scale', width: 200 }));
+                $('.image_public_id').val(data.result.public_id);
+                return true;
+            });
+        });
+
+
+  link(rel='stylesheet', href='/stylesheets/jquery.fileupload-ui.css')
+          div.fileupload-buttonbar
+              span(class='btn btn-success fileinput-button')
+                  i(class='icon-plus icon-white')
+                  span 添加文件...
+                  input(id='fileupload',type='file',name='files[]',data-url='/upload')

@@ -1,6 +1,7 @@
-
-/*
- * GET Post
+/**
+ * posts controller
+ * @author Soar
+ *
  */
 
 var Post = require('../models/post.js'),
@@ -33,7 +34,7 @@ moment.lang('zh-cn');
  * @param res
  */
 exports.new = function(req, res){
-    res.render('post/new', {
+    res.render('posts/new', {
         title: '发表',
         user : req.user,
         currentLink: 'MICRO',
@@ -48,18 +49,18 @@ exports.new = function(req, res){
  * @param res
  * @return {*}
  */
-exports.publish = function(req, res){
+exports.create = function(req, res){
     var currentUser = req.user;
     var content =  req.body.content;
     var title = req.body.title;
     if(currentUser === null){
         req.flash('error','请先登录！ ');
-        return res.redirect('/post');
+        return res.redirect('/posts');
     }
 
     if( content === null ||  content===''){
         req.flash('error','发言内容不能为！ ');
-        return res.redirect('/post');
+        return res.redirect('/posts');
     }
 
     console.log('user ObjectId:  '+currentUser._id);
@@ -74,10 +75,10 @@ exports.publish = function(req, res){
     post.save(function(err){
         if(err){
             req.flash('error',err);
-            return res.redirect('/post');
+            return res.redirect('/posts');
         }else{
-            req.flash('success','发表成功！');
-            res.redirect('/user/'+currentUser._id);
+            req.flash('success','发表成功待审核！');
+            res.redirect('/users/'+currentUser._id);
         }
     });
 
@@ -118,18 +119,18 @@ exports.comment = function(req,res){
                 req.flash('error',err);
             }else{
                 req.flash('success','发表成功！');
-                return res.redirect('/post/'+postId);
+                return res.redirect('/posts/'+postId);
             }
         });
     });
 }
 
 /**
- * view post
+ * view one post by id
  * @param req
  * @param res
  */
-exports.get = function(req,res){
+exports.show = function(req,res){
 
     var postId = req.params.id;
     Post.populateCommentsCreatorByPostId(postId, function(err,post){
@@ -138,18 +139,11 @@ exports.get = function(req,res){
             return res.redirect('/');
         }
 
-        /***
-        Post.findCommentsByPostId(post._id,function(err,comments){
-            console.log("comment: "+JSON.stringify(comments));
-        });**/
-
-
         post = Post.markdownComment(post)
         var html = md(post.content);
         html = html.replace(/\{([^}]+)\}/g, function(_, name){
             return options[name] || '';
         })
-
 
         post.content = html;
         //update the number of being looked
@@ -158,7 +152,7 @@ exports.get = function(req,res){
 
         });
 
-        res.render('post/show',{
+        res.render('posts/show',{
             title: post.username,
             post: post,
             user: req.user,
@@ -168,27 +162,6 @@ exports.get = function(req,res){
     });
 }
 
-/**
- * find post for user review
- */
-exports.review = function(req,res){
-
-
-    //Post.countPostForReview(function(err,number){
-    Post.findPostForReview(function(err,post){
-        if(err){
-
-            res.send(err);
-        }else{
-
-            res.json(post);
-            console.log("viewed post start:"+post);
-        }
-    });
-
-    //});
-};
-
 
 
 /**
@@ -196,7 +169,7 @@ exports.review = function(req,res){
  * @param req
  * @param res
  */
-exports.all = function(req,res){
+exports.index = function(req,res){
 
     var user = req.user;
 
@@ -205,9 +178,8 @@ exports.all = function(req,res){
         if(err){
             res.send(err);
         }
-
         var formattedPosts = Post.dealPosts(posts);
-        console.log("posts:"+posts.length);
+
         if(_.isNull(user) || _.isUndefined(user)){
 
             formattedPosts = Post.doDone(posts);
@@ -227,6 +199,7 @@ exports.all = function(req,res){
                         }
                     });
                 });
+                //console.log('formatted:'+formattedPosts);
                 res.send(formattedPosts);
             });
 
@@ -246,9 +219,7 @@ exports.one = function(req,res){
             req.flash('error', err);
             return res.redirect('/');
         }
-        console.log("post one");
-        //res.contentType('json');//返回的数据类型
-        //res.send(post);//给客户端返回一个json格式的数据
+
         post = Post.truncateOne(post);
         res.format({
             html: function(){
@@ -275,37 +246,48 @@ exports.one = function(req,res){
  */
 exports.up = function(req,res){
 
+
+    var up = req.body.up;
+    var down = req.body.down;
     var postId = req.body._id;
-    var passed = req.body.passed;
+    var user = req.user;
 
-    Post.findPostWithCreator(postId, function(err,post){
-        if(err){
-            req.flash('error', err.toString());
-            return res.redirect('/');
-        }
-        post.update({ passed: passed}, { multi: true }, function (err, numberAffected, raw) {
+    var updateValue = {};
+    if(!_.isNull(up) && !_.isUndefined(up)){
+        updateValue = {up:up};
+    }
+    if(!_.isNull(down) && !_.isUndefined(down)){
+        updateValue = {down:down};
+    }
 
-            if (err) {
-                return handleError(err);
-            }else{
-                //console.log(raw);
-                res.format({
-                    html: function(){
-                        //res.json(post);
-                    },
+    //update up or down the post and update the user's operation
+    Post.update({ _id: postId }, updateValue, { multi: true }, function (err, numberAffected, raw) {
 
-                    text: function(){
-                        //res.json(post);
-                    },
+        console.log('The number of updated documents was %d', numberAffected);
+        console.log('The raw response from Mongo was ', raw);
 
-                    json: function(){
-                        console.log("update:"+numberAffected);
-                        console.log("raw:"+JSON.stringify(raw));
-                        //res.json(post);
+        if (err){
+            res.send("error!");
+        }else{
+            User.findOne({'_id':user._id}, function(err,user){
+
+                var favor = false;
+                if(!_.isNull(up) && !_.isUndefined(up)){
+                    favor = true;
+                }
+
+                user.votePosts.push({ postId: postId, favor:favor});
+                user.save(function(err){
+                    if(err){
+                        res.send("error!");
+                    }else{
+                        res.send("success!");
                     }
                 });
-            }
-        });
+
+            });
+            res.send("success!");
+        }
 
     });
 }

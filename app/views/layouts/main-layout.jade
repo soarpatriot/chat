@@ -1,0 +1,19 @@
+doctype
+html(lang='en')
+    head
+        block head
+            title= title
+
+            include _meta
+            include _css
+
+            include _ico
+            include _ie9
+            include _head
+            include _message
+
+    div.container.min-container
+        block content
+    include _footer
+
+    include _js

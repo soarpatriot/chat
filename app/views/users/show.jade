@@ -1,0 +1,37 @@
+extends ../layouts/main-layout
+
+block append head
+
+block content
+    body
+
+        div(class='row-fluid')
+            ul(class='breadcrumb')
+                li(class='active') 个人资料
+                    span(class='divider') /
+                li(class='active')
+                    a(href='users/edit') 编辑
+            hr
+            div(class='span6')
+                table(class='table table-striped table-bordered table-hover')
+                    tbody
+                        tr
+                           td 头像
+                           td
+                              img(src='#{user.thumbnails}',class='img-polaroid img-rounded')
+                        tr
+                           td 用户名
+                           td #{user.name}
+                        tr
+                           td Email
+                           td #{user.email}
+                        tr
+                           td 性别
+                           td #{user.gender}
+                        tr
+                           td 注册时间
+                           td #{user.regTimeStr}
+
+
+
+

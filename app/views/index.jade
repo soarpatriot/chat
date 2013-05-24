@@ -1,8 +1,7 @@
-extends layout/main-layout
+extends layouts/main-layout
 
 block append head
-    script(src='/javascripts/app/models.js')
-    script(src='/javascripts/app/home.js')
+
 block content
     body
         div(id='home-div',class='row-fluid')
@@ -10,16 +9,14 @@ block content
                 div(class='tabbable')
                     ul(class='nav nav-tabs')
                         li(class='active')
-                            a(href='#new',data-toggle='tab') 最新
+                            a(href='#new',data-toggle='tab')
+                                div(id='spinner')
+                                | 最新
                     div(class='tab-content')
                         div(class='tab-pane active',id='new')
                             div(id='posts')
                                 include home/post-content-bone
-            div(class='span4 well-no-back')
-                h3.title 相关信息
-                div(id='divPop',class='popover up-post')
-                    p
-                        | 顶
-                        | +1
-            div(id='foo')
+            div(class='span4 relative')
+                h4.title 相关信息
 
+        script(data-main='/javascripts/app/home.js',src='/javascripts/require.js')

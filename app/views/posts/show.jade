@@ -1,0 +1,75 @@
+extends ../layouts/main-layout
+
+block append head
+
+block content
+    body
+        div.well-no-back
+            div.row-fluid
+                div.span8
+                    div.row-fluid
+                        div.span12
+                            include _share
+
+                    div.row-fluid
+                        div.span12
+                            div.row-fluid
+                                div.span1
+                                    img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
+
+                                div.span11.popover.right
+                                        div.arrow
+                                        h4(class='discussion-topic-title popover-title') #{post.title}
+                                        div.row-fluid
+                                            div.span2.offset10
+                                                div(class='marketing-byline')
+                                                    a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
+                                                    time
+                                                        | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+
+                                        div.row-fluid.content
+                                            div.span11
+                                                div(class='comment-content')
+                                                    !{post.content}
+                    hr
+                    div.row-fluid
+                        div.span12
+                            div.row-fluid
+                                div(class='span1')
+                                    img(class='img-polaroid img-rounded face-thumbnails',src='/img/noavatar92.png')
+                                div(class='span11')
+                                    form(action='/comment',method='post')
+                                        div.control-group
+                                            div.controls
+                                                input(name='postId',type='hidden',value='#{post._id}')
+                                                textarea(class='span12', name='content',placeholder='发表评论')
+                                        div.control-group
+                                            div.controls
+                                                button(type='submit', class='btn btn-success') 发言
+                    hr.soft
+                    div.row-fluid
+                        h4 #{post.comments.length} 评论
+
+                    each comment, i in post.comments
+                        div.row-fluid.comment
+                            div.span1
+                                div.discussion-bubble
+                                    img(src='#{comment.creator.thumbnails}',class='img-rounded face-thumbnails')
+                            div.span11
+                                div.row-fluid
+                                    div.span2.marketing-byline
+                                        a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
+                                        span(class='pull-right comment-header-date') #{comment.fromNow}
+                                div.row-fluid
+                                    div.span12
+                                        !{comment.content}
+                        hr
+
+
+
+
+
+
+
+             
+      

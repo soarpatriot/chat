@@ -1,6 +1,8 @@
-extends layout
+extends ../layouts/main-layout
+
 
 block append head
+    script(type="text/javascript",src="/javascripts/jquery-1.9.1.min.js")
     script(type="text/javascript",src="//api.filepicker.io/v1/filepicker.js")
     script
         $(function(){

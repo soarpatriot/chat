@@ -6,5 +6,6 @@
  * @return {*|void}
  */
 exports.delHtmlTag =function(str){
-    return str.replace(/<[^>]+>/g,"");
+    return str;
+    //return str.replace(/<[^>]+>/g,"");
 }

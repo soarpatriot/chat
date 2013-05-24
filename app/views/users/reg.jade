@@ -1,0 +1,47 @@
+extends ../layouts/logo-layout
+
+block append head
+
+block content
+    body
+        div.container
+            if typeof(success) !== 'undefined' && success !== null && success!==''
+                div(class='alert alert-success')
+                    #{success}
+            if typeof(error) !== 'undefined' && error !== null && error!==''
+                div(class='alert alert-error')
+                    #{error}
+        div.container
+            form(action='/reg',method='post', class='form-horizontal')
+                fieldset
+                    legend 注册
+                    div.control-group
+
+                    div.control-group
+                        label(class='control-label', for='username') 用户名
+                        div.controls
+
+                                input(name='username',type='text')
+
+                    div.control-group
+                        label(class='control-label',for='password') 密码
+                        div.controls
+
+                                input(name='password',type='password')
+
+                    div.control-group
+                        label(class='control-label',for='password-repeat') 密码确认
+                        div.controls
+
+                                input(name='password-repeat',type='password')
+
+                    div.control-group
+                        label(class='control-label',for='email') Email
+                        div.controls
+
+                                input(name='email',type='text')
+                    div.control-group
+                        div.controls
+                            button(class='btn btn-primary', type='submit') 提交
+
+

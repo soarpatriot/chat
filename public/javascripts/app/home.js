@@ -1,4 +1,6 @@
-(function(){
+require(["require","jquery","underscore","backbone","models","Spinner","bootstrap"],function(require,$,_,Backbone,Models,Spinner) {
+
+
     $(function(){
 
         var opts = {
@@ -16,10 +18,10 @@
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
             top: '100', // Top position relative to parent in px
-            left: '100' // Left position relative to parent in px
+            left: '0' // Left position relative to parent in px
         };
 
-        var Posts = new PostList;
+        var Posts = new Models.PostList;
 
         var PostView = Backbone.View.extend({
 
@@ -91,11 +93,11 @@
                 var top = offset.top;
                 var left = offset.left;
 
-                var linkHalfHeight = 15;
-                var linkHalfWidth = 50;
+                //var linkHalfHeight = 15;
+                //var linkHalfWidth = 50;
 
-                var targetTop = top - linkHalfHeight;
-                var targetLeft = left - linkHalfWidth;
+                var targetTop =  top - 8;
+                var targetLeft = left - 15;
                 this.$el.append(this.$upDownCover);
                 this.$upDownCover.css('width','100px');
                 this.$upDownCover.css('height','30px');
@@ -110,7 +112,9 @@
                 this.$upDownCover.animate({
 
                     'font-size': "30px",
-                    opacity: "0.5"
+                    'opacity': "0.5",
+                    'top': targetTop,
+                    'left' : targetLeft
                 }, 1000).fadeOut(2000);
 
             },
@@ -144,18 +148,10 @@
 
             },
             initialize: function() {
-                //var spin = document.getElementById('foo');
-                //var target = document.getElementById('new');
-                //var spinner = new Spinner(opts).spin($("#foo"));
-                //var spinner = new Spinner(opts).spin(spin);
-                //target.appendChild(spinner.el);
-                //this.$cover= $('<div></div>');
+                //defin a spinner init
+                var target= document.getElementById('spinner');
+                this.spinner = new Spinner(opts).spin(target);
 
-
-                //this.spinner = new Spinner(opts).spin();
-                //this.render();
-                //this.$cover.append(this.spinner.el);
-                //this.$el.append(this.spinner.el);
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
@@ -164,7 +160,7 @@
                 //
             },
             render: function() {
-                this.$el.append(this.spinner.el);
+                //this.$el.append(this.spinner.el);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -173,14 +169,18 @@
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                //this.spin.remove();
-                //this.spinner.stop();
 
                 Posts.each(this.addOne);
+
+                //stop the spinner when obtain Post
+                this.spinner.stop();
             }
         });
 
         var newView = new NewView();
 
     });
-})();
+
+});
+
+define("home", function(){});

@@ -59,7 +59,7 @@ cloudinary.genSmallDefaultFaceUrl = function(){
     var height = 'h_40';
     var type = 'c_thumb';
     var faces = 'g_faces';
-    var round = 'r_20';
+    var round = 'r_4';
     var publicId = ',d_avatar2.png/non_existing_id.jpg';
     var faceUrlTemplate = 'http://res.cloudinary.com/demo/image/facebook/';
 
@@ -70,7 +70,7 @@ cloudinary.genSmallFaceUrl = function(publicId){
     var height = 'h_40';
     var type = 'c_thumb';
     var faces = 'g_faces';
-    var round = 'r_20';
+    var round = 'r_4';
 
     var faceUrlTemplate = 'http://res.cloudinary.com/soar/image/upload/';
 
@@ -90,7 +90,7 @@ cloudinary.genMiniFaceUrl = function(publicId){
     var height = 'h_20';
     var type = 'c_thumb';
     var faces = 'g_faces';
-    var round = 'r_20';
+    var round = 'r_4';
     var faceUrlTemplate = 'http://res.cloudinary.com/soar/image/upload/';
 
     return cloudinary.faceUrl(faceUrlTemplate,width,height,type,faces,round,'/'+publicId+'.jpg');
@@ -102,7 +102,7 @@ cloudinary.genDefaultMiniFaceUrl = function(){
     var height = 'h_20';
     var type = 'c_thumb';
     var faces = 'g_faces';
-    var round = 'r_20';
+    var round = 'r_4';
     var publicId = ',d_avatar2.png/non_existing_id.jpg';
     var faceUrlTemplate = 'http://res.cloudinary.com/demo/image/facebook/';
 
