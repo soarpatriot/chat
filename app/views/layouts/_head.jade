@@ -5,7 +5,7 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a.brand(href='/') @中国
+            a.brand(href='/') @发现
             div.nav-collapse.collapse
                 ul.nav
 
@@ -32,11 +32,11 @@ div.navbar.navbar-inverse.navbar-fixed-top
                                a(href='/reg') [注册]
                     else
                         li.dropdown
-                              a(class='dropdown-toggle', href='#', data-toggle='dropdown')
+                            a(class='dropdown-toggle', href='#', data-toggle='dropdown')
                                 img(src='#{user.mini}',class='img-rounded')
                                 | &nbsp;&nbsp #{user.name}
                                 b.caret
-                              ul.dropdown-menu
+                            ul.dropdown-menu
                                 li
                                   a(href='/users') 我的资料
                                 li
@@ -49,6 +49,6 @@ div.navbar.navbar-inverse.navbar-fixed-top
                                 li
                                   a(href='#')
                         li
-                          a(href='/logout') 退出
+                            a(href='/logout') 退出
 
 

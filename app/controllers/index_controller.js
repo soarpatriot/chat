@@ -1,4 +1,5 @@
 
+var User = require('../models/user.js');
 
 /**
  * home page
@@ -7,12 +8,20 @@
  */
 exports.index = function(req, res){
 
-    res.render('index', {
-        title: '@中国',
-        user:req.user,
-        currentLink: 'HOME',
-        success : req.flash('success').toString(),
-        error : req.flash('error').toString()
+    User.find({}, function(err,users){
+
+        if(err){
+            res.redirect('/error');
+        }else{
+            res.render('index', {
+                title: '@发现',
+                user:req.user,
+                users:users,
+                currentLink: 'HOME',
+                success : req.flash('success').toString(),
+                error : req.flash('error').toString()
+            });
+        }
     });
 
 };

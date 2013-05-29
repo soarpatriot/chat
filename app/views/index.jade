@@ -17,7 +17,15 @@ block content
                             div(id='posts')
                                 include home/post-content-bone
             div(class='span4 relative')
-                h4.title 相关信息
+                h4.title 发现排行
+                hr
+                if users
+                    each user, i in users
+                        div(class='row-fluid rank-author-line')
+                            div(class='span2')
+                               img(class='face-border img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
+                            div.span10.rank-author
+                                a(href='/users/#{user._id}') #{user.name}
 
         script(data-main='/javascripts/app/home.js',src='/javascripts/require.js')
         script(src='/javascripts/app/requirejs-config.js')

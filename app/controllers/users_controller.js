@@ -46,7 +46,8 @@ exports.index = function(req,res){
             res.render('users/user-blogs',{
                 title: user.name,
                 posts: posts,
-                user:  user,
+                user: req.user,
+                discoverior:  user,
                 success : req.flash('success').toString(),
                 error : req.flash('error').toString()
             })

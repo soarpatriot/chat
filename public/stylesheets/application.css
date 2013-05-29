@@ -57,9 +57,13 @@ body {
   font-weight: 300;
   line-height: 25px;
 }
+.rank-author-line {
+  margin-bottom: 5px;
+}
+.rank-author {
+  padding-top: 10px;
+}
 .relative {
-  min-height: 500px;
-  border: 1px solid;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
