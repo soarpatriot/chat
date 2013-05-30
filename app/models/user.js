@@ -46,7 +46,8 @@ var UserSchema = mongoose.Schema({
     gender: { type: String, default: '未知' },
     email:'String',
     regTime:{ type: Date, default: Date.now },
-    votePosts:[Vote]
+    votePosts:[Vote],
+    score:{type: Number, default: 0}
 },schemaOptions);
 
 
@@ -112,11 +113,25 @@ flyAge.get(function(){
     }
 });
 
-
+UserSchema.statics.top5 = function(callback){
+    return this
+        .find()
+        .sort('-score')
+        .limit(5)
+        .exec(callback);
+};
 var User = mongodb.db.model('User', UserSchema);
 module.exports = User;
 
 
+/**
+User.top5 = function(callback){
+    return User.where('passed').equals(true)
+        .limit(5)
+        .sort('-score')
+
+        .exec(callback);
+};**/
 
 
 

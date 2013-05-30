@@ -8,7 +8,7 @@ var User = require('../models/user.js');
  */
 exports.index = function(req, res){
 
-    User.find({}, function(err,users){
+    User.top5(function(err,users){
 
         if(err){
             res.redirect('/error');
