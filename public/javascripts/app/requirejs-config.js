@@ -1,7 +1,7 @@
 require.config({
 
     baseUrl: "/javascripts",
-    waitSeconds:10,
+    waitSeconds:100,
 
     //some special settings. like exports and dep
     shim: {
@@ -30,11 +30,13 @@ require.config({
         "review":"app/review",
         "user":"app/user",
         "edit-profile":"app/edit-profile",
+        "user-blogs":"app/user-blogs",
 
         //js framework
         "underscore": "underscore",
         "backbone": "backbone",
         "bootstrap":"bootstrap.min",
+        "bootstrapPaginator":"bootstrap-paginator.min",
         "Spinner": "spin.min",
         jquery: [
 
@@ -54,6 +56,7 @@ require.config({
         "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
 
         "filepicker":"//api.filepicker.io/v1/filepicker"
+
     }
 
 });

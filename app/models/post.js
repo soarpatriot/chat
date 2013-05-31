@@ -91,8 +91,8 @@ PostSchema.statics.findBytitle = function(title,callback){
     return this.find({title: title},callback);
 };
 
-PostSchema.statics.findCreatorPost = function(userId,callback){
-    return this.find({creator: userId},callback);
+PostSchema.statics.findCreatorPost = function(userId,start,pageSize,callback){
+    return this.find({creator: userId}).skip(start).limit(pageSize).exec(callback);
 };
 
 //find one post for review

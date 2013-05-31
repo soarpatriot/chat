@@ -29,29 +29,53 @@ var _ = require('underscore');
  */
 exports.index = function(req,res){
 
+    var start = 0;
+    var pageSize = 10;
+    var currentPage = 1;
+    if(req.params.currentPage){
+        currentPage = req.params.currentPage;
+    }
+    if(req.params.pageSize && req.params.pageSize > 0){
+        pageSize = req.params.pageSize;
+    }
+    if(req.params.currentPage && req.params.currentPage > 0){
+        start = (currentPage - 1) * pageSize;
+    }
+
+
     User.findOne({'_id':req.params.userId}, function(err,user){
         if(!user){
             req.flash('error','用户不存在！');
             return res.redirect('/');
         }
-
-        Post.findCreatorPost(user._id, function(err,posts){
+        Post.count({creator: user._id},function(err,totalCount){
             if(err){
                 req.flash('error', err);
                 return res.redirect('/');
             }
 
-            posts = Post.dealPosts(posts);
+            Post.findCreatorPost(user._id,start,pageSize, function(err,posts){
+                if(err){
+                    req.flash('error', err);
+                    return res.redirect('/');
+                }
 
-            res.render('users/user-blogs',{
-                title: user.name,
-                posts: posts,
-                user: req.user,
-                discoverior:  user,
-                success : req.flash('success').toString(),
-                error : req.flash('error').toString()
-            })
+                posts = Post.dealPosts(posts);
+                
+                res.render('users/user-blogs',{
+                    title: user.name,
+                    posts: posts,
+                    user: req.user,
+                    discoverior:  user,
+                    totalCount: totalCount,
+                    currentPage: currentPage,
+                    success : req.flash('success').toString(),
+                    error : req.flash('error').toString()
+                })
+            });
+
         });
+
     });
 
 }

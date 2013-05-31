@@ -33,19 +33,11 @@ block content
                         hr.soft
         div.row-fluid
             div.span12
-                div(class='pagination pagination-right')
-                    ul
-                        li
-                            a(href='#') 上一页
-                        li
-                            a(href='#') 1
-                        li
-                            a(href='#') 2
-                        li
-                            a(href='#') 3
-                        li
-                            a(href='#') 4
-                        li
-                            a(href='#') 下一页
+                input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
+                input(type='hidden',id='total-count',value='#{totalCount}')
+                input(type='hidden',id='current-page',value='#{currentPage}')
+                div(id='pagination-div',class='pagination pagination-right')
 
 
+        script(data-main='user-blogs',src='/javascripts/require.js')
+        script(src='/javascripts/app/requirejs-config.js')

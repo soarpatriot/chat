@@ -40,6 +40,7 @@ exports.createRoutes = function(app){
     app.all('/users*',user.loadUser);
     app.get('/users/edit',user.edit);
     app.get('/users/:userId', user.index);
+    app.get('/users/:userId/:currentPage', user.index);
     app.get('/users',user.show);
     app.post('/users',user.updateProfile);
     app.put('/users',user.update);
