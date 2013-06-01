@@ -63,6 +63,7 @@ var PostSchema = mongoose.Schema({
     pusTime: { type: Date, default: Date.now },
 
     rank:{type: Number, default: 0},
+    score:{type: Number, default: 0},
     up:{type:Number,default: 0},                //the number of this post is up or down
     down:{type:Number,default: 0},
     done:{type:Boolean,default:false},          // adjust if current person operate up or down in this post.
@@ -70,7 +71,7 @@ var PostSchema = mongoose.Schema({
     looked:{type:Number,default: 0},            // the number of being looked
 
     passed:{type:Boolean},       // when post passed === true, user can see the post  10 points passed
-    score:{type:Number,default: 0},             // the number of this post  can publish or can not publish
+
     beReviewed:[Review],
 
     creator: {type: Schema.ObjectId, ref: 'User'}
@@ -148,7 +149,8 @@ var Post = mongodb.db.model('Post', PostSchema);
 var Comment = mongodb.db.model('Comment', CommentSchema);
 
 Post.top5 = function(callback){
-    return Post.where('passed').equals(true)
+    return Post.find().where('passed').equals(true)
+        .where('score').gte(-10)
         .limit(5)
         .sort('-pusTime')
         .populate('creator')

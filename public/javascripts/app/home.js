@@ -169,7 +169,9 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-
+                Posts.comparator = function(p1,p2) {
+                    return p2.socre-p1.score;
+                };
                 Posts.each(this.addOne);
 
                 //stop the spinner when obtain Post

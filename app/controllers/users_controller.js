@@ -61,7 +61,7 @@ exports.index = function(req,res){
                 }
 
                 posts = Post.dealPosts(posts);
-                
+
                 res.render('users/user-blogs',{
                     title: user.name,
                     posts: posts,

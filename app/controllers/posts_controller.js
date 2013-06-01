@@ -246,47 +246,51 @@ exports.one = function(req,res){
  */
 exports.up = function(req,res){
 
-
     var up = req.body.up;
     var down = req.body.down;
     var postId = req.body._id;
     var user = req.user;
 
-    var updateValue = {};
-    if(!_.isNull(up) && !_.isUndefined(up)){
-        updateValue = {up:up};
-    }
-    if(!_.isNull(down) && !_.isUndefined(down)){
-        updateValue = {down:down};
-    }
-
-    //update up or down the post and update the user's operation
-    Post.update({ _id: postId }, updateValue, { multi: true }, function (err, numberAffected, raw) {
-
-        console.log('The number of updated documents was %d', numberAffected);
-        console.log('The raw response from Mongo was ', raw);
-
-        if (err){
-            res.send("error!");
+    Post.findOne({ _id: postId },function(err,post){
+        if(err){
+            console.log('find post error in up and down');
         }else{
-            User.findOne({'_id':user._id}, function(err,user){
+            if(!_.isNull(up) && !_.isUndefined(up)){
+                post.up = up;
+                post.score =  post.down + post.up;
+            }
+            if(!_.isNull(down) && !_.isUndefined(down)){
+                post.down = down;
+                post.score =  post.down + post.up;
+            }
+            post.save(function(err){
 
-                var favor = false;
-                if(!_.isNull(up) && !_.isUndefined(up)){
-                    favor = true;
+                if(err){
+                    console.log('save uped and downed post error in up and down');
+                }else{
+
+                    User.findOne({'_id':user._id}, function(err,user){
+                        if(err){
+                            console.log('user find error in up and down');
+                        }else{
+                            var favor = false;
+                            if(!_.isNull(up) && !_.isUndefined(up)){
+                                favor = true;
+                            }
+
+                            user.votePosts.push({ postId: postId, favor:favor});
+                            user.save(function(err){
+                                if(err){
+                                    console.log('save uped and downed user info  error in up and down');
+                                }else{
+                                    res.send("success!");
+                                }
+                            });
+                        }
+                    });
+                    res.send("success!");
                 }
-
-                user.votePosts.push({ postId: postId, favor:favor});
-                user.save(function(err){
-                    if(err){
-                        res.send("error!");
-                    }else{
-                        res.send("success!");
-                    }
-                });
-
             });
-            res.send("success!");
         }
 
     });
