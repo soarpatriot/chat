@@ -1,7 +1,6 @@
 
 
 var mongoose = require('mongoose');
-var mongodb = require('./mongolab-db'),
     Schema = mongoose.Schema;
 var cloudinary = require('./cloudinary.js');
 var utils = require('./utils');
@@ -120,7 +119,7 @@ UserSchema.statics.top5 = function(callback){
         .limit(5)
         .exec(callback);
 };
-var User = mongodb.db.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
 

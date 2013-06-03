@@ -5,6 +5,7 @@
  * Time: 上午12:36
  * To change this template use File | Settings | File Templates.
  */
+    /**
 var settings = require('../settings');
 var Db = require('mongodb').Db;
 var Connection = require('mongodb').Connection;
@@ -17,4 +18,4 @@ var server = new Server(settings.host, settings.port,
 
 module.exports = new Db(settings.db, server);
 
-
+**/

@@ -7,3 +7,13 @@ module.exports = function (compound) {
     ];
 };
 
+/**
+ *
+ * heroku scale web=1
+
+ module.exports = {
+    cookie_secret : 'secret_meteoric',
+    db : 'microblog',
+    host : 'localhost',
+    port : 27017
+}**/
