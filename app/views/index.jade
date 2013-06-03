@@ -23,7 +23,7 @@ block content
                     each user, i in users
                         div(class='row-fluid rank-author-line')
                             div(class='span2')
-                               img(class='face-border img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
+                               img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
                             div.span10.rank-author
                                 a(href='/users/#{user._id}') #{user.name}
 

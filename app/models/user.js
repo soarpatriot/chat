@@ -74,7 +74,7 @@ thumbnails.get(function(){
     if(utils.isEmpty(this.faceId)){
         return cloudinary.genSmallFace(this.faceId);
     }else{
-        return face(this.faceId,48,48);
+        return face(this.faceId,40,40);
     }
 
 });
@@ -85,7 +85,7 @@ normalFace.get(function(){
     if(utils.isEmpty(this.faceId)){
         return cloudinary.genBlogFace(this.faceId);
     }else{
-        return face(this.faceId,154,118);
+        return face(this.faceId,150,150);
     }
 
 });
