@@ -38,11 +38,14 @@ require.config({
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
         "Spinner": "spin.min",
+        "jquery": "jquery-1.9.1.min",
+
+        /**
         jquery: [
 
             //If the CDN location fails, load from this location
-            'jquery-1.9.1.min'
-        ],
+
+        ],**/
         "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
         "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
         "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
