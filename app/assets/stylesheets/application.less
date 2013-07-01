@@ -8,6 +8,8 @@
 @global-font-family:"Microsoft YaHei","微软雅黑",Tahoma, Arial,"Helvetica Neue", Helvetica,sans-serif,"宋体",;
 @global-font-size: 14px;
 
+@max-width:1000px;
+
 /**global settings**/
 .global-font{
   font-family: @global-font-family;
@@ -17,7 +19,10 @@
   padding-top: 60px;
   padding-bottom: 40px;
 }
-
+.container{
+  margin: 0 auto;
+  max-width: @max-width;
+}
 
 /**utilies css for other**/
 .text-center{
