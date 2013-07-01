@@ -6,6 +6,7 @@
     "start": "node app"
   },
   "dependencies": {
+    "forever": "*",
     "socket.io": "0.9.10",
     "express": ">=3.0.6",
     "express-expose":"0.3.3",
