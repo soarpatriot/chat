@@ -5,31 +5,40 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a(class='brand',href='/') @发现
+            a(class='brand',href='/') @_@
             div.nav-collapse.collapse
                 ul.nav
 
                     if(typeof(currentLink) !== 'undefined' && currentLink === 'HOME')
                         li.active
-                            a(href='/') 主页
+
+                            a(class='align-base', href='/')
+                                i.icon-home.icon-white.icon-margin-top
+                                | &nbsp;主页
                     else
                         li
-                            a(href='/') 主页
+                            a(class='align-base',href='/')
+
+                                i.icon-home.icon-margin-top
+                                | &nbsp;主页
                     if(typeof(currentLink) !== 'undefined' && currentLink === 'REVIEW')
                         li.active
-                            a(href='/review') 审阅
+                            a(href='/review')
+                                i.icon-filter.icon-white.icon-margin-top
+                                | &nbsp;审阅
                     else
                         li
-                            a(href='/review') 审阅
+                            a(href='/review')
+                                i.icon-filter.icon-margin-top
+                                | &nbsp;审阅
 
                 ul.nav.pull-right
                     if typeof(user) === 'undefined' || user === null || user === ''
 
-                        li.login-bar
-                            span.height-auto
-                               a(href='/login') [登录]
-                               &nbsp / &nbsp
-                               a(href='/reg') [注册]
+                        li
+                            a(href='/login') [登录]
+                        li
+                            a(href='/reg') [注册]
                     else
                         li.dropdown
                             a(class='dropdown-toggle', href='#', data-toggle='dropdown')

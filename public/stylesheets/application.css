@@ -41,19 +41,13 @@ body {
   padding-bottom: 40px;
 }
 /**home page cess**/
+.icon-margin-top {
+  margin-top: 3px;
+}
 .up-down-cover {
   position: absolute;
   text-align: center;
   color: #cc0000;
-}
-.login-bar {
-  vertical-align: baseline;
-  position: relative;
-  padding: 10px 20px;
-}
-.height-auto {
-  height: auto !important;
-  line-height: 20px;
 }
 .marketing-byline {
   color: #999999;

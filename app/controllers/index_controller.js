@@ -14,7 +14,7 @@ exports.index = function(req, res){
             res.redirect('/error');
         }else{
             res.render('index', {
-                title: '@发现',
+                title: '@_@ 发现',
                 user:req.user,
                 users:users,
                 currentLink: 'HOME',
