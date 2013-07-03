@@ -28,7 +28,8 @@ block content
                         div.row-fluid
                             div.span12
                                 | #{post.content}
-                        if ( typeof(user) !== 'undefined' && user !== null && user._id === discoverior._id)
+
+                        if (own)
                             div.row-fluid
                                 div.span12
                                     .pull-right

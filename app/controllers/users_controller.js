@@ -62,10 +62,19 @@ exports.index = function(req,res){
 
                 posts = Post.dealPosts(posts);
 
+                //if own this post or not
+                var own = false;
+                if(req.user){
+                    if( req.user._id.toString() === user._id.toString() ){
+                        own = true;
+                    }
+                }
+
                 res.render('users/user-blogs',{
                     title: user.name,
                     posts: posts,
                     user: req.user,
+                    own: own,
                     discoverior:  user,
                     totalCount: totalCount,
                     currentPage: currentPage,

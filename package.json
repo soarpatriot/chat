@@ -10,7 +10,7 @@
     "socket.io": "0.9.10",
     "express": ">=3.0.6",
     "express-expose":"0.3.3",
-    "jade": "0.28.0",
+    "jade": ">=0.28.0",
     "connect-mongo":"0.2.0",
     "crypto": "0.0.3",
     "connect-flash": "0.1.0",
