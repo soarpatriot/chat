@@ -16,7 +16,7 @@ var env = require('./config/environment');
 
 options = {
     path: __dirname,
-    port:process.env.PORT || 3000,
+    port:process.env.PORT || 6000,
     env: process.env.NODE_ENV || "development"
 }
 var app = env.createEnv(options);
