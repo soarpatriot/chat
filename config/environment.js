@@ -22,7 +22,7 @@ exports.createEnv = function (options) {
         //app.use(partials());
         app.use(flash());
 
-        app.use(express.favicon());
+        app.use(express.favicon("public/images/eye.ico"));
         app.use(express.cookieParser());
 
         app.use(express.bodyParser());
