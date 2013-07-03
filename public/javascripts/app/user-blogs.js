@@ -33,8 +33,13 @@
           return "/users/" + discoveriorId + '/' + page;
         }
       };
-      return $('#pagination-div').bootstrapPaginator(options);
+      $('#pagination-div').bootstrapPaginator(options);
+      return $('button[name="del-post-btn"]').click(function() {});
     });
   });
 
 }).call(this);
+
+/*
+//@ sourceMappingURL=user-blogs.map
+*/

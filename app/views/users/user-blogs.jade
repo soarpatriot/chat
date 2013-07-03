@@ -23,16 +23,20 @@ block content
                                 a(href='/posts/#{post._id}')
                                     | #{post.title}
                             div.span4
-                                small.pull-right
+                                small.muted.pull-right
                                     | #{post.fromNow}
                         div.row-fluid
                             div.span12
                                 | #{post.content}
-
-
+                        if ( typeof(user) !== 'undefined' && user !== null && user._id === discoverior._id)
+                            div.row-fluid
+                                div.span12
+                                    .pull-right
+                                        button(id='#{post._id}',name='del-post-btn',class='btn btn-danger')  删除
                         hr.soft
         div.row-fluid
             div.span12
+
                 input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
                 input(type='hidden',id='total-count',value='#{totalCount}')
                 input(type='hidden',id='current-page',value='#{currentPage}')
