@@ -63,7 +63,7 @@ mini.get(function(){
     if(utils.isEmpty(this.faceId)){
         return cloudinary.genMiniFace(this.faceId);
     }else{
-        return face(this.faceId,35,35);
+        return face(this.faceId,20,20);
     }
 
 });

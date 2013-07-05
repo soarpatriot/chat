@@ -5,7 +5,9 @@ div.navbar.navbar-inverse.navbar-fixed-top
                 span.icon-bar
                 span.icon-bar
                 span.icon-bar
-            a(class='brand',href='/') @_@
+            a(class='brand',href='/')
+                i.icon-eye-open
+                | 发现
             div.nav-collapse.collapse
                 ul.nav
 
@@ -39,29 +41,36 @@ div.navbar.navbar-inverse.navbar-fixed-top
 
                             a(href='/login')
                                 i.icon-signin
-                                | [登录]
+                                | 登录
 
                         li
-                            a(class='btn-link',href='/reg') [注册]
+                            a(class='btn-link',href='/reg')
+                                i.icon-user-md
+                                | 注册
                     else
                         li.dropdown
-                            a(class='dropdown-toggle', href='#', data-toggle='dropdown')
-                                img(src='#{user.mini}',class='img-rounded')
-                                | &nbsp;&nbsp; #{user.name}
-                                b.caret
-                            ul.dropdown-menu
-                                li
-                                  a(href='/users') 我的资料
-                                li
-                                  a(href='/users/#{user._id}') 我的主页
+                                a(class='dropdown-toggle', href='#', data-toggle='dropdown')
+                                    img(src='#{user.mini}',class='img-rounded')
+                                    | &nbsp; #{user.name} &nbsp;
+                                    b.icon-caret-down
 
-                                li.divider
-                                li.nav-header 操作
-                                li
-                                  a(href='/posts/new') 发表
-                                li
-                                  a(href='#')
+
+
+                                ul.dropdown-menu
+                                    li
+                                      a(href='/users') 我的资料
+                                    li
+                                      a(href='/users/#{user._id}') 我的主页
+
+                                    li.divider
+                                    li.nav-header 操作
+                                    li
+                                      a(href='/posts/new') 发表
+                                    li
+                                      a(href='#')
                         li
-                            a(href='/logout') 退出
+                            a(href='/logout')
+                                i.icon-signout
+                                | 退出
 
 
