@@ -208,6 +208,22 @@ exports.index = function(req,res){
     });
 };
 
+exports.destroy = function(req,res){
+
+    var user = req.user;
+
+    Post.remove({ _id: req.body.postId }, function (err) {
+        if (err) {
+            req.flash('error', '删除失败！');
+            return handleError(err);
+        }else{
+            req.flash('success', '删除成功！');
+            res.redirect('/users/'+user._id+'/'+req.body.currentPage);
+        }
+    });
+}
+
+
 /**
  * get one post for backbone
  * @param req

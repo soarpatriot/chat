@@ -17,7 +17,7 @@
       subTotal = $('#total-count').val() / pageSize;
       totalPages = subTotal;
       if (mod === 0) {
-        totalPages(subTotal);
+        totalPages = subTotal;
       } else {
         totalPages = subTotal + 1;
       }
@@ -33,7 +33,20 @@
         }
       };
       $('#pagination-div').bootstrapPaginator(options);
-      return $('button[name="del-post-btn"]').click(function() {});
+      $('#cancel-del-btn').click(function() {
+        return $('#post-del-confirm').modal('hide');
+      });
+      $('#confirm-del-btn').click(function() {
+        var postId;
+        postId = $(this).attr('data-post-id');
+        return $('#' + postId).submit();
+      });
+      return $('button[name="del-post-btn"]').click(function() {
+        var postId;
+        postId = $(this).attr('data-post-id');
+        $('#confirm-del-btn').attr('data-post-id', postId);
+        return $('#post-del-confirm').modal();
+      });
     });
   });
 

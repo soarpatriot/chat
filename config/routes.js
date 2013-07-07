@@ -18,15 +18,18 @@ exports.createRoutes = function(app){
     app.get('/chat', chat.index);
 
     app.all('/posts*',user.loadUser);
+    app.delete('/posts',posts.destroy);
     app.get('/posts',posts.index);
     app.get('/posts/new',posts.new);
     app.post('/posts',posts.create);
+
     //app.get('/posts/review',posts.review);
     app.get('/posts/:id', posts.show);
 
 
     app.get('/posts/:id',posts.one);
     app.put('/posts/:id',posts.up);
+
     app.post('/comment',user.loadUser,posts.comment);
 
 

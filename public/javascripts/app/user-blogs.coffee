@@ -13,7 +13,7 @@ require list, ($) ->
     totalPages = subTotal
 
     if mod is 0
-      totalPages subTotal
+      totalPages = subTotal
     else
       totalPages = subTotal + 1
 
@@ -29,8 +29,20 @@ require list, ($) ->
                   "/users/"+discoveriorId+'/'+page
     $('#pagination-div').bootstrapPaginator options
 
-    # delete own post
+    # cancel delete post
+    $('#cancel-del-btn').click ->
+      $('#post-del-confirm').modal('hide')
+
+    # delete post
+    $('#confirm-del-btn').click ->
+      postId = $(this).attr('data-post-id')
+      $('#'+postId).submit();
+    # open delete own post dialog
     $('button[name="del-post-btn"]').click ->
+      postId = $(this).attr('data-post-id')
+      $('#confirm-del-btn').attr('data-post-id',postId)
+      $('#post-del-confirm').modal()
+
 
 
 
