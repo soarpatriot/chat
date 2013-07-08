@@ -21,3 +21,4 @@ list = ['jquery','bootstrap']
 
 require list, ($) ->
 
+
