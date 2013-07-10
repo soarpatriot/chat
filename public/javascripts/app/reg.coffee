@@ -20,4 +20,5 @@ require.config
 list = ['jquery','bootstrap']
 
 require list, ($) ->
+   
 

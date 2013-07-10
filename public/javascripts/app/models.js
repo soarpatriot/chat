@@ -3,6 +3,33 @@
  * @author  Soar
  *
  */
+
+require.config({
+
+    baseUrl: "/javascripts",
+
+    //some special settings. like exports and dep
+    shim: {
+
+        'underscore': {
+            exports: '_'
+        },
+        'backbone': {
+            deps: ['underscore','jquery'],
+            exports: 'Backbone'
+        }
+
+    },
+    paths: {
+        //js framework
+        "underscore": "underscore",
+        "backbone": "backbone",
+        "jquery": "jquery-1.9.1.min"
+    }
+
+});
+
+
 define(["backbone"],function(Backbone) {
 
     return {

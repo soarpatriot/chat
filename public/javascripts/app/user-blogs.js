@@ -7,6 +7,20 @@
 (function() {
   var list;
 
+  require.config({
+    baseUrl: '/javascripts',
+    shim: {
+      'bootstrap': {
+        deps: ['jquery']
+      }
+    },
+    paths: {
+      'jquery': 'jquery-1.9.1.min',
+      'bootstrap': 'bootstrap.min',
+      'bootstrapPaginator': 'bootstrap-paginator.min'
+    }
+  });
+
   list = ['jquery', 'bootstrap', 'bootstrapPaginator'];
 
   require(list, function($) {
