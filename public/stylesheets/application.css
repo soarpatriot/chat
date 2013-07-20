@@ -10,6 +10,10 @@
   padding-top: 60px;
   padding-bottom: 40px;
 }
+.page-margin {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
 .container {
   margin: 0 auto;
   max-width: 1000px;
@@ -26,7 +30,15 @@
 }
 /**all page css**/
 .min-container {
+  margin-top: 60px;
+  margin-bottom: 40px;
   min-height: 500px;
+}
+@media (max-width: 480px) {
+  .min-container {
+    margin-top: 0px;
+    min-height: 500px;
+  }
 }
 .grey-font {
   color: #999999;
@@ -37,8 +49,6 @@
 body {
   font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
   font-size: 14px;
-  padding-top: 60px;
-  padding-bottom: 40px;
 }
 /**home page cess**/
 .icon-margin-top {
