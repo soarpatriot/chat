@@ -59,7 +59,7 @@
   min-height: @min-height;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .min-container{
     margin-top: 0px;
     min-height: @min-height;
@@ -158,7 +158,7 @@ body {
   margin-top: @margin-top;
   .text-center;
   width: @width-full;
-  z-index: @z-index;
+
 }
 .padding-20{
   padding: 20px 40px 5px 40px;
@@ -177,14 +177,13 @@ body {
     .text-left;
     color:#0A0A0A;
     input[type=text]{
-      width: 328px;
+      width: 323px;
     }
     input[type=password]{
-      width: 328px;
+      width: 323px;
     }
   }
   color: #BFB8E5;
-  border: 1px solid #373553;
   .background-image;
 }
 .tip{
@@ -202,9 +201,56 @@ body {
   margin-top: 10px;
   height: 30px;
   color: #0A0A0A;
-  border: 1px solid #373553;
+
   .background-image;
   a{
     color:#04C;
+  }
+}
+
+@media (max-width: 760px) {
+
+  @dialog-width:212px;
+  .login-min-padding{
+    padding:10px 10px 0px 20px;
+  }
+
+
+  .dialog{
+    .login-common;
+    .login-min-padding;
+    form{
+      .text-left;
+      color:#0A0A0A;
+      input[type=text]{
+        width: 182px;
+      }
+      input[type=password]{
+        width: 182px;
+      }
+    }
+    color: #BFB8E5;
+
+    .background-image;
+  }
+  .dialog-footer{
+    .login-common;
+    .login-min-padding;
+    margin-top: 10px;
+    height: 30px;
+    color: #0A0A0A;
+    
+    .background-image;
+    a{
+      color:#04C;
+    }
+  }
+
+  .tip{
+    .login-common;
+    margin-bottom: 10px;
+    height: 30px;
+    padding: 10px 10px 1px 10px;
+    display: block;
   }
 }

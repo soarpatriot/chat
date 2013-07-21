@@ -34,7 +34,7 @@
   margin-bottom: 40px;
   min-height: 500px;
 }
-@media (max-width: 480px) {
+@media (max-width: 760px) {
   .min-container {
     margin-top: 0px;
     min-height: 500px;
@@ -110,7 +110,6 @@ body {
   margin-top: 140px;
   text-align: center;
   width: 100%;
-  z-index: 10000;
 }
 .padding-20 {
   padding: 20px 40px 5px 40px;
@@ -132,7 +131,6 @@ body {
   text-align: center;
   padding: 20px 40px 5px 40px;
   color: #BFB8E5;
-  border: 1px solid #373553;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
   background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
   background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
@@ -142,10 +140,10 @@ body {
   color: #0A0A0A;
 }
 .dialog form input[type=text] {
-  width: 328px;
+  width: 323px;
 }
 .dialog form input[type=password] {
-  width: 328px;
+  width: 323px;
 }
 .tip {
   border-radius: 5px;
@@ -170,11 +168,68 @@ body {
   margin-top: 10px;
   height: 30px;
   color: #0A0A0A;
-  border: 1px solid #373553;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
   background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
   background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
 }
 .dialog-footer a {
   color: #04C;
+}
+@media (max-width: 760px) {
+  .login-min-padding {
+    padding: 10px 10px 0px 20px;
+  }
+  .dialog {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    width: 212px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 10px 0px 20px;
+    color: #BFB8E5;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
+    background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+    background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+  }
+  .dialog form {
+    text-align: left;
+    color: #0A0A0A;
+  }
+  .dialog form input[type=text] {
+    width: 182px;
+  }
+  .dialog form input[type=password] {
+    width: 182px;
+  }
+  .dialog-footer {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    width: 212px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 10px 10px 0px 20px;
+    margin-top: 10px;
+    height: 30px;
+    color: #0A0A0A;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
+    background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+    background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
+  }
+  .dialog-footer a {
+    color: #04C;
+  }
+  .tip {
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    width: 212px;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 10px;
+    height: 30px;
+    padding: 10px 10px 1px 10px;
+    display: block;
+  }
 }
