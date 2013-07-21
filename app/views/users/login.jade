@@ -6,7 +6,7 @@ block append head
 
 block content
     body
-        div(id='login-div',class='container-fluid')
+        div(id='login-div',class='container-fluid image-back')
             section.margin-top100
                 include _tip
                 div.dialog
@@ -22,7 +22,7 @@ block content
                                 div.controls
                                     input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='input-xlarge325',value='#{password}')
 
-                            div.control-group
+                            div.button-group
                                 a(id='login-btn',class='btn btn-success',href='#login') 登录
                                 div.pull-right
                                     a(class='padding-top4', href='/forget') 忘记密码
@@ -30,7 +30,7 @@ block content
                 div.dialog-footer
                     span
                         a(href='/reg') 开始你的翱翔之旅
-                    span.pull-right 注册
+                            span.pull-right 注册
 
 
         script(data-main='/javascripts/app/user',src='/javascripts/require.js')
