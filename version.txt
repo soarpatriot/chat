@@ -1,0 +1,3 @@
+current version: varsion 0.1.1.23
+
+fix mobile device redundant ico display 0.1.1.23
