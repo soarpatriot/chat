@@ -157,6 +157,12 @@ Post.top5 = function(callback){
         .exec(callback);
 };
 
+Post.count5 = function(callback){
+    return Post.count().where('passed').equals(true)
+        .where('score').gte(-10)
+        .exec(callback);
+};
+
 
 
 /**
