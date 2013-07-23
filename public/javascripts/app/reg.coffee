@@ -7,18 +7,21 @@ require.config
   shim:
 
     'bootstrap':{
-    deps: ['jquery']
+      deps: ['jquery']
     }
-  ,
+    'jqBootstrapValidation':{
+      deps: ['jquery']
+    }
   paths:
     'bootstrap':'bootstrap.min',
     'jquery': 'jquery-1.9.1.min'
+    'jqBootstrapValidation':'jqBootstrapValidation-1.3.7.min'
 
 
 
-
-list = ['jquery','bootstrap']
+list = ['jquery','bootstrap','jqBootstrapValidation']
 
 require list, ($) ->
+  $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
    
 

@@ -159,7 +159,7 @@ exports.doReg = function(req, res){
                     console.log(err);
                     return res.redirect('/reg');
                 }
-                req.session.user = newUser;
+                req.session.userId = newUser._id;
                 req.flash('success','注册成功');
                 return res.redirect('/');
             });
