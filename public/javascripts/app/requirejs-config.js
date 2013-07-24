@@ -24,8 +24,8 @@ require.config({
 
     paths: {
         //application own js module
-        "application":"app/application",
-        "home":"app/home",
+        //"application":"app/application",
+        //"home":"app/home",
         "models":"app/models",
         "review":"app/review",
         "user":"app/user",
@@ -58,7 +58,7 @@ require.config({
         "tmpl":"jquery-fileuploader/temp.min",
         "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
 
-        "filepicker":"//api.filepicker.io/v1/filepicker"
+        //"filepicker":"//api.filepicker.io/v1/filepicker"
 
     }
 

@@ -1,3 +1,5 @@
+
+(function() {
 require.config({
 
     baseUrl: "/javascripts",
@@ -223,3 +225,4 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
 });
 
 define("home", function(){});
+}).call(this);

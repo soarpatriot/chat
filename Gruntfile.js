@@ -29,35 +29,26 @@
       requirejs: {
         compile: {
           options: {
-            appDir: 'public/javascripts/app',
-            baseUrl: "public/javascripts/app",
-            dir: 'public/javascripts/min',
-            paths: {
-              "application": "app/application",
-              "home": "app/home",
-              "models": "app/models",
-              "review": "app/review",
-              "user": "app/user",
-              "edit-profile": "app/edit-profile",
-              "user-blogs": "app/user-blogs",
-              "underscore": "underscore",
-              "backbone": "backbone",
-              "bootstrap": "bootstrap.min",
-              "bootstrapPaginator": "bootstrap-paginator.min",
-              "Spinner": "spin.min",
-              "jquery": "jquery-1.9.1.min",
-              "jquery.fileupload": "jquery-fileuploader/jquery.fileupload",
-              "jquery.fileupload-process": "jquery-fileuploader/jquery.fileupload-process",
-              "jquery.fileupload-resize": "jquery-fileuploader/jquery.fileupload-resize",
-              "jquery.fileupload-ui": "jquery-fileuploader/jquery.fileupload-ui",
-              "jquery.fileupload-validate": "jquery-fileuploader/jquery.fileupload-validate",
-              "jquery.iframe-transport": "jquery-fileuploader/jquery.iframe-transport",
-              "jquery.ui.widget": "jquery-fileuploader/vendor/jquery.ui.widget",
-              "load-image": "jquery-fileuploader/load-image.min",
-              "tmpl": "jquery-fileuploader/temp.min",
-              "canvas-to-blob": "jquery-fileuploader/canvas-to-blob.min",
-              "filepicker": "//api.filepicker.io/v1/filepicker"
-            }
+            mainConfigFile: 'public/javascripts/app/requirejs-config.js',
+            baseUrl: "public/javascripts",
+            dir: 'public/build',
+            modules: [
+              {
+                name: 'app/models'
+              }, {
+                name: 'app/home'
+              }, {
+                name: 'app/post-show'
+              }, {
+                name: 'app/application'
+              }, {
+                name: 'app/edit-profile'
+              }, {
+                name: 'app/user'
+              }, {
+                name: 'app/review'
+              }
+            ]
           }
         }
       }
@@ -66,7 +57,7 @@
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    return grunt.registerTask('default', ['concat', 'cssmin']);
+    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs']);
   };
 
 }).call(this);

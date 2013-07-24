@@ -3,24 +3,9 @@
   Global Applcitiaon
 ###
 
-require.config
-  baseUrl: '/javascripts',
-  shim:
 
-    'bootstrap':{
-      deps: ['jquery']
-    }
-  ,
-  paths:
-    'bootstrap':'bootstrap.min',
-    'jquery': 'jquery-1.9.1.min'
+require ['jquery','bootstrap'], ($) ->
 
-
-
-
-list = ['jquery','bootstrap']
-
-require list, ($) ->
 
 
 
