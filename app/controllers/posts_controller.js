@@ -172,40 +172,42 @@ exports.show = function(req,res){
 exports.index = function(req,res){
 
     var user = req.user;
+    Post.count5(function(err,totalCount){
+        Post.top5(function(err, posts){
 
-    Post.top5(function(err, posts){
+            if(err){
+                res.send(err);
+            }
+            var formattedPosts = Post.dealPosts(posts);
 
-        if(err){
-            res.send(err);
-        }
-        var formattedPosts = Post.dealPosts(posts);
+            if(_.isNull(user) || _.isUndefined(user)){
 
-        if(_.isNull(user) || _.isUndefined(user)){
-
-            formattedPosts = Post.doDone(posts);
-            res.send(formattedPosts);
-
-        }else{
-            //done and undone user's up and down
-            User.findOne({'_id':user._id}, function(err,user){
-                var votes = user.votePosts;
-                _.each(votes,function(vote){
-
-                    _.each(posts,function(post){
-
-                        if(_.isEqual(vote.postId ,post._id)){
-
-                            post.done = true;
-                        }
-                    });
-                });
-                //console.log('formatted:'+formattedPosts);
+                formattedPosts = Post.doDone(posts);
                 res.send(formattedPosts);
-            });
 
-        }
+            }else{
+                //done and undone user's up and down
+                User.findOne({'_id':user._id}, function(err,user){
+                    var votes = user.votePosts;
+                    _.each(votes,function(vote){
 
+                        _.each(posts,function(post){
+
+                            if(_.isEqual(vote.postId ,post._id)){
+
+                                post.done = true;
+                            }
+                        });
+                    });
+                    //console.log('formatted:'+formattedPosts);
+                    res.send(formattedPosts);
+                });
+
+            }
+
+        });
     });
+
 };
 
 exports.destroy = function(req,res){
