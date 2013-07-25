@@ -53,12 +53,12 @@ require.config({
         "jquery.fileupload-validate":"jquery-fileuploader/jquery.fileupload-validate",
         "jquery.iframe-transport":"jquery-fileuploader/jquery.iframe-transport",
         "jquery.ui.widget":"jquery-fileuploader/vendor/jquery.ui.widget",
+        "jqBootstrapValidation":"jqBootstrapValidation-1.3.7.min",
 
         "load-image":"jquery-fileuploader/load-image.min",
         "tmpl":"jquery-fileuploader/temp.min",
         "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
-
-        //"filepicker":"//api.filepicker.io/v1/filepicker"
+        "filepicker":"//api.filepicker.io/v1/filepicker"
 
     }
 

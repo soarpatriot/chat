@@ -5,8 +5,6 @@
 
 
 (function() {
-  var list;
-
   require.config({
     baseUrl: '/javascripts',
     shim: {
@@ -21,9 +19,7 @@
     }
   });
 
-  list = ['jquery', 'bootstrap', 'bootstrapPaginator'];
-
-  require(list, function($) {
+  require(['jquery', 'bootstrap', 'bootstrapPaginator'], function($) {
     return $(function() {
       var currentPage, discoveriorId, mod, options, pageSize, subTotal, totalPages;
 

@@ -58,15 +58,14 @@ require.config
 
     'load-image':'jquery-fileuploader/load-image.min',
     'tmpl':'jquery-fileuploader/temp.min',
-    'canvas-to-blob':'jquery-fileuploader/canvas-to-blob.min',
+    'canvas-to-blob':'jquery-fileuploader/canvas-to-blob.min'
 
     'filepicker':'//api.filepicker.io/v1/filepicker'
 
 
 
-list = ['jquery','underscore','filepicker','bootstrap','jquery.fileupload','jquery.fileupload-process','jquery.fileupload-resize','jquery.fileupload-validate','jquery.iframe-transport']
 
-require list, ($,_,filepicker) ->
+require ['jquery','underscore','filepicker','bootstrap','jquery.fileupload','jquery.fileupload-process','jquery.fileupload-resize','jquery.fileupload-validate','jquery.iframe-transport'], ($,_,filepicker) ->
     $ ->
       $('#fileupload').fileupload
         option:

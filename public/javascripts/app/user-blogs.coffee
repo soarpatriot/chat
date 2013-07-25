@@ -14,9 +14,9 @@ require.config
     'bootstrap':'bootstrap.min'
     'bootstrapPaginator':'bootstrap-paginator.min'
 
-list = ['jquery','bootstrap','bootstrapPaginator']
 
-require list, ($) ->
+
+require  ['jquery','bootstrap','bootstrapPaginator'], ($) ->
   $ ->
     # split pages
     pageSize = 10

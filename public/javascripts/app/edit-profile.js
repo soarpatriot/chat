@@ -5,8 +5,6 @@
 
 
 (function() {
-  var list;
-
   require.config({
     baseUrl: '/javascripts',
     shim: {
@@ -68,9 +66,7 @@
     }
   });
 
-  list = ['jquery', 'underscore', 'filepicker', 'bootstrap', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-resize', 'jquery.fileupload-validate', 'jquery.iframe-transport'];
-
-  require(list, function($, _, filepicker) {
+  require(['jquery', 'underscore', 'filepicker', 'bootstrap', 'jquery.fileupload', 'jquery.fileupload-process', 'jquery.fileupload-resize', 'jquery.fileupload-validate', 'jquery.iframe-transport'], function($, _, filepicker) {
     return $(function() {
       $('#fileupload').fileupload({
         option: {

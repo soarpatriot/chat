@@ -1,24 +1,9 @@
 ###
   review coffee-script
 ###
-require.config
-  baseUrl: '/javascripts',
-  shim:
-    'underscore': {
-      exports: '_'
-    },
-    'bootstrap':{
-      deps: ['jquery']
-    }
 
-  paths:
-    'jquery': 'jquery-1.9.1.min'
-    'underscore': 'underscore'
-    'bootstrap':'bootstrap.min'
 
-list = ['jquery','underscore','bootstrap']
-
-require list, ($,_) ->
+require ['jquery','underscore','bootstrap'], ($,_) ->
     $ ->
 
       $('#support').click ->
