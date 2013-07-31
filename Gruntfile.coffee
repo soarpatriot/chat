@@ -2,8 +2,14 @@ module.exports = (grunt) ->
   cssFiles = ['public/stylesheets/bootstrap.css','public/stylesheets/bootstrap-responsive.css',
               'public/stylesheets/font-awesome.min.css','public/stylesheets/font-awesome-ie7.min.css',
               'public/stylesheets/jquery.fileupload-ui.css', 'public/stylesheets/application.css','!all*.css']
+  delOptions = {
+    force: true
+  };
   grunt.initConfig
-    pkg: grunt.file.readJSON('package.json')
+    pkg:[grunt.file.readJSON('package.json'),
+         grunt.file.delete('./public/build',delOptions)]
+
+
     concat :
       css:
         src: cssFiles
@@ -27,7 +33,7 @@ module.exports = (grunt) ->
           mainConfigFile: 'public/javascripts/app/requirejs-config.js'
           baseUrl: "public/javascripts"
           dir:'public/build'
-
+          fileExclusionRegExp: /$\.coffee/
           paths:
             filepicker: "empty:"
 
@@ -45,6 +51,7 @@ module.exports = (grunt) ->
             {name:'app/user-blogs'},
             {name:'app/user-show'}
           ]
+
 
 
   grunt.loadNpmTasks('grunt-contrib-requirejs')
