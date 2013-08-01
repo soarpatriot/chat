@@ -7,7 +7,7 @@
       force: true
     };
     grunt.initConfig({
-      pkg: [grunt.file.readJSON('package.json'), grunt.file["delete"]('./public/build', delOptions)],
+      pkg: [grunt.file.readJSON('package.json')],
       concat: {
         css: {
           src: cssFiles,
@@ -33,9 +33,12 @@
         compile: {
           options: {
             mainConfigFile: 'public/javascripts/app/requirejs-config.js',
+            done: function(done, output) {
+              return done;
+            },
             baseUrl: "public/javascripts",
             dir: 'public/build',
-            fileExclusionRegExp: /$\.coffee/,
+            fileExclusionRegExp: /.coffee$/,
             paths: {
               filepicker: "empty:"
             },
@@ -66,13 +69,23 @@
             ]
           }
         }
+      },
+      clean: {
+        src: ['public/build'],
+        filter: function(filepath) {
+          console.log(filepath);
+          if (grunt.file.exists(filepath) && !grunt.file.isDir(filepath)) {
+            return grunt.file["delete"](filepath, delOptions);
+          }
+        }
       }
     });
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs']);
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs', 'clean']);
   };
 
 }).call(this);

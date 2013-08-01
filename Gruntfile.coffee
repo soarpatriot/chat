@@ -6,8 +6,9 @@ module.exports = (grunt) ->
     force: true
   };
   grunt.initConfig
-    pkg:[grunt.file.readJSON('package.json'),
-         grunt.file.delete('./public/build',delOptions)]
+    pkg:[grunt.file.readJSON('package.json')]
+    #grunt.file.delete('./public/build',delOptions)
+
 
 
     concat :
@@ -31,9 +32,17 @@ module.exports = (grunt) ->
         options:
           # appDir:'public/javascripts/app'
           mainConfigFile: 'public/javascripts/app/requirejs-config.js'
+          done: (done, output) ->
+            #console.log 'start'
+            #grunt.file.recurse 'public/javascripts/build', (abspath, rootdir, subdir, filename) ->
+              #console.log rootdir
+              #console.log subdir
+              #grunt.file.delete('./public/build',delOptions)
+            done
+
           baseUrl: "public/javascripts"
           dir:'public/build'
-          fileExclusionRegExp: /$\.coffee/
+          fileExclusionRegExp: /.coffee$/
           paths:
             filepicker: "empty:"
 
@@ -52,13 +61,22 @@ module.exports = (grunt) ->
             {name:'app/user-show'}
           ]
 
+    clean:
+
+        src: ['public/build'],
+
+        filter: (filepath)->
+          console.log filepath
+          if(grunt.file.exists(filepath) && !grunt.file.isDir(filepath) )
+            grunt.file.delete(filepath,delOptions)
 
 
   grunt.loadNpmTasks('grunt-contrib-requirejs')
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-css')
   grunt.loadNpmTasks('grunt-contrib-watch')
-  grunt.registerTask('default', ['concat', 'cssmin','requirejs'])
+  grunt.loadNpmTasks('grunt-contrib-clean')
+  grunt.registerTask 'default', ['concat', 'cssmin','requirejs','clean']
 
 
 
