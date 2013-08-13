@@ -1,5 +1,5 @@
 module.exports = (grunt) ->
-  cssFiles = ['public/stylesheets/bootstrap.css','public/stylesheets/bootstrap-responsive.css',
+  cssFiles = ['public/stylesheets/bootstrap.min.css',
               'public/stylesheets/font-awesome.min.css','public/stylesheets/font-awesome-ie7.min.css',
               'public/stylesheets/jquery.fileupload-ui.css', 'public/stylesheets/application.css','!all*.css']
   delOptions = {
