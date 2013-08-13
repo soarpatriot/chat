@@ -1,11 +1,81 @@
 
 (function() {
 
+require.config({
 
+    baseUrl: "/javascripts",
+    waitSeconds:100,
+
+    //some special settings. like exports and dep
+    shim: {
+
+        "underscore": {
+            exports: '_'
+        },
+        'backbone': {
+            deps: ['underscore','jquery'],
+            exports: 'Backbone'
+        },
+        'backbone-pageable': {
+            deps: ['backbone'],
+            
+        },
+        
+        'bootstrap':{
+            deps: ['jquery']
+        },
+        'filepicker':{
+            exports: 'filepicker'
+        }
+
+    },
+
+    paths: {
+        //application own js module
+        //"application":"app/application",
+        //"home":"app/home",
+        "models":"app/models",
+        "review":"app/review",
+        "user":"app/user",
+        "edit-profile":"app/edit-profile",
+        "user-blogs":"app/user-blogs",
+
+        //js framework
+        "underscore": "underscore",
+        "backbone": "backbone",
+        "backbone-pageable": "backbone-pageable.min",
+        "bootstrap":"bootstrap.min",
+        "bootstrapPaginator":"bootstrap-paginator.min",
+        "Spinner": "spin.min",
+        "jquery": "jquery-1.9.1.min",
+
+        /**
+        jquery: [
+
+            //If the CDN location fails, load from this location
+
+        ],**/
+        "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
+        "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
+        "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
+        "jquery.fileupload-ui":"jquery-fileuploader/jquery.fileupload-ui",
+        "jquery.fileupload-validate":"jquery-fileuploader/jquery.fileupload-validate",
+        "jquery.iframe-transport":"jquery-fileuploader/jquery.iframe-transport",
+        "jquery.ui.widget":"jquery-fileuploader/vendor/jquery.ui.widget",
+        "jqBootstrapValidation":"jqBootstrapValidation-1.3.7.min",
+
+        "load-image":"jquery-fileuploader/load-image.min",
+        "tmpl":"jquery-fileuploader/temp.min",
+        "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
+        "filepicker":"//api.filepicker.io/v1/filepicker"
+
+    }
+
+});
 
 require(["require","jquery","underscore","backbone","models","Spinner","bootstrap"],function(require,$,_,Backbone,Models,Spinner) {
 
-
+  
     $(function(){
 
         var opts = {
@@ -26,7 +96,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
             left: '0' // Left position relative to parent in px
         };
 
-        var Posts = new Models.PostList;
+        var Posts = new Models.PostList();
 
         var PostView = Backbone.View.extend({
 
@@ -156,7 +226,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                 //defin a spinner init
                 var target= document.getElementById('spinner');
                 this.spinner = new Spinner(opts).spin(target);
-
+                
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
@@ -174,9 +244,8 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                Posts.comparator = function(p1,p2) {
-                    return p2.socre-p1.score;
-                };
+                console.log("post:"+JSON.stringify(Posts.state));
+                
                 Posts.each(this.addOne);
 
                 //stop the spinner when obtain Post
