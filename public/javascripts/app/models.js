@@ -61,10 +61,10 @@ define(["backbone","backbone-pageable"],function(Backbone) {
                 firstPage: 1,
                 
                 lastPage:1,
-                pageSize:20,
+                pageSize:5,
                 totalPages:0,
                 sortKey:"",
-                order:-1
+                order:-1,
                 // Set this to the initial page index if different from `firstPage`. Can
                 // also be 0-based or 1-based.
                 currentPage: 1,
@@ -79,13 +79,22 @@ define(["backbone","backbone-pageable"],function(Backbone) {
 
                 // `Backbone.PageableCollection#queryParams` converts to ruby's
                 // will_paginate keys by default.
-                currentPage: "current_page",
-                pageSize: "page_size"
+                currentPage: "page",
+                pageSize: "pageSize"
               },
               parse: function(response){
                 var attrs;  
                 this.state.totalRecords = response.state.totalRecords;
                 this.state.currentPage = response.state.currentPage;
+
+                if(response.state.totalRecords % this.state.pageSize === 0){
+                    this.state.totalPages = Math.floor(response.state.totalRecords / this.state.pageSize);
+                }else{
+                    this.state.totalPages = Math.floor(response.state.totalRecords / this.state.pageSize) + 1;
+                }
+                
+                this.state.lastPage = this.state.totalPages;
+
                 attrs = response.models;
                 return attrs;
               }

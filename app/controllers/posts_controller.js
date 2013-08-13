@@ -177,7 +177,7 @@ exports.index = function(req,res){
         totalRecords:0,
         currentPage:1
     }
-    
+    state.currentPage = req.params.page;
     console.log('formattedPosts:  sdf');
     Post.count5(function(err,totalCount){
         Post.top5(function(err, posts){
@@ -188,7 +188,7 @@ exports.index = function(req,res){
             formattedPosts = Post.dealPosts(posts);
 
             state.totalRecords = totalCount;
-            state.currentPage = 22;
+            
             page.state = state;
             page.models = formattedPosts;
             console.log('formattedPosts:  '+JSON.stringify(page));

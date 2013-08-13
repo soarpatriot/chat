@@ -73,7 +73,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","Spinner","bootstrap"],function(require,$,_,Backbone,Models,Spinner) {
+require(["require","jquery","underscore","backbone","models","Spinner","bootstrap","bootstrapPaginator"],function(require,$,_,Backbone,Models,Spinner) {
 
   
     $(function(){
@@ -240,6 +240,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
             addOne: function(post) {
                 var view = new PostView({model: post});
                 this.$('#posts').append(view.render().el);
+
             },
 
             // Add all items in the **Posts** collection at once.
@@ -247,7 +248,19 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                 console.log("post:"+JSON.stringify(Posts.state));
                 
                 Posts.each(this.addOne);
-
+                options = {
+                    currentPage: Posts.state.currentPage,
+                    totalPages: Posts.state.totalPages,
+                    size: "normal",
+                    alignment: "right",
+                    pageUrl: function(type, page, current) {
+                      return "/posts/" + page;
+                    }
+                };
+                //var pageTemp = _.template($('#page-template').html()),
+                this.$('#posts').append($('#page-template').html());
+                $('#pagination-div').bootstrapPaginator(options);
+                //this.$('#posts').append(view.render().el);
                 //stop the spinner when obtain Post
                 this.spinner.stop();
             }
