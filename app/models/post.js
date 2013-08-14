@@ -148,16 +148,17 @@ PostSchema.statics.populateCommentsCreatorByPostId = function(postId,callback){
 var Post = mongoose.model('Post', PostSchema);
 var Comment = mongoose.model('Comment', CommentSchema);
 
-Post.top5 = function(callback){
+Post.top = function(start,size,callback){
     return Post.find().where('passed').equals(true)
         .where('score').gte(-10)
-        .limit(5)
+        .skip(start)
+        .limit(size)
         .sort('-pusTime')
         .populate('creator')
         .exec(callback);
 };
 
-Post.count5 = function(callback){
+Post.countTop = function(callback){
     return Post.count().where('passed').equals(true)
         .where('score').gte(-10)
         .exec(callback);

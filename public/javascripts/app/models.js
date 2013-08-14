@@ -80,7 +80,9 @@ define(["backbone","backbone-pageable"],function(Backbone) {
                 // `Backbone.PageableCollection#queryParams` converts to ruby's
                 // will_paginate keys by default.
                 currentPage: "page",
-                pageSize: "pageSize"
+                pageSize: "pageSize",
+                start:"start"
+
               },
               parse: function(response){
                 var attrs;  
