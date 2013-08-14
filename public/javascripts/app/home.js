@@ -249,7 +249,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                console.log("post:"+JSON.stringify(Posts.state));
+                //console.log("post:"+JSON.stringify(Posts.state));
                 
                 Posts.each(this.addOne);
                 options = {
@@ -257,6 +257,10 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                     totalPages: Posts.state.totalPages,
                     size: "normal",
                     alignment: "right",
+                    useBootstrapTooltip:true,
+                    pageUrl: function(type, page, current){
+                        return "#"+page;
+                    },
                     onPageClicked: function(e,originalEvent,type,page){
                         //Posts.queryParams.currentPage = page;
                         //Posts.queryParams.pageSize;
