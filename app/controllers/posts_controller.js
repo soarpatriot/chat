@@ -99,18 +99,18 @@ exports.comment = function(req,res){
     console.log('current user'+currentUser);
     if(utils.isObjEmpty(currentUser)){
         req.flash('error','请先登录！ ');
-        return res.redirect('/post/'+postId);
+        return res.redirect('/posts/'+postId);
     }
 
     if(utils.isEmpty(content)){
         req.flash('error','发言内容不能为！ ');
-        return res.redirect('/post/'+postId);
+        return res.redirect('/posts/'+postId);
     }
 
     Post.findOne({'_id':postId}, function(err,post){
         if(err){
             req.flash('error', err);
-            return res.redirect('/post/'+postId);
+            return res.redirect('/posts/'+postId);
         }
 
         post.comments.push({ content: content,creator: currentUser._id});
