@@ -259,7 +259,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                     alignment: "right",
                     useBootstrapTooltip:true,
                     pageUrl: function(type, page, current){
-                        return "#"+page;
+                        return "#posts/#"+page;
                     },
                     onPageClicked: function(e,originalEvent,type,page){
                         //Posts.queryParams.currentPage = page;
