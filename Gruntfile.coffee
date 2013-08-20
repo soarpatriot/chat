@@ -1,5 +1,5 @@
 module.exports = (grunt) ->
-  cssFiles = ['public/stylesheets/bootstrap.css','public/stylesheets/bootstrap-responsive.css',
+  cssFiles = ['public/stylesheets/bootstrap.min.css','public/stylesheets/bootstrap-theme.min.css',
               'public/stylesheets/font-awesome.min.css','public/stylesheets/font-awesome-ie7.min.css',
               'public/stylesheets/jquery.fileupload-ui.css', 'public/stylesheets/application.css','!all*.css']
   delOptions = {
@@ -76,6 +76,8 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-css')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-clean')
+
+  grunt.registerTask 'css', ['concat', 'cssmin']
   grunt.registerTask 'default', ['concat', 'cssmin','requirejs','clean']
 
 

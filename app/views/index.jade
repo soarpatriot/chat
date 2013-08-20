@@ -5,7 +5,7 @@ block append head
 block content
     body
         div(id='home-div',class='row-fluid')
-            div(class='span8 well-no-back')
+            div(class='col-lg-8 well-no-back')
                 div(class='tabbable')
                     ul(class='nav nav-tabs')
                         li(class='active')
@@ -16,7 +16,7 @@ block content
                         div(class='tab-pane active',id='new')
                             div(id='posts')
                                 include home/post-content-bone
-            div(class='span4 relative')
+            div(class='col-lg-4 relative')
                 h4.title 发现排行
                 hr
                 if users
