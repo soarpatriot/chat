@@ -6,11 +6,11 @@ block append head
 block content
     body
 
-        div(class='row-fluid')
+        div(class='row')
             ul(class='breadcrumb')
                 li
                     a(href='/users') 个人资料
-                    span(class='divider') /
+                    span(class='divider')
                 li(class='active') 编辑
 
             form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
@@ -19,7 +19,7 @@ block content
                     label(class='control-label', for='face') 头像
                     input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
                     div.controls
-                        div.span2
+                        div.col-md-2
                             img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
 
                             p

@@ -17,7 +17,7 @@ require.config({
             exports: 'Backbone'
         },
         'backbone-pageable': {
-            deps: ['backbone'],
+            deps: ['backbone']
             
         },
         
@@ -257,7 +257,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                     totalPages: Posts.state.totalPages,
                     size: "normal",
                     alignment: "right",
-                    useBootstrapTooltip:true,
+
                     pageUrl: function(type, page, current){
                         return "#posts/#"+page;
                     },

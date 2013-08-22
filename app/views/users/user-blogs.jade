@@ -4,8 +4,9 @@ block append head
 
 block content
     body
-        div.row-fluid
-            div.span2
+        p
+        div.row
+            div.col-md-2
                 img(src='#{discoverior.normalFace}',class='img-polaroid img-rounded')
                 p
                 p 我的名字： #{discoverior.name}
@@ -15,53 +16,55 @@ block content
 
 
 
-            div.span10
+            div.col-md-10
                 if typeof(posts) !== 'undefined' && posts.length > 0
                     each post, i in posts
-                        div.row-fluid
-                            div.span8
+                        div.row
+                            div.col-md-8
                                 a(href='/posts/#{post._id}')
                                     | #{post.title}
-                            div.span4
+                            div.col-md-4
                                 small.muted.pull-right
                                     | #{post.fromNow}
-                        div.row-fluid
-                            div.span12
+                        div.row
+                            div.col-md-12
                                 | #{post.content}
 
                         if (own)
-                            div.row-fluid
-                                div.span12
+                            div.row
+                                div.col-md-12
                                     .pull-right
                                         button(name='del-post-btn',data-post-id='#{post._id}',class='btn btn-danger')  删除
+
                                 form(id='#{post._id}',action='/posts',method='post')
                                     input(type='hidden',name='_method',value='delete')
                                     input(type='hidden',name='postId',value='#{post._id}')
                                     input(type='hidden',name='currentPage',value='#{currentPage}')
                         hr.soft
-        div.row-fluid
-            div.span12
-
-                input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
-                input(type='hidden',id='total-count',value='#{totalCount}')
-                input(type='hidden',id='current-page',value='#{currentPage}')
-                div(id='pagination-div',class='pagination pagination-right')
+                div.row
+                            div.col-md-12
+                                input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
+                                input(type='hidden',id='total-count',value='#{totalCount}')
+                                input(type='hidden',id='current-page',value='#{currentPage}')
+                                div(id='pagination-div',class='pagination pagination-right')
 
         <!-- confirm dialog -->
-        div(id='post-del-confirm',class='modal hide fade')
-            div.modal-header
-                button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
-                    &times;
-                h4 此操作将不可回退
+        div(id='post-del-confirm',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
+                            &times;
+                        h4 此操作将不可回退
 
-            div.modal-body
+                    div.modal-body
 
-                p
-                p.alert.alert-danger 真的要删除文章吗？ 请注意，文章删除后将无法恢复
+                        p
+                        p.alert.alert-danger 真的要删除文章吗？ 请注意，文章删除后将无法恢复
 
-            div.modal-footer
-                a(id='cancel-del-btn',href='#',class='btn') 取消
-                a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
+                    div.modal-footer
+                        a(id='cancel-del-btn',href='#',class='btn') 取消
+                        a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
 
-        script(data-main='/build/app/user-blogs',src='/javascripts/require.js')
+        script(data-main='/javascripts/app/user-blogs',src='/javascripts/require.js')
 

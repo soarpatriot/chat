@@ -4,24 +4,26 @@ block append head
 
 block content
     body
-        div.container-fluid
-            div(class='alert alert-error')
-                h4 发布的文章通过审核后读者才能看到
-            div.row-fluid
-                div.span12.well-no-back
-                    form(class='form-inline center',action='/posts',method='post')
+        div.container
+            div(class='alert alert-info')
+                | 发布的文章通过审核后读者才能看到
+            div.row
+                div.col-md-12
+                    form(action='/posts',method='post')
                         legend 发表
-
-                        div.control-group
-                            label(class='control-label', for='title') 标题：
-                            div.controls
-                                input(name='title',type='text',class='input-xlarge',placeholder='最多40字符')
-                        div.control-group
-                            label(class='control-label', for='title') 内容：
-                            div.controls
-                                textarea(id='editor_id',class='span6', name='content',rows='5')
-                        div.control-group
-                            div.controls
-                                button(type='submit', class='btn btn-success') 发言
+                        div.form-group
+                            div.row
+                                div.col-md-6
+                                    label(for='title') 标题：
+                            div.row
+                                div.col-md-6
+                                    input(name='title',type='text',class='form-control',placeholder='最多40字符')
+                        div.form-group
+                            label( for='content') 内容：
+                            div.row
+                                div.col-md-12
+                                    textarea(id='editor_id',class='form-control', name='content',rows='5')
+                        div.form-group
+                            button(type='submit', class='btn btn-success') 发言
 
         script(data-main='/build/app/post-article',src='/javascripts/require.js')

@@ -19,7 +19,7 @@ require.config({
             exports: 'Backbone'
         },
         'backbone-pageable': {
-            deps: ['backbone'],
+            deps: ['backbone']
             
         }
 

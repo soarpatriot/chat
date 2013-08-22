@@ -78,7 +78,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-contrib-clean')
 
   grunt.registerTask 'css', ['concat', 'cssmin']
-  grunt.registerTask 'default', ['concat', 'cssmin','requirejs','clean']
+  grunt.registerTask 'default', ['concat', 'cssmin','requirejs']
 
 
 

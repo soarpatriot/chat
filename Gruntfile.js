@@ -87,7 +87,7 @@
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.registerTask('css', ['concat', 'cssmin']);
-    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs', 'clean']);
+    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs']);
   };
 
 }).call(this);

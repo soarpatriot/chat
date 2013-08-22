@@ -1,46 +1,47 @@
 <!-- Templates -->
 script(type="text/template",id="item-template")
-    div.row-fluid
-        div.span8
+    div.row
+        div.col-md-8
             p
                 a('href=/users/"<%- creator._id %>"')
                     img('src="<%- creator.thumbnails %>"',class='img-polaroid img-rounded')
                 | &nbsp;&nbsp;&nbsp;
                 a('href=/posts/"<%- _id %>"') <%- title %>
 
-        div.span4
+        div.col-md-4
             div.pull-right
                 span(class='badge badge-success') 评论 <%= comments.length %>
-    div.row-fluid
-        div.span12
+    div.row
+        div.col-md-12
             p.blog-content
                 a('href=/posts/"<%- _id %>"') <%- content %>
                     
-    div.row-fluid
-        div(class='span8',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
-            a(name='up-post',class='btn up','data="<%- _id %>"')
+    div.row
+        div(class='col-md-8',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
+            a(name='up-post',class='btn btn-default up','data="<%- _id %>"')
                 i(class='icon-thumbs-up')
                 | 顶(<%- up %>)
             | &nbsp;
-            a(name='down-post',class='btn down')
+            a(name='down-post',class='btn btn-default down')
                 i(class='icon-thumbs-down')
                 | 踩(<%- down %>)
 
-    div.row-fluid
-        div.pull-left
-            p.marketing-byline
-                | • <%- looked %> 次浏览
+    div.row
+        div.col-md-12
+            div.pull-left
+                p.marketing-byline
+                    | • <%- looked %> 次浏览
 
 
-        div.pull-right
-            p.marketing-byline
-                <%- creator.name %> 发表于 <%- fromNow %>
+            div.pull-right
+                p.marketing-byline
+                    <%- creator.name %> 发表于 <%- fromNow %>
 
     hr.soft
 script(type="text/template",id="page-template")
-    div.row-fluid
-        div.span12
-            div(id='pagination-div',class='pagination pagination-right')
+    div.row
+        div.col-md-12
+            div(id='pagination-div',class='pagination pull-right')
 
 
 

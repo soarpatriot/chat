@@ -1,4 +1,4 @@
-div.navbar.navbar-default.navbar-fixed-top
+div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
 
         div.container
             div.navbar-header
@@ -37,15 +37,13 @@ div.navbar.navbar-default.navbar-fixed-top
 
                 ul.nav.navbar-nav.navbar-right
                     if typeof(user) === 'undefined' || user === null || user === ''
-
-                        li.active
-
+                        li
                             a(href='/login')
                                 i.icon-signin
                                 | 登录
 
-                        li.active
-                            a(class='btn-link',href='/reg')
+                        li
+                            a(,href='/reg')
                                 i.icon-user-md
                                 | 注册
                     else
@@ -64,7 +62,7 @@ div.navbar.navbar-default.navbar-fixed-top
                                       a(href='/users/#{user._id}') 我的主页
 
                                     li.divider
-                                    li.nav-header 操作
+
                                     li
                                       a(href='/posts/new') 发表
                                     li

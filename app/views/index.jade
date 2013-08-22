@@ -4,8 +4,8 @@ block append head
 
 block content
     body
-        div(id='home-div',class='row-fluid')
-            div(class='col-lg-8 well-no-back')
+        div(id='home-div',class='row')
+            div(class='col-md-8 well-no-back')
                 div(class='tabbable')
                     ul(class='nav nav-tabs')
                         li(class='active')
@@ -16,23 +16,19 @@ block content
                         div(class='tab-pane active',id='new')
                             div(id='posts')
                                 include home/post-content-bone
-
-                div.row-fluid
-                    div.col-lg-12
-                        div(id='pagination-div',class='pagination pagination-right')
-
-
-    
-            div(class='col-lg-4 relative')
+                            div.row
+                                div.col-md-12
+                                    div(id='pagination-div',class='pagination pagination-right pull-right')
+            div(class='col-md-4 relative')
 
                 h4.title 发现排行
                 hr
                 if users
                     each user, i in users
-                        div(class='row-fluid rank-author-line')
-                            div(class='span2')
+                        div(class='row rank-author-line')
+                            div(class='col-md-2')
                                img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
-                            div.span10.rank-author
+                            div.col-md-10.rank-author
                                 a(href='/users/#{user._id}') #{user.name}
 
         script(data-main='/javascripts/app/home',src='/javascripts/require.js')

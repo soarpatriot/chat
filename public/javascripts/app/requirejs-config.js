@@ -13,6 +13,10 @@ require.config({
             deps: ['underscore','jquery'],
             exports: 'Backbone'
         },
+        'backbone-pageable': {
+            deps: ['backbone']
+
+        },
         'bootstrap':{
             deps: ['jquery']
         },
@@ -35,6 +39,7 @@ require.config({
         //js framework
         "underscore": "underscore",
         "backbone": "backbone",
+        "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
         "Spinner": "spin.min",

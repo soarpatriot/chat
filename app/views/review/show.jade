@@ -5,19 +5,18 @@ block append head
 block content
     body
         div(id='review-container',class='container')
-            div(class='row-fluid')
-
-                div(id='post-content',class='span8')
-                    div(class='row-fluid')
-                        div(class='span8')
+            div(class='row')
+                div(id='post-content',class='col-md-8')
+                    div(class='row')
+                        div(class='col-md-8')
                             h4 #{post.title}
                     hr
-                    div(class='row-fluid')
-                        div(class='span8') #{post.content}
+                    div(class='row')
+                        div(class='col-md-8') #{post.content}
                 form(id='review-form',action='/review',method='post')
                     input(id='post-id',type='hidden',name='postId',value='#{post._id}')
                     input(id='passed',type='hidden',name='passed',value='')
-                div(class='span4 well-no-back')
+                div(class='col-md-4')
                     h3 我觉得这篇文章
                     p 有下列情景
                         ul
@@ -37,9 +36,9 @@ block content
                         button(id='support', class='btn btn-success btn-large',name='support',value='可以发表') 可以发表
                 <!-- Templates -->
                 script(type='text/template',id='post-template')
+                    div(class='row')
+                        div(class='col-md-8') <%- title %>
                     div(class='row-fluid')
-                        div(class='span8') <%- title %>
-                    div(class='row-fluid')
-                        div(class='span8') <%- content %>
+                        div(class='col-md-8') <%- content %>
 
         script(data-main='/build/app/review',src='/javascripts/require.js')

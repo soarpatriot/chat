@@ -4,66 +4,65 @@ block append head
 
 block content
     body
-        div.well-no-back
-            div.row-fluid
-                div.span8
-                    div.row-fluid
-                        div.span12
-                            include _share
+        div.row
+            div.col-md-8
+                p
+                div.row
+                    div.col-md-12
+                        include _share
+                p
+                div.row
 
-                    div.row-fluid
-                        div.span12
-                            div.row-fluid
-                                div.span1
-                                    img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
+                    div.col-md-1
+                        img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
 
-                                div.span11.popover.right
-                                        div.arrow
-                                        h4(class='discussion-topic-title popover-title') #{post.title}
-                                        div.row-fluid
-                                            div.span2.offset10
-                                                div(class='marketing-byline')
-                                                    a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
-                                                    time
-                                                        | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+                    div.col-md-11
+                         div.panel.panel-info
+                             div.panel-heading
+                                  | #{post.title}
+                             div.panel-body
+                                 p
+                                    !{post.content}
+                                 hr
+                                 p.pull-right
+                                    div(class='marketing-byline text-right text-muted')
+                                        a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
+                                        time
+                                            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+                hr
+                div.row
 
-                                        div.row-fluid.content
-                                            div.span11
-                                                div(class='comment-content')
-                                                    !{post.content}
+                    div(class='col-md-1')
+                        img(class='img-polaroid img-rounded face-thumbnails',src='/images/noavatar92.png')
+                    div(class='col-md-11')
+                        form(action='/comment',method='post')
+                            div.form-group
+
+                                div.col-md-12
+
+                                    input(name='postId',type='hidden',value='#{post._id}')
+                                    textarea(class='col-md-12', name='content',placeholder='发表评论')
+                            div.form-group
+                                div.col-md-12
+                                    button(type='submit', class='btn btn-success') 发言
+                hr.soft
+                div.row
+                    h4 #{post.comments.length} 评论
+
+                each comment, i in post.comments
+                    div.row.comment
+                        div.col-md-1
+                            div.discussion-bubble
+                                img(src='#{comment.creator.thumbnails}',class='img-rounded face-thumbnails')
+                        div.col-md-11
+                            div.row
+                                div.col-md-2.marketing-byline
+                                    a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
+                                    span(class='pull-right comment-header-date') #{comment.fromNow}
+                            div.row
+                                div.col-md-12
+                                    !{comment.content}
                     hr
-                    div.row-fluid
-                        div.span12
-                            div.row-fluid
-                                div(class='span1')
-                                    img(class='img-polaroid img-rounded face-thumbnails',src='/images/noavatar92.png')
-                                div(class='span11')
-                                    form(action='/comment',method='post')
-                                        div.control-group
-                                            div.controls
-                                                input(name='postId',type='hidden',value='#{post._id}')
-                                                textarea(class='span12', name='content',placeholder='发表评论')
-                                        div.control-group
-                                            div.controls
-                                                button(type='submit', class='btn btn-success') 发言
-                    hr.soft
-                    div.row-fluid
-                        h4 #{post.comments.length} 评论
-
-                    each comment, i in post.comments
-                        div.row-fluid.comment
-                            div.span1
-                                div.discussion-bubble
-                                    img(src='#{comment.creator.thumbnails}',class='img-rounded face-thumbnails')
-                            div.span11
-                                div.row-fluid
-                                    div.span2.marketing-byline
-                                        a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
-                                        span(class='pull-right comment-header-date') #{comment.fromNow}
-                                div.row-fluid
-                                    div.span12
-                                        !{comment.content}
-                        hr
         script(data-main='/build/app/post-show',src='/javascripts/require.js')
 
 
