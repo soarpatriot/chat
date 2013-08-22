@@ -172,17 +172,35 @@ exports.show = function(req,res){
 exports.index = function(req,res){
 
     var user = req.user;
+    var page = {};
+    var state = {
+        totalRecords:0,
+        currentPage:1
+    }
+    state.currentPage = req.params.page;
+    console.log('formattedPosts:  sdf');
     Post.count5(function(err,totalCount){
         Post.top5(function(err, posts){
-
+            
             if(err){
                 res.send(err);
             }
-            var formattedPosts = Post.dealPosts(posts);
+            formattedPosts = Post.dealPosts(posts);
 
-            if(_.isNull(user) || _.isUndefined(user)){
-
-                formattedPosts = Post.doDone(posts);
+            state.totalRecords = totalCount;
+            
+            page.state = state;
+            page.models = formattedPosts;
+            console.log('formattedPosts:  '+JSON.stringify(page));
+            return res.send(page);
+            //formattedPosts.state = state;
+            //page.state = state;
+            //page.models = formattedPosts;
+            if(!user){
+                //console.log('formattedPosts:  ');
+                //formattedPosts = Post.doDone(posts);
+                //console.log('formattedPosts:  '+page);
+                //page.models = formattedPosts;
                 res.send(formattedPosts);
 
             }else{
@@ -199,7 +217,7 @@ exports.index = function(req,res){
                             }
                         });
                     });
-                    //console.log('formatted:'+formattedPosts);
+                    console.log('formatted:'+formattedPosts);
                     res.send(formattedPosts);
                 });
 

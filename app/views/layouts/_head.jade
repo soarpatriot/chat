@@ -1,21 +1,22 @@
-div.navbar.navbar-inverse.navbar-fixed-top
-    div.navbar-inner
+div.navbar.navbar-default.navbar-fixed-top
+
         div.container
-            a(class='btn btn-navbar', data-toggle='collapse', data-target='.nav-collapse')
-                span.icon-bar
-                span.icon-bar
-                span.icon-bar
-            a(class='brand',href='/')
-                i.icon-eye-open
-                | 发现
-            div.nav-collapse.collapse
-                ul.nav
+            div.navbar-header
+                button(type='button',class='navbar-toggle', data-toggle='collapse', data-target='.nav-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a(class='navbar-brand',href='/')
+                    i.icon-eye-open
+                    | 发现
+            div.navbar-collapse.collapse
+                ul.nav.navbar-nav
 
                     if(typeof(currentLink) !== 'undefined' && currentLink === 'HOME')
                         li.active
 
                             a(href='/')
-                                i.icon-home.icon-white.icon-margin-top
+                                i.icon-home.icon-white
                                 strong &nbsp;主页
                     else
                         li
@@ -26,7 +27,7 @@ div.navbar.navbar-inverse.navbar-fixed-top
                     if(typeof(currentLink) !== 'undefined' && currentLink === 'REVIEW')
                         li.active
                             a(href='/review')
-                                i.icon-filter.icon-white.icon-margin-top
+                                i.icon-filter.icon-white
                                 strong &nbsp;审阅
                     else
                         li
@@ -34,16 +35,16 @@ div.navbar.navbar-inverse.navbar-fixed-top
                                 i.icon-filter.icon-margin-top
                                 strong &nbsp;审阅
 
-                ul.nav.pull-right
+                ul.nav.navbar-nav.navbar-right
                     if typeof(user) === 'undefined' || user === null || user === ''
 
-                        li
+                        li.active
 
                             a(href='/login')
                                 i.icon-signin
                                 | 登录
 
-                        li
+                        li.active
                             a(class='btn-link',href='/reg')
                                 i.icon-user-md
                                 | 注册
