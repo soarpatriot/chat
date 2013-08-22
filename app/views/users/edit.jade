@@ -15,11 +15,11 @@ block content
 
             form(action='/users',method='post',enctype='multipart/form-data',  class='form-horizontal')
                 hr
-                div.control-group
-                    label(class='control-label', for='face') 头像
+                div.form-group
+                    label(class='control-label col-md-2', for='face') 头像
                     input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
-                    div.controls
-                        div.col-md-2
+                    div.col-md-2
+
                             img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
 
                             p
@@ -27,32 +27,32 @@ block content
                                 input(id='upload-face-btn',type='button',name='myName',class='btn',value='上传')
 
 
-                div.control-group
-                    label(class='control-label', for='username') 用户名
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='username') 用户名
+                    div.col-md-2
                         label(class='control-label') #{user.name}
-                div.control-group
-                    label(class='control-label', for='regTime') 注册时间
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='regTime') 注册时间
+                    div.col-md-2
                         label(class='control-label') #{user.regTimeStr}
-                div.control-group
-                    label(class='control-label', for='gender') 性别
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='gender') 性别
+                    div.col-md-2
                         label(class='control-label') #{user.gender}
-                div.control-group
-                    label(class='control-label', for='gender') 出生日期
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='gender') 出生日期
+                    div.col-md-2
                         label(class='control-label')
-                div.control-group
-                    label(class='control-label', for='gender') 家乡
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='gender') 家乡
+                    div.col-md-2
                         label(class='control-label')
-                div.control-group
-                    label(class='control-label', for='gender') 现居住
-                    div.controls
+                div.form-group
+                    label(class='control-label col-md-2', for='gender') 现居住
+                    div.col-md-2
                         label(class='control-label')
-                div.control-group
-                    div.controls
+                div.form-group
+                    div.col-md-2.col-md-offset-2
                         button(class='btn btn-primary', type='submit') 提交
 
     script(data-main='/build/app/edit-profile',src='/javascripts/require.js')

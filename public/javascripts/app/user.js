@@ -83,11 +83,11 @@ $(function(){
                 var title = '';
                 var content = this.errorHidden.val();
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error');
+                this.tip.addClass('alert alert-warning');
 
             }else{
                 this.tip.text("");
-                this.tip.removeClass('alert alert-error');
+                this.tip.removeClass('alert alert-warning');
 
             }
 
@@ -97,15 +97,15 @@ $(function(){
                 var title = '';
                 var content = '用户名密码不能为空！';
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error');
+                this.tip.addClass('alert alert-warning');
 
             }else if(this.username.val().length > 50 || this.passwordIn.val().length > 30){
                 var content = '用户名或密码过长！';
                 this.tip.html(this.statsTemplate({title: title,content:content}));
-                this.tip.addClass('alert alert-error');
+                this.tip.addClass('alert alert-warning');
             }else{
                 this.tip.text("");
-                this.tip.removeClass('alert alert-error');
+                this.tip.removeClass('alert alert-warning');
                 $('#login-form').submit();
             }
 
@@ -119,7 +119,7 @@ $(function(){
         checkForShow: function(value){
             if($.trim(value)!==''){
                 this.tip.text("");
-                this.tip.removeClass('alert alert-error');
+                this.tip.removeClass('alert alert-warning');
             }
         }
     });

@@ -12,37 +12,38 @@ block content
                 div(class='alert alert-error')
                     #{error}
         div.container
-            form(action='/reg',method='post', class='form-horizontal')
+            form(action='/reg',method='post', class='form-horizontal',role='form')
                 fieldset
                     legend 注册
-                    div.control-group
+                    
 
-                    div.control-group
-                        label(class='control-label', for='username') 用户名
-                        div.controls
+                    div.form-group
+                        label(class='control-label col-md-2', for='username') 用户名
+                        div.col-md-4
+                            input(name='username',class='form-control',type='text',maxlength='50',required,data-validation-maxlength-message='用户名长度不能超过50个字符！')
+                            p.help-block
 
-                                input(name='username',type='text',maxlength='50',required,data-validation-maxlength-message='用户名长度不能超过50个字符！')
+                    div.form-group
+                        label(class='control-label col-md-2',for='password') 密码
+                        div.col-md-4
 
-                    div.control-group
-                        label(class='control-label',for='password') 密码
-                        div.controls
-
-                                input(name='password',type='password',maxlength='50',required,data-validation-maxlength-message='密码长度不能超过50个字符！')
-
-                    div.control-group
-                        label(class='control-label',for='password-repeat') 密码确认
-                        div.controls
-
-                                input(name='password-repeat',type='password',data-validation-match-match='password',data-validation-match-message='两次密码必须一致！')
-
-                    div.control-group
-                        label(class='control-label',for='email') Email
-                        div.controls
-
-                                input(name='email',type='email',maxlength='100',required,data-validation-email-message='请输入有效的邮件地址！')
+                                input(name='password',class='form-control',type='password',maxlength='50',required,data-validation-maxlength-message='密码长度不能超过50个字符！')
                                 p.help-block
-                    div.control-group
-                        div.controls
+                    div.form-group
+                        label(class='control-label col-md-2',for='password-repeat') 密码确认
+                        div.col-md-4
+
+                                input(name='password-repeat',class='form-control',type='password',data-validation-match-match='password',data-validation-match-message='两次密码必须一致！')
+                                p.help-block
+
+                    div.form-group
+                        label(class='control-label col-md-2',for='email') Email
+                        div.col-md-4
+
+                                input(name='email',class='form-control',type='email',maxlength='100',required,data-validation-email-message='请输入有效的邮件地址！')
+                                p.help-block
+                    div.form-group
+                        div.col-md-4.col-md-offset-2
                             button(class='btn btn-primary', type='submit') 提交
 
         script(data-main='/build/app/reg',src='/javascripts/require.js')

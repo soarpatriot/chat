@@ -6,32 +6,40 @@ block append head
 
 block content
     body
-        div(id='login-div',class='container-fluid image-back')
+        div(id='login-div',class='container image-back')
             section.margin-top100
                 include _tip
                 div.dialog
-                    form(id='login-form',action='/login',method='post', class='form-vertical form-inline center')
-                        fieldset
-                            input(id='error-hidden',type='hidden',value='#{error}')
-                            div.control-group
-                                label(class='control-label', for='username') 用户名：
-                                div.controls
-                                    input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='input-xlarge325',value='#{username}')
-                            div.control-group
-                                label(class='control-label',for='password') 密码：
-                                div.controls
-                                    input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='input-xlarge325',value='#{password}')
+                    div.container
+                        form(id='login-form',action='/login',method='post',role='form')
+                            
+                                input(id='error-hidden',type='hidden',value='#{error}')
+                                div.form-group
+                                    div.row
+                                    
+                                        label(class='control-label col-md-12', for='username') 用户名：
+                                    div.row
+                                        div.col-md-12
+                                            input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='form-control',value='#{username}')
+                                div.form-group
+                                    div.row
+                                        label(class='control-label col-md-12',for='password') 密码：
+                                    div.row
+                                        div.col-md-12
+                                            input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='form-control',value='#{password}')
 
-                            div.button-group
-                                a(id='login-btn',class='btn btn-success',href='#login') 登录
-                                div.pull-right
-                                    a(class='padding-top4', href='/forget') 忘记密码
+                                div.form-group
+                                    div.col-md-6
+                                        a(id='login-btn',class='btn btn-success',href='#login') 登录
+
+                                    div.col-md-6.pull-right
+                                        a(class='padding-top4', href='/forget') 忘记密码
 
                 div.dialog-footer
                     span
-                        a(href='/reg') 开始你的翱翔之旅
+                        a(href='/reg') 开始你的发现之旅
                             span.pull-right 注册
 
 
-        script(data-main='/build/app/user',src='/javascripts/require.js')
+        script(data-main='/javascripts/app/user',src='/javascripts/require.js')
 

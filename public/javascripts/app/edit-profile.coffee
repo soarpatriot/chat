@@ -119,6 +119,6 @@ require ['jquery','underscore','filepicker','bootstrap','jquery.fileupload','jqu
             (FPfile) ->
               console.log JSON.stringify(FPfile)
               $('#face-id').val FPfile.url
-              $('#image-face').attr 'src',FPfile.url
+              $('#image-face').attr 'src',FPfile.url+'/convert?w=150&h=150'
 
 
