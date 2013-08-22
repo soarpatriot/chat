@@ -99,18 +99,18 @@ exports.comment = function(req,res){
     console.log('current user'+currentUser);
     if(utils.isObjEmpty(currentUser)){
         req.flash('error','请先登录！ ');
-        return res.redirect('/post/'+postId);
+        return res.redirect('/posts/'+postId);
     }
 
     if(utils.isEmpty(content)){
         req.flash('error','发言内容不能为！ ');
-        return res.redirect('/post/'+postId);
+        return res.redirect('/posts/'+postId);
     }
 
     Post.findOne({'_id':postId}, function(err,post){
         if(err){
             req.flash('error', err);
-            return res.redirect('/post/'+postId);
+            return res.redirect('/posts/'+postId);
         }
 
         post.comments.push({ content: content,creator: currentUser._id});
@@ -177,31 +177,26 @@ exports.index = function(req,res){
         totalRecords:0,
         currentPage:1
     }
-    state.currentPage = req.params.page;
-    console.log('formattedPosts:  sdf');
-    Post.count5(function(err,totalCount){
-        Post.top5(function(err, posts){
+    var pageSize = req.query.pageSize;
+    state.currentPage = req.query.page;
+    var start = (state.currentPage - 1) * pageSize;
+
+    Post.countTop(function(err,totalCount){
+
+        Post.top(start,pageSize,function(err, posts){
             
             if(err){
                 res.send(err);
             }
             formattedPosts = Post.dealPosts(posts);
-
             state.totalRecords = totalCount;
-            
             page.state = state;
-            page.models = formattedPosts;
-            console.log('formattedPosts:  '+JSON.stringify(page));
-            return res.send(page);
-            //formattedPosts.state = state;
-            //page.state = state;
-            //page.models = formattedPosts;
+
             if(!user){
-                //console.log('formattedPosts:  ');
-                //formattedPosts = Post.doDone(posts);
-                //console.log('formattedPosts:  '+page);
-                //page.models = formattedPosts;
-                res.send(formattedPosts);
+                formattedPosts = Post.doDone(posts);
+                page.models = formattedPosts;
+                //console.log('formattedPosts:  page: '+JSON.stringify(page));
+                return res.send(page);
 
             }else{
                 //done and undone user's up and down
@@ -217,8 +212,9 @@ exports.index = function(req,res){
                             }
                         });
                     });
-                    console.log('formatted:'+formattedPosts);
-                    res.send(formattedPosts);
+                    
+                    page.models = formattedPosts;
+                    return res.send(page);
                 });
 
             }

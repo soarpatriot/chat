@@ -97,7 +97,11 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
         };
 
         var Posts = new Models.PostList();
-
+            /**
+            Posts.url = _.bind(function () {
+                var state = this.state;
+                return "/posts/" + state.currentPage+"/"+start.pageSize;
+            }, Posts);**/
         var PostView = Backbone.View.extend({
 
             tagName: "div",
@@ -245,7 +249,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                console.log("post:"+JSON.stringify(Posts.state));
+                //console.log("post:"+JSON.stringify(Posts.state));
                 
                 Posts.each(this.addOne);
                 options = {
@@ -253,12 +257,29 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                     totalPages: Posts.state.totalPages,
                     size: "normal",
                     alignment: "right",
+                    useBootstrapTooltip:true,
+                    pageUrl: function(type, page, current){
+                        return "#posts/#"+page;
+                    },
+                    onPageClicked: function(e,originalEvent,type,page){
+                        //Posts.queryParams.currentPage = page;
+                        //Posts.queryParams.pageSize;
+                        $('#posts').empty();
+                        //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
+                        //Posts.set("start",start);
+                        Posts.getPage(page)
+                        //$('#posts').append($('#page-template').html());
+                        //$('#pagination-div').bootstrapPaginator(options);
+                        //Posts.fetch();
+                    }
+
+                    /**
                     pageUrl: function(type, page, current) {
                       return "/posts/" + page;
-                    }
+                    }**/
                 };
                 //var pageTemp = _.template($('#page-template').html()),
-                this.$('#posts').append($('#page-template').html());
+                //$('#posts').append($('#page-template').html());
                 $('#pagination-div').bootstrapPaginator(options);
                 //this.$('#posts').append(view.render().el);
                 //stop the spinner when obtain Post

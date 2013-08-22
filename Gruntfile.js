@@ -2,12 +2,8 @@
 (function() {
   module.exports = function(grunt) {
     var cssFiles, delOptions;
-<<<<<<< HEAD
 
-    cssFiles = ['public/stylesheets/bootstrap.min.css', 'public/stylesheets/font-awesome.min.css', 'public/stylesheets/font-awesome-ie7.min.css', 'public/stylesheets/jquery.fileupload-ui.css', 'public/stylesheets/application.css', '!all*.css'];
-=======
     cssFiles = ['public/stylesheets/bootstrap.min.css', 'public/stylesheets/bootstrap-theme.min.css', 'public/stylesheets/font-awesome.min.css', 'public/stylesheets/font-awesome-ie7.min.css', 'public/stylesheets/jquery.fileupload-ui.css', 'public/stylesheets/application.css', '!all*.css'];
->>>>>>> c27620784e0f3b2723be43e8b3ac7b10468bc0f9
     delOptions = {
       force: true
     };

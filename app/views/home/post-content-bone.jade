@@ -14,7 +14,8 @@ script(type="text/template",id="item-template")
     div.row-fluid
         div.span12
             p.blog-content
-                | <%- content %>
+                a('href=/posts/"<%- _id %>"') <%- content %>
+                    
     div.row-fluid
         div(class='span8',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
             a(name='up-post',class='btn up','data="<%- _id %>"')

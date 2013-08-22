@@ -16,7 +16,15 @@ block content
                         div(class='tab-pane active',id='new')
                             div(id='posts')
                                 include home/post-content-bone
+
+                div.row-fluid
+                    div.col-lg-12
+                        div(id='pagination-div',class='pagination pagination-right')
+
+
+    
             div(class='col-lg-4 relative')
+
                 h4.title 发现排行
                 hr
                 if users
