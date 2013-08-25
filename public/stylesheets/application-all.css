@@ -881,6 +881,12 @@ a [class^="icon-"],a [class*=" icon-"]{cursor:pointer;}
   max-width: 1000px;
 }
 /**utilies css for other**/
+.margin-top20 {
+  margin-top: 20px;
+}
+.padding-top20 {
+  padding-top: 20px;
+}
 .text-center {
   text-align: center;
 }
@@ -906,7 +912,6 @@ a [class^="icon-"],a [class*=" icon-"]{cursor:pointer;}
   color: #999999;
   font-size: 12px;
   font-weight: 300;
-  line-height: 25px;
 }
 body {
   font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
@@ -925,7 +930,6 @@ body {
   color: #999999;
   font-size: 12px;
   font-weight: 300;
-  line-height: 25px;
 }
 .rank-author-line {
   margin-bottom: 5px;
@@ -949,19 +953,6 @@ body {
   color: #000000;
 }
 /**one post**/
-.popover {
-  display: block;
-  position: relative;
-}
-.popover.right .arrow {
-  top: 20%;
-}
-.content {
-  padding: 5px 10px 5px 10px;
-}
-.comment {
-  margin-bottom: 10px;
-}
 /**login page cess**/
 .margin-top100 {
   margin-top: 60px;

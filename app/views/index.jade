@@ -14,7 +14,7 @@ block content
                                 | 最新
                     div(class='tab-content')
                         div(class='tab-pane active',id='new')
-                            div(id='posts')
+                            div(id='posts',class='padding-top20')
                                 include home/post-content-bone
                             div.row
                                 div.col-md-12
@@ -31,4 +31,4 @@ block content
                             div.col-md-10.rank-author
                                 a(href='/users/#{user._id}') #{user.name}
 
-        script(data-main='/javascripts/app/home',src='/javascripts/require.js')
+        script(data-main='/build/app/home',src='/javascripts/require.js')
