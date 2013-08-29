@@ -7,7 +7,7 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
                     span.icon-bar
                     span.icon-bar
                 a(class='navbar-brand',href='/')
-                    i.icon-eye-open
+                    span.glyphicon.glyphicon-eye-open
                     | 发现
             div.navbar-collapse.collapse
                 ul.nav.navbar-nav
@@ -16,42 +16,42 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
                         li.active
 
                             a(href='/')
-                                i.icon-home.icon-white
+                                span.glyphicon.glyphicon-home
                                 strong &nbsp;主页
                     else
                         li
                             a(href='/')
 
-                                i.icon-home.icon-margin-top
+                                span.glyphicon.glyphicon-home
                                 strong &nbsp;主页
                     if(typeof(currentLink) !== 'undefined' && currentLink === 'REVIEW')
                         li.active
                             a(href='/review')
-                                i.icon-filter.icon-white
+                                span.glyphicon.glyphicon-filter
                                 strong &nbsp;审阅
                     else
                         li
                             a(href='/review')
-                                i.icon-filter.icon-margin-top
+                                span.glyphicon.glyphicon-filter
                                 strong &nbsp;审阅
 
                 ul.nav.navbar-nav.navbar-right
                     if typeof(user) === 'undefined' || user === null || user === ''
                         li
                             a(href='/login')
-                                i.icon-signin
-                                | 登录
+                                span.glyphicon.glyphicon-log-in
+                                | &nbsp;登录
 
                         li
-                            a(,href='/reg')
-                                i.icon-user-md
-                                | 注册
+                            a(href='/reg')
+                                span.glyphicon.glyphicon-registration-mark
+                                | &nbsp;注册
                     else
                         li.dropdown
                                 a(class='dropdown-toggle', href='#', data-toggle='dropdown')
                                     img(src='#{user.mini}',class='img-rounded')
                                     | &nbsp; #{user.name} &nbsp;
-                                    b.icon-caret-down
+                                    b.caret
 
 
 
@@ -69,7 +69,7 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
                                       a(href='#')
                         li
                             a(href='/logout')
-                                i.icon-signout
+                                span.glyphicon.glyphicon-log-out
                                 | 退出
 
 

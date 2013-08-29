@@ -10,7 +10,7 @@ script(type="text/template",id="item-template")
 
         div.col-md-4
             div.pull-right
-                span(class='badge badge-success') 评论 <%= comments.length %>
+                span(class='badge') 评论 <%= comments.length %>
     div.row
         div.col-md-12
             p.blog-content
@@ -19,11 +19,11 @@ script(type="text/template",id="item-template")
     div.row
         div(class='col-md-8',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
             a(name='up-post',class='btn btn-default up','data="<%- _id %>"')
-                i(class='icon-thumbs-up')
+                span(class='glyphicon glyphicon-thumbs-up')
                 | 顶(<%- up %>)
             | &nbsp;
             a(name='down-post',class='btn btn-default down')
-                i(class='icon-thumbs-down')
+                span(class='glyphicon glyphicon-thumbs-down')
                 | 踩(<%- down %>)
 
     div.row
