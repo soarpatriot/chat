@@ -4,26 +4,99 @@ block append head
 
 block content
     body
-        div.container
-            div(class='alert alert-info')
-                | 发布的文章通过审核后读者才能看到
-            div.row
-                div.col-md-12
-                    form(action='/posts',method='post')
-                        legend 发表
-                        div.form-group
-                            div.row
-                                div.col-md-6
-                                    label(for='title') 标题：
-                            div.row
-                                div.col-md-6
-                                    input(name='title',type='text',class='form-control',placeholder='最多40字符')
-                        div.form-group
-                            label( for='content') 内容：
-                            div.row
-                                div.col-md-12
-                                    textarea(id='editor_id',class='form-control', name='content',rows='5')
-                        div.form-group
-                            button(type='submit', class='btn btn-success') 发言
 
+        div(class='alert alert-info')
+            | 发布的文章通过审核后读者才能看到
+        div.row
+            div.col-md-12
+                form(action='/posts',method='post')
+                    legend 发表
+                    div.form-group
+                        div.row
+                            div.col-md-6
+                                label(for='title') 标题：
+                        div.row
+                            div.col-md-6
+                                input(name='title',type='text',class='form-control',placeholder='最多40字符')
+                    div.form-group
+                        label( for='content') 内容：
+                        div.row
+                            div.col-md-12
+                                p.pull-right
+
+                                    a(href='#guide-makedown',data-toggle='modal',class='btn btn-default') 编辑器使用说明
+
+                        div.row
+                            div.col-md-12
+                                textarea(id='editor_id',class='form-control', name='content',rows='10')
+                    div.form-group
+                        button(type='submit', class='btn btn-success') 发言
+        <!-- guide dialog -->
+        div(id='guide-makedown',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            div.modal-dialog.width70percent
+                div.modal-content
+                    div.modal-header
+                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
+                            &times;
+                        h5 编辑器使用说明
+
+                    div.modal-body
+                        div.row
+                            div.col-md-4
+                                p 格式化文本
+                                code
+                                    pre
+                                        # This is an <h1> tag
+                                        ## This is an <h2> tag
+                                        ###### This is an <h6> tag
+                                p 风格
+                                    code
+                                        pre.small
+                                            *This text will be italic*
+                                            _This will also be italic_
+
+                                            **This text will be bold**
+                                            __This will also be bold__
+
+                                            *You **can** combine them*
+                            div.col-md-4
+                                p 列表
+                                    p 无序
+                                        code
+                                            pre .
+                                                * Item 1
+                                                * Item 2
+                                                  * Item 2a
+                                                  * Item 2b
+                                    p 有序
+                                        code
+                                            pre .
+                                                1. Item 1
+                                                2. Item 2
+                                                3. Item 3
+                                                   * Item 3a
+                                                   * Item 3b
+                            div.col-md-4
+                                p 其他
+                                     p.mute 图片
+                                     code
+                                         pre
+                                             ![GitHub Logo](/images/logo.png)
+                                             Format: ![Alt Text](url)
+                                     p.mute 链接
+                                     code
+                                         pre
+                                             http://github.com - automatic!
+                                             [GitHub](http://github.com)
+                                     p.mute 引用
+                                         code
+                                             pre
+                                                  As Kanye West said:
+
+                                                  > We're living the future so
+                                                  > the present is our past.
+
+
+                    div.modal-footer
+                        p powered by github makedown
         script(data-main='/build/app/post-article',src='/javascripts/require.js')

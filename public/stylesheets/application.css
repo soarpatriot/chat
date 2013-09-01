@@ -214,3 +214,7 @@ body {
     display: block;
   }
 }
+/**create a post**/
+.width70percent {
+  width: 70%;
+}
