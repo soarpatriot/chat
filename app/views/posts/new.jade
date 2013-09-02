@@ -28,7 +28,24 @@ block content
 
                         div.row
                             div.col-md-12
-                                textarea(id='editor_id',class='form-control', name='content',rows='10')
+                                ul(class='nav nav-tabs')
+                                    
+                                    ul(class='nav nav-tabs')
+                                        li(class='active')
+                                            a(href='#write',data-toggle='tab') 写
+
+                                        li
+                                            a(href='#preview',data-toggle='tab') 预览 
+                                                 
+                                                    
+                                    div(class='tab-content')
+                                        div(class='tab-pane active',id='write')
+                                            div(id='posts',class='padding-top20')
+                                                textarea(id='editor_id',class='form-control', name='content',rows='10')
+                                        div(class='tab-pane active',id='preview')
+                                            div(id='posts',class='padding-top20')
+                                                
+                                
                     div.form-group
                         button(type='submit', class='btn btn-success') 发言
         <!-- guide dialog -->
@@ -43,15 +60,20 @@ block content
                     div.modal-body
                         div.row
                             div.col-md-4
-                                p 格式化文本
-                                code
-                                    pre
-                                        # This is an <h1> tag
-                                        ## This is an <h2> tag
-                                        ###### This is an <h6> tag
-                                p 风格
+                                p 
+                                    strong 格式化
+                                p 
+                                    
+                                    small.text-muted 格式化文本      
                                     code
-                                        pre.small
+                                        pre .
+                                            # This is an <h1> tag
+                                            ## This is an <h2> tag
+                                            ###### This is an <h6> tag
+                                p 
+                                    small.text-muted 风格
+                                    code
+                                        pre .
                                             *This text will be italic*
                                             _This will also be italic_
 
@@ -60,15 +82,18 @@ block content
 
                                             *You **can** combine them*
                             div.col-md-4
-                                p 列表
-                                    p 无序
+                                p 
+                                    strong 列表
+                                    p 
+                                        small.text-muted 无序
                                         code
                                             pre .
                                                 * Item 1
                                                 * Item 2
                                                   * Item 2a
                                                   * Item 2b
-                                    p 有序
+                                    p 
+                                        small.text-muted 有序
                                         code
                                             pre .
                                                 1. Item 1
@@ -77,22 +102,25 @@ block content
                                                    * Item 3a
                                                    * Item 3b
                             div.col-md-4
-                                p 其他
-                                     p.mute 图片
-                                     code
-                                         pre
-                                             ![GitHub Logo](/images/logo.png)
-                                             Format: ![Alt Text](url)
-                                     p.mute 链接
-                                     code
-                                         pre
-                                             http://github.com - automatic!
-                                             [GitHub](http://github.com)
-                                     p.mute 引用
+                                p 
+                                    strong 其它
+                                    p 
+                                        small.text-muted 图片
+                                        code
+                                            pre .
+                                                ![GitHub Logo](/images/logo.png)
+                                                Format: ![Alt Text](url)
+                                    p
+                                        small.text-muted 链接
+                                        code
+                                             pre .
+                                                 http://github.com - automatic!
+                                                 [GitHub](http://github.com)
+                                    p
+                                         small.text-muted 引用
                                          code
-                                             pre
+                                             pre .
                                                   As Kanye West said:
-
                                                   > We're living the future so
                                                   > the present is our past.
 
