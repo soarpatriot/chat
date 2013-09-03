@@ -10,17 +10,27 @@
     shim: {
       'bootstrap': {
         deps: ['jquery']
+      },
+      'Showdown': {
+        exports: 'Showdown'
       }
     },
     paths: {
       'jquery': 'jquery-1.9.1.min',
-      'bootstrap': 'bootstrap.min'
+      'bootstrap': 'bootstrap.min',
+      'Showdown': 'showdown'
     }
   });
 
-  require(['jquery', 'bootstrap'], function($) {
-    return $('#btn-guide').click(function() {
-      return $('#guide-makedown').modal();
+  require(['jquery', 'Showdown', 'bootstrap'], function($, Showdown) {
+    var converter;
+    converter = new Showdown.converter();
+    return $("#editor-area").keyup(function() {
+      var html, txt;
+      txt = $("#editor-area").val();
+      html = converter.makeHtml(txt);
+      $("#preview-content").html(html);
+      return $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"));
     });
   });
 

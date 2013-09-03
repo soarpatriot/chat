@@ -13,6 +13,10 @@ require.config({
             deps: ['underscore','jquery'],
             exports: 'Backbone'
         },
+        'Showdown': {
+
+            exports: 'Showdown'
+        },
         'backbone-pageable': {
             deps: ['backbone']
 
@@ -44,7 +48,7 @@ require.config({
         "bootstrapPaginator":"bootstrap-paginator.min",
         "Spinner": "spin.min",
         "jquery": "jquery-1.9.1.min",
-
+        'Showdown':'showdown',
         /**
         jquery: [
 
