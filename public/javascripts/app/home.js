@@ -46,7 +46,7 @@ require.config({
         "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
-        "Spinner": "spin.min",
+        
         "jquery": "jquery-1.9.1.min",
 
         /**
@@ -55,6 +55,7 @@ require.config({
             //If the CDN location fails, load from this location
 
         ],**/
+        'jquery.spin': 'jquery.spin',
         "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
         "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
         "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
@@ -73,7 +74,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","Spinner","bootstrap","bootstrapPaginator"],function(require,$,_,Backbone,Models,Spinner) {
+require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin"],function(require,$,_,Backbone,Models,Spinner) {
 
   
     $(function(){
@@ -228,9 +229,15 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
             },
             initialize: function() {
                 //defin a spinner init
-                var target= document.getElementById('spinner');
-                this.spinner = new Spinner(opts).spin(target);
-                
+                //var target= document.getElementById('spinner');
+                //this.spinner = new Spinner(opts).spin(target);
+                this.$spinContainer = $('<div class="spin-container"></div>');
+                this.$spinner = $('<div class="preview"></div>');
+                this.$spinContainer.append(this.$spinner);
+                this.$el.append(this.$spinContainer);
+                this.$spinner.spin({color: '#000000'});
+
+
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
@@ -252,6 +259,7 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                 //console.log("post:"+JSON.stringify(Posts.state));
                 
                 Posts.each(this.addOne);
+                var that = this;
                 options = {
                     currentPage: Posts.state.currentPage,
                     totalPages: Posts.state.totalPages,
@@ -262,8 +270,9 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                         return "#posts/#"+page;
                     },
                     onPageClicked: function(e,originalEvent,type,page){
-                        //Posts.queryParams.currentPage = page;
-                        //Posts.queryParams.pageSize;
+                        
+                        that.$spinner.spin({color: '#999999'});
+
                         $('#posts').empty();
                         //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
                         //Posts.set("start",start);
@@ -272,18 +281,10 @@ require(["require","jquery","underscore","backbone","models","Spinner","bootstra
                         //$('#pagination-div').bootstrapPaginator(options);
                         //Posts.fetch();
                     }
-
-                    /**
-                    pageUrl: function(type, page, current) {
-                      return "/posts/" + page;
-                    }**/
                 };
-                //var pageTemp = _.template($('#page-template').html()),
-                //$('#posts').append($('#page-template').html());
                 $('#pagination-div').bootstrapPaginator(options);
-                //this.$('#posts').append(view.render().el);
-                //stop the spinner when obtain Post
-                this.spinner.stop();
+                this.$spinner.spin(false);
+                //this.$spinContainer.remove();
             }
         });
 

@@ -46,7 +46,7 @@ require.config({
         "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
-        "Spinner": "spin.min",
+        
         "jquery": "jquery-1.9.1.min",
         'Showdown':'showdown',
         /**
@@ -55,6 +55,7 @@ require.config({
             //If the CDN location fails, load from this location
 
         ],**/
+        'jquery.spin': 'jquery.spin',
         "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
         "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
         "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
