@@ -36,7 +36,8 @@ exports.index = function(req, res){
                 title: '审阅',
                 currentLink: 'REVIEW',
                 user:req.user,
-                error : error
+                success : req.flash('success').toString(),
+                error : req.flash('error').toString()
             });
         }else{
 
@@ -54,7 +55,8 @@ exports.index = function(req, res){
                 currentLink: 'REVIEW',
                 user:req.user,
                 post:post,
-                error : error
+                success : req.flash('success').toString(),
+                error : req.flash('error').toString()
             });
         }
     });
