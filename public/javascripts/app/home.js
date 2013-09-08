@@ -74,7 +74,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin"],function(require,$,_,Backbone,Models,Spinner) {
+require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable"],function(require,$,_,Backbone,Models) {
 
   
     $(function(){
