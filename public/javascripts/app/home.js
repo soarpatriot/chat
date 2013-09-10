@@ -127,14 +127,23 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 this.$el.html(this.template(this.model.toJSON()));
                 //this.$el.toggleClass('done', this.model.get('done'));
                 //this.input = this.$('.edit');
-
+                var options ={
+                    animation:true,
+                    placement:'bottom',
+                    title:'您已操作过或未登陆',
+                    trigger:'hover click',
+                    container:'body'
+                };
                 this.upPost = this.$('a[name="up-post"]');
                 this.downPost = this.$('a[name="down-post"]');
                 if(this.model.get("done")){
 
                     this.$('a[name="up-post"]').attr("disabled",true);
                     this.$('a[name="down-post"]').attr("disabled",true);
+                    this.$('div[name="up-post-div"]').tooltip(options);
+                    this.$('div[name="down-post-div"]').tooltip(options);
                 }
+               
 
                 return this;
             },
