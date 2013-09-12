@@ -1,26 +1,13 @@
 /*! jQuery v1.9.1 | (c) 2005, 2012 jQuery Foundation, Inc. | jquery.org/license
- //@ sourceMappingURL=jquery.min.map
  */
 
-//
-// showdown.js -- A javascript port of Markdown.
-//
 // Copyright (c) 2007 John Fraser.
-//
+
 // Original Markdown Copyright (c) 2004-2005 John Gruber
-//   <http://daringfireball.net/projects/markdown/>
-//
+
 // Redistributable under a BSD-style open source license.
+
 // See license.txt for more information.
-//
-// The full source distribution is at:
-//
-//				A A L
-//				T C A
-//				T K B
-//
-//   <http://www.attacklab.net/>
-//
 
 /**
  * bootstrap.js v3.0.0 by @fat and @mdo

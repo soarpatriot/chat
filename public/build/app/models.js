@@ -1,16 +1,13 @@
-//     Underscore.js 1.4.2
-//     http://underscorejs.org
 //     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
+
 //     Underscore may be freely distributed under the MIT license.
 
 /*! jQuery v1.9.1 | (c) 2005, 2012 jQuery Foundation, Inc. | jquery.org/license
- //@ sourceMappingURL=jquery.min.map
  */
 
 // (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
+
 // Backbone may be freely distributed under the MIT license.
-// For all details and documentation:
-// http://backbonejs.org
 
 /*
   backbone-pageable 1.3.2
