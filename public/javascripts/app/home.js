@@ -24,6 +24,9 @@ require.config({
         'bootstrap':{
             deps: ['jquery']
         },
+        'animo':{
+            deps: ['jquery']
+        },
         'filepicker':{
             exports: 'filepicker'
         }
@@ -46,8 +49,9 @@ require.config({
         "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
-        
-        "jquery": "jquery-1.9.1.min",
+
+        "animo":"animo",
+        "jquery": "jquery-2.0.3.min",
 
         /**
         jquery: [
@@ -74,7 +78,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable"],function(require,$,_,Backbone,Models) {
+require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable","animo"],function(require,$,_,Backbone,Models) {
 
   
     $(function(){
@@ -172,6 +176,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             optAnimation: function(upOrDown){
 
                 if(upOrDown==="up"){
+                    this.$('div[name="up-post-div"]').animo( { animation: 'tada' } );
+                }else{
+                    this.$('div[name="down-post-div"]').animo( { animation: 'tada' } );
+                }
+                /**
+                if(upOrDown==="up"){
                     var offset = this.upPost.offset();
                     this.$upDownCover= $('<div class="up-down-cover"> +1</div>');
                 }else{
@@ -204,7 +214,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     'opacity': "0.5",
                     'top': targetTop,
                     'left' : targetLeft
-                }, 1000).fadeOut(2000);
+                }, 1000).fadeOut(2000); */
 
             },
 
