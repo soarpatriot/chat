@@ -153,7 +153,7 @@ exports.show = function(req,res){
         });
 
         res.render('posts/show',{
-            title: post.username,
+            title: post.title,
             post: post,
             user: req.user,
             success : req.flash('success').toString(),
