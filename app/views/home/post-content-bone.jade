@@ -19,13 +19,13 @@ script(type="text/template",id="item-template")
     div.row
         div.col-md-8
             div.row
-                div(name='up-post-div', class='col-md-2',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')
+                div(name='up-post-div', class='col-md-2 col-xs-3 col-sm-2')
                     
                     a(name='up-post',class='btn btn-default up','data="<%- _id %>"')
                         span(class='glyphicon glyphicon-thumbs-up')
                         | 顶(<%- up %>)
                     
-                div(name='down-post-div', class='col-md-2',data-x='2825',data-y='2325',data-z='-3000' ,data-rotate='300' ,data-scale='1')    
+                div(name='down-post-div', class='col-md-2 col-xs-3 col-sm-2')
                     a(name='down-post',class='btn btn-default down')
                         span(class='glyphicon glyphicon-thumbs-down')
                         | 踩(<%- down %>)

@@ -3,3 +3,6 @@ current version: varsion 0.1.1.25
 fix mobile device redundant ico display 0.1.1.23
 fix register no validation 0.1.1.24
 fix home page margin 0.1.1.25
+
+fix small screen some content was covered 0.2.4.1
+fix small screen home page button extend 0.2.4.2
