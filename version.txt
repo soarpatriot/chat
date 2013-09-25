@@ -6,3 +6,7 @@ fix home page margin 0.1.1.25
 
 fix small screen some content was covered 0.2.4.1
 fix small screen home page button extend 0.2.4.2
+
+add js validation to user post an article 0.2.4.3
+add word-break for home page ,review page, one post and user blog post page 0.2.4.4
+change review to markdown text display 0.2.4.5

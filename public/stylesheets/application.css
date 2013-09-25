@@ -19,6 +19,9 @@
   max-width: 1000px;
 }
 /**utilies css for other**/
+.word-break-wrap {
+  word-break: break-all;
+}
 .margin-top20 {
   margin-top: 20px;
 }

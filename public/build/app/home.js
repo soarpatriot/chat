@@ -1,13 +1,15 @@
 /*! jQuery v2.0.3 | (c) 2005, 2013 jQuery Foundation, Inc. | jquery.org/license
  */
 
+//     Underscore.js 1.4.2
+//     http://underscorejs.org
 //     (c) 2009-2012 Jeremy Ashkenas, DocumentCloud Inc.
-
 //     Underscore may be freely distributed under the MIT license.
 
 // (c) 2010-2012 Jeremy Ashkenas, DocumentCloud Inc.
-
 // Backbone may be freely distributed under the MIT license.
+// For all details and documentation:
+// http://backbonejs.org
 
 /**
  * bootstrap.js v3.0.0 by @fat and @mdo

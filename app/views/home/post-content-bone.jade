@@ -13,7 +13,7 @@ script(type="text/template",id="item-template")
                 span(class='badge') 评论 <%= comments.length %>
     div.row
         div.col-md-12
-            p.blog-content
+            p.blog-content.word-break-wrap
                 a('href=/posts/"<%- _id %>"') <%- content %>
                     
     div.row

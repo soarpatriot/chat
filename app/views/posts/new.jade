@@ -17,7 +17,7 @@ block content
                                 label(for='title') 标题：
                         div.row
                             div.col-md-6
-                                input(name='title',type='text',class='form-control',placeholder='最多40字符')
+                                input(name='title',type='text',class='form-control',placeholder='最多40字符',type='text',maxlength='40',required,data-validation-maxlength-message='标题不能超过40个字符！')
                     div.form-group
                         label( for='content') 内容：
                         div.row
@@ -41,7 +41,7 @@ block content
                                     div(class='tab-content')
                                         div(class='tab-pane active',id='write')
                                             div(id='posts',class='padding-top20')
-                                                textarea(id='editor-area',class='form-control', name='content',rows='10')
+                                                textarea(id='editor-area',class='form-control', name='content',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
                                         div(class='tab-pane',id='preview')
                                             div(id='preview-content',class='preview-content-div')
                                                 
