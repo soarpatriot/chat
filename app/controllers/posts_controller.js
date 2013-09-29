@@ -93,7 +93,6 @@ exports.comment = function(req,res){
     var currentUser = req.user;
     var content =  req.body.content;
 
-    console.log('current user'+currentUser);
     if(utils.isObjEmpty(currentUser)){
         req.flash('error','请先登录！ ');
         return res.redirect('/posts/'+postId);
