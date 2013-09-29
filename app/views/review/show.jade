@@ -8,11 +8,14 @@ block content
             div(class='row')
                 div(id='post-content',class='col-md-8')
                     div(class='row')
-                        div(class='col-md-8')
+                        div(class='col-md-12')
                             h4 #{post.title}
                     hr
                     div(class='row')
-                        div(class='col-md-8') #{post.content}
+                        div(class='col-md-12')
+                            div.word-break-wrap
+                                !{post.content}
+
                 form(id='review-form',action='/review',method='post')
                     input(id='post-id',type='hidden',name='postId',value='#{post._id}')
                     input(id='passed',type='hidden',name='passed',value='')

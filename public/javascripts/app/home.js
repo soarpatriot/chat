@@ -24,6 +24,9 @@ require.config({
         'bootstrap':{
             deps: ['jquery']
         },
+        'animo':{
+            deps: ['jquery']
+        },
         'filepicker':{
             exports: 'filepicker'
         }
@@ -46,8 +49,9 @@ require.config({
         "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
-        
-        "jquery": "jquery-1.9.1.min",
+
+        "animo":"animo",
+        "jquery": "jquery-2.0.3.min",
 
         /**
         jquery: [
@@ -74,7 +78,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin"],function(require,$,_,Backbone,Models,Spinner) {
+require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable","animo"],function(require,$,_,Backbone,Models) {
 
   
     $(function(){
@@ -127,14 +131,23 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 this.$el.html(this.template(this.model.toJSON()));
                 //this.$el.toggleClass('done', this.model.get('done'));
                 //this.input = this.$('.edit');
-
+                var options ={
+                    animation:true,
+                    placement:'bottom',
+                    title:'您已操作过或未登陆',
+                    trigger:'hover click',
+                    container:'body'
+                };
                 this.upPost = this.$('a[name="up-post"]');
                 this.downPost = this.$('a[name="down-post"]');
                 if(this.model.get("done")){
 
                     this.$('a[name="up-post"]').attr("disabled",true);
                     this.$('a[name="down-post"]').attr("disabled",true);
+                    this.$('div[name="up-post-div"]').tooltip(options);
+                    this.$('div[name="down-post-div"]').tooltip(options);
                 }
+               
 
                 return this;
             },
@@ -162,6 +175,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             //animateion, after post was up or down
             optAnimation: function(upOrDown){
 
+                if(upOrDown==="up"){
+                    this.$('div[name="up-post-div"]').animo( { animation: 'tada' } );
+                }else{
+                    this.$('div[name="down-post-div"]').animo( { animation: 'tada' } );
+                }
+                /**
                 if(upOrDown==="up"){
                     var offset = this.upPost.offset();
                     this.$upDownCover= $('<div class="up-down-cover"> +1</div>');
@@ -195,7 +214,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     'opacity': "0.5",
                     'top': targetTop,
                     'left' : targetLeft
-                }, 1000).fadeOut(2000);
+                }, 1000).fadeOut(2000); */
 
             },
 

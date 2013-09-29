@@ -24,6 +24,9 @@ require.config({
         'bootstrap':{
             deps: ['jquery']
         },
+        'animo':{
+            deps: ['jquery']
+        },
         'filepicker':{
             exports: 'filepicker'
         }
@@ -46,8 +49,9 @@ require.config({
         "backbone-pageable": "backbone-pageable.min",
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
-        
-        "jquery": "jquery-1.9.1.min",
+        "animo":"animo",
+        "jquery": "jquery-2.0.3.min",
+
         'Showdown':'showdown',
         /**
         jquery: [

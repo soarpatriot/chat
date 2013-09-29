@@ -4,7 +4,7 @@ block append head
 
 block content
     body
-        p
+        
         div.row
             div.col-md-2
                 img(src='#{discoverior.normalFace}',class='img-polaroid img-rounded')
@@ -28,7 +28,7 @@ block content
                                     | #{post.fromNow}
                         div.row
                             div.col-md-12
-                                | #{post.content}
+                                p.word-break-wrap #{post.content}
 
                         if (own)
                             div.row

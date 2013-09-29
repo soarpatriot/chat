@@ -4,6 +4,7 @@
  */
 
 var Post = require('../models/post.js'),
+    md = require('github-flavored-markdown').parse,
     utils = require('../models/utils');
 
 var User = require('../models/user.js');
@@ -49,6 +50,12 @@ exports.index = function(req, res){
                 error = '暂无需要审阅的文章！'
             }else{
 
+                var html = md(post.content);
+                html = html.replace(/\{([^}]+)\}/g, function(_, name){
+                    return options[name] || '';
+                })
+
+                post.content = html;
             }
             res.render('review/show', {
                 title: '审阅',

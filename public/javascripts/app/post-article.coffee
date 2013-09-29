@@ -18,7 +18,8 @@ require.config
     'bootstrap':'bootstrap.min'
     'Showdown':'showdown'
 
-require ['jquery','Showdown','bootstrap'], ($,Showdown) ->
+require ['jquery','Showdown','bootstrap','jqBootstrapValidation'], ($,Showdown) ->
+  $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
   converter = new Showdown.converter();
   $("#editor-area").keyup ->
     txt = $("#editor-area").val()

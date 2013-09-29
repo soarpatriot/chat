@@ -1,7 +1,7 @@
 
 
 ### Welcome to Chat World ###
-varsion 0.2.1.2
+varsion 0.2.4.5
 Currently,  it is just nightly build, can not assure stable.
 
 [Ugly demo](http://www.soaror.com)
@@ -28,3 +28,14 @@ Currently,  it is just nightly build, can not assure stable.
 2. enter into chat directory
 3. run:  npm install
 4. run:  supervisor app
+
+###### Contributor
+
+project  : chat
+ repo age : 1 year, 1 month
+ active   : 130 days
+ commits  : 224
+ files    : 160
+ authors  : 
+   216	Soar                    96.4%
+     8	liuhb7                  3.6%

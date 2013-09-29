@@ -22,8 +22,9 @@
     }
   });
 
-  require(['jquery', 'Showdown', 'bootstrap'], function($, Showdown) {
+  require(['jquery', 'Showdown', 'bootstrap', 'jqBootstrapValidation'], function($, Showdown) {
     var converter;
+    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();
     return $("#editor-area").keyup(function() {
       var html, txt;

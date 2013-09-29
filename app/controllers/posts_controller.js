@@ -55,15 +55,14 @@ exports.create = function(req, res){
     var title = req.body.title;
     if(currentUser === null){
         req.flash('error','请先登录！ ');
-        return res.redirect('/posts');
+        return res.redirect('/login');
     }
 
-    if( content === null ||  content===''){
-        req.flash('error','发言内容不能为！ ');
-        return res.redirect('/posts');
+    if( !content || !title ){
+        req.flash('error','发言内容不能为空！ ');
+        return res.redirect('/posts/new');
     }
 
-    console.log('user ObjectId:  '+currentUser._id);
     var post = new Post({
         username: currentUser.name,
         content: content,
@@ -71,17 +70,15 @@ exports.create = function(req, res){
         creator:currentUser._id
     });
 
-
     post.save(function(err){
         if(err){
             req.flash('error',err);
-            return res.redirect('/posts');
+            return res.redirect('/posts/new');
         }else{
             req.flash('success','发表成功待审核！');
             res.redirect('/users/'+currentUser._id);
         }
     });
-
 
 }
 
@@ -96,7 +93,6 @@ exports.comment = function(req,res){
     var currentUser = req.user;
     var content =  req.body.content;
 
-    console.log('current user'+currentUser);
     if(utils.isObjEmpty(currentUser)){
         req.flash('error','请先登录！ ');
         return res.redirect('/posts/'+postId);
@@ -153,7 +149,7 @@ exports.show = function(req,res){
         });
 
         res.render('posts/show',{
-            title: post.username,
+            title: post.title,
             post: post,
             user: req.user,
             success : req.flash('success').toString(),

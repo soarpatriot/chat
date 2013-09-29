@@ -1,3 +1,17 @@
+if typeof(title) !== 'undefined'
+    title #{title}
+else
+    title 发现自己，发现周围需要帮助的人
+
+if typeof(description) !== 'undefined'
+    meta(name='description',content='#{description}')
+else
+    meta(name='description',content='在法律范围内，自由发表自己的杂想，信息，求助，发现等，致力与通过网络实现言论自由，帮助需要帮助的人，本站不删除发布后的内容，内容的真实性由广大阅读者自行判断')
+
+if typeof(keywords) !== 'undefined'
+    meta(name='keywords',content='#{keywords}')
+else
+    meta(name='keywords',content='自由发表 不删除内容 帮助需要帮助的人')
 meta(charset='utf-8')
 meta(content='width=device-width, initial-scale=1.0', name='viewport')
 meta(property='wb:webmaster',content="78e9f2e1c609997f")
