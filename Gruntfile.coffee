@@ -11,9 +11,6 @@ module.exports = (grunt) ->
   };
   grunt.initConfig
     pkg:[grunt.file.readJSON('package.json')]
-    #grunt.file.delete('./public/build',delOptions)
-
-
 
     concat :
       css:

@@ -29,6 +29,9 @@ require.config({
         },
         'filepicker':{
             exports: 'filepicker'
+        },
+        'google-html5':{
+            exports: 'google-html5'
         }
 
     },
@@ -53,6 +56,7 @@ require.config({
         "jquery": "jquery-2.0.3.min",
 
         'Showdown':'showdown',
+        'google-html5':'google-code-prettify/html5',
         /**
         jquery: [
 
