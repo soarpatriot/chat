@@ -5,18 +5,23 @@ block append head
 block content
     body
         div(id='home-div',class='row')
-            div(class='col-md-8 content-div')
+            div(class='col-md-8 content-div well well-sm')
+                include home/post-content-bone
                 div(class='tabbable')
-                    ul(class='nav nav-tabs')
+                    ul(id='content-ul-tab',class='nav nav-pills')
                         li(class='active')
-                            a(href='#new',data-toggle='tab') 最新
+                            a(href='#new',data-toggle='pill') 最新
+                        li
+                            a(href='#discover',data-toggle='pill') 发现
                     div(class='tab-content')
                         div(class='tab-pane active',id='new')
                             div(id='posts',class='padding-top20')
-                                include home/post-content-bone
-                            div.row
-                                div.col-md-12
-                                    div(id='pagination-div',class='pagination pagination-right pull-right')
+                                
+                               
+                        div(class='tab-pane',id='discover')
+                            div(id='discover-content',class='padding-top20')
+                               
+                                
             div(class='col-md-4 relative')
 
                 h4.title 发现排行
@@ -29,4 +34,4 @@ block content
                             div.col-md-10.rank-author
                                 a(href='/users/#{user._id}') #{user.name}
 
-        script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/home',src='/javascripts/require.js?v=#{appVersion}')

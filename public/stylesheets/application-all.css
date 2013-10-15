@@ -10282,6 +10282,12 @@ body {
 /**home page cess**/
 .content-div {
   min-height: 200px;
+  padding-top: 30px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.1);
 }
 .icon-margin-top {
   margin-top: 3px;

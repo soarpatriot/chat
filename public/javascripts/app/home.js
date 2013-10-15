@@ -245,7 +245,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
         var NewView = Backbone.View.extend({
             el: $("#new"),
-
+            template: _.template($('#pager-template').html()),
             events: {
 
             },
@@ -253,6 +253,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 //defin a spinner init
                 //var target= document.getElementById('spinner');
                 //this.spinner = new Spinner(opts).spin(target);
+                this.$pager = this.template();
                 this.$spinContainer = $('<div class="spin-container"></div>');
                 this.$spinner = $('<div class="preview"></div>');
                 this.$spinContainer.append(this.$spinner);
@@ -304,14 +305,96 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                         //Posts.fetch();
                     }
                 };
-                $('#pagination-div').bootstrapPaginator(options);
+                this.$('#posts').append(this.template());
+                //$('#pagination-div').bootstrapPaginator(options);
+                this.$('.pagination').bootstrapPaginator(options);
                 this.$spinner.spin(false);
                 //this.$spinContainer.remove();
             }
         });
 
-        var newView = new NewView();
+        var discorverPosts = new Models.PostList();
+        var DiscoverView = Backbone.View.extend({
+            el: $("#discover"),
+            template: _.template($('#pager-template').html()),
+            events: {
 
+            },
+            initialize: function() {
+                //defin a spinner init
+                //var target= document.getElementById('spinner');
+                //this.spinner = new Spinner(opts).spin(target);
+                
+                this.$spinContainer = $('<div class="spin-container"></div>');
+                this.$spinner = $('<div class="preview"></div>');
+                this.$spinContainer.append(this.$spinner);
+                this.$el.append(this.$spinContainer);
+                this.$spinner.spin({color: '#000000'});
+
+
+                discorverPosts.on('add', this.addOne, this);
+                discorverPosts.on('reset', this.addAll, this);
+                discorverPosts.on('all', this.render, this);
+
+                discorverPosts.fetch();
+                //
+            },
+            render: function() {
+                //this.$el.append(this.spinner.el);
+            },
+            addOne: function(post) {
+                var view = new PostView({model: post});
+                this.$('#discover-content').append(view.render().el);
+
+            },
+
+            // Add all items in the **Posts** collection at once.
+            addAll: function() {
+                //console.log("post:"+JSON.stringify(Posts.state));
+                
+                discorverPosts.each(this.addOne);
+                var that = this;
+                options = {
+                    currentPage: discorverPosts.state.currentPage,
+                    totalPages: discorverPosts.state.totalPages,
+                    size: "normal",
+                    alignment: "right",
+
+                    pageUrl: function(type, page, current){
+                        return "#posts/#"+page;
+                    },
+                    onPageClicked: function(e,originalEvent,type,page){
+                        
+                        that.$spinner.spin({color: '#999999'});
+
+                        $('#discover-content').empty();
+                        //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
+                        //Posts.set("start",start);
+                        discorverPosts.getPage(page)
+                        //$('#posts').append($('#page-template').html());
+                        //$('#pagination-div').bootstrapPaginator(options);
+                        //Posts.fetch();
+                    }
+                };
+                this.$('#discover-content').append(this.template());
+                this.$('.pagination').bootstrapPaginator(options);
+                this.$spinner.spin(false);
+                //this.$spinContainer.remove();
+            }
+        });
+        
+        var newView = new NewView();
+        var discoverView = new DiscoverView();
+        //$('#content-ul-tab a').click(function (e) {
+          //e.preventDefault()
+          //var $e = $(e);
+          //var id = $this.attr('id');
+          //alert($e.attr('id'));
+          //alert($(this).attr('id'));
+          //alert(e);
+          //var discoverView = new DiscoverView();
+        //});
+        
     });
 
 });
