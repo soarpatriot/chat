@@ -384,7 +384,14 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
         });
         
         var newView = new NewView();
-        var discoverView = new DiscoverView();
+        var discoverView = null;
+        $('#content-ul-tab a[href="#discover"]').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            if(!discoverView){
+              discoverView = new DiscoverView();
+            }
+        });
         //$('#content-ul-tab a').click(function (e) {
           //e.preventDefault()
           //var $e = $(e);
