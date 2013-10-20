@@ -5,7 +5,7 @@ block append head
 block content
     body
         div(id='home-div',class='row')
-            div(class='col-md-8 content-div well well-sm')
+            div(class='col-md-9 content-div')
                 include home/post-content-bone
                 div(class='tabbable')
                     ul(id='content-ul-tab',class='nav nav-pills')
@@ -18,20 +18,21 @@ block content
                             div(id='posts',class='padding-top20')
                                 
                                
-                        div(class='tab-pane',id='discover')
+                        div(class='tab-pane fade',id='discover')
                             div(id='discover-content',class='padding-top20')
                                
                                 
-            div(class='col-md-4 relative')
-
-                h4.title 发现排行
-                hr
-                if users
-                    each user, i in users
-                        div(class='row rank-author-line')
-                            div(class='col-md-2')
-                               img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
-                            div.col-md-10.rank-author
-                                a(href='/users/#{user._id}') #{user.name}
+            div(class='col-md-3')
+                div.relative
+                    h4.title 发现排行
+                    hr
+                    ul.nav
+                        if users
+                            each user, i in users
+                                li
+                                    a(href='/users/#{user._id}')
+                                        img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
+                               
+                                        | &nbsp; #{user.name}
 
         script(data-main='/javascripts/app/home',src='/javascripts/require.js?v=#{appVersion}')

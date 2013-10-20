@@ -9,7 +9,8 @@ exports.createRoutes = function(app){
         user = require('../app/controllers/users_controller'),
         chat = require('../app/controllers/chat_controller'),
         review = require('../app/controllers/reviews_controller'),
-        uploader = require('../app/controllers/uploader_controller');
+        uploader = require('../app/controllers/uploader_controller')
+        tags = require('../app/controllers/tags_controller');;
 
 
 
@@ -55,4 +56,9 @@ exports.createRoutes = function(app){
     //review post
     app.get('/review',user.loadUser,review.index);
     app.post('/review',user.loadUser,review.do);
+
+    //tag management
+    app.get('/tags',user.loadUser,tags.index);
+    app.get('/tags/new',user.loadUser,tags.new);
+    app.post('/tags',user.loadUser,tags.create);
 }

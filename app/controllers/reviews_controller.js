@@ -49,7 +49,7 @@ exports.index = function(req, res){
                 });
                 error = '暂无需要审阅的文章！'
             }else{
-
+                console.log(post);
                 var html = md(post.content);
                 html = html.replace(/\{([^}]+)\}/g, function(_, name){
                     return options[name] || '';

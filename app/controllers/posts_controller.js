@@ -6,9 +6,9 @@
 
 var Post = require('../models/post.js'),
     md = require('github-flavored-markdown').parse,
-    utils = require('../models/utils');
-
-var User = require('../models/user.js');
+    utils = require('../models/utils'),
+    User = require('../models/user.js'),
+    Tag = require('../models/tag.js');
 //var client = require('../models/redis.js')
 
 var cloudinary = require('../models/cloudinary.js');
@@ -34,13 +34,20 @@ moment.lang('zh-cn');
  * @param res
  */
 exports.new = function(req, res){
-    res.render('posts/new', {
-        title: '发表',
-        user : req.user,
-        currentLink: 'MICRO',
-        success : req.flash('success').toString(),
-        error : req.flash('error').toString()
-    });
+    Tag.find({},function(err,tags){
+        if(err){
+            return req.redirect('/posts/new')
+        }
+        res.render('posts/new', {
+            title: '发表',
+            user : req.user,
+            tags: tags,
+            currentLink: 'MICRO',
+            success : req.flash('success').toString(),
+            error : req.flash('error').toString()
+        });
+    })
+
 };
 
 /**
@@ -53,6 +60,7 @@ exports.create = function(req, res){
     var currentUser = req.user;
     var content =  req.body.content;
     var title = req.body.title;
+    var tag = req.body.tag;
     if(currentUser === null){
         req.flash('error','请先登录！ ');
         return res.redirect('/login');
@@ -63,10 +71,16 @@ exports.create = function(req, res){
         return res.redirect('/posts/new');
     }
 
+    if( !tag ){
+        req.flash('error','标签不能为空！ ');
+        return res.redirect('/posts/new');
+    }
+
     var post = new Post({
         username: currentUser.name,
         content: content,
         title: title,
+        tag: tag,
         creator:currentUser._id
     });
 
@@ -176,47 +190,100 @@ exports.index = function(req,res){
     var pageSize = req.query.pageSize;
     state.currentPage = req.query.page;
     var start = (state.currentPage - 1) * pageSize;
+    
+    var tagKey = req.query.tag;
+    
+    console.log("tag:"+tagKey);
 
-    Post.countTop(function(err,totalCount){
+    if(tagKey){
+        //tagKey = '52634ba197956b7f1b000004';
+        Tag.findOne({key:tagKey},function(err,tag){
+            Post.countTag(tag._id,function(err,totalCount){
 
-        Post.top(start,pageSize,function(err, posts){
-            
-            if(err){
-                res.send(err);
-            }
-            formattedPosts = Post.dealPosts(posts);
-            state.totalRecords = totalCount;
-            page.state = state;
+                Post.topTag(tag._id,start,pageSize,function(err, posts){
 
-            if(!user){
-                formattedPosts = Post.doDone(posts);
-                page.models = formattedPosts;
-                //console.log('formattedPosts:  page: '+JSON.stringify(page));
-                return res.send(page);
+                    if(err){
+                        res.send(err);
+                    }
+                    formattedPosts = Post.dealPosts(posts);
+                    state.totalRecords = totalCount;
+                    page.state = state;
 
-            }else{
-                //done and undone user's up and down
-                User.findOne({'_id':user._id}, function(err,user){
-                    var votes = user.votePosts;
-                    _.each(votes,function(vote){
+                    if(!user){
+                        formattedPosts = Post.doDone(posts);
+                        page.models = formattedPosts;
+                        //console.log('formattedPosts:  page: '+JSON.stringify(page));
+                        return res.send(page);
 
-                        _.each(posts,function(post){
+                    }else{
+                        //done and undone user's up and down
+                        User.findOne({'_id':user._id}, function(err,user){
+                            var votes = user.votePosts;
+                            _.each(votes,function(vote){
 
-                            if(_.isEqual(vote.postId ,post._id)){
+                                _.each(posts,function(post){
 
-                                post.done = true;
-                            }
+                                    if(_.isEqual(vote.postId ,post._id)){
+
+                                        post.done = true;
+                                    }
+                                });
+                            });
+
+                            page.models = formattedPosts;
+                            return res.send(page);
                         });
-                    });
-                    
-                    page.models = formattedPosts;
-                    return res.send(page);
+
+                    }
+
                 });
-
-            }
-
+            });
         });
-    });
+
+    }else{
+        Post.countTop(function(err,totalCount){
+
+            Post.top(start,pageSize,function(err, posts){
+
+                if(err){
+                    res.send(err);
+                }
+                formattedPosts = Post.dealPosts(posts);
+                state.totalRecords = totalCount;
+                page.state = state;
+
+                if(!user){
+                    formattedPosts = Post.doDone(posts);
+                    page.models = formattedPosts;
+                    //console.log('formattedPosts:  page: '+JSON.stringify(page));
+                    return res.send(page);
+
+                }else{
+                    //done and undone user's up and down
+                    User.findOne({'_id':user._id}, function(err,user){
+                        var votes = user.votePosts;
+                        _.each(votes,function(vote){
+
+                            _.each(posts,function(post){
+
+                                if(_.isEqual(vote.postId ,post._id)){
+
+                                    post.done = true;
+                                }
+                            });
+                        });
+
+                        page.models = formattedPosts;
+                        return res.send(page);
+                    });
+
+                }
+
+            });
+        });
+    }
+
+
 
 };
 

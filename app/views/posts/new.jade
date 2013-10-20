@@ -18,6 +18,18 @@ block content
                         div.row
                             div.col-md-6
                                 input(name='title',type='text',class='form-control',placeholder='最多40字符',type='text',maxlength='40',required,data-validation-maxlength-message='标题不能超过40个字符！')
+
+                        div.row
+                            div.col-md-6
+                                label(for='title') 标签：
+                        div.row
+                            div.col-md-6
+                                select(name='tag')
+                                    if typeof(tags) !== 'undefined' && tags.length > 0
+                                        each tag, i in tags
+                                            option(value='#{tag._id}') #{tag.name}
+
+
                     div.form-group
                         label( for='content') 内容：
                         div.row

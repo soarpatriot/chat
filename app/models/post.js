@@ -5,6 +5,7 @@
 var mongoose = require('mongoose'),
     md = require('github-flavored-markdown').parse,
     utils = require('../helpers/utils'),
+
     Schema = mongoose.Schema;
 
 var cloudinary = require('./cloudinary.js');
@@ -74,7 +75,9 @@ var PostSchema = mongoose.Schema({
 
     beReviewed:[Review],
 
-    creator: {type: Schema.ObjectId, ref: 'User'}
+    creator: {type: Schema.ObjectId, ref: 'User'},
+
+    tag: {type: Schema.ObjectId, ref: 'Tag'}
 
 },schemaOptions);
 
@@ -151,19 +154,38 @@ var Comment = mongoose.model('Comment', CommentSchema);
 Post.top = function(start,size,callback){
     return Post.find().where('passed').equals(true)
         .where('score').gte(-10)
+
         .skip(start)
         .limit(size)
         .sort('-pusTime')
         .populate('creator')
         .exec(callback);
 };
-
-Post.countTop = function(callback){
-    return Post.count().where('passed').equals(true)
+Post.topTag = function(tagKey,start,size,callback){
+    return Post.find().where('passed').equals(true)
         .where('score').gte(-10)
+        .where('tag').equals(tagKey)
+        .skip(start)
+        .limit(size)
+        .sort('-pusTime')
+        .populate('creator')
+        //.populate('tag', 'key', {match: { key: tagKey }}, null)
         .exec(callback);
 };
 
+Post.countTop = function(callback){
+    return Post.count().where('passed').equals(true)
+
+        .where('score').gte(-10)
+        .exec(callback);
+};
+Post.countTag = function(tagKey,callback){
+    return Post.count().where('passed').equals(true)
+        .where('tag').equals(tagKey)
+        .where('score').gte(-10)
+        //.populate('tag', 'key', {match: { key: tagKey }}, null)
+        .exec(callback);
+};
 
 
 /**

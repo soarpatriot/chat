@@ -313,7 +313,13 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             }
         });
 
-        var discorverPosts = new Models.PostList();
+        //exetend models query params, add tag
+        var discorverPosts = new Models.PostList({
+                queryParams: {
+                    tag: "discover"
+                }
+            });
+           
         var DiscoverView = Backbone.View.extend({
             el: $("#discover"),
             template: _.template($('#pager-template').html()),
@@ -336,7 +342,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 discorverPosts.on('reset', this.addAll, this);
                 discorverPosts.on('all', this.render, this);
 
-                discorverPosts.fetch();
+                discorverPosts.fetch({data: {tag: 'discover'}});
                 //
             },
             render: function() {
@@ -361,19 +367,15 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     alignment: "right",
 
                     pageUrl: function(type, page, current){
-                        return "#posts/#"+page;
+                        return "#posts/discover/#"+page;
                     },
                     onPageClicked: function(e,originalEvent,type,page){
                         
                         that.$spinner.spin({color: '#999999'});
 
                         $('#discover-content').empty();
-                        //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
-                        //Posts.set("start",start);
                         discorverPosts.getPage(page)
-                        //$('#posts').append($('#page-template').html());
-                        //$('#pagination-div').bootstrapPaginator(options);
-                        //Posts.fetch();
+
                     }
                 };
                 this.$('#discover-content').append(this.template());
@@ -383,7 +385,10 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             }
         });
         
+       
+        $('#content-ul-tab a[href="#new"]').tab('show');
         var newView = new NewView();
+
         var discoverView = null;
         $('#content-ul-tab a[href="#discover"]').click(function (e) {
             e.preventDefault();
@@ -392,15 +397,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
               discoverView = new DiscoverView();
             }
         });
-        //$('#content-ul-tab a').click(function (e) {
-          //e.preventDefault()
-          //var $e = $(e);
-          //var id = $this.attr('id');
-          //alert($e.attr('id'));
-          //alert($(this).attr('id'));
-          //alert(e);
-          //var discoverView = new DiscoverView();
-        //});
         
     });
 

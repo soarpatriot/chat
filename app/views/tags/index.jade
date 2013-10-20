@@ -1,0 +1,35 @@
+extends ../layouts/main-layout
+
+block append head
+
+block content
+    body
+
+
+        div.row
+            div.col-md-12
+                ol.breadcrumb
+                    li.active 标签列表
+                    li
+                        a(href='/tags/new') 添加tag
+
+
+
+        div.row
+            div.col-md-12
+                table(class='table table-striped table-bordered table-condensed table-hover table-responsive')
+                    tr
+                        th id
+                        th 关键字
+                        th 名称
+                        th 描述
+
+                    if typeof(tags) !== 'undefined' && tags.length > 0
+                        each tag, i in tags
+                            tr
+                                td #{tag._id}
+                                td #{tag.key}
+                                td #{tag.name}
+                                td #{tag.description}
+
+        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
