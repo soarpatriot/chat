@@ -341,12 +341,11 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 discorverPosts.on('add', this.addOne, this);
                 discorverPosts.on('reset', this.addAll, this);
                 discorverPosts.on('all', this.render, this);
-
                 discorverPosts.fetch({data: {tag: 'discover'}});
-                //
+                
             },
             render: function() {
-                //this.$el.append(this.spinner.el);
+                
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -356,8 +355,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                //console.log("post:"+JSON.stringify(Posts.state));
-                
+
                 discorverPosts.each(this.addOne);
                 var that = this;
                 options = {
@@ -365,7 +363,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     totalPages: discorverPosts.state.totalPages,
                     size: "normal",
                     alignment: "right",
-
+                    tag: 'discover',
                     pageUrl: function(type, page, current){
                         return "#posts/discover/#"+page;
                     },
@@ -374,14 +372,13 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                         that.$spinner.spin({color: '#999999'});
 
                         $('#discover-content').empty();
-                        discorverPosts.getPage(page)
+                        discorverPosts.getPage(page,{data: {tag: 'discover'}})
 
                     }
                 };
                 this.$('#discover-content').append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
                 this.$spinner.spin(false);
-                //this.$spinContainer.remove();
             }
         });
         
