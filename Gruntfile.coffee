@@ -4,8 +4,9 @@ module.exports = (grunt) ->
   ##'public/stylesheets/jquery.fileupload-ui.css',
   ##'public/stylesheets/bootstrap-theme.css',
   cssFiles = ['public/stylesheets/bootstrap.css',
-              'public/stylesheets/animate+animo.css'
-              'public/stylesheets/application.css']
+              'public/stylesheets/animate+animo.css',
+              'public/stylesheets/application.css'
+              'public/stylesheets/chosen.css']
   delOptions = {
     force: true
   };

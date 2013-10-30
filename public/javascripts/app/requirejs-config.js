@@ -32,6 +32,9 @@ require.config({
         },
         'google-html5':{
             exports: 'google-html5'
+        },
+        'chosen': {
+            exports: 'chosen'
         }
 
     },
@@ -57,6 +60,7 @@ require.config({
 
         'Showdown':'showdown',
         'google-html5':'google-code-prettify/html5',
+        'chosen':'chosen.jquery.min',
         /**
         jquery: [
 
