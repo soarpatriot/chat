@@ -10257,19 +10257,16 @@ Daniel Raftery <@ThirvingKings>
 .auto-center-layout {
   margin: 0 auto;
 }
+.back-transparent {
+  background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+  filter: alpha(opacity=20);
+}
 /**all page css**/
 .min-container {
   margin-top: 60px;
   margin-bottom: 40px;
   min-height: 500px;
 }
-/***
-@media (max-width: 760px) {
-  .min-container{
-    margin-top: 0px;
-    min-height: @min-height;
-  }
-}**/
 .grey-font {
   color: #999999;
   font-size: 12px;
@@ -10278,6 +10275,12 @@ Daniel Raftery <@ThirvingKings>
 body {
   font-family: "Microsoft YaHei", "微软雅黑", Tahoma, Arial, "Helvetica Neue", Helvetica, sans-serif, "宋体";
   font-size: 14px;
+}
+.spin-container {
+  top: 0;
+  left: 50%;
+  position: absolute;
+  z-index: 100000;
 }
 /**home page cess**/
 .content-div {

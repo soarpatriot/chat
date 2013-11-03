@@ -93,16 +93,21 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             radius: 10, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
-            color: '#000', // #rgb or #rrggbb
+            color: '#FFFFFF', // #rgb or #rrggbb
             speed: 1, // Rounds per second
             trail: 60, // Afterglow percentage
-            shadow: false, // Whether to render a shadow
-            hwaccel: false, // Whether to use hardware acceleration
+            shadow: true, // Whether to render a shadow
+            hwaccel: true, // Whether to use hardware acceleration
             className: 'spinner', // The CSS class to assign to the spinner
             zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: '100', // Top position relative to parent in px
-            left: '0' // Left position relative to parent in px
+            top: '6', // Top position relative to parent in px
+            left: '-21' // Left position relative to parent in px
         };
+
+        var $spinner = $('<div class="spin-container"></div>');
+        //var $spinner = $('<div class="preview"></div>');
+        $spinner.spin(opts);
+        $('body').append($spinner);
 
         var Posts = new Models.PostList();
             /**
@@ -254,11 +259,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 //var target= document.getElementById('spinner');
                 //this.spinner = new Spinner(opts).spin(target);
                 this.$pager = this.template();
-                this.$spinContainer = $('<div class="spin-container"></div>');
-                this.$spinner = $('<div class="preview"></div>');
-                this.$spinContainer.append(this.$spinner);
-                this.$el.append(this.$spinContainer);
-                this.$spinner.spin({color: '#000000'});
 
 
                 Posts.on('add', this.addOne, this);
@@ -294,7 +294,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     },
                     onPageClicked: function(e,originalEvent,type,page){
                         
-                        that.$spinner.spin({color: '#999999'});
+                        $spinner.spin(opts);
 
                         $('#posts').empty();
                         //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
@@ -308,7 +308,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 this.$('#posts').append(this.template());
                 //$('#pagination-div').bootstrapPaginator(options);
                 this.$('.pagination').bootstrapPaginator(options);
-                this.$spinner.spin(false);
+                $spinner.spin(false);
                 //this.$spinContainer.remove();
             }
         });
@@ -330,12 +330,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 //defin a spinner init
                 //var target= document.getElementById('spinner');
                 //this.spinner = new Spinner(opts).spin(target);
-                
-                this.$spinContainer = $('<div class="spin-container"></div>');
-                this.$spinner = $('<div class="preview"></div>');
-                this.$spinContainer.append(this.$spinner);
-                this.$el.append(this.$spinContainer);
-                this.$spinner.spin({color: '#000000'});
+
 
 
                 discorverPosts.on('add', this.addOne, this);
@@ -369,7 +364,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     },
                     onPageClicked: function(e,originalEvent,type,page){
                         
-                        that.$spinner.spin({color: '#999999'});
+                        $spinner.spin(opts);
 
                         $('#discover-content').empty();
                         discorverPosts.getPage(page,{data: {tag: 'discover'}})
@@ -378,7 +373,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 };
                 this.$('#discover-content').append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
-                this.$spinner.spin(false);
+                $spinner.spin(false);
             }
         });
         

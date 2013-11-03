@@ -34,6 +34,7 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
                             a(href='/review')
                                 span.glyphicon.glyphicon-filter
                                 strong &nbsp;审阅
+                    li(id='li-spinner')
 
                 ul.nav.navbar-nav.navbar-right
                     if typeof(user) === 'undefined' || user === null || user === ''

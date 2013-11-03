@@ -61,7 +61,10 @@
   background-image: -moz-linear-gradient(top, #E0E0E0 0%, rgba(44, 38, 63, @alpha) 100%);
   background-image: linear-gradient(top, #E0E0E0 0%, rgba(44, 38, 63, @alpha) 100%);
 }
-
+.back-transparent{
+  background:rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
+  filter:Alpha(opacity=20);
+}
 
 
 /**all page css**/
@@ -69,14 +72,6 @@
   .page-margin;
   min-height: @min-height;
 }
-
-/***
-@media (max-width: 760px) {
-  .min-container{
-    margin-top: 0px;
-    min-height: @min-height;
-  }
-}**/
 
 .grey-font{
   color: #999999;
@@ -87,6 +82,13 @@
 body {
   .global-font;
 
+}
+
+.spin-container{
+  top:0;
+  left:50%;
+  position:absolute;
+  z-index: 100000;
 }
 
 /**home page cess**/
