@@ -1,0 +1,19 @@
+
+legend 添加标签
+div.form-group
+    div.row
+        div.col-md-6
+            label(for='key') 关键字：
+            input(name='tag[key]',type='text',class='form-control',placeholder='最多40字符',type='text',value='#{tag.key}',maxlength='40',required,data-validation-maxlength-message='标题不能超过40个字符！')
+    div.row
+        div.col-md-6
+            label(for='name') 名称：
+            input(name='tag[name]',type='text',class='form-control',placeholder='最多40字符',type='text',value='#{tag.name}',maxlength='40',required,data-validation-maxlength-message='标题不能超过40个字符！')
+div.form-group
+    label( for='content') 描述：
+    div.row
+        div.col-md-12
+            textarea(id='editor-area',class='form-control', name='tag[description]',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
+                | #{tag.description}
+
+

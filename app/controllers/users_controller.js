@@ -129,9 +129,10 @@ exports.doReg = function(req, res){
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
 
-    var newUser = new User({
-        name: req.body.username,
+    var userName = req.body.username.toLowerCase();
 
+    var newUser = new User({
+        name: userName,
         password: password,
         email: req.body.email
     });
@@ -350,6 +351,44 @@ exports.loadUser = function(req, res, next) {
         next();
     }
 }
+
+
+/**
+ * check the user is admin or not
+ * @param req
+ * @param res
+ * @param next
+ */
+exports.checkAdmin = function(req, res, next) {
+    // You would fetch your user from the db
+    var userId = req.session.userId;
+    if(!_.isNull(userId) && !_.isUndefined(userId)){
+        User.findOne({'_id': userId}, function(err, user){
+            if(err){
+                req.flash('error',err);
+                console.log(err);
+                return res.redirect('/');
+            }else{
+                req.user = user;
+                if (user.name){
+                    if(user.name.toUpperCase()=='Soar'.toUpperCase()){
+                        next();
+                    }else{
+                        req.flash('error','您访问的资源不存在！');
+                        return res.redirect('/');
+                    }
+                }else{
+                    req.flash('error','您访问的资源不存在！');
+                    return res.redirect('/');
+                }
+            }
+        });
+    }else{
+        return res.redirect('/');
+    }
+}
+
+
 /**
 exports.saveProfile = function(req, res){
     // 获得文件的临时路径

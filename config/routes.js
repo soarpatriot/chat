@@ -58,7 +58,13 @@ exports.createRoutes = function(app){
     app.post('/review',user.loadUser,review.do);
 
     //tag management
+    app.all('/tags*',user.checkAdmin);
     app.get('/tags',user.loadUser,tags.index);
     app.get('/tags/new',user.loadUser,tags.new);
+    app.get('/tags/:id/edit',user.loadUser,tags.edit);
+    app.put('/tags',user.loadUser,tags.doEdit);
     app.post('/tags',user.loadUser,tags.create);
+    app.delete('/tags',user.loadUser,tags.destroy);
+
+
 }

@@ -1,0 +1,33 @@
+extends ../layouts/main-layout
+
+block append head
+
+block content
+    body
+        div.row
+            div.col-md-12
+                ol.breadcrumb
+                    li
+                        a(href='/tags') 标签列表
+                    li.active 添加tag
+        div.row
+            div.col-md-12
+                form(action='/tags',method='post')
+                    input(name='_method',value='put',type='hidden')
+                    input(name='tag[_id]',value='#{tag._id}',type='hidden')
+                    include _form
+                    div.form-group
+                        button(type='submit', class='btn btn-success') 确认
+        <!-- guide dialog -->
+        div(id='guide-makedown',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            div.modal-dialog.width70percent
+                div.modal-content
+                    div.modal-header
+                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
+                            &times;
+                        h5 编辑器使用说明
+
+
+                    div.modal-footer
+                        p powered by github makedown
+        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')

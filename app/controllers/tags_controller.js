@@ -37,6 +37,52 @@
     });
   };
 
+  exports.edit = function(req, res) {
+    var id;
+    id = req.params.id;
+    console.log('id' + id);
+    return Tag.findOne({
+      '_id': id
+    }, function(err, tag) {
+      if (err) {
+        req.flash('error', err);
+        return res.redirect('/tags');
+      }
+      return res.render('tags/edit', {
+        title: '修改',
+        user: req.user,
+        currentLink: 'MICRO',
+        tag: tag,
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+      });
+    });
+  };
+
+  exports.doEdit = function(req, res) {
+    var id, tagData;
+    tagData = req.body.tag;
+    id = tagData._id;
+    delete tagData._id;
+    console.log(tagData);
+    return Tag.update({
+      _id: id
+    }, tagData, {
+      multi: true
+    }, function(err, numberAffected, raw) {
+      if (err) {
+        console.log(err);
+        req.flash('error').toString();
+        return res.redirect('/tags/' + tagData._id + '/edit');
+      } else {
+        console.log('success');
+        console.log(numberAffected + raw);
+        req.flash('success', 'tag 修改成功！');
+        return res.redirect('/tags');
+      }
+    });
+  };
+
   exports.create = function(req, res) {
     var tag, tagData;
     tagData = req.body.tag;
@@ -54,6 +100,20 @@
       } else {
         req.flash('success', 'tag 添加成功！');
         return res.redirect('/tags');
+      }
+    });
+  };
+
+  exports.destroy = function(req, res) {
+    return Tag.remove({
+      _id: req.body.tagId
+    }, function(err) {
+      if (err) {
+        req.flash('error', '删除失败！');
+        return res.redirect('/tags/');
+      } else {
+        req.flash('success', '删除成功！');
+        return res.redirect('/tags/');
       }
     });
   };

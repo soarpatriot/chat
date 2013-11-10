@@ -23,6 +23,7 @@ block content
                         th 关键字
                         th 名称
                         th 描述
+                        th 操作
 
                     if typeof(tags) !== 'undefined' && tags.length > 0
                         each tag, i in tags
@@ -31,5 +32,28 @@ block content
                                 td #{tag.key}
                                 td #{tag.name}
                                 td #{tag.description}
+                                td
+                                    a(href='/tags/#{tag._id}/edit',class='btn btn-primary') 修改
+                                    a(name='delete-tag-btn',data-tag-id='#{tag._id}',href='#delete',class='btn btn-danger') 删除
+        form(id='delete-tag-form',action='/tags',method='post')
+            input(type='hidden',name='_method',value='delete')
+            input(id='tag-id-hidden',type='hidden',name='tagId')
 
-        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
+        <!-- confirm dialog -->
+        div(id='tag-del-confirm',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
+                            &times;
+                        h4 此操作将不可回退
+
+                    div.modal-body
+
+                        p
+                        p.alert.alert-danger 真的要删除tag吗？ 请注意，tag删除后将影响发布类型
+
+                    div.modal-footer
+                        a(id='cancel-del-btn',href='#',class='btn') 取消
+                        a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
+        script(data-main='/build/app/tag',src='/javascripts/require.js?v=#{appVersion}')
