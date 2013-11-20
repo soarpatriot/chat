@@ -4,44 +4,44 @@ block append head
 
 block content
     body
-        div(id='review-container',class='container')
-            div(class='row')
-                div(id='post-content',class='col-md-8')
-                    div(class='row')
-                        div(class='col-md-12')
-                            h4 #{post.title}
-                    hr
-                    div(class='row')
-                        div(class='col-md-12')
-                            div.word-break-wrap
-                                !{post.content}
 
-                form(id='review-form',action='/review',method='post')
-                    input(id='post-id',type='hidden',name='postId',value='#{post._id}')
-                    input(id='passed',type='hidden',name='passed',value='')
-                div(class='col-md-4')
-                    h3 我觉得这篇文章
-                    p 有下列情景
-                        ul
-                            li 政治
-                            li 低俗
-                            li 广告
-                            li 坟
-                            li 无意义
-                    p
-                        button(id='veto', class='btn btn-danger btn-large',name='veto',value='不能发表') 不能发表
-                    p 有如下情况
-                        ul
-                            li 内容真实
-                            li 有积极意义
-                            li 需要援助
-                    p
-                        button(id='support', class='btn btn-success btn-large',name='support',value='可以发表') 可以发表
-                <!-- Templates -->
-                script(type='text/template',id='post-template')
-                    div(class='row')
-                        div(class='col-md-8') <%- title %>
-                    div(class='row-fluid')
-                        div(class='col-md-8') <%- content %>
+        div(class='row')
+            div(id='post-content',class='col-md-8')
+                div(class='row')
+                    div(class='col-md-12')
+                        h4 #{post.title}
+                hr
+                div(class='row')
+                    div(class='col-md-12')
+                        div.word-break-wrap
+                            !{post.content}
+
+            form(id='review-form',action='/review',method='post')
+                input(id='post-id',type='hidden',name='postId',value='#{post._id}')
+                input(id='passed',type='hidden',name='passed',value='')
+            div(class='col-md-4')
+                h3 我觉得这篇文章
+                p 有下列情景
+                    ul
+                        li 政治
+                        li 低俗
+                        li 广告
+                        li 坟
+                        li 无意义
+                p
+                    button(id='veto', class='btn btn-danger btn-large',name='veto',value='不能发表') 不能发表
+                p 有如下情况
+                    ul
+                        li 内容真实
+                        li 有积极意义
+                        li 需要援助
+                p
+                    button(id='support', class='btn btn-success btn-large',name='support',value='可以发表') 可以发表
+            <!-- Templates -->
+            script(type='text/template',id='post-template')
+                div(class='row')
+                    div(class='col-md-8') <%- title %>
+                div(class='row-fluid')
+                    div(class='col-md-8') <%- content %>
 
         script(data-main='/build/app/review',src='/javascripts/require.js?v=#{appVersion}')
