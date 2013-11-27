@@ -29,14 +29,14 @@ block content
                         li 坟
                         li 无意义
                 p
-                    button(id='veto', class='btn btn-danger btn-large',name='veto',value='不能发表') 不能发表
+                    button(id='veto', class='btn btn-danger btn-large',data-loading-text='Loading...',name='veto',value='不能发表') 不能发表
                 p 有如下情况
                     ul
                         li 内容真实
                         li 有积极意义
                         li 需要援助
                 p
-                    button(id='support', class='btn btn-success btn-large',name='support',value='可以发表') 可以发表
+                    button(id='support', data-loading-text='Loading...',class='btn btn-success btn-large',name='support',value='可以发表') 可以发表
             <!-- Templates -->
             script(type='text/template',id='post-template')
                 div(class='row')

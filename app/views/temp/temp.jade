@@ -27,7 +27,18 @@ li
 
 
 
-
+div.row.comment
+                        div.col-md-1
+                            div.discussion-bubble
+                                img(src='#{comment.creator.thumbnails}',class='img-rounded face-thumbnails')
+                        div.col-md-11
+                            div.row
+                                div.col-md-2.marketing-byline
+                                    a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
+                                    span(class='pull-right comment-header-date') #{comment.fromNow}
+                            div.row
+                                div.col-md-12
+                                    !{comment.content}
 
 
 
