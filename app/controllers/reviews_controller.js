@@ -44,12 +44,13 @@ exports.index = function(req, res){
 
             if(_.isEmpty(post)){
                 post = new Post({
-                    title: '无需要审阅的内容',
+                    _id:'empty',
+                    title: '暂无新发现需审核！',
                     content: '赶快发布自己的。。。。'
                 });
                 error = '暂无需要审阅的文章！'
             }else{
-                console.log(post);
+
                 var html = md(post.content);
                 html = html.replace(/\{([^}]+)\}/g, function(_, name){
                     return options[name] || '';

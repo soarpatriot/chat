@@ -5,16 +5,48 @@
 
 
 (function() {
+  require.config({
+    baseUrl: '/javascripts',
+    shim: {
+      'underscore': {
+        exports: '_'
+      },
+      'bootstrap': {
+        deps: ['jquery']
+      }
+    },
+    paths: {
+      'jquery': 'jquery-1.9.1.min',
+      'bootstrap': 'bootstrap.min',
+      'underscore': 'underscore'
+    }
+  });
+
   require(['jquery', 'underscore', 'bootstrap'], function($, _) {
     return $(function() {
-      var check;
+      var btnInterval, check, postId, supportText, timeLeft, voteText, wait;
+      postId = $('#post-id').val();
+      wait = 15000;
+      supportText = $('#support').text();
+      voteText = $('#veto').text();
+      $('#support').button('loading');
+      $('#veto').button('loading');
+      timeLeft = function() {
+        var waitSecond;
+        waitSecond = wait / 1000;
+        $('#support').text(supportText + '(' + waitSecond + ')');
+        $('#veto').text(voteText + '(' + waitSecond + ')');
+        if (wait <= 0) {
+          $('#support').button('reset');
+          $('#veto').button('reset');
+          clearInterval(btnInterval);
+        }
+        return wait = wait - 1000;
+      };
+      if (postId && postId !== 'empty') {
+        btnInterval = setInterval(timeLeft, 1000);
+      }
       $('#support').click(function() {
-        var btn;
-        btn = $(this);
-        btn.button('loading');
-        setTimeout(function() {
-          return btn.button('reset');
-        }, 3000);
         if (check()) {
           $('#passed').attr({
             value: 'true'
@@ -25,12 +57,7 @@
         }
       });
       $('#veto').click(function() {
-        var btn;
-        btn = $(this);
-        btn.button('loading');
-        setTimeout(function() {
-          return btn.button('reset');
-        }, 3000);
+        btn.button('reset');
         if (check()) {
           $('#passed').attr({
             value: 'false'
@@ -41,7 +68,7 @@
         }
       });
       return check = function() {
-        var postId, valid;
+        var valid;
         postId = $('#post-id').val();
         return valid = _.isNull(postId) ? false : true;
       };

@@ -17,8 +17,9 @@ block content
                             !{post.content}
 
             form(id='review-form',action='/review',method='post')
-                input(id='post-id',type='hidden',name='postId',value='#{post._id}')
-                input(id='passed',type='hidden',name='passed',value='')
+                if(post._id)
+                    input(id='post-id',type='hidden',name='postId',value='#{post._id}')
+                    input(id='passed',type='hidden',name='passed',value='')
             div(class='col-md-4')
                 h3 我觉得这篇文章
                 p 有下列情景
@@ -29,14 +30,14 @@ block content
                         li 坟
                         li 无意义
                 p
-                    button(id='veto', type='button',class='btn btn-danger btn-large',data-loading-text='Loading...',name='veto') 不能发表
+                    button(id='veto', type='button',class='btn btn-danger btn-large',disabled='disabled',data-loading-text='不能发表...',name='veto') 不能发表
                 p 有如下情况
                     ul
                         li 内容真实
                         li 有积极意义
                         li 需要援助
                 p
-                    button(id='support', data-loading-text='Loading...',class='btn btn-success btn-large',name='support') 可以发表
+                    button(id='support', disabled='disabled',data-loading-text='可以发表...',class='btn btn-success btn-large',name='support') 可以发表
             <!-- Templates -->
             script(type='text/template',id='post-template')
                 div(class='row')
@@ -44,4 +45,4 @@ block content
                 div(class='row-fluid')
                     div(class='col-md-8') <%- content %>
 
-        script(data-main='/build/app/review',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/review',src='/javascripts/require.js?v=#{appVersion}')
