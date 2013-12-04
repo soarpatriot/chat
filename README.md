@@ -1,7 +1,7 @@
 
 
 ### Welcome to Chat World ###
-varsion 0.3.1.8
+varsion 0.3.1.11
 Currently,  it is just nightly build, can not assure stable.
 
 [Ugly demo](http://www.soaror.com)

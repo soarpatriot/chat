@@ -98,6 +98,11 @@ exports.reg = function(req, res){
 
     res.render('users/reg',{
         title: '注册',
+        
+        username: req.flash('username'),
+        password: req.flash('password'),
+        passRepeat: req.flash('passRepeat'),
+        email: req.flash('email'),
 
         success: req.flash('success').toString(),
         error: req.flash('error').toString()
@@ -105,6 +110,13 @@ exports.reg = function(req, res){
 
 }
 
+
+var flasUserToClient = function(req){
+    req.flash('username',req.body.username);
+    req.flash('password',req.body.password);
+    req.flash('passRepeat',req.body['passRepeat']);
+    req.flash('email',req.body.email);
+}
 /**
  * do the register function
  *
@@ -115,13 +127,10 @@ exports.reg = function(req, res){
 exports.doReg = function(req, res){
 
     //console.log("jj:"+JSON.stringify(req.body.user));
-    if(req.body['password-repeat'] != req.body['password']){
+    if(req.body['passRepeat'] != req.body['password']){
         req.flash('error','两次输入密码不一致');
 
-        req.flash('username',req.body.username);
-        //req.flash('password',req.body.password);
-        //req.flash('password-repeat',req.body.password-repeat);
-        req.flash('email',req.body.email);
+        flasUserToClient(req);
 
         return res.redirect('/reg');
     }
@@ -139,24 +148,25 @@ exports.doReg = function(req, res){
 
     User.findOne({'name': newUser.name}, function(err, user){
         //throw new Error('something broke!');
+        
         if(err){
-            if(err){
-                req.flash('error',err);
-                console.log(err);
-                return res.redirect('/reg');
-            }
+            req.flash('error',err);
+            flasUserToClient(req);
+            console.log(err);
+            return res.redirect('/reg');
         }
 
         if(user){
             err = '用户名已经存在,请更换其它用户名...';
             req.flash('error',err);
-            console.log(err);
+            flasUserToClient(req);
             return res.redirect('/reg');
         }else{
 
             newUser.save(function(err){
                 if(err){
                     req.flash('error',err);
+                    flasUserToClient(req);
                     console.log(err);
                     return res.redirect('/reg');
                 }
@@ -168,6 +178,8 @@ exports.doReg = function(req, res){
 
     });
 }
+
+
 
 /**
  * nav to log page
