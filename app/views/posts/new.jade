@@ -24,10 +24,13 @@ block content
                                 label(for='title') 标签：
                         div.row
                             div.col-md-6
-                                select(id='tag-select',name='tag',class='chosen-select tag-select')
+                                select(id='tag-select',name='tag')
                                     if typeof(tags) !== 'undefined' && tags.length > 0
                                         each tag, i in tags
                                             option(value='#{tag._id}') #{tag.name}
+                        div.row
+                            div.col-md-6
+                                select(id='country-select',name='country')
 
 
                     div.form-group
@@ -139,4 +142,4 @@ block content
 
                     div.modal-footer
                         p powered by github makedown
-        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/post-article',src='/javascripts/require.js?v=#{appVersion}')

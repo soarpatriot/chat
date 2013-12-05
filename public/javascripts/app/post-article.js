@@ -11,6 +11,9 @@
       'bootstrap': {
         deps: ['jquery']
       },
+      'underscore': {
+        exports: '_'
+      },
       'Showdown': {
         exports: 'Showdown'
       },
@@ -23,14 +26,37 @@
       'bootstrap': 'bootstrap.min',
       'Showdown': 'showdown',
       'chosen': 'chosen.jquery.min',
-      'jqBootstrapValidation': 'jqBootstrapValidation-1.3.7.min'
+      'select2': 'select2',
+      'jqBootstrapValidation': 'jqBootstrapValidation-1.3.7.min',
+      'area': 'app/area',
+      'underscore': 'underscore'
     }
   });
 
-  require(['jquery', 'Showdown', 'bootstrap', 'chosen', 'jqBootstrapValidation'], function($, Showdown) {
-    var converter;
-    $("#tag-select").chosen({
-      no_results_text: "没有匹配的查找项！"
+  require(['jquery', 'Showdown', 'underscore', 'area', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation'], function($, Showdown, _, Area) {
+    /*
+     $("#tag-select").chosen({no_results_text: "没有匹配的查找项！"});
+    */
+
+    var converter, countries, country, options, _i, _len;
+    $("#tag-select").select2();
+    countries = _.map(Area, function(places, key) {
+      return places;
+    });
+    options = "";
+    for (_i = 0, _len = countries.length; _i < _len; _i++) {
+      country = countries[_i];
+      options += '<option value="' + country.id + '">' + country.text + '</option>';
+    }
+    $("#country-select").append(options);
+    $("#country-select").select2();
+    $("#country-select").on("change", function() {
+      var district;
+      country = $(this).val();
+      district = _.map(Area[country].places, function(places, key) {
+        return places;
+      });
+      return console.log(district);
     });
     $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();

@@ -5,8 +5,9 @@ module.exports = (grunt) ->
   ##'public/stylesheets/bootstrap-theme.css',
   cssFiles = ['public/stylesheets/bootstrap.css',
               'public/stylesheets/animate+animo.css',
-              'public/stylesheets/application.css'
-              'public/stylesheets/chosen.css']
+              'public/stylesheets/select2.css',
+              'public/stylesheets/chosen.css',
+              'public/stylesheets/application.css']
   delOptions = {
     force: true
   };
