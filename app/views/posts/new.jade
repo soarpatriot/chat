@@ -30,8 +30,18 @@ block content
                                             option(value='#{tag._id}') #{tag.name}
                         div.row
                             div.col-md-6
-                                select(id='country-select',name='country')
-
+                                label(for='title') 地点：
+                        div.row
+                            div(id='country-div',class='col-md-2')
+                                select(id='country-select',data-placeholder='选择国家',class='select-100percent',name='country')
+                                    option
+                            div(id='province-div',class='col-md-2 hidden')
+                                select(id='province-select',data-placeholder='选择省份',class='select-100percent',name='province')
+                                    option
+                            div(id='district-div',class='col-md-2 hidden')
+                                select(id='district-select',class='select-100percent',name='district')
+                            div(id='county-div',class='col-md-2 hidden')
+                                select(id='county-select',class='select-100percent',name='county')
 
                     div.form-group
                         label( for='content') 内容：

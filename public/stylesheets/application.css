@@ -243,6 +243,9 @@ body {
 .width70percent {
   width: 70%;
 }
+.select-100percent {
+  width: 100%;
+}
 .post-content {
   border: 2px solid #f5f5f5;
   padding-top: 10px;

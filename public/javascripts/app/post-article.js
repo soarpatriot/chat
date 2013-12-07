@@ -38,25 +38,96 @@
      $("#tag-select").chosen({no_results_text: "没有匹配的查找项！"});
     */
 
-    var converter, countries, country, options, _i, _len;
+    var converter, countries, intertOptions;
     $("#tag-select").select2();
+    $("#country-select").select2({
+      placeholder: "Select a State",
+      allowClear: true
+    });
+    $("#province-select").select2();
+    $("#district-select").select2();
+    $("#county-select").select2();
+    intertOptions = function(id, data, emptyText) {
+      var opt, options, _i, _len;
+      $("#" + id).empty();
+      $("#" + id).select2("val", "");
+      options = '<option></option>';
+      for (_i = 0, _len = data.length; _i < _len; _i++) {
+        opt = data[_i];
+        options += '<option value="' + opt.id + '">' + opt.text + '</option>';
+      }
+      if (options) {
+        return $("#" + id).append(options);
+      }
+    };
     countries = _.map(Area, function(places, key) {
       return places;
     });
-    options = "";
-    for (_i = 0, _len = countries.length; _i < _len; _i++) {
-      country = countries[_i];
-      options += '<option value="' + country.id + '">' + country.text + '</option>';
-    }
-    $("#country-select").append(options);
-    $("#country-select").select2();
-    $("#country-select").on("change", function() {
-      var district;
+    intertOptions("country-select", countries, "选择国家");
+    $("#country-select").on("select2-close", function() {
+      var country, provinces;
+      $("#province-div").addClass('hidden');
+      $("#province-select").select2("enable", false);
+      $("#district-div").addClass('hidden');
+      $("#district-select").select2("enable", false);
+      $("#county-div").addClass('hidden');
+      $("#county-select").select2("enable", false);
       country = $(this).val();
-      district = _.map(Area[country].places, function(places, key) {
+      console.log(country);
+      provinces = _.map(Area[country].places, function(places, key) {
         return places;
       });
-      return console.log(district);
+      if (provinces && provinces.length > 0) {
+        $("#province-select").select2("enable", true);
+        $("#province-div").removeClass('hidden');
+        return intertOptions("province-select", provinces, "选择省份，直辖市");
+      }
+    });
+    $("#province-select").on("select2-close", function() {
+      var country, districts, province;
+      $("#district-div").addClass('hidden');
+      $("#county-div").addClass('hidden');
+      $("#county-select").select2("enable", false);
+      $("#district-select").select2("enable", false);
+      country = $("#country-select").val();
+      province = $(this).val();
+      if (province) {
+        districts = _.map(Area[country]["places"][province]["places"], function(places, key) {
+          return places;
+        });
+      }
+      if (districts && districts.length > 0) {
+        $("#district-select").select2("enable", true);
+        $("#district-div").removeClass('hidden');
+        return intertOptions("district-select", districts, "选择市,区");
+      }
+    });
+    $("#district-select").on("select2-close", function() {
+      var counties, country, district, province;
+      $("#county-div").addClass('hidden');
+      $("#county-select").select2("enable", false);
+      country = $("#country-select").val();
+      province = $("#province-select").val();
+      district = $(this).val();
+      if (district) {
+        counties = _.map(Area[country]["places"][province]["places"][district]["places"], function(places, key) {
+          return places;
+        });
+      }
+      if (counties && counties.length > 0) {
+        $("#county-select").select2("enable", true);
+        $("#county-div").removeClass('hidden');
+        return intertOptions("county-select", counties, "选择县");
+      }
+      /*
+      $("#province-select").empty()
+      $("#province-select").select2("val", "")
+      options = ""
+      for province in provinces
+        options += '<option value="'+province.id+'">'+province.text+'</option>'
+      if options then $("#province-select").append options
+      */
+
     });
     $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();
