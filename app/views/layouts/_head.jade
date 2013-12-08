@@ -12,7 +12,7 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
             div.navbar-collapse.collapse
                 ul.nav.navbar-nav
 
-                    if( currentLink && currentLink === 'HOME')
+                    if !typeof(currentLink) && currentLink === 'HOME'
                         li.active
 
                             a(href='/')
@@ -24,7 +24,7 @@ div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
 
                                 span.glyphicon.glyphicon-home
                                 strong &nbsp;主页
-                    if( currentLink && currentLink === 'REVIEW')
+                    if( !typeof(currentLink) && currentLink === 'REVIEW')
                         li.active
                             a(href='/review')
                                 span.glyphicon.glyphicon-filter

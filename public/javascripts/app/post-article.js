@@ -34,62 +34,41 @@
   });
 
   require(['jquery', 'Showdown', 'underscore', 'area', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation'], function($, Showdown, _, Area) {
-    /*
-     $("#tag-select").chosen({no_results_text: "没有匹配的查找项！"});
-    */
-
-    var converter, countries, intertOptions;
+    var converter;
     $("#tag-select").select2();
-    $("#country-select").select2({
-      placeholder: "Select a State",
-      allowClear: true
+    $("#country-input").select2({
+      placeholder: "选择国家",
+      data: countries
     });
-    $("#province-select").select2();
-    $("#district-select").select2();
-    $("#county-select").select2();
-    intertOptions = function(id, data, emptyText) {
-      var opt, options, _i, _len;
-      $("#" + id).empty();
-      $("#" + id).select2("val", "");
-      options = '<option></option>';
-      for (_i = 0, _len = data.length; _i < _len; _i++) {
-        opt = data[_i];
-        options += '<option value="' + opt.id + '">' + opt.text + '</option>';
-      }
-      if (options) {
-        return $("#" + id).append(options);
-      }
-    };
-    countries = _.map(Area, function(places, key) {
-      return places;
-    });
-    intertOptions("country-select", countries, "选择国家");
-    $("#country-select").on("select2-close", function() {
+    $("#country-input").on("select2-close", function() {
       var country, provinces;
       $("#province-div").addClass('hidden');
-      $("#province-select").select2("enable", false);
+      $("#province-input").select2("enable", false);
       $("#district-div").addClass('hidden');
-      $("#district-select").select2("enable", false);
+      $("#district-input").select2("enable", false);
       $("#county-div").addClass('hidden');
-      $("#county-select").select2("enable", false);
+      $("#county-input").select2("enable", false);
       country = $(this).val();
       console.log(country);
       provinces = _.map(Area[country].places, function(places, key) {
         return places;
       });
       if (provinces && provinces.length > 0) {
-        $("#province-select").select2("enable", true);
-        $("#province-div").removeClass('hidden');
-        return intertOptions("province-select", provinces, "选择省份，直辖市");
+        $("#province-input").select2("enable", true);
+        $("#province-input").select2({
+          placeholder: "择省份，直辖市",
+          data: provinces
+        });
+        return $("#province-div").removeClass('hidden');
       }
     });
-    $("#province-select").on("select2-close", function() {
+    $("#province-input").on("select2-close", function() {
       var country, districts, province;
       $("#district-div").addClass('hidden');
       $("#county-div").addClass('hidden');
-      $("#county-select").select2("enable", false);
-      $("#district-select").select2("enable", false);
-      country = $("#country-select").val();
+      $("#county-input").select2("enable", false);
+      $("#district-input").select2("enable", false);
+      country = $("#country-input").val();
       province = $(this).val();
       if (province) {
         districts = _.map(Area[country]["places"][province]["places"], function(places, key) {
@@ -97,17 +76,20 @@
         });
       }
       if (districts && districts.length > 0) {
-        $("#district-select").select2("enable", true);
-        $("#district-div").removeClass('hidden');
-        return intertOptions("district-select", districts, "选择市,区");
+        $("#district-input").select2("enable", true);
+        $("#district-input").select2({
+          placeholder: "选择市,区",
+          data: districts
+        });
+        return $("#district-div").removeClass('hidden');
       }
     });
-    $("#district-select").on("select2-close", function() {
+    $("#district-input").on("select2-close", function() {
       var counties, country, district, province;
       $("#county-div").addClass('hidden');
-      $("#county-select").select2("enable", false);
-      country = $("#country-select").val();
-      province = $("#province-select").val();
+      $("#county-input").select2("enable", false);
+      country = $("#country-input").val();
+      province = $("#province-input").val();
       district = $(this).val();
       if (district) {
         counties = _.map(Area[country]["places"][province]["places"][district]["places"], function(places, key) {
@@ -115,9 +97,12 @@
         });
       }
       if (counties && counties.length > 0) {
-        $("#county-select").select2("enable", true);
-        $("#county-div").removeClass('hidden');
-        return intertOptions("county-select", counties, "选择县");
+        $("#county-input").select2("enable", true);
+        $("#county-input").select2({
+          placeholder: "选择县",
+          data: counties
+        });
+        return $("#county-div").removeClass('hidden');
       }
       /*
       $("#province-select").empty()
@@ -129,14 +114,24 @@
       */
 
     });
+    $("#submit-btn").click(function() {
+      var content;
+      content = $("#editor-area").text();
+      console.log(content);
+      $("#content-hidden").val(content);
+      return $("#post-form").submit();
+    });
     $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();
     return $("#editor-area").keyup(function() {
       var html, txt;
-      txt = $("#editor-area").val();
+      txt = $("#editor-area").text();
       html = converter.makeHtml(txt);
-      $("#preview-content").html(html);
-      return $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"));
+      return $("#preview-content").html(html);
+      /*
+       $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"))
+      */
+
     });
   });
 

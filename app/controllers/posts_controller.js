@@ -61,6 +61,14 @@ exports.create = function(req, res){
     var content =  req.body.content;
     var title = req.body.title;
     var tag = req.body.tag;
+
+    var country = req.body.country || '';
+    var province = req.body.province || '';
+    var district = req.body.district || '';
+    var county = req.body.county || '';
+
+    console.log("country:"+country+" province:"+province," district:"+district," county:"+county)
+
     if(currentUser === null){
         req.flash('error','请先登录！ ');
         return res.redirect('/login');

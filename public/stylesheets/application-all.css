@@ -11815,6 +11815,11 @@ body {
   padding-top: 20px;
   min-height: 200px;
 }
+.content-editor-div {
+  padding: 5px;
+  min-height: 200px;
+  border: 1px solid #dddddd;
+}
 .tag-select {
   width: 20%;
 }

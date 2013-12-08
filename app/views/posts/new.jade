@@ -9,7 +9,7 @@ block content
             | 发布的文章通过审核后读者才能看到
         div.row
             div.col-md-12
-                form(action='/posts',method='post')
+                form(id='post-form',action='/posts',method='post')
                     legend 发表
                     div.form-group
                         div.row
@@ -33,16 +33,13 @@ block content
                                 label(for='title') 地点：
                         div.row
                             div(id='country-div',class='col-md-2')
-                                select(id='country-select',data-placeholder='选择国家',class='select-100percent',name='country')
-                                    option
+                                input(id='country-input',type='hidden',class='select-100percent',name='country')
                             div(id='province-div',class='col-md-2 hidden')
-                                select(id='province-select',data-placeholder='选择省份',class='select-100percent',name='province')
-                                    option
+                                input(id='province-input',type='hidden',class='select-100percent',name='province')
                             div(id='district-div',class='col-md-2 hidden')
-                                select(id='district-select',class='select-100percent',name='district')
+                                input(id='district-input',type='hidden',class='select-100percent',name='district')
                             div(id='county-div',class='col-md-2 hidden')
-                                select(id='county-select',class='select-100percent',name='county')
-
+                                input(id='county-input',type='hidden',class='select-100percent',name='county')
                     div.form-group
                         label( for='content') 内容：
                         div.row
@@ -66,13 +63,14 @@ block content
                                     div(class='tab-content')
                                         div(class='tab-pane active',id='write')
                                             div(id='posts',class='padding-top20')
-                                                textarea(id='editor-area',class='form-control', name='content',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
+                                                input(id='content-hidden',type='hidden',name='content')
+                                                div(id='editor-area', class='content-editor-div',contenteditable='true',maxlength='2000',data-validation-maxlength-message='内容不能超过2000个字符！')
                                         div(class='tab-pane',id='preview')
                                             div(id='preview-content',class='preview-content-div')
                                                 
                                 
                     div.form-group
-                        button(type='submit', class='btn btn-success') 发言
+                        button(id='submit-btn', class='btn btn-success') 发言
         <!-- guide dialog -->
         div(id='guide-makedown',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
             div.modal-dialog.width70percent

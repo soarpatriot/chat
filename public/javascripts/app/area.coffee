@@ -16,8 +16,9 @@ define [], ->
             text:"北京"
             places :
               haidian:
+                id:'haidian'
                 order:1
-                name:"海淀区"
+                text:"海淀区"
 
 
           tianjin:
