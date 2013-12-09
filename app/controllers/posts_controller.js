@@ -62,12 +62,19 @@ exports.create = function(req, res){
     var title = req.body.title;
     var tag = req.body.tag;
 
-    var country = req.body.country || '';
-    var province = req.body.province || '';
-    var district = req.body.district || '';
-    var county = req.body.county || '';
+    var countryId = req.body.countryId || '';
+    var provinceId = req.body.provinceId || '';
+    var districtId = req.body.districtId || '';
+    var countyId = req.body.countyId || '';
 
-    console.log("country:"+country+" province:"+province," district:"+district," county:"+county)
+    var countryText = req.body.countryText || '';
+    var provinceText = req.body.provinceText || '';
+    var districtText = req.body.districtText || '';
+    var countyText = req.body.countyText || '';
+
+    console.log("countryId:"+countryId+" provinceId:"+provinceId," districtId:"+districtId," countyId:"+countyId)
+    console.log("countryText:"+countryText+" provinceText:"+provinceText," districtText:"+districtText," countyId:"+countyText)
+
 
     if(currentUser === null){
         req.flash('error','请先登录！ ');
@@ -89,7 +96,17 @@ exports.create = function(req, res){
         content: content,
         title: title,
         tag: tag,
-        creator:currentUser._id
+        creator:currentUser._id,
+
+        countryId:countryId,
+        countryText:countryText,
+        provinceId:provinceId,
+        provinceText:provinceText,
+        districtId:districtId,
+        districtText:districtText,
+        countyId:countyId,
+        countyText:countyText
+
     });
 
     post.save(function(err){

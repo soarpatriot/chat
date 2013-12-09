@@ -6,10 +6,15 @@ script(type="text/template",id="item-template")
                 a('href=/users/"<%- creator._id %>"')
                     img('src="<%- creator.thumbnails %>"',class='img-polaroid img-rounded')
                 | &nbsp;&nbsp;&nbsp;
+
                 a('href=/posts/"<%- _id %>"') <%- title %>
 
         div.col-md-4
             div.pull-right
+
+                span.text-warning &nbsp; <%- location %> &nbsp;
+
+
                 span(class='badge') 评论 <%= comments.length %>
     div.row
         div.col-md-12

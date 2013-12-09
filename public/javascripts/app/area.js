@@ -52,7 +52,7 @@
                 id: "shijiazhuang",
                 text: "石家庄",
                 places: {
-                  yuxian: {
+                  hepingqu: {
                     order: 1,
                     id: "hepingqu",
                     text: "和平区"

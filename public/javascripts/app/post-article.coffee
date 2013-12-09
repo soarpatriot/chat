@@ -33,6 +33,7 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
 
   $("#tag-select").select2()
 
+  countries = _.map Area, (places,key) -> places
   $("#country-input").select2(placeholder:"选择国家",data:countries)
 
   $("#country-input").on "select2-close",->
@@ -45,8 +46,9 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
     $("#county-input").select2 "enable",false
 
     country = $(this).val()
-    console.log country
-    provinces = _.map Area[country].places, (places,key) -> places
+    if country
+      $("#country-text").val(Area[country].text)
+      provinces = _.map Area[country].places, (places,key) -> places
     if provinces and provinces.length > 0
       $("#province-input").select2 "enable",true
       $("#province-input").select2 placeholder:"择省份，直辖市",data:provinces
@@ -62,8 +64,13 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
 
     country = $("#country-input").val()
     province = $(this).val()
-    if province
-      districts = _.map Area[country]["places"][province]["places"], (places,key) -> places
+    if country and province
+      provinceObj = Area[country]["places"][province]
+      districtsMap = provinceObj["places"]
+      provinceText = provinceObj["text"]
+      $("#province-text").val(provinceText)
+
+      districts = _.map districtsMap, (places,key) -> places
     if districts and districts.length > 0
       $("#district-input").select2 "enable",true
       $("#district-input").select2 placeholder:"选择市,区", data:districts
@@ -76,13 +83,28 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
     country = $("#country-input").val()
     province = $("#province-input").val()
     district = $(this).val()
-    if district
-      counties = _.map Area[country]["places"][province]["places"][district]["places"], (places,key) -> places
+
+    if country and province and district
+      districtObj = Area[country]["places"][province]["places"][district]
+      countyMap = districtObj["places"]
+      districtText = districtObj["text"]
+      $("#district-text").val(districtText)
+      counties = _.map countyMap, (places,key) -> places
+
     if counties and counties.length > 0
       $("#county-input").select2 "enable",true
       $("#county-input").select2 placeholder:"选择县",data:counties
       $("#county-div").removeClass('hidden')
 
+  $("#county-input").on "select2-close",->
+    country = $("#country-input").val()
+    province = $("#province-input").val()
+    district = $("#district-input").val()
+
+    county = $(this).val()
+    if country and province and district and county
+      countryText = Area[country]["places"][province]["places"][district]["places"][county]["text"]
+      $("#county-text").val(countryText)
 
 
     ###
@@ -94,11 +116,14 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
     if options then $("#province-select").append options
     ###
   $("#submit-btn").click ->
-    content = $("#editor-area").text()
-    console.log content
-    $("#content-hidden").val(content)
-    $("#post-form").submit()
 
+    content = $("#editor-area").text()
+
+
+    $("#content-hidden").val(content)
+    ###
+    $("#post-form").submit()
+    ###
   $("input,select,textarea").not("[type=submit]").jqBootstrapValidation()
   converter = new Showdown.converter()
 

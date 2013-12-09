@@ -77,7 +77,16 @@ var PostSchema = mongoose.Schema({
 
     creator: {type: Schema.ObjectId, ref: 'User'},
 
-    tag: {type: Schema.ObjectId, ref: 'Tag'}
+    tag: {type: Schema.ObjectId, ref: 'Tag'},
+
+    countryId:String,
+    countryText:String,
+    provinceId:String,
+    provinceText:String,
+    districtId:String,
+    districtText:String,
+    countyId:String,
+    countyText:String
 
 },schemaOptions);
 
@@ -128,6 +137,16 @@ fromNow.get(function(){
         return moment(this.pusTime).fromNow();
     });
 
+var location = PostSchema.virtual('location');
+location.get(function(){
+    var country = this.countryText || "";
+    var province = this.provinceText? " • "+ this.provinceText : "" ;
+    var district = this.districtText? " • "+ this.districtText : "" ;
+    var county = this.countyText ? " • "+ this.countyText : "" ;
+    return country + province + district + county
+});
+
+
 
 
 //comment
@@ -159,6 +178,7 @@ Post.top = function(start,size,callback){
         .limit(size)
         .sort('-pusTime')
         .populate('creator')
+        .populate('tag')
         .exec(callback);
 };
 Post.topTag = function(tagKey,start,size,callback){
@@ -228,6 +248,7 @@ Post.truncateOne = function(post){
     var content = post.content;
     content = utils.delHtmlTag(content);
     post.content = _(content).truncate(end);
+
     return post;
 };
 

@@ -376,8 +376,134 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 $spinner.spin(false);
             }
         });
-        
-       
+
+
+        //help tag
+        var helpPosts = new Models.PostList({
+            queryParams: {
+                tag: "help"
+            }
+        });
+
+        var HelpView = Backbone.View.extend({
+            el: $("#help"),
+            template: _.template($('#pager-template').html()),
+            events: {
+
+            },
+            initialize: function() {
+                //defin a spinner init
+                //var target= document.getElementById('spinner');
+                //this.spinner = new Spinner(opts).spin(target);
+
+
+
+                helpPosts.on('add', this.addOne, this);
+                helpPosts.on('reset', this.addAll, this);
+                helpPosts.on('all', this.render, this);
+                helpPosts.fetch({data: {tag: 'help'}});
+
+            },
+            render: function() {
+
+            },
+            addOne: function(post) {
+                var view = new PostView({model: post});
+                this.$('#help-content').append(view.render().el);
+
+            },
+
+            // Add all items in the **Posts** collection at once.
+            addAll: function() {
+
+                helpPosts.each(this.addOne);
+                var that = this;
+                options = {
+                    currentPage: helpPosts.state.currentPage,
+                    totalPages: helpPosts.state.totalPages,
+                    size: "normal",
+                    alignment: "right",
+                    tag: 'help',
+                    pageUrl: function(type, page, current){
+                        return "#posts/help/#"+page;
+                    },
+                    onPageClicked: function(e,originalEvent,type,page){
+
+                        $spinner.spin(opts);
+
+                        $('#help-content').empty();
+                        helpPosts.getPage(page,{data: {tag: 'help'}})
+
+                    }
+                };
+                this.$('#help-content').append(this.template());
+                this.$('.pagination').bootstrapPaginator(options);
+                $spinner.spin(false);
+            }
+        });
+
+        //help tag
+        var spitslotPosts = new Models.PostList({
+            queryParams: {
+                tag: "spitslot"
+            }
+        });
+
+        var SpitslotView = Backbone.View.extend({
+            el: $("#spitslot"),
+            template: _.template($('#pager-template').html()),
+            events: {
+
+            },
+            initialize: function() {
+                //defin a spinner init
+                //var target= document.getElementById('spinner');
+                //this.spinner = new Spinner(opts).spin(target);
+
+                spitslotPosts.on('add', this.addOne, this);
+                spitslotPosts.on('reset', this.addAll, this);
+                spitslotPosts.on('all', this.render, this);
+                spitslotPosts.fetch({data: {tag: 'spitslot'}});
+
+            },
+            render: function() {
+
+            },
+            addOne: function(post) {
+                var view = new PostView({model: post});
+                this.$('#spitslot-content').append(view.render().el);
+
+            },
+
+            // Add all items in the **Posts** collection at once.
+            addAll: function() {
+
+                spitslotPosts.each(this.addOne);
+                var that = this;
+                options = {
+                    currentPage: spitslotPosts.state.currentPage,
+                    totalPages: spitslotPosts.state.totalPages,
+                    size: "normal",
+                    alignment: "right",
+                    tag: 'spitslot',
+                    pageUrl: function(type, page, current){
+                        return "#posts/spitslot/#"+page;
+                    },
+                    onPageClicked: function(e,originalEvent,type,page){
+
+                        $spinner.spin(opts);
+
+                        $('#spitslot-content').empty();
+                        spitslotPosts.getPage(page,{data: {tag: 'spitslot'}})
+
+                    }
+                };
+                this.$('#spitslot-content').append(this.template());
+                this.$('.pagination').bootstrapPaginator(options);
+                $spinner.spin(false);
+            }
+        });
+
         $('#content-ul-tab a[href="#new"]').tab('show');
         var newView = new NewView();
 
@@ -389,7 +515,24 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
               discoverView = new DiscoverView();
             }
         });
-        
+
+        var helpView = null;
+        $('#content-ul-tab a[href="#help"]').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            if(!helpView){
+                helpView = new HelpView();
+            }
+        });
+
+        var spitslotView = null;
+        $('#content-ul-tab a[href="#spitslot"]').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+            if(!spitslotView){
+                spitslotView = new SpitslotView();
+            }
+        });
     });
 
 });

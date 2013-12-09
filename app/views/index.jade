@@ -13,6 +13,11 @@ block content
                             a(href='#new',data-toggle='pill') 最新
                         li
                             a(href='#discover',data-toggle='pill') 发现
+                        li
+                            a(href='#help',data-toggle='pill') 求助
+                        li
+                            a(href='#spitslot',data-toggle='pill') 吐嘈
+
                     div(class='tab-content')
                         div(class='tab-pane active',id='new')
                             div(id='posts',class='padding-top20')
@@ -21,7 +26,12 @@ block content
                         div(class='tab-pane fade',id='discover')
                             div(id='discover-content',class='padding-top20')
                                
-                                
+                        div(class='tab-pane fade',id='help')
+                            div(id='help-content',class='padding-top20')
+
+                        div(class='tab-pane fade',id='spitslot')
+                            div(id='spitslot-content',class='padding-top20')
+
             div(class='col-md-3 col-sm-3 hidden-xs')
                 div.relative
                     h4.title 发现排行
@@ -35,4 +45,4 @@ block content
                                
                                         | &nbsp; #{user.name}
 
-        script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/home',src='/javascripts/require.js?v=#{appVersion}')

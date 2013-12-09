@@ -34,8 +34,11 @@
   });
 
   require(['jquery', 'Showdown', 'underscore', 'area', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation'], function($, Showdown, _, Area) {
-    var converter;
+    var converter, countries;
     $("#tag-select").select2();
+    countries = _.map(Area, function(places, key) {
+      return places;
+    });
     $("#country-input").select2({
       placeholder: "选择国家",
       data: countries
@@ -49,10 +52,12 @@
       $("#county-div").addClass('hidden');
       $("#county-input").select2("enable", false);
       country = $(this).val();
-      console.log(country);
-      provinces = _.map(Area[country].places, function(places, key) {
-        return places;
-      });
+      if (country) {
+        $("#country-text").val(Area[country].text);
+        provinces = _.map(Area[country].places, function(places, key) {
+          return places;
+        });
+      }
       if (provinces && provinces.length > 0) {
         $("#province-input").select2("enable", true);
         $("#province-input").select2({
@@ -63,15 +68,19 @@
       }
     });
     $("#province-input").on("select2-close", function() {
-      var country, districts, province;
+      var country, districts, districtsMap, province, provinceObj, provinceText;
       $("#district-div").addClass('hidden');
       $("#county-div").addClass('hidden');
       $("#county-input").select2("enable", false);
       $("#district-input").select2("enable", false);
       country = $("#country-input").val();
       province = $(this).val();
-      if (province) {
-        districts = _.map(Area[country]["places"][province]["places"], function(places, key) {
+      if (country && province) {
+        provinceObj = Area[country]["places"][province];
+        districtsMap = provinceObj["places"];
+        provinceText = provinceObj["text"];
+        $("#province-text").val(provinceText);
+        districts = _.map(districtsMap, function(places, key) {
           return places;
         });
       }
@@ -85,14 +94,18 @@
       }
     });
     $("#district-input").on("select2-close", function() {
-      var counties, country, district, province;
+      var counties, country, countyMap, district, districtObj, districtText, province;
       $("#county-div").addClass('hidden');
       $("#county-input").select2("enable", false);
       country = $("#country-input").val();
       province = $("#province-input").val();
       district = $(this).val();
-      if (district) {
-        counties = _.map(Area[country]["places"][province]["places"][district]["places"], function(places, key) {
+      if (country && province && district) {
+        districtObj = Area[country]["places"][province]["places"][district];
+        countyMap = districtObj["places"];
+        districtText = districtObj["text"];
+        $("#district-text").val(districtText);
+        counties = _.map(countyMap, function(places, key) {
           return places;
         });
       }
@@ -103,6 +116,17 @@
           data: counties
         });
         return $("#county-div").removeClass('hidden');
+      }
+    });
+    $("#county-input").on("select2-close", function() {
+      var country, countryText, county, district, province;
+      country = $("#country-input").val();
+      province = $("#province-input").val();
+      district = $("#district-input").val();
+      county = $(this).val();
+      if (country && province && district && county) {
+        countryText = Area[country]["places"][province]["places"][district]["places"][county]["text"];
+        return $("#county-text").val(countryText);
       }
       /*
       $("#province-select").empty()
@@ -117,9 +141,11 @@
     $("#submit-btn").click(function() {
       var content;
       content = $("#editor-area").text();
-      console.log(content);
-      $("#content-hidden").val(content);
-      return $("#post-form").submit();
+      return $("#content-hidden").val(content);
+      /*
+      $("#post-form").submit()
+      */
+
     });
     $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();

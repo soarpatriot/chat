@@ -33,13 +33,17 @@ block content
                                 label(for='title') 地点：
                         div.row
                             div(id='country-div',class='col-md-2')
-                                input(id='country-input',type='hidden',class='select-100percent',name='country')
+                                input(id='country-input',type='hidden',class='select-100percent',name='countryId')
+                                input(id='country-text',type='hidden',class='select-100percent',name='countryText')
                             div(id='province-div',class='col-md-2 hidden')
-                                input(id='province-input',type='hidden',class='select-100percent',name='province')
+                                input(id='province-input',type='hidden',class='select-100percent',name='provinceId')
+                                input(id='province-text',type='hidden',class='select-100percent',name='provinceText')
                             div(id='district-div',class='col-md-2 hidden')
-                                input(id='district-input',type='hidden',class='select-100percent',name='district')
+                                input(id='district-input',type='hidden',class='select-100percent',name='districtId')
+                                input(id='district-text',type='hidden',class='select-100percent',name='districtText')
                             div(id='county-div',class='col-md-2 hidden')
-                                input(id='county-input',type='hidden',class='select-100percent',name='county')
+                                input(id='county-input',type='hidden',class='select-100percent',name='countyId')
+                                input(id='county-text',type='hidden',class='select-100percent',name='countyText')
                     div.form-group
                         label( for='content') 内容：
                         div.row
