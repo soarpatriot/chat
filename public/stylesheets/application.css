@@ -59,7 +59,7 @@ body {
 .spin-container {
   top: 0;
   left: 50%;
-  position: absolute;
+  position: fixed;
   z-index: 100000;
 }
 /**home page cess**/
@@ -117,6 +117,11 @@ body {
   color: #000000;
 }
 /**one post**/
+.comment-div {
+  padding: 5px;
+  min-height: 120px;
+  border: 1px solid #dddddd;
+}
 /**login page cess**/
 .margin-top100 {
   margin-top: 60px;

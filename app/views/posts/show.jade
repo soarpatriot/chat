@@ -36,16 +36,15 @@ block content
                     div(class='col-md-1')
                         img(class='img-polaroid img-rounded face-thumbnails',src='/images/noavatar92.png')
                     div(class='col-md-11')
-                        form(action='/comment',method='post')
+                        form(id='comment-form',action='/comment',method='post')
                             div.form-group
+                                input(name='postId',type='hidden',value='#{post._id}')
+                                input(id='content-hidden',name='content',type='hidden')
+                                div(id='content-div',class='col-md-12 comment-div',contenteditable='true')
 
-                                div.col-md-12
-
-                                    input(name='postId',type='hidden',value='#{post._id}')
-                                    textarea(class='col-md-12',rows='5',name='content',placeholder='发表评论')
                             div.form-group
                                 div.col-md-12
-                                    button(type='submit', class='btn btn-success') 发言
+                                    button(id='comment-btn', class='btn btn-success') 发言
                 hr.soft
                 div.row
                     h4 #{post.comments.length} 评论

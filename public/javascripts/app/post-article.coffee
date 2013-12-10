@@ -16,8 +16,10 @@ require.config
     },
     'chosen': {
       exports: 'chosen'
+    },
+    'area':{
+      exports:'area'
     }
-
 
   paths:
     'jquery': 'jquery-1.9.1.min'
@@ -32,6 +34,18 @@ require.config
 require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2','jqBootstrapValidation'], ($,Showdown,_,Area) ->
 
   $("#tag-select").select2()
+
+  initTip = (id) ->
+    tagId = $("#"+id).val()
+    if tagId
+      $("#"+tagId).removeClass('hidden')
+
+  initTip("tag-select")
+
+  $("#tag-select").on "select2-close",->
+    $("#tag-desc-div div").addClass('hidden')
+    initTip("tag-select")
+
 
   countries = _.map Area, (places,key) -> places
   $("#country-input").select2(placeholder:"选择国家",data:countries)
@@ -107,28 +121,12 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
       $("#county-text").val(countryText)
 
 
-    ###
-    $("#province-select").empty()
-    $("#province-select").select2("val", "")
-    options = ""
-    for province in provinces
-      options += '<option value="'+province.id+'">'+province.text+'</option>'
-    if options then $("#province-select").append options
-    ###
-  $("#submit-btn").click ->
 
-    content = $("#editor-area").text()
-
-
-    $("#content-hidden").val(content)
-    ###
-    $("#post-form").submit()
-    ###
   $("input,select,textarea").not("[type=submit]").jqBootstrapValidation()
   converter = new Showdown.converter()
 
   $("#editor-area").keyup ->
-    txt = $("#editor-area").text()
+    txt = $("#editor-area").val()
     html = converter.makeHtml(txt)
     $("#preview-content").html(html)
     ###

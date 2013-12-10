@@ -19,7 +19,7 @@ require.config
 require ['jquery','underscore','bootstrap'], ($,_) ->
     $ ->
       postId = $('#post-id').val()
-      wait = 15000
+      wait = 9000
       supportText = $('#support').text();
       voteText = $('#veto').text();
 
@@ -50,7 +50,6 @@ require ['jquery','underscore','bootstrap'], ($,_) ->
 
 
       $('#veto').click ->
-          btn.button('reset')
           if check()
             $('#passed').attr value: 'false'
             $('#review-form').submit()

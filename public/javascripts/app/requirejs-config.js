@@ -48,7 +48,7 @@ require.config({
         "user":"app/user",
         "edit-profile":"app/edit-profile",
         "user-blogs":"app/user-blogs",
-
+        'area':'app/area',
         //js framework
         "underscore": "underscore",
         "backbone": "backbone",

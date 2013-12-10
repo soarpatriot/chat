@@ -19,6 +19,9 @@
       },
       'chosen': {
         exports: 'chosen'
+      },
+      'area': {
+        exports: 'area'
       }
     },
     paths: {
@@ -34,8 +37,20 @@
   });
 
   require(['jquery', 'Showdown', 'underscore', 'area', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation'], function($, Showdown, _, Area) {
-    var converter, countries;
+    var converter, countries, initTip;
     $("#tag-select").select2();
+    initTip = function(id) {
+      var tagId;
+      tagId = $("#" + id).val();
+      if (tagId) {
+        return $("#" + tagId).removeClass('hidden');
+      }
+    };
+    initTip("tag-select");
+    $("#tag-select").on("select2-close", function() {
+      $("#tag-desc-div div").addClass('hidden');
+      return initTip("tag-select");
+    });
     countries = _.map(Area, function(places, key) {
       return places;
     });
@@ -128,30 +143,12 @@
         countryText = Area[country]["places"][province]["places"][district]["places"][county]["text"];
         return $("#county-text").val(countryText);
       }
-      /*
-      $("#province-select").empty()
-      $("#province-select").select2("val", "")
-      options = ""
-      for province in provinces
-        options += '<option value="'+province.id+'">'+province.text+'</option>'
-      if options then $("#province-select").append options
-      */
-
-    });
-    $("#submit-btn").click(function() {
-      var content;
-      content = $("#editor-area").text();
-      return $("#content-hidden").val(content);
-      /*
-      $("#post-form").submit()
-      */
-
     });
     $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
     converter = new Showdown.converter();
     return $("#editor-area").keyup(function() {
       var html, txt;
-      txt = $("#editor-area").text();
+      txt = $("#editor-area").val();
       html = converter.makeHtml(txt);
       return $("#preview-content").html(html);
       /*

@@ -26,7 +26,7 @@
     return $(function() {
       var btnInterval, check, postId, supportText, timeLeft, voteText, wait;
       postId = $('#post-id').val();
-      wait = 15000;
+      wait = 9000;
       supportText = $('#support').text();
       voteText = $('#veto').text();
       $('#support').button('loading');
@@ -57,7 +57,6 @@
         }
       });
       $('#veto').click(function() {
-        btn.button('reset');
         if (check()) {
           $('#passed').attr({
             value: 'false'

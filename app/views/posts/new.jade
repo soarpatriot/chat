@@ -18,19 +18,27 @@ block content
                         div.row
                             div.col-md-6
                                 input(name='title',type='text',class='form-control',placeholder='最多40字符',type='text',maxlength='40',required,data-validation-maxlength-message='标题不能超过40个字符！')
-
+                    div.form-group
                         div.row
                             div.col-md-6
                                 label(for='title') 标签：
                         div.row
-                            div.col-md-6
-                                select(id='tag-select',name='tag')
+                            div.col-md-2
+                                select(id='tag-select',name='tag',class='select-100percent')
                                     if typeof(tags) !== 'undefined' && tags.length > 0
                                         each tag, i in tags
                                             option(value='#{tag._id}') #{tag.name}
+
+                            div(id='tag-desc-div',class='col-md-4')
+                                if typeof(tags) !== 'undefined' && tags.length > 0
+                                    each tag, i in tags
+                                        div(id='#{tag._id}',class='alert alert-success hidden') #{tag.description}
+
+
+                    div.form-group
                         div.row
                             div.col-md-6
-                                label(for='title') 地点：
+                                label(for='title') 地点：( 建议发表求助或发现时选择地点 )
                         div.row
                             div(id='country-div',class='col-md-2')
                                 input(id='country-input',type='hidden',class='select-100percent',name='countryId')
@@ -66,15 +74,15 @@ block content
                                                     
                                     div(class='tab-content')
                                         div(class='tab-pane active',id='write')
+
                                             div(id='posts',class='padding-top20')
-                                                input(id='content-hidden',type='hidden',name='content')
-                                                div(id='editor-area', class='content-editor-div',contenteditable='true',maxlength='2000',data-validation-maxlength-message='内容不能超过2000个字符！')
+                                                textarea(id='editor-area',class='form-control', name='content',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
                                         div(class='tab-pane',id='preview')
                                             div(id='preview-content',class='preview-content-div')
                                                 
                                 
                     div.form-group
-                        button(id='submit-btn', class='btn btn-success') 发言
+                        button(id='submit-btn', type='submit',class='btn btn-success') 发言
         <!-- guide dialog -->
         div(id='guide-makedown',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
             div.modal-dialog.width70percent
@@ -154,4 +162,4 @@ block content
 
                     div.modal-footer
                         p powered by github makedown
-        script(data-main='/javascripts/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
