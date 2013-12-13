@@ -6,40 +6,33 @@ block append head
 
 block content
     body
-        div(id='login-div',class='container image-back')
-            section.margin-top100
-                include _tip
-                div.dialog
-                    div.container
-                        form(id='login-form',action='/login',method='post',role='form')
-                            
-                                input(id='error-hidden',type='hidden',value='#{error}')
-                                div.form-group
-                                    div.row
-                                    
-                                        label(class='control-label col-md-12', for='username') 用户名：
-                                    div.row
-                                        div.col-md-12
-                                            input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='form-control',value='#{username}')
-                                div.form-group
-                                    div.row
-                                        label(class='control-label col-md-12',for='password') 密码：
-                                    div.row
-                                        div.col-md-12
-                                            input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='form-control',value='#{password}')
+        div(id='login-div',class='container')
+            div.row
+                div.col-md-offset-2.col-md-6
+                    include _tip
+            div.row
+                div.col-md-8
+                    form(id='login-form',action='/login',method='post',role='form',class='form-horizontal')
+                        input(id='error-hidden',type='hidden',value='#{error}')
+                        fieldset
+                            legend 用户登陆
+                        div.form-group
+                            label(class='control-label col-md-4', for='username') 用户名：
+                            div.col-md-8
+                                input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='form-control',value='#{username}')
+                        div.form-group
+                            label(class='control-label col-md-4',for='password') 密码：
+                            div.col-md-8
+                               input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='form-control',value='#{password}')
 
-                                div.form-group
-                                    div.col-md-6
-                                        a(id='login-btn',class='btn btn-success',href='#login') 登录
-
-                                    div.col-md-6.pull-right
-                                        a(class='padding-top4', href='/forget') 忘记密码
-
-                div.dialog-footer
-                    span
+                        div.form-group
+                            div.col-md-offset-4.col-md-4
+                                a(id='login-btn',class='btn btn-success',href='#login') 登录
+            div.row
+                div.col-md-4.col-md-offset-4
                         a(href='/reg') 开始你的发现之旅
-                            span.pull-right 注册
+                        | &nbsp;&nbsp;&nbsp;&nbsp;
+                        a(href='/reg') 注册
 
-
-        script(data-main='/build/app/user',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/user',src='/javascripts/require.js?v=#{appVersion}')
 

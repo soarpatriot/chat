@@ -32,17 +32,18 @@ block content
                         div(class='tab-pane fade',id='spitslot')
                             div(id='spitslot-content',class='padding-top20')
 
-            div(class='col-md-3 col-sm-3 hidden-xs')
-                div.relative
-                    h4.title 发现排行
-                    hr
-                    ul.nav
-                        if users
-                            each user, i in users
-                                li
-                                    a(href='/users/#{user._id}')
-                                        img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
-                               
-                                        | &nbsp; #{user.name}
 
+            div(class='col-md-3 col-sm-3 hidden-xs new-member')
+                div.panel.panel-info
+                    div.panel-heading
+                        h3.panel-title 发现排行
+                    div.panel-body
+                        ul.nav
+                            if users
+                                each user, i in users
+                                    li
+                                        a(href='/users/#{user._id}')
+                                            img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
+
+                                            | &nbsp; #{user.name}
         script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')

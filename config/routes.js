@@ -40,6 +40,10 @@ exports.createRoutes = function(app){
     app.post('/login', user.doLogin);
     app.get('/login', user.login);
     app.get('/logout', user.logout);
+    app.get('/forgot', user.forgot);
+    //app.get('/forgot/:id', user.forgotId);
+    app.post('/forgot', user.doForgot);
+    //app.post('/change', user.change);
 
     app.all('/users*',user.loadUser);
     app.get('/users/edit',user.edit);

@@ -36,7 +36,7 @@ require.config({
 require(["require","jquery","underscore","backbone","models"],function(require,$,_,Backbone,Models) {
 
 $(function(){
-
+    console.log("sttart");
     var InfoTip = Backbone.Model.extend({
         defaults:function(){
             return{
@@ -93,6 +93,7 @@ $(function(){
 
         },
         login: function(){
+            console.log("login");
             if(this.username.val()==='' || this.passwordIn.val()===''){
                 var title = '';
                 var content = '用户名密码不能为空！';

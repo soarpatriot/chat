@@ -6,6 +6,10 @@
 var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
+var Password = require('../models/password.js');
+
+var emailSender = require('../helpers/email.js');
+
 
 var _  = require('underscore');
 
@@ -246,6 +250,43 @@ exports.logout = function(req, res){
     res.redirect('/');
 }
 
+exports.forgot = function(req,res){
+    res.render('users/forgot',{
+        title:'忘记密码',
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString()
+    });
+}
+
+exports.doForgot = function(req,res){
+
+    var email = req.body.email;
+    if(email){
+        var forgotUrl = req.protocol+"://"+req.host+":"+ req.port + "/forgot/";
+        var pass = new Password({
+            email: email
+        });
+        Password.create({email:email},function(err,password){
+            if(err){
+                req.flash('error',err);
+                return res.redirect('/forget');
+            }
+            console.log(password);
+            forgotUrl = forgotUrl +password._id;
+            var subject = "找回密码";
+            htmlText = "<p>点击如下链接重新设置密码</p>" + "<p><a href='"+forgotUrl+"'>重新设置</a></p>" + "<p>"+forgotUrl+"</p>"
+            emailSender.discoverSend(subject,null,htmlText,email);
+            return res.redirect('/');
+        });
+    }else{
+        res.render('users/forgot',{
+            title:'忘记密码',
+            success: req.flash('success').toString(),
+            error: req.flash('error','请输入email!')
+        });
+    }
+
+}
 /**
  * user profile show and edit
  * @param req

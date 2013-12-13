@@ -19,6 +19,7 @@ var mailOptions = {
 }
 
 // send mail with defined transport object
+/**
 smtpTransport.sendMail(mailOptions, function(error, response){
     if(error){
         console.log(error);
@@ -27,5 +28,31 @@ smtpTransport.sendMail(mailOptions, function(error, response){
     }
 
     // if you don't want to use this transport object anymore, uncomment following line
-    //smtpTransport.close(); // shut down the connection pool, no more messages
-});
+    smtpTransport.close(); // shut down the connection pool, no more messages
+});**/
+
+exports.send = function(subject,text,htmlText,from,to){
+
+}
+var from = "Soar ✔ <soarpatriot@126.com>";
+
+exports.discoverSend = function(subject,text,htmlText,to){
+    var mailOptions = {
+        from: from,
+        to: to, // list of receivers
+        subject: subject, // Subject line
+        text: text,
+        html: htmlText
+
+    }
+    smtpTransport.sendMail(mailOptions, function(error, response){
+        if(error){
+            console.log(error);
+        }else{
+            console.log("Message sent: " + response.message);
+        }
+
+        // if you don't want to use this transport object anymore, uncomment following line
+        smtpTransport.close(); // shut down the connection pool, no more messages
+    });
+}

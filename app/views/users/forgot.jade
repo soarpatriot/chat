@@ -1,0 +1,26 @@
+extends ../layouts/logo-layout
+
+block append head
+
+block content
+    body
+        div.container
+            include ../layouts/_message
+        div.container
+            div.row
+                div.col-md-8
+                    form(action='/forgot',method='post', class='form-horizontal',role='form')
+                        fieldset
+                            legend 忘记密码
+                            p  请输入您注册时的邮箱，提交后会给您邮箱发送一份邮件。
+                            div.form-group
+                                label(class='control-label col-md-2', for='username') 邮箱
+                                div.col-md-4
+                                    input(id='email',name='email',class='form-control',type='email',maxlength='100',required,data-validation-email-message='请输入有效的邮件地址！')
+
+                            div.form-group
+                                div.col-md-4.col-md-offset-2
+                                    button(class='btn btn-primary', type='submit') 提交
+        script(data-main='/javascripts/app/forgot',src='/javascripts/require.js?v=#{appVersion}')
+
+
