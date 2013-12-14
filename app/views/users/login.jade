@@ -6,33 +6,32 @@ block append head
 
 block content
     body
-        div(id='login-div',class='container')
+        div(id='login-div',class='container margin-top100')
             div.row
-                div.col-md-offset-2.col-md-6
-                    include _tip
+                include _tip
             div.row
-                div.col-md-8
+                div.col-md-offset-2.col-md-8.dialog
                     form(id='login-form',action='/login',method='post',role='form',class='form-horizontal')
                         input(id='error-hidden',type='hidden',value='#{error}')
                         fieldset
                             legend 用户登陆
                         div.form-group
-                            label(class='control-label col-md-4', for='username') 用户名：
+                            label(class='control-label col-md-2', for='username') 用户名：
                             div.col-md-8
                                 input(id='username-input',name='username',placeholder='至多50个字符', type='text',class='form-control',value='#{username}')
                         div.form-group
-                            label(class='control-label col-md-4',for='password') 密码：
+                            label(class='control-label col-md-2',for='password') 密码：
                             div.col-md-8
                                input(id='password-input',name='password',placeholder='至多30个字符',type='password',class='form-control',value='#{password}')
 
                         div.form-group
-                            div.col-md-offset-4.col-md-4
+                            div.col-md-offset-2.col-md-8
                                 a(id='login-btn',class='btn btn-success',href='#login') 登录
             div.row
-                div.col-md-4.col-md-offset-4
+                div.col-md-8.col-md-offset-2.dialog-footer
                         a(href='/reg') 开始你的发现之旅
                         | &nbsp;&nbsp;&nbsp;&nbsp;
                         a(href='/reg') 注册
 
-        script(data-main='/javascripts/app/user',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/build/app/user',src='/javascripts/require.js?v=#{appVersion}')
 

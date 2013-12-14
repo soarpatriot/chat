@@ -144,45 +144,33 @@ body {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  margin: 0 auto;
-  text-align: center;
 }
 .dialog {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  margin: 0 auto;
-  text-align: center;
-  padding: 20px 40px 5px 40px;
   color: #BFB8E5;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
   background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
   background-image: linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);
 }
 .dialog form {
-  text-align: left;
   color: #0A0A0A;
 }
 .tip {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  margin: 0 auto;
-  text-align: center;
-  margin-bottom: 10px;
-  height: 40px;
-  padding: 10px 40px 1px 40px;
+  min-height: 40px;
   display: block;
 }
 .dialog-footer {
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  margin: 0 auto;
-  text-align: center;
   padding: 10px 40px 1px 40px;
   margin-top: 10px;
-  height: 40px;
+  min-height: 40px;
   color: #0A0A0A;
   background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, color-stop(0%, #e0e0e0), color-stop(100%, rgba(44, 38, 63, 0.1)));
   background-image: -moz-linear-gradient(top, #e0e0e0 0%, rgba(44, 38, 63, 0.1) 100%);

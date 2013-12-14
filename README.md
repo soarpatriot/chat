@@ -1,7 +1,7 @@
 
 
 ### Welcome to Chat World ###
-varsion 0.4.0.0
+varsion 0.4.0.5
 Currently,  it is just nightly build, can not assure stable.
 
 [Ugly demo](http://www.soaror.com)
@@ -33,9 +33,10 @@ Currently,  it is just nightly build, can not assure stable.
 
     project  : chat
     repo age : 1 year, 4 months
-    active   : 156 days
-    commits  : 256
-    files    : 187
+    active   : 157 days
+    commits  : 258
+    files    : 191
     authors  :
-    248	Soar                    96.9%
+    250	Soar                    96.9%
      8	liuhb7                  3.1%
+
