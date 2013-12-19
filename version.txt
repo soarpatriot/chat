@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 current version: varsion 0.4.0.5
+=======
+current version: varsion 0.3.1.12
+>>>>>>> master
 
 fix mobile device redundant ico display 0.1.1.23
 fix register no validation 0.1.1.24
@@ -28,6 +32,10 @@ change user reg page, when fail, user can get the input information 0.3.1.9
 refactor if logical information 0.3.1.10
 change post picture display size class 0.3.1.11
 
+fixed firefox fixed to top bug 0.3.1.12
+
 
 add mutiple tags discover location 0.4.0.
 refactor login page 0.4.0.5
+
+
