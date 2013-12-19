@@ -1,76 +1,77 @@
-div.navbar.navbar-default.navbar-inverse.navbar-fixed-top
+a(class='sr-only',href='content') Skip to main content
+header(class='navbar navbar-default navbar-inverse navbar-fixed-top',role='banner')
 
-        div.container
-            div.navbar-header
-                button(type='button',class='navbar-toggle', data-toggle='collapse', data-target='.navbar-collapse')
-                    span.icon-bar
-                    span.icon-bar
-                    span.icon-bar
-                a(class='navbar-brand',href='/')
-                    span.glyphicon.glyphicon-eye-open
-                    | 发现
-            div.navbar-collapse.collapse
-                ul.nav.navbar-nav
+    div.container
+        div.navbar-header
+            button(type='button',class='navbar-toggle', data-toggle='collapse', data-target='.navbar-collapse')
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a(class='navbar-brand',href='/')
+                span.glyphicon.glyphicon-eye-open
+                | 发现
+        div(class='collapse navbar-collapse',role='navigation')
+            ul.nav.navbar-nav
 
-                    if( currentLink && currentLink === 'HOME')
-                        li.active
+                if( typeof(currentLink) !='undefined' && currentLink === 'HOME')
+                    li.active
 
-                            a(href='/')
-                                span.glyphicon.glyphicon-home
-                                strong &nbsp;主页
-                    else
-                        li
-                            a(href='/')
+                        a(href='/')
+                            span.glyphicon.glyphicon-home
+                            strong &nbsp;主页
+                else
+                    li
+                        a(href='/')
 
-                                span.glyphicon.glyphicon-home
-                                strong &nbsp;主页
-                    if( currentLink && currentLink === 'REVIEW')
-                        li.active
-                            a(href='/review')
-                                span.glyphicon.glyphicon-filter
-                                strong &nbsp;审阅
-                    else
-                        li
-                            a(href='/review')
-                                span.glyphicon.glyphicon-filter
-                                strong &nbsp;审阅
-                    li(id='li-spinner')
+                            span.glyphicon.glyphicon-home
+                            strong &nbsp;主页
+                if( typeof(currentLink) !='undefined' && currentLink === 'REVIEW')
+                    li.active
+                        a(href='/review')
+                            span.glyphicon.glyphicon-filter
+                            strong &nbsp;审阅
+                else
+                    li
+                        a(href='/review')
+                            span.glyphicon.glyphicon-filter
+                            strong &nbsp;审阅
+                li(id='li-spinner')
 
-                ul.nav.navbar-nav.navbar-right
-                    if !user
-                        li
-                            a(href='/login')
-                                span.glyphicon.glyphicon-log-in
-                                | &nbsp;登录
+            ul.nav.navbar-nav.navbar-right
+                if !user
+                    li
+                        a(href='/login')
+                            span.glyphicon.glyphicon-log-in
+                            | &nbsp;登录
 
-                        li
-                            a(href='/reg')
-                                span.glyphicon.glyphicon-registration-mark
-                                | &nbsp;注册
-                    else
-                        li.dropdown
-                                a(class='dropdown-toggle', href='#', data-toggle='dropdown')
-                                    img(src='#{user.mini}',class='img-rounded')
-                                    | &nbsp; #{user.name} &nbsp;
-                                    b.caret
+                    li
+                        a(href='/reg')
+                            span.glyphicon.glyphicon-registration-mark
+                            | &nbsp;注册
+                else
+                    li.dropdown
+                            a(class='dropdown-toggle', href='#', data-toggle='dropdown')
+                                img(src='#{user.mini}',class='img-rounded')
+                                | &nbsp; #{user.name} &nbsp;
+                                b.caret
 
 
 
-                                ul.dropdown-menu
-                                    li
-                                      a(href='/users') 我的资料
-                                    li
-                                      a(href='/users/#{user._id}') 我的主页
+                            ul.dropdown-menu
+                                li
+                                  a(href='/users') 我的资料
+                                li
+                                  a(href='/users/#{user._id}') 我的主页
 
-                                    li.divider
+                                li.divider
 
-                                    li
-                                      a(href='/posts/new') 发表
-                                    li
-                                      a(href='#')
-                        li
-                            a(href='/logout')
-                                span.glyphicon.glyphicon-log-out
-                                | 退出
+                                li
+                                  a(href='/posts/new') 发表
+                                li
+                                  a(href='#')
+                    li
+                        a(href='/logout')
+                            span.glyphicon.glyphicon-log-out
+                            | 退出
 
 

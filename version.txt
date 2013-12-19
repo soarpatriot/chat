@@ -1,4 +1,4 @@
-current version: varsion 0.3.1.11
+current version: varsion 0.3.1.12
 
 fix mobile device redundant ico display 0.1.1.23
 fix register no validation 0.1.1.24
@@ -27,3 +27,5 @@ add time out for review page  0.3.1.8
 change user reg page, when fail, user can get the input information 0.3.1.9
 refactor if logical information 0.3.1.10
 change post picture display size class 0.3.1.11
+
+fixed firefox fixed to top bug 0.3.1.12
