@@ -1,8 +1,8 @@
 div.row
     div.col-md-12
-        if success
+        if !typeof(success)
             div(class='alert alert-success')
                 #{success}
-        if error
+        if !typeof(error)
             div(class='alert alert-warning')
                 #{error}

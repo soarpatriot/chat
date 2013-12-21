@@ -2,7 +2,7 @@
 
 ### Welcome to Chat World ###
 
-varsion 0.4.0.5
+varsion 0.4.0.6
 
 Currently,  it is just nightly build, can not assure stable.
 

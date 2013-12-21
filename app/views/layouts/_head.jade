@@ -37,7 +37,7 @@ header(class='navbar navbar-default navbar-inverse navbar-fixed-top',role='banne
                     li(id='li-spinner')
 
             ul.nav.navbar-nav.navbar-right
-                if !user
+                if typeof(user)==='undefined' || !user
                     li
                         a(href='/login')
                             span.glyphicon.glyphicon-log-in
