@@ -1,16 +1,20 @@
 {
   "name": "chat",
+  "author":"soar",
   "version": "0.3.1.12",
-  "private": true,
+  "repository":{
+    "url":"https://github.com/soarpatriot/chat"
+  },
+  "private":true,
   "scripts": {
     "start": "node app"
   },
   "dependencies": {
     "forever": "*",
     "socket.io": "0.9.10",
-    "express": ">=3.0.6",
+    "express": "3.0.6",
     "express-expose": "0.3.3",
-    "jade": ">=0.28.0",
+    "jade": "0.28.0",
     "connect-mongo": "0.2.0",
     "crypto": "0.0.3",
     "connect-flash": "0.1.0",
@@ -20,7 +24,7 @@
 
     "underscore": "1.4.2",
     "node-uuid": "1.4.0",
-    "express-error": ">=0.0.3",
+    "express-error": "0.0.3",
     "underscore.string": "2.3.0",
     "redis": "0.8.2",
     "hiredis": "0.1.14",
@@ -28,9 +32,9 @@
     "github-flavored-markdown": "1.0.1",
     "weibo": "0.6.8",
     "less": "1.3.3",
-    "blueimp-file-upload-node": ">=2.0.0",
-    "jquery-file-upload-middleware": ">=0.0.8",
-    "nodemailer": ">=0.5.5",
+    "blueimp-file-upload-node": "2.0.0",
+    "jquery-file-upload-middleware": "0.0.8",
+    "nodemailer": "0.5.5",
     "log4js":"0.6.9"
   },
   "devDependencies": {
