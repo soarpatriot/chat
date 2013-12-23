@@ -10,8 +10,10 @@ exports.createEnv = function (options) {
     var uuid = require('node-uuid');
     var route = require('./routes');
     var app = express();
-
+    var logger = require('../log4js').logger('app');
+    logger.info("Start!");
     app.configure(function(){
+        app.enable('trust proxy');
         app.set('port', options.port);
         app.set('env', options.env);
         app.set('path',options.path);
@@ -52,7 +54,6 @@ exports.createEnv = function (options) {
         app.use(app.router);
 
     });
-
 
     route.createRoutes(app);
     return app;
