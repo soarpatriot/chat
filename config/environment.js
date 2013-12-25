@@ -10,8 +10,10 @@ exports.createEnv = function (options) {
     var uuid = require('node-uuid');
     var route = require('./routes');
     var app = express();
-
+    var logger = require('../log4js').logger('app');
+    logger.info("Start!");
     app.configure(function(){
+        app.enable('trust proxy');
         app.set('port', options.port);
         app.set('env', options.env);
         app.set('path',options.path);
@@ -24,7 +26,8 @@ exports.createEnv = function (options) {
 
         app.use(express.favicon("public/images/magnify.png"));
         app.use(express.cookieParser());
-
+        //app.use(express.urlencoded())
+        //app.use(express.json())
         app.use(express.bodyParser());
         // app.use(express.bodyParser({uploadDir:__dirname+'/tmp'}));
         app.use(express.methodOverride());
@@ -52,7 +55,6 @@ exports.createEnv = function (options) {
         app.use(app.router);
 
     });
-
 
     route.createRoutes(app);
     return app;

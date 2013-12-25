@@ -347,10 +347,11 @@ exports.updateProfile = function(req,res){
         console.log('The number of updated documents was %d', numberAffected);
         console.log('The raw response from Mongo was ', raw);
         if (err) {
-            return handleError(err);
+            req.flash('error','Sorry, 更新出错！');
+            res.redirect('/');
         }else{
 
-            res.redirect('/');
+            res.redirect('/users/edit');
         }
     });
 }

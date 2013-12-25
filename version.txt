@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-current version: varsion 0.4.0.5
-=======
-current version: varsion 0.3.1.12
->>>>>>> master
+
+current version: varsion 0.4.1
 
 fix mobile device redundant ico display 0.1.1.23
 fix register no validation 0.1.1.24
@@ -33,10 +30,13 @@ refactor if logical information 0.3.1.10
 change post picture display size class 0.3.1.11
 
 fixed firefox fixed to top bug 0.3.1.12
+add log4js 0.3.1.13
+
+npm install 0.3.2
 
 
 add mutiple tags discover location 0.4.0.
 refactor login page 0.4.0.5
-add area 0.4.0.6
+add area 0.4.1
 
 

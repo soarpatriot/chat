@@ -1,8 +1,8 @@
 div.row
     div.col-md-12
-        if !typeof(success)
+        if typeof(success)!=='undefined' && success !== null && success !== ''
             div(class='alert alert-success')
                 #{success}
-        if !typeof(error)
+        if typeof(error)!=='undefined' && error !== null && error !== ''
             div(class='alert alert-warning')
                 #{error}

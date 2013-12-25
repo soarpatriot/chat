@@ -8,7 +8,8 @@ var Post = require('../models/post.js'),
     md = require('github-flavored-markdown').parse,
     utils = require('../models/utils'),
     User = require('../models/user.js'),
-    Tag = require('../models/tag.js');
+    Tag = require('../models/tag.js'),
+    logger = require('../../log4js').logger('posts_controller');
 //var client = require('../models/redis.js')
 
 var cloudinary = require('../models/cloudinary.js');
@@ -166,6 +167,8 @@ exports.comment = function(req,res){
  * @param res
  */
 exports.show = function(req,res){
+
+    logger.info("request show page from ip: ["+req.ip + "]   and ips :"+ "["+req.ips+"]");
 
     var postId = req.params.id;
     Post.populateCommentsCreatorByPostId(postId, function(err,post){
