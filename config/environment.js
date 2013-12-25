@@ -26,7 +26,8 @@ exports.createEnv = function (options) {
 
         app.use(express.favicon("public/images/magnify.png"));
         app.use(express.cookieParser());
-
+        //app.use(express.urlencoded())
+        //app.use(express.json())
         app.use(express.bodyParser());
         // app.use(express.bodyParser({uploadDir:__dirname+'/tmp'}));
         app.use(express.methodOverride());

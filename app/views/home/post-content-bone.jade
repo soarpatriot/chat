@@ -3,10 +3,10 @@ script(type="text/template",id="item-template")
     div.row
         div.col-md-8
             p
-                a('href=/users/"<%- creator._id %>"')
-                    img('src="<%- creator.thumbnails %>"',class='img-polaroid img-rounded')
+                a('href=/users/<%- creator._id %>')
+                    img('src=<%- creator.thumbnails %>',class='img-polaroid img-rounded')
                 | &nbsp;&nbsp;&nbsp;
-                a('href=/posts/"<%- _id %>"') <%- title %>
+                a('href=/posts/<%- _id %>') <%- title %>
 
         div.col-md-4
             div.pull-right
@@ -14,14 +14,14 @@ script(type="text/template",id="item-template")
     div.row
         div.col-md-12
             p.blog-content.word-break-wrap
-                a('href=/posts/"<%- _id %>"') <%- content %>
+                a('href=/posts/<%- _id %>') <%- content %>
                     
     div.row
         div.col-md-8
             div.row
                 
                     div(name='up-post-div',class='col-md-2 col-xs-3 col-sm-2')
-                        a(name='up-post',class='btn btn-default btn-sm up','data="<%- _id %>"')
+                        a(name='up-post',class='btn btn-default btn-sm up','data=<%- _id %>')
                             span(class='glyphicon glyphicon-thumbs-up')
                             | 顶(<%- up %>)
                

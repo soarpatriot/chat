@@ -4,7 +4,6 @@ block append head
 
 block content
     body
-
         div(class='alert alert-info')
             | 发布的文章通过审核后读者才能看到
         div.row
@@ -72,20 +71,22 @@ block content
                     div.modal-body
                         div.row
                             div.col-md-4
-                                p 
+
+                                p
                                     strong 格式化
-                                p 
-                                    
-                                    small.text-muted 格式化文本      
+                                p
+
+                                    small.text-muted 格式化文本
                                     code
-                                        pre .
-                                            # This is an <h1> tag
-                                            ## This is an <h2> tag
-                                            ###### This is an <h6> tag
-                                p 
+                                        pre.
+
+                                            # This is an  h1 tag
+                                            ## This is an h2 tag
+                                            ###### This is an h6 tag
+                                p
                                     small.text-muted 风格
                                     code
-                                        pre .
+                                        pre.
                                             *This text will be italic*
                                             _This will also be italic_
 
@@ -94,49 +95,48 @@ block content
 
                                             *You **can** combine them*
                             div.col-md-4
-                                p 
+                                p
                                     strong 列表
-                                    p 
+                                    p
                                         small.text-muted 无序
                                         code
-                                            pre .
+                                            pre.
                                                 * Item 1
                                                 * Item 2
-                                                  * Item 2a
-                                                  * Item 2b
-                                    p 
+                                                    * Item 2a
+                                                    * Item 2b
+                                    p
                                         small.text-muted 有序
                                         code
-                                            pre .
+                                            pre.
                                                 1. Item 1
                                                 2. Item 2
                                                 3. Item 3
                                                    * Item 3a
                                                    * Item 3b
                             div.col-md-4
-                                p 
+                                p
                                     strong 其它
-                                    p 
-                                        small.text-muted 图片
-                                        code
-                                            pre .
-                                                ![GitHub Logo](/images/logo.png)
-                                                Format: ![Alt Text](url)
-                                    p
-                                        small.text-muted 链接
-                                        code
-                                             pre .
-                                                 http://github.com - automatic!
-                                                 [GitHub](http://github.com)
-                                    p
-                                         small.text-muted 引用
-                                         code
-                                             pre .
-                                                  As Kanye West said:
-                                                  > We're living the future so
-                                                  > the present is our past.
-
-
+                                p
+                                    small.text-muted 图片
+                                    code
+                                        pre.
+                                            ![GitHub Logo](/images/logo.png)
+                                            Format: ![Alt Text](url)
+                                p
+                                    small.text-muted 链接
+                                    code
+                                         pre.
+                                             http://github.com - automatic!
+                                             [GitHub](http://github.com)
+                                p
+                                     small.text-muted 引用
+                                     code
+                                         pre.
+                                              As Kanye West said:
+                                              > We're living the future so
+                                              > the present is our past.
                     div.modal-footer
-                        p powered by github makedown
+                        p
+                            powered by github makedown
         script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
