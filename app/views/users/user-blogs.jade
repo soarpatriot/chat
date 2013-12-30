@@ -6,8 +6,8 @@ block content
     body
         
         div.row
-            div.col-md-2
-                img(src='#{discoverior.normalFace}',class='img-polaroid img-rounded')
+            div.col-md-2.col-sm-2
+                img(src='#{discoverior.normalFace}',class='img-rounded img-thumbnail img-responsive')
                 p
                 p 我的名字： #{discoverior.name}
                 p 注册时间： #{discoverior.regTimeStr}
@@ -16,7 +16,7 @@ block content
 
 
 
-            div.col-md-10
+            div.col-md-10.col-sm-10
                 if typeof(posts) !== 'undefined' && posts.length > 0
                     each post, i in posts
                         div.row

@@ -1,21 +1,23 @@
 <!-- Templates -->
 script(type="text/template",id="item-template")
     div.row
-        div.col-md-8
+        div.col-md-7
             p
                 a('href=/users/<%- creator._id %>')
-                    img('src=<%- creator.thumbnails %>',class='img-polaroid img-rounded')
+                    img('src=<%- creator.thumbnails %>',class='img-rounded img-thumbnail img-responsive')
                 | &nbsp;&nbsp;&nbsp;
 
-                a('href=/posts/<%- _id %>') <%- title %>
-
+                a('href=/posts/<%- _id %>',class='word-break-wrap') <%- title %>
         div.col-md-4
             div.pull-right
-
-                span.text-warning &nbsp; <%- location %> &nbsp;
-
-
+                span.text-warning <%- location %>
+        div.col-md-1
+            div.pull-right
                 span(class='badge') 评论 <%= comments.length %>
+    div.row
+        div.col-md-12
+            div.pull-right
+
     div.row
         div.col-md-12
             p.blog-content.word-break-wrap

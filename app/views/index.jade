@@ -34,7 +34,7 @@ block content
 
 
             div(class='col-md-3 col-sm-3 hidden-xs new-member')
-                div.panel.panel-info
+                div.panel
                     div.panel-heading
                         h3.panel-title 发现排行
                     div.panel-body
@@ -43,7 +43,7 @@ block content
                                 each user, i in users
                                     li
                                         a(href='/users/#{user._id}')
-                                            img(class='img-polaroid img-rounded', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
+                                            img(class='img-rounded img-thumbnail img-responsive', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
 
                                             | &nbsp; #{user.name}
         script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')
