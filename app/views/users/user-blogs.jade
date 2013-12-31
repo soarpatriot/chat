@@ -32,14 +32,42 @@ block content
 
                         if (own)
                             div.row
-                                div.col-md-12
+                                div.col-md-8
+                                    if post.passed
+                                        span(class='label label-success') 审核通过
+                                    else if post.passed === false
+
+                                        if post.retried === 0
+                                            p.well.well-sm
+                                                | 未被审核通过， 您可以：
+                                                button(name='qi-post-btn',data-post-id='#{post._id}',class='btn btn-info') 起诉
+                                        if post.retried === 1
+                                            p.well.well-sm
+                                                | 未被审核通过， 您可以：
+                                                button(name='shen-post-btn',data-post-id='#{post._id}',class='btn btn-warning') 申诉
+                                        if post.retried === 2
+                                            p.well.well-sm
+                                                | 未被审核通过， 您可以：
+                                                button(name='kang-post-btn',data-post-id='#{post._id}',class='btn btn-danger') 抗诉
+                                        if post.retried >= 3
+                                            p
+                                                span(class='label label-default')
+                                                    | 由于您的3次起诉权利已用完，十分抱歉此文章暂不能发表... 由此带给您的不便，请谅解
+
+                                    else
+                                        p
+                                            | 请耐心等待:
+                                            span(class='label label-info') 正在审核中
+                                div.col-md-4
                                     .pull-right
+
                                         button(name='del-post-btn',data-post-id='#{post._id}',class='btn btn-danger')  删除
 
                                 form(id='#{post._id}',action='/posts',method='post')
-                                    input(type='hidden',name='_method',value='delete')
-                                    input(type='hidden',name='postId',value='#{post._id}')
-                                    input(type='hidden',name='currentPage',value='#{currentPage}')
+                                    input(id='#{post._id}-method',type='hidden',name='_method')
+                                    input(id='#{post._id}-retried',type='hidden',name='retried',value='#{post.retried}')
+                                    input(id='#{post._id}-postId',type='hidden',name='postId',value='#{post._id}')
+                                    input(id='#{post._id}-page',type='hidden',name='currentPage',value='#{currentPage}')
                         hr.soft
                 div.row
                             div.col-md-12
@@ -66,5 +94,5 @@ block content
                         a(id='cancel-del-btn',href='#',class='btn') 取消
                         a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
 
-        script(data-main='/build/app/user-blogs',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/user-blogs',src='/javascripts/require.js?v=#{appVersion}')
 

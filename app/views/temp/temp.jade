@@ -113,3 +113,39 @@ link(rel='stylesheet', href='/stylesheets/bootstrap-responsive.css')
 link(rel='stylesheet', href='/stylesheets/font-awesome.min.css')
 link(rel='stylesheet', href='/stylesheets/font-awesome-ie7.min.css')
 link(rel='stylesheet', href='/stylesheets/application.css')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.row
+    div.col-md-2.col-sm-2
+        a('href=/users/<%- creator._id %>')
+            img('src=<%- creator.thumbnails %>',class='img-rounded img-thumbnail')
+
+    div.col-md-10.col-sm-10
+        p
+            a('href=/posts/<%- _id %>') <%- title %>
+
+
+

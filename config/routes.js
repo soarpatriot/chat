@@ -23,7 +23,7 @@ exports.createRoutes = function(app){
     app.get('/posts',posts.index);
     app.get('/posts/new',posts.new);
     app.post('/posts',posts.create);
-
+    app.put('/posts',posts.retry);
     //app.get('/posts/review',posts.review);
     app.get('/posts/:id', posts.show);
 

@@ -49,13 +49,32 @@
       $('#confirm-del-btn').click(function() {
         var postId;
         postId = $(this).attr('data-post-id');
+        $('#' + postId + '-method').val('delete');
         return $('#' + postId).submit();
       });
-      return $('button[name="del-post-btn"]').click(function() {
+      $('button[name="del-post-btn"]').click(function() {
         var postId;
         postId = $(this).attr('data-post-id');
         $('#confirm-del-btn').attr('data-post-id', postId);
         return $('#post-del-confirm').modal();
+      });
+      $('button[name="qi-post-btn"]').click(function() {
+        var postId;
+        postId = $(this).attr('data-post-id');
+        $('#' + postId + '-method').val('put');
+        return $('#' + postId).submit();
+      });
+      $('button[name="shen-post-btn"]').click(function() {
+        var postId;
+        postId = $(this).attr('data-post-id');
+        $('#' + postId + '-method').val('put');
+        return $('#' + postId).submit();
+      });
+      return $('button[name="kang-post-btn"]').click(function() {
+        var postId;
+        postId = $(this).attr('data-post-id');
+        $('#' + postId + '-method').val('put');
+        return $('#' + postId).submit();
       });
     });
   });

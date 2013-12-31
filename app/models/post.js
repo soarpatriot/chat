@@ -79,6 +79,8 @@ var PostSchema = mongoose.Schema({
 
     tag: {type: Schema.ObjectId, ref: 'Tag'},
 
+    retried:{type:Number,default: 0},
+
     countryId:String,
     countryText:String,
     provinceId:String,
@@ -105,7 +107,11 @@ PostSchema.statics.findBytitle = function(title,callback){
 };
 
 PostSchema.statics.findCreatorPost = function(userId,start,pageSize,callback){
-    return this.find({creator: userId}).skip(start).limit(pageSize).exec(callback);
+    return this.find({creator: userId})
+                .sort('-pusTime')
+                .skip(start)
+                .limit(pageSize)
+                .exec(callback);
 };
 
 //find one post for review

@@ -48,6 +48,7 @@ require  ['jquery','bootstrap','bootstrapPaginator'], ($) ->
     # delete post
     $('#confirm-del-btn').click ->
       postId = $(this).attr('data-post-id')
+      $('#'+postId+'-method').val('delete')
       $('#'+postId).submit();
     # open delete own post dialog
     $('button[name="del-post-btn"]').click ->
@@ -55,6 +56,17 @@ require  ['jquery','bootstrap','bootstrapPaginator'], ($) ->
       $('#confirm-del-btn').attr('data-post-id',postId)
       $('#post-del-confirm').modal()
 
+    $('button[name="qi-post-btn"]').click ->
+      postId = $(this).attr('data-post-id')
+      $('#'+postId+'-method').val('put')
+      $('#'+postId).submit();
 
+    $('button[name="shen-post-btn"]').click ->
+      postId = $(this).attr('data-post-id')
+      $('#'+postId+'-method').val('put')
+      $('#'+postId).submit();
 
-
+    $('button[name="kang-post-btn"]').click ->
+      postId = $(this).attr('data-post-id')
+      $('#'+postId+'-method').val('put')
+      $('#'+postId).submit();

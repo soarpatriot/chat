@@ -2,21 +2,22 @@
 script(type="text/template",id="item-template")
     div.row
         div.col-md-7
-            p
-                a('href=/users/<%- creator._id %>')
-                    img('src=<%- creator.thumbnails %>',class='img-rounded img-thumbnail img-responsive')
-                | &nbsp;&nbsp;&nbsp;
+            div.media
+                a('href=/users/<%- creator._id %>',class='pull-left')
+                    img('src=<%- creator.thumbnails %>',class='img-rounded img-thumbnail')
+                div.media-body
+                    h5.media-heading
+                        p.padding-top5
+                            a('href=/posts/<%- _id %>') <%- title %>
 
-                a('href=/posts/<%- _id %>',class='word-break-wrap') <%- title %>
+
         div.col-md-4
-            div.pull-right
-                span.text-warning <%- location %>
+
+                span.text-warning.small <%- location %>
         div.col-md-1
             div.pull-right
                 span(class='badge') 评论 <%= comments.length %>
-    div.row
-        div.col-md-12
-            div.pull-right
+
 
     div.row
         div.col-md-12
@@ -24,7 +25,7 @@ script(type="text/template",id="item-template")
                 a('href=/posts/<%- _id %>') <%- content %>
                     
     div.row
-        div.col-md-8
+        div.col-md-7
             div.row
                 
                     div(name='up-post-div',class='col-md-2 col-xs-3 col-sm-2')

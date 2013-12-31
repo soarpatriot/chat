@@ -1,5 +1,5 @@
 
-current version: varsion 0.4.1
+current version: varsion 0.4.3
 
 fix mobile device redundant ico display 0.1.1.23
 fix register no validation 0.1.1.24
@@ -38,5 +38,9 @@ npm install 0.3.2
 add mutiple tags discover location 0.4.0.
 refactor login page 0.4.0.5
 add area 0.4.1
+
+change home page css 0.4.2
+
+add post sue 0.4.3
 
 

@@ -418,3 +418,32 @@ exports.up = function(req,res){
 
     });
 }
+
+/**
+ * retry for post an article
+ * @param req
+ * @param res
+ */
+
+exports.retry = function(req,res){
+
+    var user = req.user;
+
+    var postId = req.body.postId;
+
+    var retried = parseInt(req.body.retried) + 1;
+
+    var currentPage = req.body.currentPage;
+
+    Post.update({ _id: postId},{retried:retried,passed:null},{ multi: true }, function (err, numberAffected, raw) {
+
+        if (err){
+            req.flash('error','申诉错误！ 请试一次，或联系管理员。');
+            res.redirect('/users/'+user._id+'/'+currentPage);
+        }else{
+            req.flash('success', '诉讼成功！');
+            res.redirect('/users/'+user._id+'/'+currentPage);
+        }
+
+    });
+}
