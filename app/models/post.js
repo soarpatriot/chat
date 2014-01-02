@@ -106,6 +106,18 @@ PostSchema.statics.findBytitle = function(title,callback){
     return this.find({title: title},callback);
 };
 
+//find by from now date
+PostSchema.statics.topPost = function(start,from,pageSize,callback){
+
+    return this.find()
+        .sort('-score')
+        .where('pusTime').gt(from)
+        .skip(start)
+        .limit(pageSize)
+        .exec(callback);
+};
+
+
 PostSchema.statics.findCreatorPost = function(userId,start,pageSize,callback){
     return this.find({creator: userId})
                 .sort('-pusTime')

@@ -44,3 +44,5 @@ change home page css 0.4.2
 add post sue 0.4.3
 
 
+add promise q 0.4.4
+

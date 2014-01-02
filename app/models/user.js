@@ -115,7 +115,7 @@ flyAge.get(function(){
 UserSchema.statics.top5 = function(callback){
     return this
         .find()
-        .sort('-score')
+        .sort('-pubTime')
         .limit(5)
         .exec(callback);
 };
