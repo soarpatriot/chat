@@ -34,16 +34,27 @@ block content
 
 
             div(class='col-md-3 col-sm-3 hidden-xs new-member')
-                div.panel
+                div.panel.panel-default
                     div.panel-heading
-                        h3.panel-title 发现排行
+                        h3.panel-title 本周热点
                     div.panel-body
                         ul.nav
+                            if topPosts
+                                each post, i in topPosts
+                                    li
+                                        a(href='/posts/#{post.id}',class='clipse') #{post.title}
+
+
+                div.panel
+                    div.panel-heading
+                        h3.panel-title 最新会员
+                    div.panel-body
+                        p
                             if users
                                 each user, i in users
-                                    li
-                                        a(href='/users/#{user._id}')
-                                            img(class='img-rounded img-thumbnail img-responsive', src='#{user.thumbnails}',alt='头像',title='#{user.name}')
 
-                                            | &nbsp; #{user.name}
-        script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')
+                                    a(href='/users/#{user._id}',name='new-member-link',data-toggle='tooltip',title='#{user.name}')
+                                        img(class='img-circle img-thumbnail img-responsive small-face',src='#{user.thumbnails}',alt='#{user.name}')
+
+                                    | &nbsp;
+        script(data-main='/javascripts/app/home',src='/javascripts/require.js?v=#{appVersion}')

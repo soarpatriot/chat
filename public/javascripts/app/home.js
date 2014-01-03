@@ -101,6 +101,8 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
         left: '-21' // Left position relative to parent in px
     };
 
+    $('a[name="new-member-link"]').tooltip();
+
     var $spinner = $('<div class="spin-container"></div>');
     //var $spinner = $('<div class="preview"></div>');
     $spinner.spin(opts);

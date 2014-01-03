@@ -28,12 +28,11 @@ exports.index = function(req, res){
     };
 
     var renderResult = function(){
-        console.log(result.posts);
         res.render('index', {
             title: '@_@ 发现',
             user:req.user,
             users:result.users,
-            posts:result.posts,
+            topPosts:result.posts,
             currentLink: 'HOME',
             success : req.flash('success').toString(),
             error : req.flash('error').toString()
@@ -43,9 +42,7 @@ exports.index = function(req, res){
     var setTop10 = function(posts){
         result.posts = posts;
     };
-    //var allPromise = Q.all([ fs_readFile('file1.txt'), fs_readFile('file2.txt') ]);
-    //var topDenodify = Q.denodify(User.top5);
-    //var top5Promise = User.top5();
+
     var from = moment().subtract('days', 7);
     var top10PostPromise = Post.find().sort('-score').where('pusTime').gt(from).skip(0).limit(10).exec()
         .then(setTop10);
@@ -55,19 +52,5 @@ exports.index = function(req, res){
     var allPromise = Q.all([ top10PostPromise, promise ]);
 
     return allPromise.then(renderResult, showError);
-
-
-
-
-
-    /**
-    User.top5(function(err,users){
-
-        if(err){
-            res.redirect('/error');
-        }else{
-
-        }
-    });**/
 
 };

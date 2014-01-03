@@ -50,6 +50,11 @@
   background: rgba(255, 255, 255, 0.2) none repeat scroll 0 0 !important;
   filter: alpha(opacity=20);
 }
+.clipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 /**all page css**/
 .min-container {
   margin-top: 60px;
@@ -75,6 +80,10 @@ body {
 .ie9-tip {
   margin-top: 50px;
 }
+.small-face {
+  width: 40px;
+  height: 40px;
+}
 .border-content {
   margin-bottom: 20px;
   background-color: #ffffff;
@@ -87,6 +96,7 @@ body {
   box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);**/
+
 }
 .content-div {
   min-height: 500px;
@@ -98,6 +108,7 @@ body {
   border: 1px solid #CCC;
 
   box-shadow: 0 0 2px rgba(0,0,0,.1),0 2px 2px rgba(0,0,0,.1);**/
+
 }
 .icon-margin-top {
   margin-top: 3px;
