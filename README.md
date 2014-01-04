@@ -35,10 +35,11 @@ Currently,  it is just nightly build, can not assure stable.
 
     project  : chat
     repo age : 1 year, 4 months
-    active   : 157 days
-    commits  : 258
-    files    : 191
+    active   : 168 days
+    commits  : 273
+    files    : 194
     authors  :
-    250	Soar                    96.9%
-     8	liuhb7                  3.1%
+    265	Soar                    97.1%
+     8	liuhb7                  2.9%
+
 
