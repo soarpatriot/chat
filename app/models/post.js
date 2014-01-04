@@ -99,23 +99,17 @@ PostSchema.methods.findCreator = function(callback){
 };
 
 PostSchema.statics.findPostWithCreator = function(id,callback){
-    return this.findOne({'_id': id},callback).populate('creator');
+    return this.findOne({'_id': id})
+                .populate('tag creator')
+                .populate('fans')
+                .populate('author')
+                .exec(callback);
 };
 
 PostSchema.statics.findBytitle = function(title,callback){
     return this.find({title: title},callback);
 };
 
-//find by from now date
-PostSchema.statics.topPost = function(start,from,pageSize,callback){
-
-    return this.find()
-        .sort('-score')
-        .where('pusTime').gt(from)
-        .skip(start)
-        .limit(pageSize)
-        .exec(callback);
-};
 
 
 PostSchema.statics.findCreatorPost = function(userId,start,pageSize,callback){
@@ -181,6 +175,7 @@ PostSchema.statics.populateCommentsCreatorByPostId = function(postId,callback){
     return this
                 .findOne({'_id':postId})
                 .populate('creator')
+                .populate('tag')
                 .populate('comments.creator')
                 .exec(callback);
 };

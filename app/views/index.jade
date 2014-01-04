@@ -36,13 +36,17 @@ block content
             div(class='col-md-3 col-sm-3 hidden-xs new-member')
                 div.panel.panel-default
                     div.panel-heading
-                        h3.panel-title 本周热点
+                        h3.panel-title 本月热点
                     div.panel-body
-                        ul.nav
-                            if topPosts
-                                each post, i in topPosts
-                                    li
-                                        a(href='/posts/#{post.id}',class='clipse') #{post.title}
+                        if topPosts && topPosts.length > 0
+                            each post, i in topPosts
+                                p.ellipsis
+                                    | #{i+1}.
+                                    a(href='/posts/#{post.id}') #{post.title}
+
+
+                        else
+                            p 暂无
 
 
                 div.panel
@@ -52,9 +56,9 @@ block content
                         p
                             if users
                                 each user, i in users
-
-                                    a(href='/users/#{user._id}',name='new-member-link',data-toggle='tooltip',title='#{user.name}')
-                                        img(class='img-circle img-thumbnail img-responsive small-face',src='#{user.thumbnails}',alt='#{user.name}')
+                                    span
+                                        a(href='/users/#{user._id}',name='new-member-link',data-toggle='tooltip',title='#{user.name}')
+                                            img(class='img-circle img-thumbnail img-responsive small-face',src='#{user.thumbnails}',alt='#{user.name}')
 
                                     | &nbsp;
-        script(data-main='/javascripts/app/home',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/build/app/home',src='/javascripts/require.js?v=#{appVersion}')

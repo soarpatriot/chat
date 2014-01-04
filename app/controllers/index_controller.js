@@ -24,6 +24,7 @@ exports.index = function(req, res){
     };
 
     var setTop5 = function(users){
+        console.log("user:"+users.length);
         result.users = users
     };
 
@@ -43,10 +44,14 @@ exports.index = function(req, res){
         result.posts = posts;
     };
 
-    var from = moment().subtract('days', 7);
-    var top10PostPromise = Post.find().sort('-score').where('pusTime').gt(from).skip(0).limit(10).exec()
-        .then(setTop10);
-    var promise = User.find().sort('-pubTime').limit(5).exec()
+    var from = moment().subtract('days', 30);
+    var top10PostPromise = Post.find().where('passed').equals(true)
+                            .where('pusTime').gt(from)
+                            .sort('-score')
+                            .skip(0).limit(10).exec()
+                            .then(setTop10);
+
+    var promise = User.find().sort('-regTime').limit(10).exec()
         .then(setTop5);
 
     var allPromise = Q.all([ top10PostPromise, promise ]);

@@ -25,16 +25,23 @@ block content
 
 
                              div.panel-footer
-                                 p.marketing-byline.text-right.text-muted
+                                 div.row
+                                     div.col-md-9.small
+                                         if typeof(post.tag) !== 'undefined' && post.tag !== null && post.tag !== ''  && typeof(post.tag.name) !== 'undefined' && post.tag.name!==null && post.tag.name!==''
+                                            span(class='label label-primary') #{post.tag.name}
+                                         if typeof(post.tag) !== 'undefined' && post.location !== null && post.location !== ''
+                                            span.small &nbsp;地点： #{post.location}
+                                     div.col-md-3.text-muted.pull-right.small
+                                         a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
+                                         time
+                                             | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
 
-                                        a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
-                                        time
-                                            | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+
                 hr
                 div.row
 
                     div(class='col-md-1')
-                        img(class='img-polaroid img-rounded face-thumbnails',src='/images/noavatar92.png')
+                        img(class='img-polaroid img-rounded small-face',src='/images/noavatar92.png')
                     div(class='col-md-11')
                         form(id='comment-form',action='/comment',method='post')
                             div.form-group
@@ -58,9 +65,10 @@ block content
                         div.media-body
                             p !{comment.content}
                             div.row
-                                div.col-md-2.marketing-byline
+                                div.col-md-8.small
                                     a(href='/users/#{comment.creator._id}',class='comment-header-author') #{comment.creator.name}
-                                    span(class='pull-right comment-header-date') #{comment.fromNow}
+                                    | &nbsp;
+                                    span(class='comment-header-date text-muted') #{comment.fromNow} 评论
                     hr
 
 

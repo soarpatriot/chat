@@ -332,35 +332,6 @@ exports.destroy = function(req,res){
 
 
 /**
- * get one post for backbone
- * @param req
- * @param res
- */
-exports.one = function(req,res){
-    Post.findPostWithCreator(req.params.id, function(err,post){
-        if(err){
-            req.flash('error', err);
-            return res.redirect('/');
-        }
-
-        post = Post.truncateOne(post);
-        res.format({
-            html: function(){
-                //res.json(post);
-            },
-
-            text: function(){
-                //res.json(post);
-            },
-
-            json: function(){
-                res.json(post);
-            }
-        });
-    });
-}
-
-/**
  * user up and down a post
  * only login user can up and down a post
  *
