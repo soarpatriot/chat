@@ -256,20 +256,18 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             initialize: function() {
-                //defin a spinner init
-                //var target= document.getElementById('spinner');
-                //this.spinner = new Spinner(opts).spin(target);
-                this.$pager = this.template();
 
+                this.$pager = this.template();
 
                 Posts.on('add', this.addOne, this);
                 Posts.on('reset', this.addAll, this);
                 Posts.on('all', this.render, this);
 
                 Posts.fetch();
-                //
+
             },
             render: function() {
+                $spinner.spin(false);
                 //this.$el.append(this.spinner.el);
             },
             addOne: function(post) {
@@ -298,18 +296,14 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                         $spinner.spin(opts);
 
                         $('#posts').empty();
-                        //var start = Posts.state.currentPage * Posts.state.pageSize + 1;
-                        //Posts.set("start",start);
                         Posts.getPage(page)
-                        //$('#posts').append($('#page-template').html());
-                        //$('#pagination-div').bootstrapPaginator(options);
-                        //Posts.fetch();
+
                     }
                 };
                 this.$('#posts').append(this.template());
                 //$('#pagination-div').bootstrapPaginator(options);
                 this.$('.pagination').bootstrapPaginator(options);
-                $spinner.spin(false);
+
                 //this.$spinContainer.remove();
             }
         });
@@ -328,11 +322,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             initialize: function() {
-                //defin a spinner init
-                //var target= document.getElementById('spinner');
-                //this.spinner = new Spinner(opts).spin(target);
-
-
 
                 discorverPosts.on('add', this.addOne, this);
                 discorverPosts.on('reset', this.addAll, this);
@@ -341,7 +330,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 
             },
             render: function() {
-                
+                $spinner.spin(false);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -374,7 +363,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 };
                 this.$('#discover-content').append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
-                $spinner.spin(false);
+
             }
         });
 
@@ -393,11 +382,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             initialize: function() {
-                //defin a spinner init
-                //var target= document.getElementById('spinner');
-                //this.spinner = new Spinner(opts).spin(target);
-
-
 
                 helpPosts.on('add', this.addOne, this);
                 helpPosts.on('reset', this.addAll, this);
@@ -406,7 +390,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             render: function() {
-
+                $spinner.spin(false);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -439,7 +423,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 };
                 this.$('#help-content').append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
-                $spinner.spin(false);
+
             }
         });
 
@@ -468,7 +452,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             render: function() {
-
+                $spinner.spin(false);
             },
             addOne: function(post) {
                 var view = new PostView({model: post});
@@ -501,7 +485,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 };
                 this.$('#spitslot-content').append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
-                $spinner.spin(false);
+
             }
         });
 
@@ -510,28 +494,37 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
         var discoverView = null;
         $('#content-ul-tab a[href="#discover"]').click(function (e) {
+            $spinner.spin(opts);
             e.preventDefault();
             $(this).tab('show');
             if(!discoverView){
               discoverView = new DiscoverView();
+            }else{
+                $spinner.spin(false);
             }
         });
 
         var helpView = null;
         $('#content-ul-tab a[href="#help"]').click(function (e) {
+            $spinner.spin(opts);
             e.preventDefault();
             $(this).tab('show');
             if(!helpView){
                 helpView = new HelpView();
+            }else{
+                $spinner.spin(false);
             }
         });
 
         var spitslotView = null;
         $('#content-ul-tab a[href="#spitslot"]').click(function (e) {
+            $spinner.spin(opts);
             e.preventDefault();
             $(this).tab('show');
             if(!spitslotView){
                 spitslotView = new SpitslotView();
+            }else{
+                $spinner.spin(false);
             }
         });
     });
