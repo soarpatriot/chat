@@ -3,8 +3,8 @@ var io = require('socket.io');
 var socketModule={};
 module.exports = socketModule;
 
-socketModule.listenServer = function(server){
-    io = io.listen(server);
+socketModule.listenServer = function(port){
+    io = io.listen(port);
 
     var nicknames = {};
 
@@ -18,18 +18,13 @@ socketModule.listenServer = function(server){
 
         socket.on('nickname',function(nick){
             console.log('nicknames' + nicknames);
-            //if(nicknames[nick]){
-            //  fn(true);
-            // console.log("nicknames 111" + nicknames);
-            //}else{
-            //  fn(false);
+
             nicknames[nick] = socket.nickname = nick;
             socket.broadcast.emit('announcement', nick + ' connected');
             socket.emit('nickname', nicknames);
 
             console.log("nicknames " + nicknames);
 
-            //}
         });
 
         socket.on('disconnect', function(){
@@ -41,12 +36,5 @@ socketModule.listenServer = function(server){
             socket.broadcast.emit('announcement', socket.nickname + ' disconnected');
             socket.broadcast.emit('nicknames', nicknames);
         });
-
-
     });
-
 }
-//http.createServer(app).listen(app.get('port'), function(){
-//console.log("Express server listening on port " + app.get('port'));
-//});
-

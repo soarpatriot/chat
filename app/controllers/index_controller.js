@@ -59,3 +59,14 @@ exports.index = function(req, res){
     return allPromise.then(renderResult, showError);
 
 };
+
+
+exports.talk = function(req, res){
+    res.render('talk/chat', {
+        title: '@_@ 发现 talk',
+
+        currentLink: 'HOME',
+        success : req.flash('success').toString(),
+        error : req.flash('error').toString()
+    });
+}

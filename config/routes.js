@@ -16,7 +16,7 @@ exports.createRoutes = function(app){
 
     app.get('/',user.loadUser, home.index);
 
-    app.get('/chat', chat.index);
+    app.get('/talk', user.loadUser,home.talk);
 
     app.all('/posts*',user.loadUser);
     app.delete('/posts',posts.destroy);
