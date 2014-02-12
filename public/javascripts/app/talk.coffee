@@ -19,7 +19,15 @@ require.config
     'socket.io':'socket.io'
 
 require ['jquery','bootstrap','socket.io'], ($) ->
-  socket = io.connect('http://localhost:10000')
+  socket = io.connect()
+
+  message = (from, msg) ->
+    console.log from + msg
+    $('#lines').append($('<p>').append('<b>'+from+' : </b>'+msg))
+    p = $('#lines p:last').position()
+    size =  $('#lines p').size()
+    $('#lines').get(0).scrollTop = size*200
+
   socket.on 'connect', ->
     console.log 'connect'
 
@@ -33,7 +41,8 @@ require ['jquery','bootstrap','socket.io'], ($) ->
     for i in nicknames
         $('#nicknames').append($('<p>').text(nicknames[i]+'  '))
 
-  socket.on('user message', message);
+  socket.on 'user message', message
+
 
   socket.on 'reconnect', ->
     $('#line').remove()
@@ -47,22 +56,19 @@ require ['jquery','bootstrap','socket.io'], ($) ->
     message('System', e ? e : 'A unknown error occurred')
 
 
-  message = (from, msg) ->
-    $('#lines').append($('<p>').append('<b>'+from+' : </b>'+msg))
-    p = $('#lines p:last').position()
-    size =  $('#lines p').size()
-    $('#lines').get(0).scrollTop = size*200
+
 
 
   $ ->
     $('#set-nickname').submit (ev) ->
       socket.emit('nickname',$('#nick').val())
-      return false;
+      return false
 
     $('#send-message').submit ->
       socket.emit('user message', $('#editor_id').val())
       clear()
       return false
+
 
 
     clear = ->

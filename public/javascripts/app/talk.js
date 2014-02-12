@@ -25,7 +25,15 @@
 
   require(['jquery', 'bootstrap', 'socket.io'], function($) {
     var message, socket;
-    socket = io.connect('http://localhost:10000');
+    socket = io.connect();
+    message = function(from, msg) {
+      var p, size;
+      console.log(from + msg);
+      $('#lines').append($('<p>').append('<b>' + from + ' : </b>' + msg));
+      p = $('#lines p:last').position();
+      size = $('#lines p').size();
+      return $('#lines').get(0).scrollTop = size * 200;
+    };
     socket.on('connect', function() {
       return console.log('connect');
     });
@@ -55,13 +63,6 @@
         e: 'A unknown error occurred'
       });
     });
-    message = function(from, msg) {
-      var p, size;
-      $('#lines').append($('<p>').append('<b>' + from + ' : </b>' + msg));
-      p = $('#lines p:last').position();
-      size = $('#lines p').size();
-      return $('#lines').get(0).scrollTop = size * 200;
-    };
     return $(function() {
       var clear;
       $('#set-nickname').submit(function(ev) {

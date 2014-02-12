@@ -26,5 +26,5 @@ var server = http.createServer(app).listen(options.port, function(){
 });
 
 //socket.io  and node js module;
-io.listenServer(10000);
+io.listenServer(server);
 

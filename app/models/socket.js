@@ -3,8 +3,8 @@ var io = require('socket.io');
 var socketModule={};
 module.exports = socketModule;
 
-socketModule.listenServer = function(port){
-    io = io.listen(port);
+socketModule.listenServer = function(server){
+    io = io.listen(server);
 
     var nicknames = {};
 
