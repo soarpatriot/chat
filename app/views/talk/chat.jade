@@ -5,7 +5,7 @@ block append head
 block content
   body
 
-    h3 talk about whatever you want.....
+
 
     div(id='chat', class='container')
 
@@ -15,11 +15,10 @@ block content
 
     div(id='messages', class='row')
 
-        div(class='t3 padding20 auto-line online-user')
+        div.col-md-2
            h3 On Line
            div(id='nicknames')
-        div(class='t9 chat-message padding20',id='lines')
-
+        div(class='col-md-10',id='lines')
 
     div.row
        form(class='well form-inline center',id='send-message')
