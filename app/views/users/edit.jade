@@ -20,10 +20,11 @@ block content
                     input(id='face-id',type='hidden',name='faceId', value='#{user.faceId}')
                     div.col-md-2
 
-                            img(class='img-polaroid img-rounded',id='image-face',src='#{user.normalFace}',alt='头像')
+                            img(class='img-polaroid img-rounded',id='image-face',src='',alt='头像')
 
                             p
                             p
+                                a(href='#upload-model',role='button',class='btn btn-success',data-toggle='modal') 更改
                                 input(id='upload-face-btn',type='button',name='myName',class='btn btn-info',value='更改')
 
 
@@ -58,4 +59,32 @@ block content
                     div.col-md-2.col-md-offset-2
                         button(class='btn btn-primary', type='submit') 提交
 
-    script(data-main='/build/app/edit-profile',src='/javascripts/require.js?v=#{appVersion}')
+
+        <!-- guide dialog -->
+        div(id='upload-model',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+            div.modal-dialog.width70percent
+                div.modal-content
+                    div.modal-header
+                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
+                            &times;
+                        h5 上传头像
+
+                    div.modal-body
+                        div.row
+                            div.col-md-12
+                                form(id='fileupload',enctype='multipart/form-data',method='POST',action='/upload')
+                                    div(class='row fileupload-buttonbar')
+                                        div.col-md-1
+                                               span(class='btn btn-success fileinput-button')
+                                                   span 添加文件...
+                                                   input(type='file',name='files')
+                        div.row
+                            div.col-md-12
+                                div.upload-area
+                                    p 拖动文件到此区域
+
+
+                    div.modal-footer
+                        p
+                            头像
+    script(data-main='/javascripts/app/post.js',src='/javascripts/require.js?v=#{appVersion}')

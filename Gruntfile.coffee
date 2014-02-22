@@ -7,6 +7,9 @@ module.exports = (grunt) ->
               'public/stylesheets/animate+animo.css',
               'public/stylesheets/select2.css',
               'public/stylesheets/chosen.css',
+              'public/stylesheets/jquery.fileupload.css',
+              'public/stylesheets/jquery.fileupload-ui.css',
+              'public/stylesheets/jquery.fileupload-ui-noscript.css',
               'public/stylesheets/application.css']
   delOptions = {
     force: true
