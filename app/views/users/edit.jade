@@ -72,19 +72,45 @@ block content
                     div.modal-body
                         div.row
                             div.col-md-12
+                                p 提示：点击按钮上传文件，也可以拖动文件到指定区域上传文件。（文件格式请使用，gif，jpg，peg，png)，并且文件大小小于10M）
+                        div.row
+                            div.col-md-12
                                 form(id='fileupload',enctype='multipart/form-data',method='POST',action='/upload')
                                     div(class='row fileupload-buttonbar')
                                         div.col-md-1
                                                span(class='btn btn-success fileinput-button')
                                                    span 添加文件...
-                                                   input(type='file',name='files')
+                                                   input(type='file',name='files',id='file-input')
+
                         div.row
-                            div.col-md-12
-                                div.upload-area
-                                    p 拖动文件到此区域
+                            div.col-md-6
+                                div(id='dropzone',class='upload-area') 拖动文件到此区域
+                        div.row
+                            div(id='upload-div',class='col-md-11 col-sm-11')
+
 
 
                     div.modal-footer
                         p
-                            头像
+                            button(id='confirm-btn',class='btn') 取消
+                            | &nbsp;
+                            button(id='confirm-btn',class='btn btn-primary') 确定
+
+
+        script(type='text/template',id='file-template')
+            div.row
+                div(id='display-area',class='col-md-3 col-sm-4')
+                div.col-md-3
+                    p.middle
+                        | <%- name %> &nbsp;&nbsp;
+                        span(class='badge',id='file-info-label') 大小： <%- size %>
+
+            div.row
+                div.col-md-11
+                    div(id='progress-container')
+                        div(class='progress progress-striped active')
+                            div(id='progress-bar',class='progress-bar progress-bar-success',role='progressbar',aria-valuenow='0',aria-valuemin='0',aria-valuemax='100',style='width: 0%')
+
+
+
     script(data-main='/javascripts/app/post.js',src='/javascripts/require.js?v=#{appVersion}')

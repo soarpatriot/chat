@@ -27,6 +27,7 @@ require.config({
         "jquery": "jquery-2.0.3.min",
         "underscore": "underscore",
         'bootstrap': 'bootstrap.min',
+        "load-image":"fileupload/load-image.min",
         "jquery.iframe-transport":"fileupload/jquery.iframe-transport",
         "jquery.ui.widget": "fileupload/vendor/jquery.ui.widget",
         "jquery.fileupload":"fileupload/jquery.fileupload"
@@ -34,13 +35,14 @@ require.config({
 
 });
 
-require(["require","jquery","jquery.iframe-transport","jquery.fileupload","bootstrap"],function(require,$) {
+require(["require","jquery","load-image","underscore","jquery.iframe-transport","jquery.fileupload","bootstrap"],function(require,$,loadImage,_) {
 
     $('#fileupload').fileupload({
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
         //url:'http://106.186.22.114:8080/upload'
-        url:'http://localhost:8888/upload'
+        url:'http://localhost:8888/upload',
+        dropZone: $('#dropzone')
     });
     $('#fileupload').fileupload('option', {
 
@@ -50,7 +52,7 @@ require(["require","jquery","jquery.iframe-transport","jquery.fileupload","boots
             {
                 action: 'load',
                 fileTypes: /^image\/(gif|jpeg|png)$/,
-                maxFileSize: 20000000 // 20MB
+                maxFileSize: 10000000 // 10MB
             },
             {
                 action: 'resize',
@@ -63,6 +65,36 @@ require(["require","jquery","jquery.iframe-transport","jquery.fileupload","boots
         ]
     });
 
+
+    $(document).bind('dragover', function (e) {
+        var dropZone = $('#dropzone'),
+            timeout = window.dropZoneTimeout;
+        if (!timeout) {
+            dropZone.addClass('in');
+        } else {
+            clearTimeout(timeout);
+        }
+        var found = false,
+            node = e.target;
+        do {
+            if (node === dropZone[0]) {
+                found = true;
+                break;
+            }
+            node = node.parentNode;
+        } while (node != null);
+        if (found) {
+            dropZone.addClass('hover');
+        } else {
+            dropZone.removeClass('hover');
+        }
+        window.dropZoneTimeout = setTimeout(function () {
+            window.dropZoneTimeout = null;
+            dropZone.removeClass('in hover');
+        }, 3000);
+    });
+
+
     // Enable iframe cross-domain access via redirect option:
     $('#fileupload').fileupload(
         'option',
@@ -73,13 +105,63 @@ require(["require","jquery","jquery.iframe-transport","jquery.fileupload","boots
         )
     );
 
+    /**
+     * clear the previous upload image
+     */
+    function clearProgress(){
+
+
+        /**
+        $('#upload-div').removeClass('fade');
+        var progress = 0;
+        $('#progress-bar').text(progress+'%');
+        $('#progress-bar').attr('aria-valuenow',progress);
+        $('#progress-bar').css(
+            'width',
+            progress + '%'
+        );**/
+        $('#display-area').empty();
+    }
+
+    function obtainFileInfo(file){
+        var size = file.size;
+        var kbSize = size/1024;
+        var sizeText = kbSize/1024 > 0 ? (kbSize/1024).toFixed(2) + ' MB' : kbSize.toFixed(2) + ' KB';
+
+        var fileInfo = {
+            name:file.name,
+            size:sizeText
+        }
+        return fileInfo;
+    }
+
     $('#fileupload').fileupload({
 
         dataType: 'json',
         add: function (e, data) {
+
+            $('#upload-div').empty();
+
+            var fileTmp = _.template($('#file-template').html());
+            $('#upload-div').append(fileTmp(obtainFileInfo(data.files[0])));
+
+            var loadingImage = loadImage(
+                data.files[0],
+                function (img) {
+                    var $image = $(img);
+                    $image.addClass('img-responsive').addClass('img-thumbnail')
+                    $('#display-area').append($image);
+                },
+                {   maxWidth:140,
+                    maxHeight:140,
+                    canvas:true
+                }
+            );
+            //loadingImage.onload = loadingImage.onerror = null;
+            /*
             $.each(data.files, function (index, file) {
                 $('<p/>').text(file.name).appendTo($("#upload-result"));
-            });
+            });**/
             /**
              *  {"name":"flamingo (13).js","originalName":"flamingo.js",
              *  "size":79998,"type":"application/javascript","delete_type":"DELETE",
@@ -131,8 +213,9 @@ require(["require","jquery","jquery.iframe-transport","jquery.fileupload","boots
         },**/
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#percent').text(progress+'%')
-            $('#progress .bar').css(
+            $('#progress-bar').text(progress+'%');
+            $('#progress-bar').attr('aria-valuenow',progress);
+            $('#progress-bar').css(
                 'width',
                 progress + '%'
             );
