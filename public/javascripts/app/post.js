@@ -140,7 +140,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                 data.files[0],
                 function (img) {
                     var $image = $(img);
-                    $image.addClass('img-responsive').addClass('img-thumbnail')
+                    $image.addClass('img-responsive').addClass('img-thumbnail');
                     $('#display-area').append($image);
                 },
                 {   maxWidth:140,
@@ -171,6 +171,14 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                 })
                 .complete(function (result, textStatus, jqXHR) {
                     console.log("result complete: "+JSON.stringify(result));
+                    //result = JSON.stringify(result)
+                    var files = result.responseJSON.files;
+
+                    console.log('responseText:'+JSON.stringify(files));
+                    if(files && files[0]){
+                        console.log('url:'+files[0].thumbnailUrl);
+                        $('#image-face').attr('src',files[0].smallUrl);
+                    }
                 });
             //data.submit();
         },
