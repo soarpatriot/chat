@@ -46,7 +46,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     });
     $('#fileupload').fileupload('option', {
 
-        maxFileSize: 5000000,
+        maxFileSize: 10000000,
         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         process: [
             {
