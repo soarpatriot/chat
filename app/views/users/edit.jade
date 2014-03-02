@@ -84,9 +84,9 @@ block content
 
                         div.row
                             div.col-md-6
-                                div(id='dropzone',class='upload-area') 拖动文件到此区域
+                                div(id='dropzone',class='drag-area') 拖动文件到此区域
                         div.row
-                            div(id='upload-div',class='col-md-11 col-sm-11')
+                            div(id='upload-div',class='col-md-11 col-sm-11 well well-sm fade maigin-left-right-15')
 
 
 
@@ -99,11 +99,14 @@ block content
 
         script(type='text/template',id='file-template')
             div.row
-                div(id='display-area',class='col-md-3 col-sm-4')
-                div.col-md-3
+                div(id='display-area',class='col-md-3 col-sm-4.col-xs-2')
+                div.col-md-9.col-sm-8.col-xs-10
                     p.middle
-                        | <%- name %> &nbsp;&nbsp;
-                        span(class='badge',id='file-info-label') 大小： <%- size %>
+                        span(class='badge',id='file-info-label') 文件名
+                        | &nbsp;&nbsp; <%- name %>
+                        <br/>
+                        span(class='badge',id='file-info-label') 大小
+                        | &nbsp;&nbsp; <%- size %>
 
             div.row
                 div.col-md-11

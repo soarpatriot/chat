@@ -251,7 +251,7 @@ body {
   width: 20%;
 }
 /**user edit**/
-.upload-area {
+.drag-area {
   border: 1px dashed;
   width: 100%;
   margin-bottom: 5px;
@@ -259,12 +259,16 @@ body {
   display: table;
   text-align: center;
 }
-.upload-area p {
+.drag-area p {
   display: table-cell;
   vertical-align: middle;
 }
+.maigin-left-right-15 {
+  margin-left: 15px;
+  margin-right: 15px;
+}
 .middle {
-  line-height: 80px;
+  line-height: 30px;
   vertical-align: middle;
 }
 #dropzone.in {

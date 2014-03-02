@@ -108,19 +108,10 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     /**
      * clear the previous upload image
      */
-    function clearProgress(){
+    function clearDisplay(){
 
-
-        /**
         $('#upload-div').removeClass('fade');
-        var progress = 0;
-        $('#progress-bar').text(progress+'%');
-        $('#progress-bar').attr('aria-valuenow',progress);
-        $('#progress-bar').css(
-            'width',
-            progress + '%'
-        );**/
-        $('#display-area').empty();
+        $('#upload-div').empty();
     }
 
     function obtainFileInfo(file){
@@ -140,7 +131,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
         dataType: 'json',
         add: function (e, data) {
 
-            $('#upload-div').empty();
+            clearDisplay();
 
             var fileTmp = _.template($('#file-template').html());
             $('#upload-div').append(fileTmp(obtainFileInfo(data.files[0])));
