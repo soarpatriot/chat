@@ -46,7 +46,14 @@ var UserSchema = mongoose.Schema({
     email:'String',
     regTime:{ type: Date, default: Date.now },
     votePosts:[Vote],
-    score:{type: Number, default: 0}
+    score:{type: Number, default: 0},
+
+    url:'String',
+    deleteUrl:'String',
+    smallUrl:'String',
+    thumbnailUrl:'String',
+    miniUrl:'String'
+
 },schemaOptions);
 
 

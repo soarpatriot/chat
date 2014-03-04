@@ -178,6 +178,24 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                     if(files && files[0]){
                         console.log('url:'+files[0].thumbnailUrl);
                         $('#image-face').attr('src',files[0].smallUrl);
+
+                        var params = {
+                            url: files[0].url,
+                            deleteUrl: files[0].deleteUrl,
+                            smallUrl:files[0].smallUrl,
+                            thumbnailUrl: files[0].thumbnailUrl,
+                            miniUrl:files[0].miniUrl
+                        };
+                        $.ajax({
+                            type: 'POST',
+                            url: '/users/face',
+                            data: params,
+                            success: function(res){
+                                console.log('success '+res);
+                            },
+                            dataType: 'json'
+                        });
+
                     }
                 });
             //data.submit();

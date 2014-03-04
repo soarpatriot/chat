@@ -2,7 +2,7 @@
 /*
  * User controller
  */
-
+var Q = require("q");
 var crypto = require('crypto');
 var User = require('../models/user.js');
 var Post = require('../models/post.js');
@@ -442,55 +442,31 @@ exports.checkAdmin = function(req, res, next) {
     }
 }
 
-
 /**
-exports.saveProfile = function(req, res){
-    // 获得文件的临时路径
-    var tmp_path = req.files.face.path;
-    var extName = path.extname(req.files.face.name);
-    // 指定文件上传后的目录 - 示例为"images"目录。
-    // + req.files.face.name;
-    var target_path =  __dirname + '/../public/images/face/'+path.basename(tmp_path) + extName;
+ * update user face
+ * @param req
+ * @param res
+ */
+exports.updateFace = function(req,res){
+    var user = req.user;
 
+    var url = req.body.url;
+    var deleteUrl = req.body.deleteUrl;
+    var smallUrl = req.body.smallUrl;
+    var thumbnailUrl = req.body.thumbnailUrl;
+    var miniUrl = req.body.miniUrl;
 
+    if(user){
+        User.update({ _id: user._id},{url:url,deleteUrl:deleteUrl,smallUrl:smallUrl,thumbnailUrl:thumbnailUrl,miniUrl:miniUrl},{ multi: true }, function (err, numberAffected, raw) {
 
-    fs.readFile(tmp_path, function (err, data) {
-        if (err) {
-            res.send(err);
-            return;
-        }
-        console.log('1213');
-        fs.writeFile(target_path, data, function (err) {
-            if (!err) {
-                res.send({uploaded: true});
-            } else {
-                res.send(err);
+            if (err){
+
+                res.json('1');
+            }else{
+
+                res.json('0');
             }
+
         });
-    });
-
-
-
+    }
 }
-**/
-/**
- // 移动文件
- fs.rename(tmp_path, target_path, function(err) {
-
-        console.log('123123');
-        if (err) throw err;
-
-    // 删除临时文件夹文件,
-        fs.unlink(tmp_path, function() {
-            console.log('456');
-            if (err) throw err;
-            //res.send('File uploaded to: ' + target_path + ' - ' + req.files.face.size + ' bytes');
-            res.render('user/edit',{
-                title: '编辑',
-                user: req.session.user,
-                success: req.flash('success').toString(),
-                error: req.flash('error').toString()
-            });
-        });
-    });
- **/

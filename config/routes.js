@@ -50,6 +50,7 @@ exports.createRoutes = function(app){
     app.get('/users',user.show);
     app.post('/users',user.updateProfile);
     app.put('/users',user.update);
+    app.post('/users/face',user.updateFace);
 
     app.post('/upload',user.loadUser,uploader.face);
     app.post('/upload-face',user.loadUser,uploader.uploadFace);
