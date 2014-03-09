@@ -24,8 +24,8 @@ block content
 
                             p
                             p
-                                a(href='#upload-model',role='button',class='btn btn-success',data-toggle='modal') 更改
-                                input(id='upload-face-btn',type='button',name='myName',class='btn btn-info',value='更改')
+                                button(id='change-face-btn',class='btn btn-info') 更改
+
 
 
                 div.form-group
@@ -59,20 +59,18 @@ block content
                     div.col-md-2.col-md-offset-2
                         button(class='btn btn-primary', type='submit') 提交
 
-
-        <!-- guide dialog -->
-        div(id='upload-model',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+        div(id='upload-model',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true',data-backdrop='static')
             div.modal-dialog.width70percent
                 div.modal-content
                     div.modal-header
-                        button(type='button',class='close',data-dismiss='modal',aria-hidden='true')
-                            &times;
+
                         h5 上传头像
 
                     div.modal-body
                         div.row
                             div.col-md-12
-                                p 提示：点击按钮上传文件，也可以拖动文件到指定区域上传文件。（文件格式请使用，gif，jpg，peg，png)，并且文件大小小于10M）
+                                p 提示：点击按钮上传文件，也可以拖动文件到指定区域上传文件。（文件格式请使用，gif，jpg，jpeg，png)，并且文件大小小于10M）
+
                         div.row
                             div.col-md-12
                                 form(id='fileupload',enctype='multipart/form-data',method='POST',action='/upload')
@@ -81,6 +79,8 @@ block content
                                                span(class='btn btn-success fileinput-button')
                                                    span 添加文件...
                                                    input(type='file',name='files',id='file-input')
+                        p
+                            span(class='label label-info') 或者
 
                         div.row
                             div.col-md-6
@@ -93,9 +93,7 @@ block content
 
                     div.modal-footer
                         p
-                            button(id='confirm-btn',class='btn') 取消
-                            | &nbsp;
-                            button(id='confirm-btn',class='btn btn-primary') 确定
+                            button(id='confirm-btn',class='btn btn-primary',data-dismiss='modal',aria-hidden='true',disabled='true') 确定
 
 
         script(type='text/template',id='file-template')
@@ -108,6 +106,8 @@ block content
                         <br/>
                         span(class='badge',id='file-info-label') 大小
                         | &nbsp;&nbsp; <%- size %>
+                        <br/>
+                        button(id='upload-cancel-btn',class='btn btn-danger') 取消
 
             div.row
                 div.col-md-11

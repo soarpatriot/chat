@@ -456,15 +456,20 @@ exports.updateFace = function(req,res){
     var thumbnailUrl = req.body.thumbnailUrl;
     var miniUrl = req.body.miniUrl;
 
+    var result = {
+        code:0,
+        desc:'success'
+    }
+
     if(user){
         User.update({ _id: user._id},{url:url,deleteUrl:deleteUrl,smallUrl:smallUrl,thumbnailUrl:thumbnailUrl,miniUrl:miniUrl},{ multi: true }, function (err, numberAffected, raw) {
 
             if (err){
-
-                res.json('1');
+                result.code = '1';
+                result.desc = '头像更新失败！';
+                res.json(result);
             }else{
-
-                res.json('0');
+                res.json(result);
             }
 
         });

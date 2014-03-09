@@ -23,4 +23,3 @@ require ['jquery','bootstrap'], ($) ->
     $("#content-hidden").val(content)
     $("#comment-form").submit()
 
-

@@ -27,6 +27,7 @@ require.config({
         "jquery": "jquery-2.0.3.min",
         "underscore": "underscore",
         'bootstrap': 'bootstrap.min',
+        'jquery.spin': 'jquery.spin',
 
         "load-image":"fileupload/load-image.min",
         "load-image-exif":"fileupload/load-image-exif",
@@ -46,25 +47,57 @@ require.config({
 });
 
 require(["require","jquery","load-image","underscore","jquery.iframe-transport","jquery.fileupload","jquery.fileupload-validate",
-   "jquery.fileupload-image","jquery.ui.widget",
-    "load-image-exif","load-image-ios","load-image-meta","canvas-to-blob",
-    ,"bootstrap"],function(require,$,loadImage,_) {
+    //"jquery.fileupload-image","jquery.ui.widget",
+    //"load-image-exif","load-image-ios","load-image-meta","canvas-to-blob",
+    "jquery.spin",
+    "bootstrap"],function(require,$,loadImage,_) {
+
+    var opts = {
+        lines: 13, // The number of lines to draw
+        length: 6, // The length of each line
+        width: 4, // The line thickness
+        radius: 10, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        color: '#FFFFFF', // #rgb or #rrggbb
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: true, // Whether to render a shadow
+        hwaccel: true, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: '-30', // Top position relative to parent in px
+        left: '80' // Left position relative to parent in px
+    };
+    var $spinner = $('<div></div>');
 
 
-    if ($.support.cors) {
-        $.ajax({
-            url: '//jquery-file-upload.appspot.com/',
-            type: 'HEAD'
-        }).fail(function () {
-            $('<div class="alert alert-danger"/>')
-                .text('Sorry, 上传头像暂不可用 - ' +
-                    new Date())
-                .appendTo('#fileupload');
-        });
+
+
+    $('#change-face-btn').bind('click',function(e){
+        e.preventDefault();
+        clearDisplay();
+        $('#confirm-btn').removeAttr('disabled');
+
+        $('#upload-model').modal('show');
+    });
+
+    /**
+     * detect file server is available or not
+     */
+    function detectFileServer(){
+        if ($.support.cors) {
+            $.ajax({
+                url: '//localhost:8888/',
+                type: 'HEAD'
+            }).fail(function () {
+                    $('<div class="alert alert-danger"/>')
+                        .text('Sorry, 上传头像暂不可用! ')
+                        .appendTo('#tip-area');
+                });
+        }
     }
-
-
-
+    detectFileServer();
 
     $(document).bind('dragover', function (e) {
         var dropZone = $('#dropzone'),
@@ -100,10 +133,21 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
      * clear the previous upload image
      */
     function clearDisplay(){
-
-        $('#upload-div').removeClass('fade');
         $('#upload-div').empty();
         $('#tip-area').empty();
+    }
+
+    function finishUpload(){
+        $('#confirm-btn').removeAttr('disabled');
+        if($('#upload-cancel-btn')){
+            $('#upload-cancel-btn').attr('disabled',true);
+        }
+    }
+    /**
+     * display upload area and progress
+     */
+    function displayUpload(){
+        $('#upload-div').removeClass('fade');
     }
 
     function obtainFileInfo(file){
@@ -123,7 +167,8 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
         dropZone: $('#dropzone'),
         dataType: 'json',
         autoUpload: true,
-        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        //acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+        acceptFileTypes: /(\.|\/)(gif|jpg|jpeg|png)$/i,
         maxFileSize: 5000000, // 5 MB
         // Enable image resizing, except for Android and Opera,
         // which actually support image resizing, but fail to
@@ -137,6 +182,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     }).on('fileuploadadd', function (e, data) {
 
             clearDisplay();
+            $('#confirm-btn').attr('disabled','true');
             if (e.isDefaultPrevented()) {
                 return false;
             }
@@ -150,9 +196,15 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
             }).always(function () {
 
                 }).done(function () {
+                    displayUpload();
+                    $spinner.spin(opts);
+                    var $temp = $('<div class="alert alert-success"/>')
+                        .text('正在保存...').append($spinner);
+                    $('#tip-area').append($temp);
 
                     var fileTmp = _.template($('#file-template').html());
                     $('#upload-div').append(fileTmp(obtainFileInfo(data.files[0])));
+
 
                     var loadingImage = loadImage(
                         data.files[0],
@@ -168,12 +220,34 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                     );
 
                     if ((options.autoUpload || data.autoUpload) && data.autoUpload !== false) {
-                        data.submit();
+
+                        var jqXHR = data.submit().error(function (jqXHR, textStatus, errorThrown) {
+                            var error = '上传已取消！';
+                            var progress = 0;
+                            if (errorThrown === 'abort') {
+                                $spinner.spin(opts);
+                                $('#tip-area').empty();
+                                $('<div class="alert alert-danger"/>')
+                                    .text(error)
+                                    .appendTo($('#tip-area'));
+                                $('#progress-bar').text(progress+'%');
+                                $('#progress-bar').attr('aria-valuenow',progress);
+                                $('#progress-bar').css(
+                                    'width',
+                                    progress + '%'
+                                );
+                            }
+                        })
+                        $('#upload-cancel-btn').click(function (e) {
+
+                            jqXHR.abort();
+                            $(this).attr('value',"已取消");
+                            $(this).attr('disabled',true);
+                            $('#confirm-btn').removeAttr('disabled');
+                        });
                     }
                 }).fail(function () {
                     if (data.files.error) {
-
-                        console.log(data.files.error);
                         console.log( data.files[0].error);
                         $('<div class="alert alert-danger"/>')
                             .text(data.files[0].error)
@@ -185,7 +259,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
 
         }).on('fileuploadprocessalways', function (e, data) {
 
-        }).on('fileuploadprogressall', function (e, data) {
+        }).on('fileuploadprogress', function (e, data) {
 
             var progress = parseInt(data.loaded / data.total * 100, 10);
             $('#progress-bar').text(progress+'%');
@@ -196,13 +270,12 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
             );
 
         }).on('fileuploaddone', function (e, data) {
+            $('#upload-cancel-btn').attr('disabled',true);
             $.each(data.result.files, function (index, file) {
                 if (file.url) {
                     console.log("result complete: "+JSON.stringify(file));
 
                     if(file){
-
-                        $('#image-face').attr('src',file.smallUrl);
 
                         var params = {
                             url: file.url,
@@ -216,25 +289,50 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                             url: '/users/face',
                             data: params,
                             success: function(res){
-                                console.log('success '+res);
+                                $('#image-face').attr('src',file.smallUrl);
+                                $spinner.spin(false);
+                                finishUpload();
+                                $('#tip-area').empty();
+                                if(res.code == 0){
+                                    console.log('success');
+                                    $('<div class="alert alert-success"/>')
+                                        .text('头像更新成功！')
+                                        .appendTo($('#tip-area'));
+                                }else{
+                                    console.log('fail');
+                                    $('<div class="alert alert-danger"/>')
+                                        .text('头像更新失败！')
+                                        .appendTo($('#tip-area'));
+                                }
+                            },
+                            error: function(){
+                                $spinner.spin(false);
+                                finishUpload();
+
+                                $('<div class="alert alert-danger"/>')
+                                    .text('头像更新失败！')
+                                    .appendTo($('#tip-area'));
                             },
                             dataType: 'json'
                         });
 
                     }
                 } else if (file.error) {
-                    var error = $('<span class="text-danger"/>').text(file.error);
-                    $(data.context.children()[index])
-                        .append('<br>')
-                        .append(error);
+                    finishUpload();
+                    $('<div class="alert alert-danger"/>')
+                        .text(file.error)
+                        .appendTo($('#tip-area'));
                 }
             });
         }).on('fileuploadfail', function (e, data) {
+
+            finishUpload();
             $.each(data.files, function (index, file) {
-                var error = $('<span class="text-danger"/>').text('File upload failed.');
-                $(data.context.children()[index])
-                    .append('<br>')
-                    .append(error);
+                var error = '文件上传失败！';
+                $('<div class="alert alert-danger"/>')
+                    .text(error)
+                    .appendTo($('#tip-area'));
+
             });
         }).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
 
