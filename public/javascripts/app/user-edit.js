@@ -225,7 +225,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                             var error = '上传已取消！';
                             var progress = 0;
                             if (errorThrown === 'abort') {
-                                $spinner.spin(opts);
+                                $spinner.spin(false);
                                 $('#tip-area').empty();
                                 $('<div class="alert alert-danger"/>')
                                     .text(error)
@@ -243,6 +243,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                             jqXHR.abort();
                             $(this).attr('value',"已取消");
                             $(this).attr('disabled',true);
+                           
                             $('#confirm-btn').removeAttr('disabled');
                         });
                     }
@@ -307,6 +308,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                             },
                             error: function(){
                                 $spinner.spin(false);
+                                $('#tip-area').empty();
                                 finishUpload();
 
                                 $('<div class="alert alert-danger"/>')
@@ -325,7 +327,8 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                 }
             });
         }).on('fileuploadfail', function (e, data) {
-
+            $spinner.spin(false);
+            $('#tip-area').empty();
             finishUpload();
             $.each(data.files, function (index, file) {
                 var error = '文件上传失败！';

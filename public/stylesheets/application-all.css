@@ -11757,10 +11757,6 @@ body {
 .ie9-tip {
   margin-top: 50px;
 }
-.small-face {
-  width: 40px;
-  height: 40px;
-}
 .li-width {
   width: 100%;
   word-break: break-all;
@@ -11960,4 +11956,21 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   opacity: 1;
+}
+/*face css*/
+.small-face {
+  width: 150px;
+  height: 150px;
+}
+.thumbnail-face {
+  width: 60px;
+  height: 60px;
+}
+.tini-face {
+  width: 50px;
+  height: 50px;
+}
+.mini-face {
+  width: 20px;
+  height: 20px;
 }

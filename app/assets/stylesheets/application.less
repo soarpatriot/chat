@@ -113,10 +113,6 @@ body {
   margin-top:50px;
 }
 
-.small-face{
-  width: 40px;
-  height: 40px;
-}
 
 .li-width{
   width: 100%;
@@ -339,4 +335,23 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
   opacity: 1;
+}
+
+
+/*face css*/
+.small-face{
+  .face(150px,150px);
+}
+.thumbnail-face{
+  .face(60px,60px);
+}
+.tini-face{
+  .face(50px,50px);
+}
+.mini-face{
+  .face
+}
+.face(@width: 20px,@height:20px) {
+  width: @width;
+  height: @height;
 }

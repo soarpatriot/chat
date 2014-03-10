@@ -67,10 +67,10 @@ fromNow.get(function(){
 var mini = UserSchema.virtual('mini');
 mini.get(function(){
 
-    if(utils.isEmpty(this.faceId)){
-        return cloudinary.genMiniFace(this.faceId);
+    if(this.miniUrl){
+        return this.miniUrl;
     }else{
-        return face(this.faceId,20,20);
+        return face(null,20,20);
     }
 
 });
@@ -78,10 +78,11 @@ mini.get(function(){
 var thumbnails = UserSchema.virtual('thumbnails');
 thumbnails.get(function(){
 
-    if(utils.isEmpty(this.faceId)){
-        return cloudinary.genSmallFace(this.faceId);
+    if(this.thumbnailUrl){
+        //return cloudinary.genSmallFace(this.faceId);
+        return this.thumbnailUrl;
     }else{
-        return face(this.faceId,40,40);
+        return face(null,40,40);
     }
 
 });
@@ -89,17 +90,18 @@ thumbnails.get(function(){
 var normalFace = UserSchema.virtual('normalFace');
 normalFace.get(function(){
 
-    if(utils.isEmpty(this.faceId)){
-        return cloudinary.genBlogFace(this.faceId);
+    if(this.smallUrl){
+        //return cloudinary.genBlogFace(this.faceId);
+        return this.smallUrl;
     }else{
-        return face(this.faceId,150,150);
+        return face(null,150,150);
     }
 
 });
 
 var face = function(faceId, width,height){
 
-    return faceId+'/convert?w='+width+'&h='+height
+    return '/images/noavatar92.png';
 }
 
 var regTimeStr = UserSchema.virtual('regTimeStr');
