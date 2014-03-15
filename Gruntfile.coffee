@@ -59,7 +59,7 @@ module.exports = (grunt) ->
             {name:'app/post-show'},
 
             {name:'app/post-article'},
-            {name:'app/edit-profile'},
+            {name:'app/user-edit'},
             {name:'app/reg'},
             {name:'app/user'},
             {name:'app/review'},

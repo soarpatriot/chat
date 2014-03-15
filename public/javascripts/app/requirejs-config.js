@@ -27,9 +27,6 @@ require.config({
         'animo':{
             deps: ['jquery']
         },
-        'filepicker':{
-            exports: 'filepicker'
-        },
         'google-html5':{
             exports: 'google-html5'
         },
@@ -46,7 +43,7 @@ require.config({
         "models":"app/models",
         "review":"app/review",
         "user":"app/user",
-        "edit-profile":"app/edit-profile",
+
         "user-blogs":"app/user-blogs",
         'area':'app/area',
         //js framework
@@ -68,19 +65,22 @@ require.config({
 
         ],**/
         'jquery.spin': 'jquery.spin',
-        "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
-        "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
-        "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
-        "jquery.fileupload-ui":"jquery-fileuploader/jquery.fileupload-ui",
-        "jquery.fileupload-validate":"jquery-fileuploader/jquery.fileupload-validate",
-        "jquery.iframe-transport":"jquery-fileuploader/jquery.iframe-transport",
-        "jquery.ui.widget":"jquery-fileuploader/vendor/jquery.ui.widget",
-        "jqBootstrapValidation":"jqBootstrapValidation-1.3.7.min",
+        'jqBootstrapValidation':'jqBootstrapValidation-1.3.7.min',
 
-        "load-image":"jquery-fileuploader/load-image.min",
-        "tmpl":"jquery-fileuploader/temp.min",
-        "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
-        "filepicker":"//api.filepicker.io/v1/filepicker"
+
+        "load-image":"fileupload/load-image.min",
+        "load-image-exif":"fileupload/load-image-exif",
+        "load-image-ios":"fileupload/load-image-ios",
+        "load-image-meta":"fileupload/load-image-meta",
+        "canvas-to-blob":"fileupload/canvas-to-blob",
+
+
+        "jquery.fileupload-validate":"fileupload/jquery.fileupload-validate",
+        "jquery.fileupload-process":"fileupload/jquery.fileupload-process",
+        "jquery.fileupload-image":"fileupload/jquery.fileupload-image",
+        "jquery.iframe-transport":"fileupload/jquery.iframe-transport",
+        "jquery.ui.widget": "fileupload/vendor/jquery.ui.widget",
+        "jquery.fileupload":"fileupload/jquery.fileupload"
 
     }
 

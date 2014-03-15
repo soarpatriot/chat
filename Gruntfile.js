@@ -54,7 +54,7 @@
               }, {
                 name: 'app/post-article'
               }, {
-                name: 'app/edit-profile'
+                name: 'app/user-edit'
               }, {
                 name: 'app/reg'
               }, {

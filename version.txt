@@ -49,3 +49,7 @@ add promise q 0.4.4
 change this month hot and remove some redundant  0.4.5
 
 fixed spin in other tabs  0.4.6
+
+change home page up and down button margin  0.4.7
+
+change upload face  0.4.8

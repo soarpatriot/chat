@@ -28,15 +28,15 @@ script(type="text/template",id="item-template")
         div.col-md-7
             div.row
                 
-                    div(name='up-post-div',class='col-md-2 col-xs-3 col-sm-2')
-                        a(name='up-post',class='btn btn-default btn-sm up','data=<%- _id %>')
-                            span(class='glyphicon glyphicon-thumbs-up')
-                            | 顶(<%- up %>)
-               
-                    div(name='down-post-div',class='col-md-2 col-xs-3 col-sm-2')
-                        a(name='down-post',class='btn btn-default btn-sm down')
-                            span(class='glyphicon glyphicon-thumbs-down')
-                            | 踩(<%- down %>)
+                div(name='up-post-div',class='up-down')
+                    a(name='up-post',class='btn btn-default btn-sm up','data=<%- _id %>')
+                        span(class='glyphicon glyphicon-thumbs-up')
+                        | 顶(<%- up %>)
+
+                div(name='down-post-div',class='up-down')
+                    a(name='down-post',class='btn btn-default btn-sm down')
+                        span(class='glyphicon glyphicon-thumbs-down')
+                        | 踩(<%- down %>)
 
     div.row
         div.col-md-12

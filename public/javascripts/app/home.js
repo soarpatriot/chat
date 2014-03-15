@@ -27,9 +27,6 @@ require.config({
         'animo':{
             deps: ['jquery']
         },
-        'filepicker':{
-            exports: 'filepicker'
-        },
         'google-html5':{
             exports: 'google-html5'
         }
@@ -43,8 +40,7 @@ require.config({
         "models":"app/models",
         "review":"app/review",
         "user":"app/user",
-        "edit-profile":"app/edit-profile",
-        "user-blogs":"app/user-blogs",
+
 
         //js framework
         "underscore": "underscore",
@@ -55,27 +51,7 @@ require.config({
 
         "animo":"animo",
         "jquery": "jquery-2.0.3.min",
-        'google-html5':'google-code-prettify/html5',
-        /**
-        jquery: [
-
-            //If the CDN location fails, load from this location
-
-        ],**/
-        'jquery.spin': 'jquery.spin',
-        "jquery.fileupload":"jquery-fileuploader/jquery.fileupload",
-        "jquery.fileupload-process":"jquery-fileuploader/jquery.fileupload-process",
-        "jquery.fileupload-resize":"jquery-fileuploader/jquery.fileupload-resize",
-        "jquery.fileupload-ui":"jquery-fileuploader/jquery.fileupload-ui",
-        "jquery.fileupload-validate":"jquery-fileuploader/jquery.fileupload-validate",
-        "jquery.iframe-transport":"jquery-fileuploader/jquery.iframe-transport",
-        "jquery.ui.widget":"jquery-fileuploader/vendor/jquery.ui.widget",
-        "jqBootstrapValidation":"jqBootstrapValidation-1.3.7.min",
-
-        "load-image":"jquery-fileuploader/load-image.min",
-        "tmpl":"jquery-fileuploader/temp.min",
-        "canvas-to-blob":"jquery-fileuploader/canvas-to-blob.min",
-        "filepicker":"//api.filepicker.io/v1/filepicker"
+        'google-html5':'google-code-prettify/html5'
 
     }
 
