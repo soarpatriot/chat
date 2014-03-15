@@ -74,6 +74,7 @@ block content
                         div.row
                             div.col-md-12
                                 form(id='fileupload',enctype='multipart/form-data',method='POST',action='/upload')
+                                    input(name='uploadType',type='hidden',value='face')
                                     div(class='row fileupload-buttonbar')
                                         div.col-md-1
                                                span(class='btn btn-success fileinput-button')

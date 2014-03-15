@@ -88,6 +88,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     function detectFileServer(){
         if ($.support.cors) {
             $.ajax({
+                //url: '//106.186.22.114:8888/',
                 url: '//localhost:8888/',
                 type: 'HEAD'
             }).fail(function () {
@@ -167,6 +168,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
         dropZone: $('#dropzone'),
         dataType: 'json',
         autoUpload: true,
+        uploadType:'face',
         //acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
         acceptFileTypes: /(\.|\/)(gif|jpg|jpeg|png)$/i,
         maxFileSize: 5000000, // 5 MB
@@ -177,7 +179,11 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
             .test(window.navigator.userAgent),
         previewMaxWidth: 140,
         previewMaxHeight: 140,
-        previewCrop: true
+        previewCrop: true,
+        formData:[{
+            name: 'uploadType',
+            value: 'face'
+        }]
 
     }).on('fileuploadadd', function (e, data) {
 
@@ -295,7 +301,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
                                 finishUpload();
                                 $('#tip-area').empty();
                                 if(res.code == 0){
-                                    console.log('success');
+                                    //console.log('success');
                                     $('<div class="alert alert-success"/>')
                                         .text('头像更新成功！')
                                         .appendTo($('#tip-area'));
