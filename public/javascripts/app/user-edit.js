@@ -89,7 +89,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
         if ($.support.cors) {
             $.ajax({
                 //url: '//106.186.22.114:8888/',
-                url: '//localhost:8888/',
+                url: '//106.186.22.114:8888/',
                 type: 'HEAD'
             }).fail(function () {
                     $('<div class="alert alert-danger"/>')
@@ -164,7 +164,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     }
 
     $('#fileupload').fileupload({
-        url:'http://localhost:8888/upload',
+        url:'//106.186.22.114:8888/upload',
         dropZone: $('#dropzone'),
         dataType: 'json',
         autoUpload: true,

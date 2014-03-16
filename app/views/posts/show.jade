@@ -15,7 +15,7 @@ block content
                     div.col-md-12
                         div.media
                             a(class='pull-left',href='/users/#{post.creator._id}')
-                                img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded thumbnail-face')
+                                img(src='#{post.creator.thumbnails}',class='img-rounded img-thumbnail thumbnail-face')
                             div.media-body
                                 div.panel.panel-info
                                      div.panel-heading
@@ -42,7 +42,7 @@ block content
                     div.col-md-12
                         div.media
                             div.pull-left
-                                img(class='img-polaroid img-rounded thumbnail-face',src='/images/noavatar92.png')
+                                img(class='img-rounded img-thumbnail thumbnail-face',src='/images/noavatar92.png')
                             div.media-body
                                 form(id='comment-form',action='/comment',method='post')
                                     div.form-group
@@ -61,7 +61,7 @@ block content
 
                     div.media
                         a(class='pull-left',href='/users/#{comment.creator._id}')
-                            img(class='img-polaroid img-rounded media-object thumbnail-face',src='#{comment.creator.thumbnails}',alt="...")
+                            img(class='img-rounded img-thumbnail media-object thumbnail-face',src='#{comment.creator.thumbnails}',alt="...")
 
                         div.media-body
                             p !{comment.content}
