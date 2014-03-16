@@ -5,53 +5,54 @@ block append head
 block content
     body
         div.row
-            div.col-md-8
+            div.col-md-12
                 p
+                    div.row
+                        div.col-md-12
+                            include _share
+
                 div.row
                     div.col-md-12
-                        include _share
-
-                div.row
-
-                    div.col-md-1
-                        img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded')
-
-                    div.col-md-11
-                         div.panel.panel-info
-                             div.panel-heading
-                                  | #{post.title}
-                             div.panel-body.word-break-wrap
-                                 !{post.content}
+                        div.media
+                            a(class='pull-left',href='/users/#{post.creator._id}')
+                                img(src='#{post.creator.thumbnails}',class='img-polaroid img-rounded thumbnail-face')
+                            div.media-body
+                                div.panel.panel-info
+                                     div.panel-heading
+                                          | #{post.title}
+                                     div.panel-body.word-break-wrap
+                                         !{post.content}
 
 
-                             div.panel-footer
-                                 div.row
-                                     div.col-md-9.small
-                                         if typeof(post.tag) !== 'undefined' && post.tag !== null && post.tag !== ''  && typeof(post.tag.name) !== 'undefined' && post.tag.name!==null && post.tag.name!==''
-                                            span(class='label label-primary') #{post.tag.name}
-                                         if typeof(post.tag) !== 'undefined' && post.location !== null && post.location !== ''
-                                            span.small &nbsp;地点： #{post.location}
-                                     div.col-md-3.text-muted.pull-right.small
-                                         a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
-                                         time
-                                             | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
+                                     div.panel-footer
+                                         div.row
+                                             div.col-md-9.small
+                                                 if typeof(post.tag) !== 'undefined' && post.tag !== null && post.tag !== ''  && typeof(post.tag.name) !== 'undefined' && post.tag.name!==null && post.tag.name!==''
+                                                    span(class='label label-primary') #{post.tag.name}
+                                                 if typeof(post.tag) !== 'undefined' && post.location !== null && post.location !== ''
+                                                    span.small &nbsp;地点： #{post.location}
+                                             div.col-md-3.text-muted.pull-right.small
+                                                 a(href='/users/#{post.creator._id}',class='discussion-topic-author') #{post.creator.name}
+                                                 time
+                                                     | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
 
 
                 hr
                 div.row
+                    div.col-md-12
+                        div.media
+                            div.pull-left
+                                img(class='img-polaroid img-rounded thumbnail-face',src='/images/noavatar92.png')
+                            div.media-body
+                                form(id='comment-form',action='/comment',method='post')
+                                    div.form-group
+                                        input(name='postId',type='hidden',value='#{post._id}')
+                                        input(id='content-hidden',name='content',type='hidden')
+                                        div(id='content-div',class='col-md-12 comment-div',contenteditable='true')
 
-                    div(class='col-md-1')
-                        img(class='img-polaroid img-rounded small-face',src='/images/noavatar92.png')
-                    div(class='col-md-11')
-                        form(id='comment-form',action='/comment',method='post')
-                            div.form-group
-                                input(name='postId',type='hidden',value='#{post._id}')
-                                input(id='content-hidden',name='content',type='hidden')
-                                div(id='content-div',class='col-md-12 comment-div',contenteditable='true')
-
-                            div.form-group
-                                div.col-md-12
-                                    button(id='comment-btn', class='btn btn-success') 发言
+                                    div.form-group
+                                        div.col-md-12
+                                            button(id='comment-btn', class='btn btn-success') 发言
                 hr.soft
                 div.row
                     h4 #{post.comments.length} 评论
@@ -60,7 +61,7 @@ block content
 
                     div.media
                         a(class='pull-left',href='/users/#{comment.creator._id}')
-                            img(class='img-polaroid img-rounded media-object',src='#{comment.creator.thumbnails}',alt="...")
+                            img(class='img-polaroid img-rounded media-object thumbnail-face',src='#{comment.creator.thumbnails}',alt="...")
 
                         div.media-body
                             p !{comment.content}

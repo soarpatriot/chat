@@ -53,3 +53,7 @@ fixed spin in other tabs  0.4.6
 change home page up and down button margin  0.4.7
 
 change upload face  0.4.8
+
+change post show page display  0.4.9
+
+change user blog page face show  0.4.10
