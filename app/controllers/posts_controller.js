@@ -215,13 +215,15 @@ exports.index = function(req,res){
         totalRecords:0,
         currentPage:1
     }
-    var pageSize = req.query.pageSize;
-    state.currentPage = req.query.page;
+
+    console.log("p: "+req.query.p);
+    var pageSize = req.query.pageSize || 5;
+    state.currentPage = req.query.p || req.query.page;
     var start = (state.currentPage - 1) * pageSize;
     
     var tagKey = req.query.tag;
     
-    console.log("tag:"+tagKey);
+    console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
 
     if(tagKey){
         //tagKey = '52634ba197956b7f1b000004';
