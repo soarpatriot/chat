@@ -34,14 +34,10 @@ require.config({
     },
 
     paths: {
-        //application own js module
-        //"application":"app/application",
-        //"home":"app/home",
+
         "models":"app/models",
         "review":"app/review",
         "user":"app/user",
-
-
         //js framework
         "underscore": "underscore",
         "backbone": "backbone",
@@ -80,18 +76,14 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
     $('a[name="new-member-link"]').tooltip();
 
     var $spinner = $('<div class="spin-container"></div>');
-    //var $spinner = $('<div class="preview"></div>');
     $spinner.spin(opts);
     $('body').append($spinner);
 
     $(function(){
 
+
         var Posts = new Models.PostList();
-            /**
-            Posts.url = _.bind(function () {
-                var state = this.state;
-                return "/posts/" + state.currentPage+"/"+start.pageSize;
-            }, Posts);**/
+
         var PostView = Backbone.View.extend({
 
             tagName: "div",
@@ -165,41 +157,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 }else{
                     this.$('div[name="down-post-div"]').animo( { animation: 'tada' } );
                 }
-                /**
-                if(upOrDown==="up"){
-                    var offset = this.upPost.offset();
-                    this.$upDownCover= $('<div class="up-down-cover"> +1</div>');
-                }else{
-                    var offset = this.downPost.offset();
-                    this.$upDownCover= $('<div class="up-down-cover"> -1</div>');
-                }
-
-                var top = offset.top;
-                var left = offset.left;
-
-                //var linkHalfHeight = 15;
-                //var linkHalfWidth = 50;
-
-                var targetTop =  top - 8;
-                var targetLeft = left - 15;
-                this.$el.append(this.$upDownCover);
-                this.$upDownCover.css('width','100px');
-                this.$upDownCover.css('height','30px');
-                this.$upDownCover.css('font-size','20px');
-                this.$upDownCover.css('padding-top','10px');
-                this.$upDownCover.css('display','none');
-                this.$upDownCover.css('opacity', '1');
-                this.$upDownCover.css('top', top);
-                this.$upDownCover.css('left', left);
-                this.$upDownCover.css('display', 'block');
-
-                this.$upDownCover.animate({
-
-                    'font-size': "30px",
-                    'opacity': "0.5",
-                    'top': targetTop,
-                    'left' : targetLeft
-                }, 1000).fadeOut(2000); */
 
             },
 
@@ -209,8 +166,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     this.model.set("up",upNumber);
                     this.model.save();
 
-                    //alert(this.model.get("creator").get("_id"));
-                    //this.model.fetch();
                 }
             },
 
@@ -219,7 +174,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     var downNumber = this.model.get("down")-1;
                     this.model.set("down",downNumber);
                     this.model.save();
-                    //this.model.fetch();
+
                 }
             }
 
@@ -280,7 +235,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 //$('#pagination-div').bootstrapPaginator(options);
                 this.$('.pagination').bootstrapPaginator(options);
 
-                //this.$spinContainer.remove();
             }
         });
 
