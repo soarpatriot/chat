@@ -58,14 +58,21 @@ header(class='navbar navbar-default navbar-inverse navbar-fixed-top',role='banne
 
                             ul.dropdown-menu
                                 li
-                                  a(href='/users') 我的资料
+
+                                  a(href='/users')
+                                      span.glyphicon.glyphicon-folder-close &nbsp;我的资料
+
                                 li
-                                  a(href='/users/#{user._id}') 我的主页
+
+                                  a(href='/users/#{user._id}')
+                                      span.glyphicon.glyphicon-list &nbsp;我的主页
 
                                 li.divider
 
                                 li
-                                  a(href='/posts/new') 发表
+
+                                  a(href='/posts/new')
+                                      span.glyphicon.glyphicon-send &nbsp;发表
                                 li
                                   a(href='#')
                     li
