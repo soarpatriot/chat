@@ -101,6 +101,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             }),
             PostView,
             TagView,
+
+            DiscoverView,
+            NewView,
+            HelpView,
+            SpitslotView,
+
             newView,
             discoverView,
             helpView,
@@ -232,30 +238,33 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             page:function(page,tag){
+                this.triggered = true;
                 if(!page){
                     page = 1;
                 }
+                page = parseInt(page,10);
+                console.log('page is number: '+ _.isNumber(page));
                 console.log('page: '+ page + '  tag: '+tag);
                 if(tag){
+                    //this.model.fetch({data: {p:page,tag:tag},reset:true});
+                    //this.model.getPage(page);
                     this.model.fetch({data: {p:page,tag:tag},reset:true});
                 }else{
                     this.model.fetch({data: {p:page},reset:true});
+                    //this.model.getPage(page);
                 }
 
             },
             // Add all items in the **Posts** collection at once.
             addAll: function() {
                 console.log("post:"+this.name);
-                console.log("post:"+this.content.html());
-                console.log("post:"+JSON.stringify(this.model));
                 var that = this;
+                this.content.empty();
                 this.model.each(function(post){
                     that.addOne.call(that,post);
                 });
-                console.log('currtn: '+that.model.state.currentPage);
-                console.log('totalPages: '+that.model.state.totalPages);
                 var options = {
-                    currentPage: that.model.state.currentPage,
+                    currentPage: that.model.state.currentPage || 1,
                     totalPages: that.model.state.totalPages,
 
 
@@ -274,74 +283,91 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
                     }
                 };
-                that.content.append(this.template());
-                that.$('.pagination').bootstrapPaginator(options);
+                this.content.append(this.template());
+                this.$('.pagination').bootstrapPaginator(options);
 
             }
         });
 
-        if(location.pathname.length<=1){
-            console.log('path name'+ location.pathname );
+        function initView(){
+
+            NewView =  TagView.extend({model:posts,name:'new',el: $("#new"),content:$('#new-content'),triggered:false});
+
+            DiscoverView =  TagView.extend({model:discorverPosts,name:'discover',el: $("#discover"),content:$('#discover-content'),triggered:false});
+
+
+            HelpView =  TagView.extend({model:helpPosts,name:'help',el: $("#help"),content:$('#help-content'),triggered:false});
+
+
+            SpitslotView = TagView.extend({model:spitslotPosts,name:'spitslot',el: $("#spitslot"),content:$('#spitslot-content'),triggered:false});
+
+            newView = new NewView();
+            helpView = new HelpView();
+            spitslotView = new SpitslotView();
+            discoverView = new DiscoverView();
+        };
+        initView();
+
+        if(location.href.indexOf('#')===-1){
+            console.log('path name'+ location.href );
             //newView = newView || new TagView({model:posts,name:'new',content:$('#new-content')});
-            //newView.page(1,'');
+            newView.page(1,'');
 
         }
 
         $('#content-ul-tab a[href="#new"]').click(function (e) {
             $spinner.spin(opts);
             e.preventDefault();
-            home.navigate("new", {trigger: true, replace: true});
-            $(this).tab('show');
-            if(!newView){
-                newView = newView || new TagView({model:posts,name:'new',content:$('#new-content')});
-                newView.page(1,'');
+            if(!newView.triggered){
+                home.navigate("new", {trigger: true, replace: true})
             }else{
                 $spinner.spin(false);
             }
+
+
+            $(this).tab('show');
+
         });
 
         $('#content-ul-tab a[href="#discover"]').click(function (e) {
             $spinner.spin(opts);
             e.preventDefault();
-            home.navigate("discover", {trigger: true, replace: true});
-            $(this).tab('show');
-
-            /**
-            if(!discoverView){
-                discoverView = new TagView({model:discorverPosts,name:'discover',content:$('#discover-content')});
-                discoverView.page(1,'discover');
+            if(!discoverView.triggered){
+                home.navigate("discover", {trigger: true, replace: true});
             }else{
                 $spinner.spin(false);
-            }**/
+            }
+
+            $(this).tab('show');
+
         });
 
 
         $('#content-ul-tab a[href="#help"]').click(function (e) {
             $spinner.spin(opts);
             e.preventDefault();
-
-            home.navigate("help", {trigger: true, replace: true});
-            $(this).tab('show');
-            if(!helpView){
-                helpView = new TagView({model:helpPosts,name:'help',content:$('#help-content')});
-                helpView.page(1,'help');
+            if(!helpView.triggered){
+                home.navigate("help", {trigger: true, replace: true});
             }else{
                 $spinner.spin(false);
             }
+
+            $(this).tab('show');
+
         });
 
 
         $('#content-ul-tab a[href="#spitslot"]').click(function (e) {
             $spinner.spin(opts);
             e.preventDefault();
-            home.navigate("spitslot", {trigger: true, replace: true});
-            $(this).tab('show');
-            if(!spitslotView){
-                spitslotView = TagView.extend({model:spitslotPosts,name:'spitslot',content:$('#spitslot-content')});
-                spitslotView.page(1,'spitslot');
+            if(!spitslotView.triggered){
+                home.navigate("spitslot", {trigger: true, replace: true});
             }else{
                 $spinner.spin(false);
             }
+
+            $(this).tab('show');
+
         });
 
         var HomeSpace = Backbone.Router.extend({
@@ -356,28 +382,27 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             new: function(page) {
                 console.log('new  '+page);
                 $('#content-ul-tab a[href="#new"]').tab('show');
-                newView = newView || new TagView({model:posts,name:'new',content:$('#new-content')});
+
                 newView.page(page,'');
             },
             help: function(page) {
                 console.log('help  '+page);
                 $('#content-ul-tab a[href="#help"]').tab('show');
-                helpView = new TagView({model:helpPosts,name:'help',content:$('#help-content')});
+
                 helpView.page(page,'help');
             },
 
             spitslot: function(page) {
                 console.log('spitslot  '+page);
                 $('#content-ul-tab a[href="#spitslot"]').tab('show');
-                spitslotView = new TagView({model:spitslotPosts,name:'spitslot',content:$('#spitslot-content')});
+
                 spitslotView.page(page,'spitslot');
             },
 
             discover: function(page){
                 console.log('ff  '+page);
                 $('#content-ul-tab a[href="#discover"]').tab('show');
-                var DiscoverView =  TagView.extend({model:discorverPosts,name:'discover',el: $("#discover"),content:$('#discover-content')});
-                discoverView = new DiscoverView();
+
                 discoverView.page(page,'discover');
             }
 

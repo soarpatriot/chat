@@ -59,3 +59,6 @@ change post show page display  0.4.9
 change user blog page face show  0.4.10
 
 change post show page face display  0.4.11
+
+
+change home nav display  0.5.0
