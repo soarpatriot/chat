@@ -9,6 +9,7 @@ var Post = require('../models/post.js'),
     utils = require('../models/utils'),
     User = require('../models/user.js'),
     Tag = require('../models/tag.js'),
+    Q = require('q'),
     logger = require('../../log4js').logger('posts_controller');
 //var client = require('../models/redis.js')
 
@@ -225,94 +226,100 @@ exports.index = function(req,res){
     
     console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
 
-    if(tagKey){
-        //tagKey = '52634ba197956b7f1b000004';
-        Tag.findOne({key:tagKey},function(err,tag){
-            Post.countTag(tag._id,function(err,totalCount){
 
-                Post.topTag(tag._id,start,pageSize,function(err, posts){
+    var showError = function(err){
+        if(err){
+            res.send(err);
+        }
+    };
 
-                    if(err){
-                        res.send(err);
-                    }
-                    formattedPosts = Post.dealPosts(posts);
-                    state.totalRecords = totalCount;
-                    page.state = state;
+    var clientResult = function(posts){
 
-                    if(!user){
-                        formattedPosts = Post.doDone(posts);
-                        page.models = formattedPosts;
-                        //console.log('formattedPosts:  page: '+JSON.stringify(page));
-                        return res.send(page);
+        formattedPosts = Post.dealPosts(posts);
 
-                    }else{
-                        //done and undone user's up and down
-                        User.findOne({'_id':user._id}, function(err,user){
-                            var votes = user.votePosts;
-                            _.each(votes,function(vote){
+        if(!user){
+            formattedPosts = Post.doDone(posts);
+            page.models = formattedPosts;
+            //console.log('formattedPosts:  page: '+JSON.stringify(page));
+        }else{
+            //done and undone user's up and down
+            User.findOne({'_id':user._id}, function(err,user){
+                var votes = user.votePosts;
 
-                                _.each(posts,function(post){
+                _.each(votes,function(vote){
 
-                                    if(_.isEqual(vote.postId ,post._id)){
+                    _.each(posts,function(post){
 
-                                        post.done = true;
-                                    }
-                                });
-                            });
+                        if(_.isEqual(vote.postId ,post._id)){
 
-                            page.models = formattedPosts;
-                            return res.send(page);
-                        });
-
-                    }
-
-                });
-            });
-        });
-
-    }else{
-        Post.countTop(function(err,totalCount){
-
-            Post.top(start,pageSize,function(err, posts){
-
-                if(err){
-                    res.send(err);
-                }
-                formattedPosts = Post.dealPosts(posts);
-                state.totalRecords = totalCount;
-                page.state = state;
-
-                if(!user){
-                    formattedPosts = Post.doDone(posts);
-                    page.models = formattedPosts;
-                    //console.log('formattedPosts:  page: '+JSON.stringify(page));
-                    return res.send(page);
-
-                }else{
-                    //done and undone user's up and down
-                    User.findOne({'_id':user._id}, function(err,user){
-                        var votes = user.votePosts;
-                        _.each(votes,function(vote){
-
-                            _.each(posts,function(post){
-
-                                if(_.isEqual(vote.postId ,post._id)){
-
-                                    post.done = true;
-                                }
-                            });
-                        });
-
-                        page.models = formattedPosts;
-                        return res.send(page);
+                            post.done = true;
+                        }
                     });
+                });
 
-                }
+                page.models = formattedPosts;
+                return res.send(page);
 
             });
-        });
-    }
 
+        }
+
+
+    };
+
+
+    var postsResult = function(totalCount){
+        console.log('postsResult: '+totalCount);
+        state.totalRecords = totalCount;
+        page.state = state;
+
+        return Post.find().where('passed').equals(true)
+            .where('score').gte(-10)
+            .skip(start)
+            .limit(pageSize)
+            .sort('-pusTime')
+            .populate('creator')
+            .exec();
+
+    };
+    var countPost = function(tag){
+        console.log('countPost: '+tagKey);
+
+        if(tag){
+             return Post.count().where('passed').equals(true)
+                .where('tag').equals(tag._id)
+                .where('score').gte(-10).exec().then(function(totalCount){
+
+                     state.totalRecords = totalCount;
+                     page.state = state;
+
+                     return Post.find().where('passed').equals(true)
+                         .where('score').gte(-10)
+                         .where('tag').equals(tag._id)
+                         .skip(start)
+                         .limit(pageSize)
+                         .sort('-pusTime')
+                         .populate('creator')
+                         .exec();
+                 });
+        }else{
+             return Post.count().where('passed').equals(true)
+                .where('score').gte(-10).exec();
+        }
+
+    };
+
+    if(tagKey){
+        return Tag.findOne({key:tagKey}).exec()
+                        .then(countPost)
+                        .then(clientResult,showError);
+    }else{
+        console.log('no tag');
+        return countPost(null)
+            .then(postsResult).then(clientResult,showError);
+
+
+    }
 
 
 };

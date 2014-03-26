@@ -226,7 +226,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             },
             render: function() {
-                $spinner.spin(false);
+
                 return this;
                 //this.$el.append(this.spinner.el);
             },
@@ -244,7 +244,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 }
                 page = parseInt(page,10);
                 console.log('page is number: '+ _.isNumber(page));
-                console.log('page: '+ page + '  tag: '+tag);
                 if(tag){
                     //this.model.fetch({data: {p:page,tag:tag},reset:true});
                     //this.model.getPage(page);
@@ -274,31 +273,38 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     pageUrl: function(type, page, current){
                         return "#"+that.name+"/"+page;
                     },
+                    itemContainerClass: function (type, page, current) {
+                        return (page === current) ? "active" : "pointer-cursor";
+                    },
                     onPageClicked: function(e,originalEvent,type,page){
-                        
-                        $spinner.spin(opts);
+                        //e.preventDefault();
+                        //originalEvent.preventDefault();
+                        var currentTarget = $(e.currentTarget);
+                        var pages = currentTarget.bootstrapPaginator("getPages");
+                        console.log("currentPage:  "+pages.current);
+                        console.log("page:  "+JSON.stringify(page));
+                        if(!(pages.current === page)){
+                            $spinner.spin(opts);
+                            that.content.empty();
+                        }
+                        //that.content.empty();
+                        //that.model.getPage(page);
 
-                        that.content.empty();
-                        that.model.getPage(page);
-
+                    },
+                    onPageChanged: function(e,oldPage,newPage){
                     }
                 };
                 this.content.append(this.template());
                 this.$('.pagination').bootstrapPaginator(options);
-
+                $spinner.spin(false);
             }
         });
 
         function initView(){
 
             NewView =  TagView.extend({model:posts,name:'new',el: $("#new"),content:$('#new-content'),triggered:false});
-
             DiscoverView =  TagView.extend({model:discorverPosts,name:'discover',el: $("#discover"),content:$('#discover-content'),triggered:false});
-
-
             HelpView =  TagView.extend({model:helpPosts,name:'help',el: $("#help"),content:$('#help-content'),triggered:false});
-
-
             SpitslotView = TagView.extend({model:spitslotPosts,name:'spitslot',el: $("#spitslot"),content:$('#spitslot-content'),triggered:false});
 
             newView = new NewView();
@@ -316,11 +322,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
         }
 
         $('#content-ul-tab a[href="#new"]').click(function (e) {
-            $spinner.spin(opts);
             e.preventDefault();
+            $spinner.spin(opts);
             if(!newView.triggered){
-                home.navigate("new", {trigger: true, replace: true})
+                home.navigate("new", {trigger: true, replace: true});
             }else{
+                home.navigate("new", {replace: true});
                 $spinner.spin(false);
             }
 
@@ -330,11 +337,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
         });
 
         $('#content-ul-tab a[href="#discover"]').click(function (e) {
-            $spinner.spin(opts);
             e.preventDefault();
+            $spinner.spin(opts);
             if(!discoverView.triggered){
                 home.navigate("discover", {trigger: true, replace: true});
             }else{
+                home.navigate("discover", {replace: true});
                 $spinner.spin(false);
             }
 
@@ -344,11 +352,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
 
         $('#content-ul-tab a[href="#help"]').click(function (e) {
-            $spinner.spin(opts);
             e.preventDefault();
+            $spinner.spin(opts);
             if(!helpView.triggered){
                 home.navigate("help", {trigger: true, replace: true});
             }else{
+                home.navigate("help", {replace: true});
                 $spinner.spin(false);
             }
 
@@ -358,11 +367,12 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
 
         $('#content-ul-tab a[href="#spitslot"]').click(function (e) {
-            $spinner.spin(opts);
             e.preventDefault();
+            $spinner.spin(opts);
             if(!spitslotView.triggered){
                 home.navigate("spitslot", {trigger: true, replace: true});
             }else{
+                home.navigate("spitslot", {replace: true});
                 $spinner.spin(false);
             }
 
@@ -380,27 +390,24 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             },
 
             new: function(page) {
-                console.log('new  '+page);
                 $('#content-ul-tab a[href="#new"]').tab('show');
 
                 newView.page(page,'');
             },
             help: function(page) {
-                console.log('help  '+page);
                 $('#content-ul-tab a[href="#help"]').tab('show');
 
                 helpView.page(page,'help');
             },
 
             spitslot: function(page) {
-                console.log('spitslot  '+page);
+
                 $('#content-ul-tab a[href="#spitslot"]').tab('show');
 
                 spitslotView.page(page,'spitslot');
             },
 
             discover: function(page){
-                console.log('ff  '+page);
                 $('#content-ul-tab a[href="#discover"]').tab('show');
 
                 discoverView.page(page,'discover');
