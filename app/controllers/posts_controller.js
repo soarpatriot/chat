@@ -225,18 +225,16 @@ exports.index = function(req,res){
     var tagKey = req.query.tag;
     
     console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
-
-
+    //all the error control
     var showError = function(err){
         if(err){
             res.send(err);
         }
     };
 
+    //return data to client
     var clientResult = function(posts){
-
         formattedPosts = Post.dealPosts(posts);
-
         if(!user){
             formattedPosts = Post.doDone(posts);
             page.models = formattedPosts;
@@ -256,23 +254,27 @@ exports.index = function(req,res){
                         }
                     });
                 });
-
                 page.models = formattedPosts;
                 return res.send(page);
 
             });
-
         }
-
-
     };
 
-
-    var postsResult = function(totalCount){
-        console.log('postsResult: '+totalCount);
+    //fill the page info and check the start
+    var fillPageInfo = function(totalCount){
+        if(start > totalCount ){
+            start =  0;
+            state.currentPage = 1;
+        }
         state.totalRecords = totalCount;
         page.state = state;
+    }
 
+    // get post without tag
+    var postsResult = function(totalCount){
+        console.log('postsResult: '+totalCount);
+        fillPageInfo(totalCount);
         return Post.find().where('passed').equals(true)
             .where('score').gte(-10)
             .skip(start)
@@ -282,17 +284,14 @@ exports.index = function(req,res){
             .exec();
 
     };
-    var countPost = function(tag){
-        console.log('countPost: '+tagKey);
 
+
+    var countPost = function(tag){
         if(tag){
              return Post.count().where('passed').equals(true)
                 .where('tag').equals(tag._id)
                 .where('score').gte(-10).exec().then(function(totalCount){
-
-                     state.totalRecords = totalCount;
-                     page.state = state;
-
+                     fillPageInfo(totalCount);
                      return Post.find().where('passed').equals(true)
                          .where('score').gte(-10)
                          .where('tag').equals(tag._id)
@@ -314,14 +313,9 @@ exports.index = function(req,res){
                         .then(countPost)
                         .then(clientResult,showError);
     }else{
-        console.log('no tag');
         return countPost(null)
             .then(postsResult).then(clientResult,showError);
-
-
     }
-
-
 };
 
 exports.destroy = function(req,res){

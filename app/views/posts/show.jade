@@ -10,7 +10,13 @@ block content
                     div.row
                         div.col-md-12
                             include _share
-
+                p.bg-info
+                    div.row
+                        div.col-md-12
+                            a(href='javascript:history.go(-1)',class='btn btn-warning')
+                                span(class='glyphicon glyphicon-chevron-left') 返回
+                            |  &nbsp;&nbsp;
+                            span.text-muted.small 返回到您上次查看的标签页
                 div.row
                     div.col-md-12
                         div.media
@@ -20,9 +26,7 @@ block content
                                 div.panel.panel-info
                                      div.panel-heading
                                           | #{post.title}
-                                     div.panel-body.word-break-wrap
-                                         !{post.content}
-
+                                     div.panel-body.word-break-wrap !{post.content}
 
                                      div.panel-footer
                                          div.row

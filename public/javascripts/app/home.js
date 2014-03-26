@@ -243,7 +243,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     page = 1;
                 }
                 page = parseInt(page,10);
-                console.log('page is number: '+ _.isNumber(page));
+                //console.log('page is number: '+ _.isNumber(page));
                 if(tag){
                     //this.model.fetch({data: {p:page,tag:tag},reset:true});
                     //this.model.getPage(page);
@@ -256,7 +256,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             },
             // Add all items in the **Posts** collection at once.
             addAll: function() {
-                console.log("post:"+this.name);
+                //console.log("post:"+this.name);
                 var that = this;
                 this.content.empty();
                 this.model.each(function(post){
@@ -265,7 +265,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 var options = {
                     currentPage: that.model.state.currentPage || 1,
                     totalPages: that.model.state.totalPages,
-
 
                     size: "normal",
                     alignment: "left",
@@ -281,15 +280,10 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                         //originalEvent.preventDefault();
                         var currentTarget = $(e.currentTarget);
                         var pages = currentTarget.bootstrapPaginator("getPages");
-                        console.log("currentPage:  "+pages.current);
-                        console.log("page:  "+JSON.stringify(page));
                         if(!(pages.current === page)){
                             $spinner.spin(opts);
                             that.content.empty();
                         }
-                        //that.content.empty();
-                        //that.model.getPage(page);
-
                     },
                     onPageChanged: function(e,oldPage,newPage){
                     }
@@ -315,8 +309,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
         initView();
 
         if(location.href.indexOf('#')===-1){
-            console.log('path name'+ location.href );
-            //newView = newView || new TagView({model:posts,name:'new',content:$('#new-content')});
+            //console.log('path name'+ location.href );
             newView.page(1,'');
 
         }
@@ -330,8 +323,6 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                 home.navigate("new", {replace: true});
                 $spinner.spin(false);
             }
-
-
             $(this).tab('show');
 
         });

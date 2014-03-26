@@ -62,3 +62,9 @@ change post show page face display  0.4.11
 
 
 change home nav display  0.5.0
+
+fixed home nav display bugs 0.5.1
+
+change home posts to promise 0.5.2
+
+add return button to post page 0.5.3
