@@ -239,7 +239,7 @@ exports.index = function(req,res){
             formattedPosts = Post.doDone(posts);
             page.models = formattedPosts;
             //console.log('formattedPosts:  page: '+JSON.stringify(page));
-            return res.send(page);s
+            return res.send(page);
         }else{
             //done and undone user's up and down
             User.findOne({'_id':user._id}, function(err,user){
