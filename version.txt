@@ -68,3 +68,7 @@ fixed home nav display bugs 0.5.1
 change home posts to promise 0.5.2
 
 add return button to post page 0.5.3
+
+fixed s bug 0.5.4
+
+add year top 0.5.5

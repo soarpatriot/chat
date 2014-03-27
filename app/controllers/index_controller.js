@@ -34,6 +34,7 @@ exports.index = function(req, res){
             user:req.user,
             users:result.users,
             topPosts:result.posts,
+            yearPosts:result.yearPosts,
             currentLink: 'HOME',
             success : req.flash('success').toString(),
             error : req.flash('error').toString()
@@ -51,10 +52,20 @@ exports.index = function(req, res){
                             .skip(0).limit(10).exec()
                             .then(setTop10);
 
+    var oneYearBefore = moment().subtract('days', 365);
+    var yearPostPromise = Post.find().where('passed').equals(true)
+        .where('pusTime').gt(oneYearBefore)
+        .sort('-score')
+        .skip(0).limit(10).exec()
+        .then(function(posts){
+            result.yearPosts = posts;
+        });
+
+
     var promise = User.find().sort('-regTime').limit(10).exec()
         .then(setTop5);
 
-    var allPromise = Q.all([ top10PostPromise, promise ]);
+    var allPromise = Q.all([ yearPostPromise,top10PostPromise, promise ]);
 
     return allPromise.then(renderResult, showError);
 

@@ -48,7 +48,19 @@ block content
                         else
                             p 暂无
 
+                div.panel.panel-default
+                    div.panel-heading
+                        h3.panel-title 年度热点
+                    div.panel-body
+                        if yearPosts && yearPosts.length > 0
+                            each post, i in yearPosts
+                                p.ellipsis
+                                    | #{i+1}.
+                                    a(href='/posts/#{post.id}') #{post.title}
 
+
+                        else
+                            p 暂无
                 div.panel
                     div.panel-heading
                         h3.panel-title 最新会员
