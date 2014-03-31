@@ -75,13 +75,39 @@ block content
                                         div(class='tab-pane active',id='write')
 
                                             div(id='posts',class='padding-top20')
-                                                textarea(id='editor-area',class='form-control', name='content',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
+                                                textarea(id='editor-area',class='form-control content-editor-div', name='content',rows='10',placeholder='最多2000字符',type='text',maxlength='2000',required,data-validation-maxlength-message='内容不能超过2000个字符！')
+                                                p.text-info.upload-area
+                                                    | 拖动文件到此区域上传 或点击 &nbsp;&nbsp;&nbsp;
+                                                    span(class='btn btn-sm btn-info fileinput-button')
+                                                        span 添加文件...
+                                                        input(type='file',name='files',id='file-input',multiple)
+
+
+
+
                                         div(class='tab-pane',id='preview')
                                             div(id='preview-content',class='preview-content-div')
                                                 
                                 
                     div.form-group
                         button(id='submit-btn', type='submit',class='btn btn-success') 发言
+        <!-- Templates -->
+        script(type="text/template",id="image-item-template")
+            div.row
+                div(name='display-area',class='col-md-3 col-sm-4.col-xs-2')
+                div.col-md-4.col-sm-3.col-xs-5
+                    p.middle
+                        span(class='badge',id='file-info-label') 文件名
+                        | &nbsp;&nbsp; <%- name %>
+                        <br/>
+                        span(class='badge',id='file-info-label') 大小
+                        | &nbsp;&nbsp; <%- size %>
+                        <br/>
+                        button(name='upload-cancel-btn',class='btn btn-danger') 取消
+                div.col-md-5
+                    div(id='progress-container')
+                        div(class='progress progress-striped active')
+                            div(id='progress-bar',class='progress-bar progress-bar-success',role='progressbar',aria-valuenow='0',aria-valuemin='0',aria-valuemax='100',style='width: 0%')
         <!-- guide dialog -->
         div(id='guide-makedown',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
             div.modal-dialog.width70percent
@@ -162,4 +188,4 @@ block content
                     div.modal-footer
                         p
                             powered by github makedown
-        script(data-main='/build/app/post-article',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/post-article',src='/javascripts/require.js?v=#{appVersion}')

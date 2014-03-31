@@ -19,6 +19,10 @@ require.config
     },
     'area':{
       exports:'area'
+    },
+    'backbone': {
+        deps: ['underscore'],
+        exports: 'Backbone'
     }
 
   paths:
@@ -30,8 +34,25 @@ require.config
     'jqBootstrapValidation':'jqBootstrapValidation-1.3.7.min'
     'area':'app/area'
     'underscore':'underscore'
+    'backbone': 'backbone'
 
-require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2','jqBootstrapValidation'], ($,Showdown,_,Area) ->
+    'load-image':'fileupload/load-image.min'
+    'load-image-exif':'fileupload/load-image-exif'
+    'load-image-ios':'fileupload/load-image-ios'
+    'load-image-meta':'fileupload/load-image-meta'
+    'canvas-to-blob':'fileupload/canvas-to-blob'
+
+
+    'jquery.fileupload-validate':'fileupload/jquery.fileupload-validate'
+    'jquery.fileupload-process':'fileupload/jquery.fileupload-process'
+    'jquery.fileupload-image':'fileupload/jquery.fileupload-image'
+    'jquery.iframe-transport':'fileupload/jquery.iframe-transport'
+    'jquery.ui.widget': 'fileupload/vendor/jquery.ui.widget'
+    'jquery.fileupload':'fileupload/jquery.fileupload'
+
+require ['jquery','Showdown','underscore','area','backbone','load-image','bootstrap','chosen','select2','jqBootstrapValidation',
+         'jquery.iframe-transport','jquery.fileupload','jquery.fileupload-validate'
+], ($,Showdown,_,Area,Backbone,loadImage) ->
 
   $("#tag-select").select2()
 
@@ -133,3 +154,71 @@ require ['jquery','Showdown','underscore','area','bootstrap','chosen','select2',
      $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"))
     ###
 
+
+  ###
+    upload images file
+  ###
+  ImageUploadView = Backbone.View.extend({
+    tagName:'div'
+    template: _.template($('#image-item-template').html())
+    events: {
+      "click a[name='cancel']": "cancel",
+      "click a[name='delete']": "delete"
+    }
+    initialize: ->
+      this.$el.html(this.template(this.model.toJSON()))
+      this.imageArea = this.$('div[name="display-area"]')
+      loadingImage = loadImage(
+          this.file,
+          (img) ->
+            $image = $(img);
+            $image.addClass('img-responsive').addClass('img-thumbnail');
+            this.imageArea.append($image);
+          ,
+          {
+            maxWidth:140,
+            maxHeight:140,
+            canvas:true
+          }
+      )
+    render: ->
+    cancel: ->
+    delete: ->
+  })
+  obtainFileInfo = (file) ->
+    size = file.size
+    kbSize = size/1024
+    sizeText = if kbSize/1024 > 0 then (kbSize/1024).toFixed(2) + ' MB' else kbSize.toFixed(2) + ' KB'
+    fileInfo =
+      name:file.name
+      size:sizeText
+
+  $('#fileupload').fileupload({
+    url:'//106.186.22.114:8888/upload',
+    dropZone: $('#dropzone'),
+    dataType: 'json',
+    autoUpload: true,
+
+    acceptFileTypes: /(\.|\/)(gif|jpg|jpeg|png)$/i,
+    maxFileSize: 5000000,
+    disableImageResize: /Android(?!.*Chrome)|Opera/.test(window.navigator.userAgent),
+    previewMaxWidth: 140,
+    previewMaxHeight: 140,
+    previewCrop: true
+  }).on('fileuploadadd',  (e, data) ->
+    $this = $(this)
+    that = $this.data('blueimp-fileupload') || $this.data('fileupload')
+    options = that.options
+
+    data.process( ->
+      $this.fileupload('process', data)
+    ).always( ->
+
+    ).done( ->
+      data.files.each (file) ->
+        ImageUploadView image = new ImageUploadView(file);
+
+    ).fail( ->
+
+    )
+  )

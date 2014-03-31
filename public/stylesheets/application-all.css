@@ -10545,48 +10545,6 @@ body {
 .dialog-footer a {
   color: #04C;
 }
-/**
-@media (max-width: 760px) {
-
-  @dialog-width:212px;
-  .login-min-padding{
-    padding:10px 10px 0px 20px;
-  }
-
-
-  .dialog{
-    .login-common;
-    .login-min-padding;
-    form{
-      .text-left;
-      color:#0A0A0A;
-
-    }
-    color: #BFB8E5;
-
-    .background-image;
-  }
-  .dialog-footer{
-    .login-common;
-    .login-min-padding;
-    margin-top: 10px;
-    height: 40px;
-    color: #0A0A0A;
-
-    .background-image;
-    a{
-      color:#04C;
-    }
-  }
-
-  .tip{
-    .login-common;
-    margin-bottom: 10px;
-    height: 40px;
-    padding: 10px 10px 1px 10px;
-    display: block;
-  }
-}**/
 /**create a post**/
 .width70percent {
   width: 70%;
@@ -10604,12 +10562,21 @@ body {
   min-height: 200px;
 }
 .content-editor-div {
-  padding: 5px;
+  /**padding: 5px;
   min-height: 200px;
-  border: 1px solid #dddddd;
+  border: 1px solid #dddddd;**/
+
 }
 .tag-select {
   width: 20%;
+}
+.upload-area {
+  border-top: 1px dashed #dddddd;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  margin-top: 0;
+  padding: 5px;
 }
 /**user edit**/
 .drag-area {
