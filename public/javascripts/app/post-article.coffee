@@ -21,7 +21,7 @@ require.config
       exports:'area'
     },
     'backbone': {
-        deps: ['underscore'],
+        deps: ['underscore','jquery'],
         exports: 'Backbone'
     }
 
@@ -158,6 +158,10 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
   ###
     upload images file
   ###
+  Image = Backbone.Model.extend({
+
+  })
+
   ImageUploadView = Backbone.View.extend({
     tagName:'div'
     template: _.template($('#image-item-template').html())
@@ -166,24 +170,55 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
       "click a[name='delete']": "delete"
     }
     initialize: ->
-      this.$el.html(this.template(this.model.toJSON()))
-      this.imageArea = this.$('div[name="display-area"]')
+      ###
+
+      ###
+      fileInfo = this._obtainFileInfo(this.model)
+      console.log('init: '+fileInfo)
+      this.$el.html(this.template(fileInfo))
+
+    render: ->
+      this.$imageArea = this.$('.thumb')
+      that = this
       loadingImage = loadImage(
-          this.file,
-          (img) ->
-            $image = $(img);
-            $image.addClass('img-responsive').addClass('img-thumbnail');
-            this.imageArea.append($image);
-          ,
+        this.model,
+        (img) ->
+          $image = $(img);
+          $image.addClass('img-responsive').addClass('img-thumbnail');
+          that.$imageArea.append($image);
+        ,
           {
             maxWidth:140,
             maxHeight:140,
             canvas:true
           }
       )
-    render: ->
+      return this
     cancel: ->
     delete: ->
+    updateProcess: ->
+    load: (file)->
+      loadingImage = loadImage(
+        file,
+        (img) ->
+          $image = $(img);
+          $image.addClass('img-responsive').addClass('img-thumbnail');
+          this.$imageArea.append($image);
+        ,
+          {
+            maxWidth:140,
+            maxHeight:140,
+            canvas:true
+          }
+      )
+      this.render;
+    _obtainFileInfo: (file) ->
+      size = file.size
+      kbSize = size/1024
+      sizeText = if kbSize/1024 > 0 then (kbSize/1024).toFixed(2) + ' MB' else kbSize.toFixed(2) + ' KB'
+      fileInfo =
+        name:file.name
+        size:sizeText
   })
   obtainFileInfo = (file) ->
     size = file.size
@@ -192,9 +227,9 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
     fileInfo =
       name:file.name
       size:sizeText
-
+  console.log('fileupload')
   $('#fileupload').fileupload({
-    url:'//106.186.22.114:8888/upload',
+    url:'//localhost:8888/upload',
     dropZone: $('#dropzone'),
     dataType: 'json',
     autoUpload: true,
@@ -206,6 +241,7 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
     previewMaxHeight: 140,
     previewCrop: true
   }).on('fileuploadadd',  (e, data) ->
+    console.log('fileuploadadd')
     $this = $(this)
     that = $this.data('blueimp-fileupload') || $this.data('fileupload')
     options = that.options
@@ -215,10 +251,24 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
     ).always( ->
 
     ).done( ->
-      data.files.each (file) ->
-        ImageUploadView image = new ImageUploadView(file);
+      console.log('ff')
+      _.each data.files, (file) ->
+        console.log('file: '+JSON.stringify(file))
+        fileInfo = obtainFileInfo(file)
+
+        console.log('fileInfo: '+JSON.stringify(fileInfo))
+        imageView = new ImageUploadView({model:file})
+
+        $('#image-area').append(imageView.render().el)
 
     ).fail( ->
+      console.log('fail')
+      if(data.files.error)
+        console.log(data.files[0].error)
 
     )
-  )
+  ).on('fileuploadfail', (e, data) ->
+    console.log('fileuploadfail')
+    $('#tip-area').empty();
+
+  ).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');

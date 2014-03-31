@@ -24,7 +24,7 @@
         exports: 'area'
       },
       'backbone': {
-        deps: ['underscore'],
+        deps: ['underscore', 'jquery'],
         exports: 'Backbone'
       }
     },
@@ -53,7 +53,7 @@
   });
 
   require(['jquery', 'Showdown', 'underscore', 'area', 'backbone', 'load-image', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-validate'], function($, Showdown, _, Area, Backbone, loadImage) {
-    var ImageUploadView, converter, countries, initTip, obtainFileInfo;
+    var Image, ImageUploadView, converter, countries, initTip, obtainFileInfo, _ref;
     $("#tag-select").select2();
     initTip = function(id) {
       var tagId;
@@ -176,6 +176,7 @@
       upload images file
     */
 
+    Image = Backbone.Model.extend({});
     ImageUploadView = Backbone.View.extend({
       tagName: 'div',
       template: _.template($('#image-item-template').html()),
@@ -184,23 +185,57 @@
         "click a[name='delete']": "delete"
       },
       initialize: function() {
-        var loadingImage;
-        this.$el.html(this.template(this.model.toJSON()));
-        this.imageArea = this.$('div[name="display-area"]');
-        return loadingImage = loadImage(this.file, function(img) {
+        /*
+        */
+
+        var fileInfo;
+        fileInfo = this._obtainFileInfo(this.model);
+        console.log('init: ' + fileInfo);
+        return this.$el.html(this.template(fileInfo));
+      },
+      render: function() {
+        var loadingImage, that;
+        this.$imageArea = this.$('.thumb');
+        that = this;
+        loadingImage = loadImage(this.model, function(img) {
           var $image;
           $image = $(img);
           $image.addClass('img-responsive').addClass('img-thumbnail');
-          return this.imageArea.append($image);
+          return that.$imageArea.append($image);
         }, {
           maxWidth: 140,
           maxHeight: 140,
           canvas: true
         });
+        return this;
       },
-      render: function() {},
       cancel: function() {},
-      "delete": function() {}
+      "delete": function() {},
+      updateProcess: function() {},
+      load: function(file) {
+        var loadingImage;
+        loadingImage = loadImage(file, function(img) {
+          var $image;
+          $image = $(img);
+          $image.addClass('img-responsive').addClass('img-thumbnail');
+          return this.$imageArea.append($image);
+        }, {
+          maxWidth: 140,
+          maxHeight: 140,
+          canvas: true
+        });
+        return this.render;
+      },
+      _obtainFileInfo: function(file) {
+        var fileInfo, kbSize, size, sizeText;
+        size = file.size;
+        kbSize = size / 1024;
+        sizeText = kbSize / 1024 > 0 ? (kbSize / 1024).toFixed(2) + ' MB' : kbSize.toFixed(2) + ' KB';
+        return fileInfo = {
+          name: file.name,
+          size: sizeText
+        };
+      }
     });
     obtainFileInfo = function(file) {
       var fileInfo, kbSize, size, sizeText;
@@ -212,8 +247,9 @@
         size: sizeText
       };
     };
+    console.log('fileupload');
     return $('#fileupload').fileupload({
-      url: '//106.186.22.114:8888/upload',
+      url: '//localhost:8888/upload',
       dropZone: $('#dropzone'),
       dataType: 'json',
       autoUpload: true,
@@ -225,17 +261,35 @@
       previewCrop: true
     }).on('fileuploadadd', function(e, data) {
       var $this, options, that;
+      console.log('fileuploadadd');
       $this = $(this);
       that = $this.data('blueimp-fileupload') || $this.data('fileupload');
       options = that.options;
       return data.process(function() {
         return $this.fileupload('process', data);
       }).always(function() {}).done(function() {
-        return data.files.each(function(file) {
-          var image;
-          return ImageUploadView(image = new ImageUploadView(file));
+        console.log('ff');
+        return _.each(data.files, function(file) {
+          var fileInfo, imageView;
+          console.log('file: ' + JSON.stringify(file));
+          fileInfo = obtainFileInfo(file);
+          console.log('fileInfo: ' + JSON.stringify(fileInfo));
+          imageView = new ImageUploadView({
+            model: file
+          });
+          return $('#image-area').append(imageView.render().el);
         });
-      }).fail(function() {});
+      }).fail(function() {
+        console.log('fail');
+        if (data.files.error) {
+          return console.log(data.files[0].error);
+        }
+      });
+    }).on('fileuploadfail', function(e, data) {
+      console.log('fileuploadfail');
+      return $('#tip-area').empty();
+    }).prop('disabled', !$.support.fileInput).parent().addClass((_ref = $.support.fileInput) != null ? _ref : {
+      undefined: 'disabled'
     });
   });
 

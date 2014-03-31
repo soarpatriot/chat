@@ -80,8 +80,8 @@ block content
                                                     | 拖动文件到此区域上传 或点击 &nbsp;&nbsp;&nbsp;
                                                     span(class='btn btn-sm btn-info fileinput-button')
                                                         span 添加文件...
-                                                        input(type='file',name='files',id='file-input',multiple)
-
+                                                        input(type='file',name='files',id='fileupload',multiple)
+                                                div(id='image-area')
 
 
 
@@ -94,7 +94,8 @@ block content
         <!-- Templates -->
         script(type="text/template",id="image-item-template")
             div.row
-                div(name='display-area',class='col-md-3 col-sm-4.col-xs-2')
+                div(name='display-area',class='col-md-3 col-sm-4.col-xs-2 thumb')
+                    div.aa
                 div.col-md-4.col-sm-3.col-xs-5
                     p.middle
                         span(class='badge',id='file-info-label') 文件名
