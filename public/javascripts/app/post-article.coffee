@@ -161,22 +161,42 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
   Image = Backbone.Model.extend({
 
   })
+  ThumbnailView = Backbone.View.extend({
+    tagName:'div'
+    template: _.template($('#thumbnail-item-template').html())
+    events: {
+      "click a[name='delete']": "delete"
+    }
+    initialize: ->
+      this.$el.html(this.template(this.model))
 
+    render: ->
+      return this
+  })
   ImageUploadView = Backbone.View.extend({
     tagName:'div'
     template: _.template($('#image-item-template').html())
     events: {
-      "click a[name='cancel']": "cancel",
+
       "click a[name='delete']": "delete"
     }
     initialize: ->
       ###
-
+         "click button[name='upload-cancel-btn']": "cancel",
       ###
+
       fileInfo = this._obtainFileInfo(this.model)
       console.log('init: '+fileInfo)
       this.$el.html(this.template(fileInfo))
+      this.$progressBar = this.$('.progress-bar')
+      this.$cancelBtn = this.$("button[name='upload-cancel-btn']")
+         .on('click', ->
+            $this = $(this)
+            data = $this.data()
 
+            data.abort()
+            $this.remove()
+         )
     render: ->
       this.$imageArea = this.$('.thumb')
       that = this
@@ -194,9 +214,19 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
           }
       )
       return this
+    setData: (data) ->
+      this.$cancelBtn.data(data)
     cancel: ->
+
     delete: ->
-    updateProcess: ->
+    updateProgress: (progress) ->
+
+      this.$progressBar.text(progress+'%');
+      this.$progressBar.attr('aria-valuenow',progress);
+      this.$progressBar.css(
+        'width',
+          progress + '%'
+      );
     load: (file)->
       loadingImage = loadImage(
         file,
@@ -220,14 +250,8 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
         name:file.name
         size:sizeText
   })
-  obtainFileInfo = (file) ->
-    size = file.size
-    kbSize = size/1024
-    sizeText = if kbSize/1024 > 0 then (kbSize/1024).toFixed(2) + ' MB' else kbSize.toFixed(2) + ' KB'
-    fileInfo =
-      name:file.name
-      size:sizeText
-  console.log('fileupload')
+
+  filesMap = {}
   $('#fileupload').fileupload({
     url:'//localhost:8888/upload',
     dropZone: $('#dropzone'),
@@ -241,34 +265,70 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
     previewMaxHeight: 140,
     previewCrop: true
   }).on('fileuploadadd',  (e, data) ->
-    console.log('fileuploadadd')
-    $this = $(this)
-    that = $this.data('blueimp-fileupload') || $this.data('fileupload')
-    options = that.options
 
-    data.process( ->
-      $this.fileupload('process', data)
-    ).always( ->
 
-    ).done( ->
-      console.log('ff')
-      _.each data.files, (file) ->
-        console.log('file: '+JSON.stringify(file))
-        fileInfo = obtainFileInfo(file)
+    $.each(data.files,  (index, file) ->
+      _id = _.uniqueId('file_')
+      file._id =_id
+      file.name = _id
+      imageView = new ImageUploadView({model:file})
+      filesMap[_id] = imageView
+      imageView.setData(data)
+      data.context = $(imageView.render().el)
 
-        console.log('fileInfo: '+JSON.stringify(fileInfo))
-        imageView = new ImageUploadView({model:file})
+      $('#image-area').append(data.context)
+    );
 
-        $('#image-area').append(imageView.render().el)
 
-    ).fail( ->
-      console.log('fail')
-      if(data.files.error)
-        console.log(data.files[0].error)
+    ###
+      $this = $(this)
+      that = $this.data('blueimp-fileupload') || $this.data('fileupload')
+      options = that.options
+
+      data.process( ->
+        $this.fileupload('process', data)
+      ).always( ->
+
+      ).done( ->
+
+        _.each data.files, (file) ->
+          console.log('file: '+JSON.stringify(file))
+
+          _id = _.uniqueId('file_')
+          file._id = _id
+          imageView = new ImageUploadView({model:file,context:data})
+          filesMap[_id] = imageView
+          $('#image-area').append(imageView.render().el)
+          if ((options.autoUpload || data.autoUpload) && data.autoUpload != false)
+            jqXHR = data.submit().error( (jqXHR, textStatus, errorThrown) ->
+              console.log('error')
+            )
+      )
+
+    ###
+
+  ).on('fileuploadprocessalways', (e, data) ->
+
+  ).on('fileuploadprogress', (e, data) ->
+    progress = Math.floor(data.loaded / data.total * 100);
+    _.each data.files, (file) ->
+      filesMap[file._id].updateProgress(progress)
+
+  ).on('fileuploaddone', (e, data) ->
+
+    console.log('fileuploaddone')
+    data.context.remove()
+    $.each(data.result.files, (index, file) ->
+
+      if( file.url )
+        console.log("result complete: "+JSON.stringify(file))
+
+        thumbView = new ThumbnailView({model:file})
+        $('#thumb-area').append(thumbView.render().el)
 
     )
   ).on('fileuploadfail', (e, data) ->
     console.log('fileuploadfail')
     $('#tip-area').empty();
 
-  ).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled');
+  ).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled')

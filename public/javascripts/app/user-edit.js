@@ -164,7 +164,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
     }
 
     $('#fileupload').fileupload({
-        url:'//106.186.22.114:8888/upload',
+        url:'//localhost:8888/upload',
         dropZone: $('#dropzone'),
         dataType: 'json',
         autoUpload: true,
