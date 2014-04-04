@@ -29,7 +29,11 @@ block content
                         div.row
                             div.col-md-12
                                 p.word-break-wrap #{post.content}
-
+                        div.row
+                            div.col-md-12
+                                each image, i in post.images
+                                    div.thumb-image
+                                        img(src='#{image.thumbnailUrl}',class='img-thumbnail image-post-thumbnail')
                         if (own)
                             div.row
                                 div.col-md-8

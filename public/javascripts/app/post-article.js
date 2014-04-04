@@ -53,7 +53,7 @@
   });
 
   require(['jquery', 'Showdown', 'underscore', 'area', 'backbone', 'load-image', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-validate'], function($, Showdown, _, Area, Backbone, loadImage) {
-    var Image, ImageUploadView, ThumbnailView, converter, countries, filesMap, initTip, _ref;
+    var Image, ImageUploadView, ThumbnailView, converter, countries, filesMap, initTip, thumbArray, _ref;
     $("#tag-select").select2();
     initTip = function(id) {
       var tagId;
@@ -172,10 +172,50 @@
       */
 
     });
+    $("#submit-btn").click(function() {
+      var imageModelTemp, thumb, _i, _len;
+      for (_i = 0, _len = thumbArray.length; _i < _len; _i++) {
+        thumb = thumbArray[_i];
+        if (thumb.getModel()) {
+          imageModelTemp = _.template($('#image-model-template').html());
+          $("#post-form").append(imageModelTemp(thumb.getModel()));
+          console.log(JSON.stringify(thumb.getModel()));
+        }
+      }
+      return console.log('form:' + $("#post-form").html());
+    });
     /*
       upload images file
     */
 
+    $(document).bind('dragover', function(e) {
+      var dropZone, found, node, timeout;
+      dropZone = $('#dropzone');
+      timeout = window.dropZoneTimeout;
+      if (!timeout) {
+        dropZone.addClass('in');
+      } else {
+        clearTimeout(timeout);
+      }
+      found = false;
+      node = e.target;
+      while (node !== null) {
+        if (node === dropZone[0]) {
+          found = true;
+          break;
+        }
+        node = node.parentNode;
+      }
+      if (found) {
+        dropZone.addClass('hover');
+      } else {
+        dropZone.removeClass('hover');
+      }
+      return window.dropZoneTimeout = setTimeout(function() {
+        window.dropZoneTimeout = null;
+        return dropZone.removeClass('in hover');
+      }, 3000);
+    });
     Image = Backbone.Model.extend({});
     ThumbnailView = Backbone.View.extend({
       tagName: 'div',
@@ -188,6 +228,23 @@
       },
       render: function() {
         return this;
+      },
+      "delete": function() {
+        if (this.model.url) {
+          return $.ajax({
+            type: "DELETE",
+            url: this.model.url,
+            dataType: "json"
+          }).done(this.model = null, this.remove()).fail(function() {
+            return console.log('fail');
+          });
+        } else {
+          this.model = null;
+          return this.remove();
+        }
+      },
+      getModel: function() {
+        return this.model;
       }
     });
     ImageUploadView = Backbone.View.extend({
@@ -201,17 +258,18 @@
            "click button[name='upload-cancel-btn']": "cancel",
         */
 
-        var fileInfo;
+        var fileInfo, that;
         fileInfo = this._obtainFileInfo(this.model);
         console.log('init: ' + fileInfo);
         this.$el.html(this.template(fileInfo));
         this.$progressBar = this.$('.progress-bar');
+        that = this;
         return this.$cancelBtn = this.$("button[name='upload-cancel-btn']").on('click', function() {
           var $this, data;
           $this = $(this);
           data = $this.data();
           data.abort();
-          return $this.remove();
+          return that.remove();
         });
       },
       render: function() {
@@ -266,6 +324,7 @@
       }
     });
     filesMap = {};
+    thumbArray = [];
     return $('#fileupload').fileupload({
       url: '//localhost:8888/upload',
       dropZone: $('#dropzone'),
@@ -331,15 +390,14 @@
         if (file.url) {
           console.log("result complete: " + JSON.stringify(file));
           thumbView = new ThumbnailView({
+            data: data,
             model: file
           });
+          thumbArray.push(thumbView);
           return $('#thumb-area').append(thumbView.render().el);
         }
       });
-    }).on('fileuploadfail', function(e, data) {
-      console.log('fileuploadfail');
-      return $('#tip-area').empty();
-    }).prop('disabled', !$.support.fileInput).parent().addClass((_ref = $.support.fileInput) != null ? _ref : {
+    }).on('fileuploadfail', function(e, data) {}).prop('disabled', !$.support.fileInput).parent().addClass((_ref = $.support.fileInput) != null ? _ref : {
       undefined: 'disabled'
     });
   });

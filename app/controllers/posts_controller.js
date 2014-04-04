@@ -74,8 +74,8 @@ exports.create = function(req, res){
     var districtText = req.body.districtText || '';
     var countyText = req.body.countyText || '';
 
-    console.log("countryId:"+countryId+" provinceId:"+provinceId," districtId:"+districtId," countyId:"+countyId)
-    console.log("countryText:"+countryText+" provinceText:"+provinceText," districtText:"+districtText," countyId:"+countyText)
+    //console.log("countryId:"+countryId+" provinceId:"+provinceId," districtId:"+districtId," countyId:"+countyId)
+    //console.log("countryText:"+countryText+" provinceText:"+provinceText," districtText:"+districtText," countyId:"+countyText)
 
 
     if(currentUser === null){
@@ -107,9 +107,26 @@ exports.create = function(req, res){
         districtId:districtId,
         districtText:districtText,
         countyId:countyId,
-        countyText:countyText
-
+        countyText:countyText,
+        images:[]
     });
+
+    console.log("req :"+req.body.name);
+    var i,len;
+    for(i=0,len = req.body.name.length;i<len;i++){
+        var image = {
+            name: req.body.name[i],
+            size: req.body.size[i],
+            type: req.body.type[i],
+            deleteType: req.body.deleteType[i],
+            deleteUrl: req.body.deleteUrl[i],
+            url: req.body.url[i],
+            thumbnailUrl: req.body.thumbnailUrl[i],
+            smallUrl: req.body.smallUrl[i],
+            miniUrl: req.body.miniUrl[i]
+        };
+        post.images.push(image);
+    }
 
     post.save(function(err){
         if(err){

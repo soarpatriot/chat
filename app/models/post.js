@@ -50,6 +50,20 @@ commentFromNow.get(function(){
 
 
 
+//Post's image
+var ImageSchema  = new Schema({
+    name: {type: String },
+    size:  { type: Number},
+    type:String,
+    deleteType:String,
+    deleteUrl:String,
+    url:String,
+    thumbnailUrl:String,
+    smallUrl:String,
+    miniUrl:String
+
+},schemaOptions);
+
 var Review = new Schema({
     agree:{type:Boolean,default: false},            // the number of this post  can publish or can not publish
     reason:{type:String},
@@ -61,6 +75,7 @@ var PostSchema = mongoose.Schema({
     title: String,
     content: 'String',
     comments: [CommentSchema],
+    images: [ImageSchema],
     pusTime: { type: Date, default: Date.now },
 
     rank:{type: Number, default: 0},

@@ -154,10 +154,45 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
      $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"))
     ###
 
-
+  $("#submit-btn").click ->
+    for thumb in thumbArray
+      if thumb.getModel()
+        imageModelTemp =  _.template($('#image-model-template').html())
+        $("#post-form").append(imageModelTemp(thumb.getModel()))
+        console.log(JSON.stringify(thumb.getModel()))
+    console.log('form:'+ $("#post-form").html())
   ###
     upload images file
   ###
+
+  $(document).bind('dragover', (e) ->
+    dropZone = $('#dropzone')
+    timeout = window.dropZoneTimeout;
+    if (!timeout)
+      dropZone.addClass('in')
+    else
+      clearTimeout(timeout)
+
+    found = false
+    node = e.target
+    while (node isnt null)
+      if (node == dropZone[0])
+        found = true;
+        break
+      node = node.parentNode
+
+    if (found)
+      dropZone.addClass('hover')
+    else
+      dropZone.removeClass('hover');
+
+    window.dropZoneTimeout = setTimeout( ->
+      window.dropZoneTimeout = null
+      dropZone.removeClass('in hover')
+    , 3000)
+  )
+
+
   Image = Backbone.Model.extend({
 
   })
@@ -172,6 +207,26 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
 
     render: ->
       return this
+
+    delete: ->
+      if (this.model.url)
+
+        $.ajax({
+          type:"DELETE",
+          url:this.model.url,
+          dataType:"json"
+        }).done(
+          this.model = null
+          this.remove()
+        ).fail( ->
+          console.log('fail')
+        )
+      else
+        this.model = null
+        this.remove()
+    getModel: ->
+      return this.model
+
   })
   ImageUploadView = Backbone.View.extend({
     tagName:'div'
@@ -189,13 +244,13 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
       console.log('init: '+fileInfo)
       this.$el.html(this.template(fileInfo))
       this.$progressBar = this.$('.progress-bar')
+      that = this
       this.$cancelBtn = this.$("button[name='upload-cancel-btn']")
          .on('click', ->
-            $this = $(this)
-            data = $this.data()
-
-            data.abort()
-            $this.remove()
+           $this = $(this)
+           data = $this.data()
+           data.abort()
+           that.remove()
          )
     render: ->
       this.$imageArea = this.$('.thumb')
@@ -252,6 +307,7 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
   })
 
   filesMap = {}
+  thumbArray = []
   $('#fileupload').fileupload({
     url:'//localhost:8888/upload',
     dropZone: $('#dropzone'),
@@ -323,12 +379,12 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
       if( file.url )
         console.log("result complete: "+JSON.stringify(file))
 
-        thumbView = new ThumbnailView({model:file})
+        thumbView = new ThumbnailView({data:data,model:file})
+        thumbArray.push(thumbView)
         $('#thumb-area').append(thumbView.render().el)
 
     )
   ).on('fileuploadfail', (e, data) ->
-    console.log('fileuploadfail')
-    $('#tip-area').empty();
+
 
   ).prop('disabled', !$.support.fileInput).parent().addClass($.support.fileInput ? undefined : 'disabled')
