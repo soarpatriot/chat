@@ -26,7 +26,7 @@ require.config
     }
 
   paths:
-    'jquery': 'jquery-1.9.1.min'
+    'jquery': 'jquery-2.0.3.min'
     'bootstrap':'bootstrap.min'
     'Showdown':'showdown'
     'chosen':'chosen.jquery.min'
@@ -42,6 +42,7 @@ require.config
     'load-image-meta':'fileupload/load-image-meta'
     'canvas-to-blob':'fileupload/canvas-to-blob'
 
+    'jquery.colorbox':'jquery.colorbox'
 
     'jquery.fileupload-validate':'fileupload/jquery.fileupload-validate'
     'jquery.fileupload-process':'fileupload/jquery.fileupload-process'
@@ -51,7 +52,7 @@ require.config
     'jquery.fileupload':'fileupload/jquery.fileupload'
 
 require ['jquery','Showdown','underscore','area','backbone','load-image','bootstrap','chosen','select2','jqBootstrapValidation',
-         'jquery.iframe-transport','jquery.fileupload','jquery.fileupload-validate'
+         'jquery.iframe-transport','jquery.fileupload','jquery.fileupload-validate','jquery.colorbox'
 ], ($,Showdown,_,Area,Backbone,loadImage) ->
 
   $("#tag-select").select2()
@@ -164,6 +165,8 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
   ###
     upload images file
   ###
+
+
 
   $(document).bind('dragover', (e) ->
     dropZone = $('#dropzone')
@@ -384,6 +387,7 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
         $('#thumb-area').append(thumbView.render().el)
 
     )
+    $(".image-group").colorbox({rel:'image-group',width:"100%"})
   ).on('fileuploadfail', (e, data) ->
 
 

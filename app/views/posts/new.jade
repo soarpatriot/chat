@@ -114,7 +114,7 @@ block content
         script(type="text/template",id="thumbnail-item-template")
             div.thumb-image
                 p
-                    a
+                    a('href=<%- url %>',class='image-group')
                        img('src=<%- thumbnailUrl %>',class='img-thumbnail image-post-thumbnail')
 
                 p

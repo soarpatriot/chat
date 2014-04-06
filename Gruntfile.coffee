@@ -10,6 +10,7 @@ module.exports = (grunt) ->
               'public/stylesheets/jquery.fileupload.css',
               'public/stylesheets/jquery.fileupload-ui.css',
               'public/stylesheets/jquery.fileupload-ui-noscript.css',
+              'public/stylesheets/colorbox.css',
               'public/stylesheets/application.css']
   delOptions = {
     force: true

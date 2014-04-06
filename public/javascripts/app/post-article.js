@@ -29,7 +29,7 @@
       }
     },
     paths: {
-      'jquery': 'jquery-1.9.1.min',
+      'jquery': 'jquery-2.0.3.min',
       'bootstrap': 'bootstrap.min',
       'Showdown': 'showdown',
       'chosen': 'chosen.jquery.min',
@@ -43,6 +43,7 @@
       'load-image-ios': 'fileupload/load-image-ios',
       'load-image-meta': 'fileupload/load-image-meta',
       'canvas-to-blob': 'fileupload/canvas-to-blob',
+      'jquery.colorbox': 'jquery.colorbox',
       'jquery.fileupload-validate': 'fileupload/jquery.fileupload-validate',
       'jquery.fileupload-process': 'fileupload/jquery.fileupload-process',
       'jquery.fileupload-image': 'fileupload/jquery.fileupload-image',
@@ -52,7 +53,7 @@
     }
   });
 
-  require(['jquery', 'Showdown', 'underscore', 'area', 'backbone', 'load-image', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-validate'], function($, Showdown, _, Area, Backbone, loadImage) {
+  require(['jquery', 'Showdown', 'underscore', 'area', 'backbone', 'load-image', 'bootstrap', 'chosen', 'select2', 'jqBootstrapValidation', 'jquery.iframe-transport', 'jquery.fileupload', 'jquery.fileupload-validate', 'jquery.colorbox'], function($, Showdown, _, Area, Backbone, loadImage) {
     var Image, ImageUploadView, ThumbnailView, converter, countries, filesMap, initTip, thumbArray, _ref;
     $("#tag-select").select2();
     initTip = function(id) {
@@ -385,7 +386,7 @@
     }).on('fileuploaddone', function(e, data) {
       console.log('fileuploaddone');
       data.context.remove();
-      return $.each(data.result.files, function(index, file) {
+      $.each(data.result.files, function(index, file) {
         var thumbView;
         if (file.url) {
           console.log("result complete: " + JSON.stringify(file));
@@ -396,6 +397,10 @@
           thumbArray.push(thumbView);
           return $('#thumb-area').append(thumbView.render().el);
         }
+      });
+      return $(".image-group").colorbox({
+        rel: 'image-group',
+        width: "100%"
       });
     }).on('fileuploadfail', function(e, data) {}).prop('disabled', !$.support.fileInput).parent().addClass((_ref = $.support.fileInput) != null ? _ref : {
       undefined: 'disabled'

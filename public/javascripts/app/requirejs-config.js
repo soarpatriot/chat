@@ -67,6 +67,7 @@ require.config({
         'jquery.spin': 'jquery.spin',
         'jqBootstrapValidation':'jqBootstrapValidation-1.3.7.min',
 
+        'jquery.colorbox':'jquery.colorbox',
 
         "load-image":"fileupload/load-image.min",
         "load-image-exif":"fileupload/load-image-exif",
