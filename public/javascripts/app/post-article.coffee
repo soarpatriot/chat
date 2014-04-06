@@ -387,7 +387,7 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
         $('#thumb-area').append(thumbView.render().el)
 
     )
-    $(".image-group").colorbox({rel:'image-group',width:"100%"})
+    $(".image-group").colorbox({rel:'image-group',maxWidth:"100%"})
   ).on('fileuploadfail', (e, data) ->
 
 

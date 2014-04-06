@@ -400,7 +400,7 @@
       });
       return $(".image-group").colorbox({
         rel: 'image-group',
-        width: "100%"
+        maxWidth: "100%"
       });
     }).on('fileuploadfail', function(e, data) {}).prop('disabled', !$.support.fileInput).parent().addClass((_ref = $.support.fileInput) != null ? _ref : {
       undefined: 'disabled'
