@@ -32,8 +32,9 @@ block content
                         div.row
                             div.col-md-12
                                 each image, i in post.images
-                                    div.thumb-image
-                                        img(src='#{image.thumbnailUrl}',class='img-thumbnail image-post-thumbnail')
+                                    div(class='thumb-image',name='#{post._id}')
+                                        a(class='#{post._id}',href='#{image.url}')
+                                            img(src='#{image.thumbnailUrl}',class='img-thumbnail image-post-thumbnail')
                         if (own)
                             div.row
                                 div.col-md-8
@@ -98,5 +99,5 @@ block content
                         a(id='cancel-del-btn',href='#',class='btn') 取消
                         a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
 
-        script(data-main='/build/app/user-blogs',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/user-blogs',src='/javascripts/require.js?v=#{appVersion}')
 

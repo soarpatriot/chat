@@ -15,13 +15,23 @@
     paths: {
       'jquery': 'jquery-1.9.1.min',
       'bootstrap': 'bootstrap.min',
-      'bootstrapPaginator': 'bootstrap-paginator.min'
+      'bootstrapPaginator': 'bootstrap-paginator.min',
+      'jquery.colorbox': 'jquery.colorbox'
     }
   });
 
-  require(['jquery', 'bootstrap', 'bootstrapPaginator'], function($) {
+  require(['jquery', 'bootstrap', 'bootstrapPaginator', 'jquery.colorbox'], function($) {
     return $(function() {
-      var currentPage, discoveriorId, mod, options, pageSize, subTotal, totalPages;
+      var currentPage, discoveriorId, groups, mod, options, pageSize, subTotal, totalPages;
+      groups = $('.thumb-image');
+      $.each(groups, function(index, group) {
+        var groupname;
+        groupname = $(group).attr('name');
+        return $('a[class="' + groupname + '"]').colorbox({
+          rel: groupname,
+          maxWidth: "100%"
+        });
+      });
       pageSize = 10;
       mod = $('#total-count').val() % pageSize;
       subTotal = $('#total-count').val() / pageSize;

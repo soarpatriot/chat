@@ -14,10 +14,17 @@ require.config
     'bootstrap':'bootstrap.min'
     'bootstrapPaginator':'bootstrap-paginator.min'
 
+    'jquery.colorbox':'jquery.colorbox'
 
-
-require  ['jquery','bootstrap','bootstrapPaginator'], ($) ->
+require  ['jquery','bootstrap','bootstrapPaginator','jquery.colorbox'], ($) ->
   $ ->
+    groups = $('.thumb-image')
+    $.each(groups, (index, group) ->
+      groupname = $(group).attr('name')
+      $('a[class="'+groupname+'"]').colorbox({rel:groupname,maxWidth:"100%"})
+    )
+
+
     # split pages
     pageSize = 10
     mod = $('#total-count').val() % pageSize
