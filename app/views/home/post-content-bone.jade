@@ -23,7 +23,18 @@ script(type="text/template",id="item-template")
         div.col-md-12
             p.blog-content.word-break-wrap
                 a('href=/posts/<%- _id %>') <%- content %>
-                    
+    div.row
+        div.col-md-12
+
+script(type="text/template",id="image-template")  
+
+            div(class='thumb-image','name=<%- id %>')
+                a('class=<%- id %>','href=<%- url %>')
+                    img('src=<%- thumbnailUrl %>',class='img-thumbnail image-post-thumbnail')
+
+<!-- Templates -->
+script(type="text/template",id="up-down-template")       
+    div.clearfix                
     div.row
         div.col-md-7
             div.row

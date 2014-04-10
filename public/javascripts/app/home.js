@@ -45,6 +45,8 @@ require.config({
         "bootstrap":"bootstrap.min",
         "bootstrapPaginator":"bootstrap-paginator.min",
 
+        'jquery.colorbox': 'jquery.colorbox',
+
         "animo":"animo",
         "jquery": "jquery-2.0.3.min",
         'google-html5':'google-code-prettify/html5'
@@ -53,7 +55,7 @@ require.config({
 
 });
 
-require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable","animo"],function(require,$,_,Backbone,Models) {
+require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable","animo","jquery.colorbox"],function(require,$,_,Backbone,Models) {
 
     var opts = {
         lines: 13, // The number of lines to draw
@@ -120,6 +122,11 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             template: _.template($('#item-template').html()),
 
+            imageTemp: _.template($('#image-template').html()),
+
+            upDownTemp: _.template($('#up-down-template').html()),
+
+
             // The DOM events specific to an item.
             events: {
                 "click a[name='up-post'][disabled!=true]": "upPost",
@@ -128,7 +135,22 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             // app, we set a direct reference on the model for convenience.
             initialize: function() {
+
+                console.log('models: '+JSON.stringify(this.model.get('images')));
+
                 this.$el.html(this.template(this.model.toJSON()));
+                var images = this.model.get('images');
+                var that = this;
+                if(images && images.length > 0){
+                   
+                    _.each(images,function(image){
+                        image.id = that.model.get('_id');
+                        that.$el.append(that.imageTemp(image));
+                    });
+                }
+                this.$el.append(this.upDownTemp(this.model.toJSON()));
+                this.group();
+
                 this.model.on('change:up', this.up, this);
                 this.model.on('change:down', this.down, this);
             },
@@ -136,6 +158,18 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             // Re-render the titles of the todo item.
             render: function() {
                 this.$el.html(this.template(this.model.toJSON()));
+                var images = this.model.get('images');
+                var that = this;
+                if(images && images.length > 0){
+                   
+                    _.each(images,function(image){
+                        image.id = that.model.get('_id');
+                        that.$el.append(that.imageTemp(image));
+                    });
+                }
+                this.$el.append(this.upDownTemp(this.model.toJSON()));
+
+                this.group();
                 //this.$el.toggleClass('done', this.model.get('done'));
                 //this.input = this.$('.edit');
                 var options ={
@@ -206,6 +240,18 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     this.model.save();
 
                 }
+            },
+
+            group: function(){
+                var groups = $('.thumb-image');
+                $.each(groups, function(index, group) {
+                    var groupname;
+                    groupname = $(group).attr('name');
+                    return $('a[class="' + groupname + '"]').colorbox({
+                      rel: groupname,
+                      maxWidth: "100%"
+                    });
+                });
             }
 
         });

@@ -197,7 +197,7 @@ PostSchema.statics.populateCommentsCreatorByPostId = function(postId,callback){
 
 var Post = mongoose.model('Post', PostSchema);
 var Comment = mongoose.model('Comment', CommentSchema);
-
+var Image = mongoose.model('Image', ImageSchema);
 
 
 
