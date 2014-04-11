@@ -15,7 +15,12 @@ block content
                     div(class='col-md-12')
                         div.word-break-wrap
                             !{post.content}
-
+                div.row
+                    div.col-md-12
+                        each image, i in post.images
+                            div(class='thumb-image',name='#{post._id}')
+                                a(class='#{post._id}',href='#{image.url}')
+                                    img(src='#{image.thumbnailUrl}',class='img-thumbnail image-post-thumbnail')
             form(id='review-form',action='/review',method='post')
                 if(post._id)
                     input(id='post-id',type='hidden',name='postId',value='#{post._id}')
@@ -45,4 +50,4 @@ block content
                 div(class='row-fluid')
                     div(class='col-md-8') <%- content %>
 
-        script(data-main='/build/app/review',src='/javascripts/require.js?v=#{appVersion}')
+        script(data-main='/javascripts/app/review',src='/javascripts/require.js?v=#{appVersion}')

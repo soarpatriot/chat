@@ -15,9 +15,16 @@ require.config
     'jquery': 'jquery-1.9.1.min'
     'bootstrap':'bootstrap.min'
     'underscore': 'underscore'
-
-require ['jquery','underscore','bootstrap'], ($,_) ->
+    'jquery.colorbox':'jquery.colorbox'
+require ['jquery','underscore','bootstrap','jquery.colorbox'], ($,_) ->
     $ ->
+
+      groups = $('.thumb-image')
+      $.each(groups, (index, group) ->
+        groupname = $(group).attr('name')
+        $('a[class="'+groupname+'"]').colorbox({rel:groupname,maxWidth:"100%"})
+      )
+
       postId = $('#post-id').val()
       wait = 9000
       supportText = $('#support').text();

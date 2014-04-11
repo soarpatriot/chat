@@ -18,13 +18,23 @@
     paths: {
       'jquery': 'jquery-1.9.1.min',
       'bootstrap': 'bootstrap.min',
-      'underscore': 'underscore'
+      'underscore': 'underscore',
+      'jquery.colorbox': 'jquery.colorbox'
     }
   });
 
-  require(['jquery', 'underscore', 'bootstrap'], function($, _) {
+  require(['jquery', 'underscore', 'bootstrap', 'jquery.colorbox'], function($, _) {
     return $(function() {
-      var btnInterval, check, postId, supportText, timeLeft, voteText, wait;
+      var btnInterval, check, groups, postId, supportText, timeLeft, voteText, wait;
+      groups = $('.thumb-image');
+      $.each(groups, function(index, group) {
+        var groupname;
+        groupname = $(group).attr('name');
+        return $('a[class="' + groupname + '"]').colorbox({
+          rel: groupname,
+          maxWidth: "100%"
+        });
+      });
       postId = $('#post-id').val();
       wait = 9000;
       supportText = $('#support').text();
