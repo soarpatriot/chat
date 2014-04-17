@@ -26,7 +26,7 @@ require ['jquery','underscore','bootstrap','jquery.colorbox'], ($,_) ->
       )
 
       postId = $('#post-id').val()
-      wait = 9000
+      wait = 5000
       supportText = $('#support').text();
       voteText = $('#veto').text();
 

@@ -24,12 +24,17 @@ block content
                                 img(src='#{post.creator.thumbnails}',class='img-rounded img-thumbnail thumbnail-face')
                             div.media-body
                                 div.panel.panel-info
-                                     div.panel-heading
-                                          | #{post.title}
-                                     div.panel-body.word-break-wrap !{post.content}
-
-                                     div.panel-footer
-                                         div.row
+                                    div.panel-heading
+                                        | #{post.title}
+                                    div.panel-body.word-break-wrap
+                                        p   !{post.content}
+                                        p
+                                            each image, i in post.images
+                                                div(class='thumb-image',name='#{post._id}')
+                                                    a(class='#{post._id}',href='#{image.url}')
+                                                        img(src='#{image.thumbnailUrl}',class='img-thumbnail image-post-thumbnail')
+                                    div.panel-footer
+                                        div.row
                                              div.col-md-9.small
                                                  if typeof(post.tag) !== 'undefined' && post.tag !== null && post.tag !== ''  && typeof(post.tag.name) !== 'undefined' && post.tag.name!==null && post.tag.name!==''
                                                     span(class='label label-primary') #{post.tag.name}
@@ -40,26 +45,32 @@ block content
                                                  time
                                                      | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#{post.fromNow}
 
+                if typeof(user)!=='undefined'
+                    hr
+                    div.row
+                        div.col-md-12
+                            div.media
+                                div.pull-left
+                                    img(class='img-rounded img-thumbnail thumbnail-face',src='/images/noavatar92.png')
+                                div.media-body
+                                    form(id='comment-form',action='/comment',method='post',role='form',class='form-horizontal')
+                                        div.form-group
+                                            input(name='postId',type='hidden',value='#{post._id}')
+                                            input(id='content-hidden',name='content',type='hidden')
+                                            div.col-md-8
+                                                div(id='content-div',class='form-control comment-div',contenteditable='true')
 
-                hr
-                div.row
-                    div.col-md-12
-                        div.media
-                            div.pull-left
-                                img(class='img-rounded img-thumbnail thumbnail-face',src='/images/noavatar92.png')
-                            div.media-body
-                                form(id='comment-form',action='/comment',method='post')
-                                    div.form-group
-                                        input(name='postId',type='hidden',value='#{post._id}')
-                                        input(id='content-hidden',name='content',type='hidden')
-                                        div(id='content-div',class='col-md-12 comment-div',contenteditable='true')
-
-                                    div.form-group
-                                        div.col-md-12
-                                            button(id='comment-btn', class='btn btn-success') 发言
+                                        div.form-group
+                                            div.col-md-8
+                                                button(id='comment-btn', class='btn btn-success') 发言
+                else
+                    div.row
+                        div.col-md-12
+                            div.alert.alert-info 登录后即可发表评论!
                 hr.soft
                 div.row
-                    h4 #{post.comments.length} 评论
+                    div.col-md-12
+                        h4 #{post.comments.length} 评论
 
                 each comment, i in post.comments
 
@@ -78,11 +89,3 @@ block content
 
 
         script(data-main='/javascripts/app/post-show',src='/javascripts/require.js?v=#{appVersion}')
-
-
-
-
-
-
-             
-      

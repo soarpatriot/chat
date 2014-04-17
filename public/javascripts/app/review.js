@@ -36,7 +36,7 @@
         });
       });
       postId = $('#post-id').val();
-      wait = 9000;
+      wait = 5000;
       supportText = $('#support').text();
       voteText = $('#veto').text();
       $('#support').button('loading');

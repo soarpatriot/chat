@@ -18,11 +18,22 @@
     paths: {
       'jquery': 'jquery-1.9.1.min',
       'bootstrap': 'bootstrap.min',
-      'underscore': 'underscore'
+      'underscore': 'underscore',
+      'jquery.colorbox': 'jquery.colorbox'
     }
   });
 
-  require(['jquery', 'bootstrap'], function($) {
+  require(['jquery', 'bootstrap', 'jquery.colorbox'], function($) {
+    var groups;
+    groups = $('.thumb-image');
+    $.each(groups, function(index, group) {
+      var groupname;
+      groupname = $(group).attr('name');
+      return $('a[class="' + groupname + '"]').colorbox({
+        rel: groupname,
+        maxWidth: "100%"
+      });
+    });
     return $("#comment-btn").click(function() {
       var content;
       content = $("#content-div").text();

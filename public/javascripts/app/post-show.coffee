@@ -15,9 +15,16 @@ require.config
     'jquery': 'jquery-1.9.1.min'
     'bootstrap':'bootstrap.min'
     'underscore': 'underscore'
+    'jquery.colorbox':'jquery.colorbox'
 
+require ['jquery','bootstrap','jquery.colorbox'], ($) ->
 
-require ['jquery','bootstrap'], ($) ->
+  groups = $('.thumb-image')
+  $.each(groups, (index, group) ->
+    groupname = $(group).attr('name')
+    $('a[class="'+groupname+'"]').colorbox({rel:groupname,maxWidth:"100%"})
+  )
+
   $("#comment-btn").click ->
     content = $("#content-div").text()
     $("#content-hidden").val(content)
