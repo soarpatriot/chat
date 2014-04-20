@@ -144,24 +144,27 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
 
 
 
-  $("input,select,textarea").not("[type=submit]").jqBootstrapValidation()
+  $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(
+      preventSubmit: false
+      ,submitSuccess: (form,event) ->
+        for thumb in thumbArray
+          if thumb.getModel()
+            imageModelTemp =  _.template($('#image-model-template').html())
+            $("#post-form").append(imageModelTemp(thumb.getModel()))
+            ## console.log(JSON.stringify(thumb.getModel()))
+
+      ,submitError: (form, event, errors) ->
+        event.preventDefault()
+        return false
+  )
   converter = new Showdown.converter()
 
   $("#editor-area").keyup ->
     txt = $("#editor-area").val()
     html = converter.makeHtml(txt)
     $("#preview-content").html(html)
-    ###
-     $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"))
-    ###
 
-  $("#submit-btn").click ->
-    for thumb in thumbArray
-      if thumb.getModel()
-        imageModelTemp =  _.template($('#image-model-template').html())
-        $("#post-form").append(imageModelTemp(thumb.getModel()))
-        console.log(JSON.stringify(thumb.getModel()))
-    console.log('form:'+ $("#post-form").html())
+
   ###
     upload images file
   ###

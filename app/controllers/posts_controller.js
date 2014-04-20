@@ -73,7 +73,7 @@ exports.create = function(req, res){
     var provinceText = req.body.provinceText || '';
     var districtText = req.body.districtText || '';
     var countyText = req.body.countyText || '';
-
+    var i,len;
     //console.log("countryId:"+countryId+" provinceId:"+provinceId," districtId:"+districtId," countyId:"+countyId)
     //console.log("countryText:"+countryText+" provinceText:"+provinceText," districtText:"+districtText," countyId:"+countyText)
 
@@ -84,6 +84,7 @@ exports.create = function(req, res){
     }
 
     if( !content || !title ){
+        console.log("content :"+req.body.content);
         req.flash('error','发言内容不能为空！ ');
         return res.redirect('/posts/new');
     }
@@ -112,21 +113,44 @@ exports.create = function(req, res){
     });
 
     console.log("req :"+req.body.name);
-    var i,len;
-    for(i=0,len = req.body.name.length;i<len;i++){
-        var image = {
-            name: req.body.name[i],
-            size: req.body.size[i],
-            type: req.body.type[i],
-            deleteType: req.body.deleteType[i],
-            deleteUrl: req.body.deleteUrl[i],
-            url: req.body.url[i],
-            thumbnailUrl: req.body.thumbnailUrl[i],
-            smallUrl: req.body.smallUrl[i],
-            miniUrl: req.body.miniUrl[i]
-        };
-        post.images.push(image);
+
+
+    if(req.body.name){
+        if(_.isArray(req.body.name)){
+            len = req.body.name.length;
+            for(i=0; i<len;i++ ){
+                var image = {
+                    name: req.body.name[i],
+                    size: req.body.size[i],
+                    type: req.body.type[i],
+                    deleteType: req.body.deleteType[i],
+                    deleteUrl: req.body.deleteUrl[i],
+                    url: req.body.url[i],
+                    thumbnailUrl: req.body.thumbnailUrl[i],
+                    smallUrl: req.body.smallUrl[i],
+                    miniUrl: req.body.miniUrl[i]
+                };
+                post.images.push(image);
+            }
+        }else{
+
+            var image = {
+                name: req.body.name,
+                size: req.body.size,
+                type: req.body.type,
+                deleteType: req.body.deleteType,
+                deleteUrl: req.body.deleteUrl,
+                url: req.body.url,
+                thumbnailUrl: req.body.thumbnailUrl,
+                smallUrl: req.body.smallUrl,
+                miniUrl: req.body.miniUrl
+            };
+            post.images.push(image);
+
+        }
+
     }
+
 
     post.save(function(err){
         if(err){

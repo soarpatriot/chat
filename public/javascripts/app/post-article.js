@@ -161,29 +161,33 @@
         return $("#county-text").val(countryText);
       }
     });
-    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation();
+    $("input,select,textarea").not("[type=submit]").jqBootstrapValidation({
+      preventSubmit: false,
+      submitSuccess: function(form, event) {
+        var imageModelTemp, thumb, _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = thumbArray.length; _i < _len; _i++) {
+          thumb = thumbArray[_i];
+          if (thumb.getModel()) {
+            imageModelTemp = _.template($('#image-model-template').html());
+            _results.push($("#post-form").append(imageModelTemp(thumb.getModel())));
+          } else {
+            _results.push(void 0);
+          }
+        }
+        return _results;
+      },
+      submitError: function(form, event, errors) {
+        event.preventDefault();
+        return false;
+      }
+    });
     converter = new Showdown.converter();
     $("#editor-area").keyup(function() {
       var html, txt;
       txt = $("#editor-area").val();
       html = converter.makeHtml(txt);
       return $("#preview-content").html(html);
-      /*
-       $("#preview-content").html(html.replace(/>/g, ">\n").replace(/</g, "\n<").replace(/\n{2,}/g, "\n\n"))
-      */
-
-    });
-    $("#submit-btn").click(function() {
-      var imageModelTemp, thumb, _i, _len;
-      for (_i = 0, _len = thumbArray.length; _i < _len; _i++) {
-        thumb = thumbArray[_i];
-        if (thumb.getModel()) {
-          imageModelTemp = _.template($('#image-model-template').html());
-          $("#post-form").append(imageModelTemp(thumb.getModel()));
-          console.log(JSON.stringify(thumb.getModel()));
-        }
-      }
-      return console.log('form:' + $("#post-form").html());
     });
     /*
       upload images file

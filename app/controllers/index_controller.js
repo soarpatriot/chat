@@ -18,6 +18,7 @@ exports.index = function(req, res){
     var result={};
 
     var showError = function(err){
+        logger.error("err: "+err.toString());
         if(err){
             res.redirect('/error');
         }
@@ -28,7 +29,11 @@ exports.index = function(req, res){
         result.users = users
     };
 
+
     var renderResult = function(){
+
+        console.log("render:")
+
         res.render('index', {
             title: '@_@ 发现',
             user:req.user,
@@ -41,16 +46,14 @@ exports.index = function(req, res){
         });
     };
 
-    var setTop10 = function(posts){
-        result.posts = posts;
-    };
-
     var from = moment().subtract('days', 30);
     var top10PostPromise = Post.find().where('passed').equals(true)
                             .where('pusTime').gt(from)
                             .sort('-score')
                             .skip(0).limit(10).exec()
-                            .then(setTop10);
+                            .then(function(posts){
+                                result.posts = posts;
+                            });
 
     var oneYearBefore = moment().subtract('days', 365);
     var yearPostPromise = Post.find().where('passed').equals(true)
