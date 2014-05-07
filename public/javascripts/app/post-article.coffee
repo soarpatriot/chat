@@ -315,7 +315,7 @@ require ['jquery','Showdown','underscore','area','backbone','load-image','bootst
   filesMap = {}
   thumbArray = []
   $('#fileupload').fileupload({
-    url:'//localhost:8888/upload',
+    url:'//128.199.205.154:8888/upload',
     dropZone: $('#dropzone'),
     dataType: 'json',
     autoUpload: true,

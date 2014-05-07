@@ -20,7 +20,7 @@ exports.index = function(req, res){
     var showError = function(err){
         logger.error("err: "+err.toString());
         if(err){
-            res.redirect('/error');
+            return res.redirect('/error');
         }
     };
 
@@ -30,9 +30,10 @@ exports.index = function(req, res){
     };
 
 
+
     var renderResult = function(){
 
-        console.log("render:")
+        console.log("render......:")
 
         res.render('index', {
             title: '@_@ 发现',

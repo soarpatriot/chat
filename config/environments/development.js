@@ -1,7 +1,17 @@
-var express = require('express');
 
 module.exports = function (app) {
 
+
+
+    var express      = require('express')
+  , cookieParser = require('cookie-parser')
+  , session      = require('express-session')
+  , app = express()
+
+app.use(cookieParser()) // required before session.
+app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}))
+    
+    /**
     var cookie_secret = 'secret_meteoric';
     var MongoStore = require('connect-mongo')(express);
     var sessionStore = new MongoStore({
@@ -10,7 +20,7 @@ module.exports = function (app) {
         console.log('session in mongo success........');
     });
 
-    app.configure('development', function () {
+    //app.configure('development', function () {
         console.log("dev environment start!");
         app.enable('log actions');
         app.enable('env info');
@@ -22,6 +32,6 @@ module.exports = function (app) {
             },
             store : sessionStore
         }));
-        app.use(require('express').errorHandler({ dumpExceptions: true, showStack: true }));
-    });
+        //app.use(require('express').errorHandler({ dumpExceptions: true, showStack: true }));
+    //});**/
 };

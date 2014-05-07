@@ -15,6 +15,9 @@ module.exports = (grunt) ->
   delOptions = {
     force: true
   };
+
+  config =
+    public: 'public'
   grunt.initConfig
     pkg:[grunt.file.readJSON('package.json')]
 
@@ -33,6 +36,10 @@ module.exports = (grunt) ->
         tasks: ['concat', 'cssmin'],
         options:
           nospawn: true
+      coffee:
+        files: ['<%= config.public %>/javascripts/{,*/}*.coffee'],
+        tasks: ['coffee:dist']
+
 
     requirejs:
       compile:
@@ -76,7 +83,22 @@ module.exports = (grunt) ->
           console.log filepath
           if(grunt.file.exists(filepath) && !grunt.file.isDir(filepath) )
             grunt.file.delete(filepath,delOptions)
-
+    coffee: {
+      options: {
+        includePaths: [
+          'bower_components'
+        ]
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%= config.public %>/javascripts',
+          src: ['*.coffee'],
+          dest: '<%= config.public %>/javascripts',
+          ext: '.js'
+        }]
+      }
+    },
 
   grunt.loadNpmTasks('grunt-contrib-requirejs')
   grunt.loadNpmTasks('grunt-contrib-concat')

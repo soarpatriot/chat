@@ -268,6 +268,7 @@ exports.index = function(req,res){
     console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
     //all the error control
     var showError = function(err){
+        console.log('error.............')
         if(err){
             res.send(err);
         }
@@ -277,12 +278,15 @@ exports.index = function(req,res){
     var clientResult = function(posts){
         formattedPosts = Post.dealPosts(posts);
         if(!user){
+            console.log('userfsdfadf.............')
             formattedPosts = Post.doDone(posts);
             page.models = formattedPosts;
             //console.log('formattedPosts:  page: '+JSON.stringify(page));
+          
             return res.send(page);
         }else{
             //done and undone user's up and down
+            console.log('post.............')
             User.findOne({'_id':user._id}, function(err,user){
                 var votes = user.votePosts;
 
