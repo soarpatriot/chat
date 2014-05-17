@@ -85,15 +85,32 @@ define(["backbone","backbone-pageable"],function(Backbone) {
 
               },
               parse: function(response){
-                var attrs;  
-                this.state.totalRecords = response.state.totalRecords;
-                this.state.currentPage = response.state.currentPage;
+                console.log(response);
+                var attrs,
+                    totalRecords,
+                    currentPage;
 
-                if(response.state.totalRecords % this.state.pageSize === 0){
-                    this.state.totalPages = Math.floor(response.state.totalRecords / this.state.pageSize);
+                if(response.state){
+                    totalRecords = response.state.totalRecords;
+                    currentPage = response.state.currentPage;
                 }else{
-                    this.state.totalPages = Math.floor(response.state.totalRecords / this.state.pageSize) + 1;
+                    totalRecords = 0;
+                    currentPage = 0;
                 }
+
+
+                this.state.totalRecords = totalRecords;
+                this.state.currentPage = currentPage;
+                if( totalRecords>0 ){
+                    if(totalRecords % this.state.pageSize === 0){
+                        this.state.totalPages = Math.floor(totalRecords / this.state.pageSize);
+                    }else{
+                        this.state.totalPages = Math.floor(totalRecords / this.state.pageSize) + 1;
+                    }                    
+                }else{
+                    this.state.totalPages = 0;
+                }
+
                 
                 this.state.lastPage = this.state.totalPages;
 

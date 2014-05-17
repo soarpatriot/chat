@@ -42,7 +42,7 @@ var session = require('express-session')
 var route = require('./config/routes');
 
 var app = express();
-
+var http = require("http");
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
@@ -96,6 +96,10 @@ app.use(function(err, req, res, next) {
         message: err.message,
         error: {}
     });
+});
+
+var server = http.createServer(app).listen(options.port, function(){
+    console.log("Express server listening on port " + options.port);
 });
 
 module.exports = app;

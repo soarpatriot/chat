@@ -311,7 +311,7 @@ exports.index = function(req,res){
             start =  0;
             state.currentPage = 1;
         }
-        state.totalRecords = totalCount;
+        state.totalRecords = totalCount || 0;
         page.state = state;
     }
 
