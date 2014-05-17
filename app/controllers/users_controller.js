@@ -210,14 +210,16 @@ exports.doLogin = function(req,res){
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
     var valid = true;
+    console.log("user:"+req.body.username);
+    console.log("user:"+req.body.password);
     User.findOne({'name': req.body.username}, function(err, user){
-
+        console.log("user:"+user.name)
         if(!user){
             valid = false;
         }else if(user.password !== password){
             valid = false;
         }
-
+        console.log("valid:"+valid);
         if(valid === false){
             req.flash('error','用户不存在,或用户名密码错误');
             req.flash('username',req.body.username);
@@ -391,6 +393,7 @@ exports.loadUser = function(req, res, next) {
     var userId;
     console.log('sdfsdf123123123123')
     if(req.session && req.session.userId){
+        console.log("session:")
         userId = req.session.userId;
     }
 

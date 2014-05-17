@@ -43,6 +43,7 @@ var route = require('./config/routes');
 
 var app = express();
 var http = require("http");
+var envDev = require('./config/environments/development');
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
@@ -54,8 +55,16 @@ app.use(favicon());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
+
+//envDev(app);
 app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true }}))
+//app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });
+app.use(session({
+    secret : "keyboard cat",
+    cookie : {
+        maxAge :  1000 * 60 * 60 * 24 * 365
+    }
+}));
 app.use(flash());
 
 app.use(express.static(path.join(__dirname, 'public')));
