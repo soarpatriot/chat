@@ -10,8 +10,6 @@ var Post = require('../models/post.js'),
 var User = require('../models/user.js');
 
 
-var cloudinary = require('../models/cloudinary.js');
-
 
 var _  = require('underscore');
 

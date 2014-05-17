@@ -5,7 +5,7 @@
  */
 
 
-cloudinary = require('cloudinary');
+//cloudinary = require('cloudinary');
 //cloudinary.CLOUDINARY_URL= 'cloudinary://463734787194182:VPScMiTP4h2wy6C232xExi6rXXk@hdg4eyw5m';
 //w_115,h_135,c_thumb,g_faces,r_20
 var _ = require('underscore');

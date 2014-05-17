@@ -89,7 +89,7 @@ require(["require","jquery","load-image","underscore","jquery.iframe-transport",
         if ($.support.cors) {
             $.ajax({
                 //url: '//106.186.22.114:8888/',
-                url: '//106.186.22.114:8888/',
+                url: '//128.199.205.154:8888/',
                 type: 'HEAD'
             }).fail(function () {
                     $('<div class="alert alert-danger"/>')

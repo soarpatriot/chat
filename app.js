@@ -66,8 +66,6 @@ var mongoose = require("./config/mongoose");
     mongoose.init(app,options);
 
 route.createRoutes(app);
-//app.use('/', routes);
-//app.use('/users', users);
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {
@@ -99,7 +97,6 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
 
 module.exports = app;
 

@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose');
     Schema = mongoose.Schema;
-var cloudinary = require('./cloudinary.js');
+
 var utils = require('./utils');
 
 

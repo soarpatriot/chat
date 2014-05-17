@@ -10,8 +10,7 @@ var express = require('express'),
     fs = require('fs'),
     util = require('util'),
     uuid = require('node-uuid'),
-    path = require('path'),
-    cloudinary = require('../models/cloudinary.js');
+    path = require('path');
 
 
 /**

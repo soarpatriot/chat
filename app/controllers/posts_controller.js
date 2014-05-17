@@ -13,8 +13,6 @@ var Post = require('../models/post.js'),
     logger = require('../../log4js').logger('posts_controller');
 //var client = require('../models/redis.js')
 
-var cloudinary = require('../models/cloudinary.js');
-
 
 var _  = require('underscore');
 
