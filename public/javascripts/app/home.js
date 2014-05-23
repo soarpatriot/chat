@@ -243,15 +243,31 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             },
 
             group: function(){
-                var groups = $('.thumb-image');
+                var groups = this.$('.thumb-image');
+                console.log("image: "+groups);
+                var groupname;
                 $.each(groups, function(index, group) {
+                    console.log("groups");
+
+                    groupname = $(group).attr('name');
+                    console.log("groupname: "+groupname);
+
+                });
+                this.$('a[class="' + groupname + '"]').colorbox({
+                    rel: groupname,
+                    maxWidth: "100%"
+                });
+                /**
+                $.each(groups, function(index, group) {
+                    console.log("groups");
                     var groupname;
                     groupname = $(group).attr('name');
-                    return $('a[class="' + groupname + '"]').colorbox({
+                    console.log("groupname: "+groupname);
+                    $('a[class="' + groupname + '"]').colorbox({
                       rel: groupname,
                       maxWidth: "100%"
                     });
-                });
+                });**/
             }
 
         });
