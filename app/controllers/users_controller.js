@@ -391,9 +391,7 @@ exports.update = function(req,res){
 exports.loadUser = function(req, res, next) {
     // You would fetch your user from the db
     var userId;
-    console.log('sdfsdf123123123123')
     if(req.session && req.session.userId){
-        console.log("session:")
         userId = req.session.userId;
     }
 

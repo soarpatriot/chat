@@ -136,7 +136,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
             // app, we set a direct reference on the model for convenience.
             initialize: function() {
 
-                console.log('models: '+JSON.stringify(this.model.get('images')));
+                //console.log('models: '+JSON.stringify(this.model.get('images')));
 
                 this.$el.html(this.template(this.model.toJSON()));
                 var images = this.model.get('images');
@@ -244,30 +244,16 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
             group: function(){
                 var groups = this.$('.thumb-image');
-                console.log("image: "+groups);
                 var groupname;
                 $.each(groups, function(index, group) {
-                    console.log("groups");
-
                     groupname = $(group).attr('name');
-                    console.log("groupname: "+groupname);
 
                 });
                 this.$('a[class="' + groupname + '"]').colorbox({
                     rel: groupname,
                     maxWidth: "100%"
                 });
-                /**
-                $.each(groups, function(index, group) {
-                    console.log("groups");
-                    var groupname;
-                    groupname = $(group).attr('name');
-                    console.log("groupname: "+groupname);
-                    $('a[class="' + groupname + '"]').colorbox({
-                      rel: groupname,
-                      maxWidth: "100%"
-                    });
-                });**/
+
             }
 
         });

@@ -72,3 +72,5 @@ add return button to post page 0.5.3
 fixed s bug 0.5.4
 
 add year top 0.5.5
+
+add upload page for post 0.6.0

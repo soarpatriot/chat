@@ -82,7 +82,7 @@ exports.create = function(req, res){
     }
 
     if( !content || !title ){
-        console.log("content :"+req.body.content);
+
         req.flash('error','发言内容不能为空！ ');
         return res.redirect('/posts/new');
     }
@@ -110,7 +110,6 @@ exports.create = function(req, res){
         images:[]
     });
 
-    console.log("req :"+req.body.name);
 
 
     if(req.body.name){
@@ -256,14 +255,14 @@ exports.index = function(req,res){
         currentPage:1
     }
 
-    console.log("p: "+req.query.p);
+    //console.log("p: "+req.query.p);
     var pageSize = req.query.pageSize || 5;
     state.currentPage = req.query.p || req.query.page;
     var start = (state.currentPage - 1) * pageSize;
     
     var tagKey = req.query.tag;
     
-    console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
+    //console.log("tag:"+tagKey+"  state.currentPage: "+state.currentPage);
     //all the error control
     var showError = function(err){
         console.log('error.............')
@@ -276,15 +275,15 @@ exports.index = function(req,res){
     var clientResult = function(posts){
         formattedPosts = Post.dealPosts(posts);
         if(!user){
-            console.log('userfsdfadf.............')
+
             formattedPosts = Post.doDone(posts);
             page.models = formattedPosts;
-            //console.log('formattedPosts:  page: '+JSON.stringify(page));
+
           
             return res.send(page);
         }else{
             //done and undone user's up and down
-            console.log('post.............')
+
             User.findOne({'_id':user._id}, function(err,user){
                 var votes = user.votePosts;
 
