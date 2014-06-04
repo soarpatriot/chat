@@ -76,13 +76,8 @@ module.exports = (grunt) ->
           ]
 
     clean:
+      js: ["!public/build/app","public/build/*.*","public/build/*.*","public/build/*.*"]
 
-        src: ['public/build'],
-
-        filter: (filepath)->
-          console.log filepath
-          if(grunt.file.exists(filepath) && !grunt.file.isDir(filepath) )
-            grunt.file.delete(filepath,delOptions)
     coffee: {
       options: {
         includePaths: [
@@ -98,14 +93,16 @@ module.exports = (grunt) ->
           ext: '.js'
         }]
       }
-    },
+    }
 
   grunt.loadNpmTasks('grunt-contrib-requirejs')
   grunt.loadNpmTasks('grunt-contrib-concat')
   grunt.loadNpmTasks('grunt-css')
   grunt.loadNpmTasks('grunt-contrib-watch')
   grunt.loadNpmTasks('grunt-contrib-clean')
+  #grunt.loadNpmTasks('grunt-clean')
 
+  grunt.registerTask 'clean-source', ['clean']
   grunt.registerTask 'css', ['concat', 'cssmin']
   grunt.registerTask 'default', ['concat', 'cssmin','requirejs']
 

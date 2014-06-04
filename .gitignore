@@ -16,4 +16,4 @@ log/*.log
 coverage.html
 .settings
 doc
-
+bower_components

@@ -1,0 +1,28 @@
+{
+  "name": "chat",
+  "version": "0.5.3",
+  "homepage": "https://github.com/soarpatriot/chat",
+  "authors": [
+    "soar <85624529@qq.com>"
+  ],
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "chat"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "backbone": ">1.0.0"
+  }
+}
