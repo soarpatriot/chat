@@ -37,13 +37,17 @@ module.exports = (grunt) ->
         options:
           nospawn: true
       coffee:
-        files: ['<%= config.public %>/javascripts/{,*/}*.coffee'],
+        files: ['public/javascripts/{,*/}*.coffee'],
         tasks: ['coffee:dist']
-
+      js:
+        files: ['public/javascripts/{,*/}*.js'],
+        tasks: ['requirejs']
 
     requirejs:
+
       compile:
         options:
+          logLevel: 0
           # appDir:'public/javascripts/app'
           mainConfigFile: 'public/javascripts/app/requirejs-config.js'
           done: (done, output) ->
@@ -53,27 +57,28 @@ module.exports = (grunt) ->
               #console.log subdir
               #grunt.file.delete('./public/build',delOptions)
             done
-
-          baseUrl: "public/javascripts"
+          appDir:'public/javascripts'
+          # baseUrl: "public/javascripts"
+          baseUrl:'./app/'
           dir:'public/build'
           fileExclusionRegExp: /.coffee$/
           paths:
             filepicker: "empty:"
-
           modules:[
-            {name:'app/application'},
-            {name:'app/models'},
-            {name:'app/home'},
-            {name:'app/post-show'},
+              {name:'application'},
+              {name:'models'},
+              {name:'home'},
+              {name:'post-show'},
 
-            {name:'app/post-article'},
-            {name:'app/user-edit'},
-            {name:'app/reg'},
-            {name:'app/user'},
-            {name:'app/review'},
-            {name:'app/user-blogs'},
-            {name:'app/user-show'}
+              {name:'post-article'},
+              {name:'user-edit'},
+              {name:'reg'},
+              {name:'user'},
+              {name:'review'},
+              {name:'user-blogs'},
+              {name:'user-show'}
           ]
+
 
     clean:
       js: ["!public/build/app","public/build/*.*","public/build/*.*","public/build/*.*"]

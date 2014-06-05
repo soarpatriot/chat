@@ -32,18 +32,24 @@
           }
         },
         coffee: {
-          files: ['<%= config.public %>/javascripts/{,*/}*.coffee'],
+          files: ['public/javascripts/{,*/}*.coffee'],
           tasks: ['coffee:dist']
+        },
+        js: {
+          files: ['public/javascripts/{,*/}*.js'],
+          tasks: ['requirejs']
         }
       },
       requirejs: {
         compile: {
           options: {
+            logLevel: 0,
             mainConfigFile: 'public/javascripts/app/requirejs-config.js',
             done: function(done, output) {
               return done;
             },
-            baseUrl: "public/javascripts",
+            appDir: 'public/javascripts',
+            baseUrl: './app/',
             dir: 'public/build',
             fileExclusionRegExp: /.coffee$/,
             paths: {
@@ -51,27 +57,27 @@
             },
             modules: [
               {
-                name: 'app/application'
+                name: 'application'
               }, {
-                name: 'app/models'
+                name: 'models'
               }, {
-                name: 'app/home'
+                name: 'home'
               }, {
-                name: 'app/post-show'
+                name: 'post-show'
               }, {
-                name: 'app/post-article'
+                name: 'post-article'
               }, {
-                name: 'app/user-edit'
+                name: 'user-edit'
               }, {
-                name: 'app/reg'
+                name: 'reg'
               }, {
-                name: 'app/user'
+                name: 'user'
               }, {
-                name: 'app/review'
+                name: 'review'
               }, {
-                name: 'app/user-blogs'
+                name: 'user-blogs'
               }, {
-                name: 'app/user-show'
+                name: 'user-show'
               }
             ]
           }
