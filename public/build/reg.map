@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "reg.js",
+  "sourceRoot": "",
+  "sources": [
+    "reg.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA;;GAAA;AAAA;AAAA;AAAA,EAMA,OAAA,CAAQ,CAAC,QAAD,EAAU,WAAV,EAAsB,uBAAtB,CAAR,EAAwD,SAAC,CAAD,GAAA;WACtD,CAAA,CAAE,uBAAF,CAA0B,CAAC,GAA3B,CAA+B,eAA/B,CAA+C,CAAC,qBAAhD,CAAA,EADsD;EAAA,CAAxD,CANA,CAAA;AAAA"
+}

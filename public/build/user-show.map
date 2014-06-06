@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "user-show.js",
+  "sourceRoot": "",
+  "sources": [
+    "user-show.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA;;;GAAA;AAAA;AAAA;AAAA,EAOA,OAAA,CAAQ,CAAC,QAAD,EAAU,WAAV,CAAR,EAAgC,SAAC,CAAD,GAAA,CAAhC,CAPA,CAAA;AAAA"
+}

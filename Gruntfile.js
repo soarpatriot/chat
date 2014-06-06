@@ -44,12 +44,12 @@
         compile: {
           options: {
             logLevel: 0,
-            mainConfigFile: 'public/javascripts/app/requirejs-config.js',
+            mainConfigFile: 'public/javascripts/requirejs-config.js',
             done: function(done, output) {
               return done;
             },
             appDir: 'public/javascripts',
-            baseUrl: './app/',
+            baseUrl: '.',
             dir: 'public/build',
             fileExclusionRegExp: /.coffee$/,
             paths: {
@@ -65,9 +65,9 @@
               }, {
                 name: 'post-show'
               }, {
-                name: 'post-article'
+                name: 'tag'
               }, {
-                name: 'user-edit'
+                name: 'post-article'
               }, {
                 name: 'reg'
               }, {
@@ -77,6 +77,8 @@
               }, {
                 name: 'user-blogs'
               }, {
+                name: 'user-edit'
+              }, {
                 name: 'user-show'
               }
             ]
@@ -84,7 +86,7 @@
         }
       },
       clean: {
-        js: ["!public/build/app", "public/build/*.*", "public/build/*.*", "public/build/*.*"]
+        js: ["public/build/*.map", "public/build/*.txt"]
       },
       coffee: {
         options: {
@@ -110,7 +112,7 @@
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.registerTask('clean-source', ['clean']);
     grunt.registerTask('css', ['concat', 'cssmin']);
-    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs']);
+    return grunt.registerTask('default', ['concat', 'cssmin', 'requirejs', 'clean']);
   };
 
 }).call(this);

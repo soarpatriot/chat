@@ -37,6 +37,7 @@
     "underscore": "~1.6.0",
     "utils": "*",
     "requirejs-jquery": "~0.25.0",
-    "google-code-prettify": "~1.0.1"
+    "google-code-prettify": "~1.0.1",
+    "spinjs": "~2.0.1"
   }
 }

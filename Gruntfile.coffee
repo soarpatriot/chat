@@ -49,7 +49,7 @@ module.exports = (grunt) ->
         options:
           logLevel: 0
           # appDir:'public/javascripts/app'
-          mainConfigFile: 'public/javascripts/app/requirejs-config.js'
+          mainConfigFile: 'public/javascripts/requirejs-config.js'
           done: (done, output) ->
             #console.log 'start'
             #grunt.file.recurse 'public/javascripts/build', (abspath, rootdir, subdir, filename) ->
@@ -59,7 +59,7 @@ module.exports = (grunt) ->
             done
           appDir:'public/javascripts'
           # baseUrl: "public/javascripts"
-          baseUrl:'./app/'
+          baseUrl:'.'
           dir:'public/build'
           fileExclusionRegExp: /.coffee$/
           paths:
@@ -70,18 +70,19 @@ module.exports = (grunt) ->
               {name:'home'},
               {name:'post-show'},
 
+              {name:'tag'},
               {name:'post-article'},
-              {name:'user-edit'},
               {name:'reg'},
               {name:'user'},
               {name:'review'},
               {name:'user-blogs'},
+              {name:'user-edit'},
               {name:'user-show'}
           ]
 
 
     clean:
-      js: ["!public/build/app","public/build/*.*","public/build/*.*","public/build/*.*"]
+      js: ["public/build/*.map","public/build/*.txt"]
 
     coffee: {
       options: {
@@ -109,7 +110,7 @@ module.exports = (grunt) ->
 
   grunt.registerTask 'clean-source', ['clean']
   grunt.registerTask 'css', ['concat', 'cssmin']
-  grunt.registerTask 'default', ['concat', 'cssmin','requirejs']
+  grunt.registerTask 'default', ['concat', 'cssmin','requirejs','clean']
 
 
 
