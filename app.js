@@ -31,6 +31,8 @@ var options = {
     port:process.env.PORT || 9000,
     env: process.env.NODE_ENV || "development"
 };
+
+
 var express = require('express');
 var path = require('path');
 var favicon = require('static-favicon');
@@ -44,6 +46,16 @@ var route = require('./config/routes');
 var app = express();
 var http = require("http");
 var envDev = require('./config/environments/development');
+
+
+
+app.locals.appVersion = '0.6.10'
+if('production'===options.env){
+    app.locals.jsPath = '/build'
+}else{
+    app.locals.jsPath = '/javascripts'
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
@@ -73,6 +85,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var mongoose = require("./config/mongoose");
     mongoose.init(app,options);
+
+//app.helpers({
+  //  env:options.env
+//})
 
 route.createRoutes(app);
 
