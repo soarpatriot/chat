@@ -1,59 +1,7 @@
 
 (function() {
 
-require.config({
 
-    baseUrl: "/javascripts",
-    waitSeconds:100,
-
-    //some special settings. like exports and dep
-    shim: {
-
-        "underscore": {
-            exports: '_'
-        },
-        'backbone': {
-            deps: ['underscore','jquery'],
-            exports: 'Backbone'
-        },
-        'backbone-pageable': {
-            deps: ['backbone']
-
-        },
-
-        'bootstrap':{
-            deps: ['jquery']
-        },
-        'animo':{
-            deps: ['jquery']
-        },
-        'google-html5':{
-            exports: 'google-html5'
-        }
-
-    },
-
-    paths: {
-
-        "models":"app/models",
-        "review":"app/review",
-        "user":"app/user",
-        //js framework
-        "underscore": "underscore",
-        "backbone": "backbone",
-        "backbone-pageable": "backbone-pageable.min",
-        "bootstrap":"bootstrap.min",
-        "bootstrapPaginator":"bootstrap-paginator.min",
-
-        'jquery.colorbox': 'jquery.colorbox',
-
-        "animo":"animo",
-        "jquery": "jquery-2.0.3.min",
-        'google-html5':'google-code-prettify/html5'
-
-    }
-
-});
 
 require(["require","jquery","underscore","backbone","models","bootstrap","bootstrapPaginator","jquery.spin","backbone-pageable","animo","jquery.colorbox"],function(require,$,_,Backbone,Models) {
 

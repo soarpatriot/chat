@@ -50,6 +50,7 @@ var envDev = require('./config/environments/development');
 
 
 app.locals.appVersion = '0.6.10'
+app.locals.env = options.env
 if('production'===options.env){
     app.locals.jsPath = '/build'
 }else{
@@ -80,7 +81,7 @@ app.use(session({
 app.use(flash());
 
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/bower_components',express.static(path.join(__dirname, 'bower_components')));
 
 
 var mongoose = require("./config/mongoose");

@@ -4,35 +4,6 @@
  *
  */
 
-require.config({
-
-    baseUrl: "/javascripts",
-
-    //some special settings. like exports and dep
-    shim: {
-
-        'underscore': {
-            exports: '_'
-        },
-        'backbone': {
-            deps: ['underscore','jquery'],
-            exports: 'Backbone'
-        },
-        'backbone-pageable': {
-            deps: ['backbone']
-            
-        }
-
-    },
-    paths: {
-        //js framework
-        "underscore": "underscore",
-        "backbone": "backbone",
-        "backbone-pageable": "backbone-pageable.min",
-        "jquery": "jquery-1.9.1.min"
-    }
-
-});
 
 
 define(["backbone","backbone-pageable"],function(Backbone) {
