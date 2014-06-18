@@ -1,53 +1,7 @@
 ###
   this is used for user post one article
 ###
-require.config
-  baseUrl: '/javascripts',
-  shim:
 
-    'bootstrap':{
-      deps: ['jquery']
-    },
-    'underscore': {
-      exports: '_'
-    },
-    'Showdown': {
-      exports: 'Showdown'
-    },
-
-    'area':{
-      exports:'area'
-    },
-    'backbone': {
-        deps: ['underscore','jquery'],
-        exports: 'Backbone'
-    }
-
-  paths:
-    'jquery': 'jquery-2.0.3.min'
-    'bootstrap':'bootstrap.min'
-    'Showdown':'showdown'
-
-    'chosen':'select2'
-    'jqBootstrapValidation':'jqBootstrapValidation-1.3.7.min'
-    'area':'app/area'
-    'underscore':'underscore'
-    'backbone': 'backbone'
-
-    'load-image':'fileupload/load-image.min'
-    'load-image-exif':'fileupload/load-image-exif'
-    'load-image-ios':'fileupload/load-image-ios'
-    'load-image-meta':'fileupload/load-image-meta'
-    'canvas-to-blob':'fileupload/canvas-to-blob'
-
-    'jquery.colorbox':'jquery.colorbox'
-
-    'jquery.fileupload-validate':'fileupload/jquery.fileupload-validate'
-    'jquery.fileupload-process':'fileupload/jquery.fileupload-process'
-    'jquery.fileupload-image':'fileupload/jquery.fileupload-image'
-    'jquery.iframe-transport':'fileupload/jquery.iframe-transport'
-    'jquery.ui.widget': 'fileupload/vendor/jquery.ui.widget'
-    'jquery.fileupload':'fileupload/jquery.fileupload'
 
 require ['jquery','Showdown','underscore','area','backbone','load-image','bootstrap','select2','jqBootstrapValidation',
          'jquery.iframe-transport','jquery.fileupload','jquery.fileupload-validate','jquery.colorbox'

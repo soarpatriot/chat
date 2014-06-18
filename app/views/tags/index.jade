@@ -56,4 +56,8 @@ block content
                     div.modal-footer
                         a(id='cancel-del-btn',href='#',class='btn') 取消
                         a(id='confirm-del-btn',href='#',data-post-id='',class='btn btn-danger') 确定
-        script(data-main='#{jsPath}/tag',src='/javascripts/require.js?v=#{appVersion}')
+
+        if 'production' === env
+            script(data-main='#{jsPath}/tag',src='/javascripts/require.js?v=#{appVersion}')
+        else
+            script(src='#{jsPath}/tag.js')

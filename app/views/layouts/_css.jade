@@ -2,7 +2,8 @@
   
 link(rel='stylesheet', href='/stylesheets/application-all-min.css?v=#{appVersion}')
 unless 'production' === env
-  script(data-main='/javascripts/requirejs-config.js',src='/javascripts/require.js')
+  script(src='/javascripts/require.js')
+  script(src='/javascripts/requirejs-config.js')
 
 
 

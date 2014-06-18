@@ -25,14 +25,14 @@ exports.createRoutes = function(app){
     app.get('/chat', chat.index);
 
     //posts
-    app.delete('/posts',posts.destroy);
+
     app.get('/posts',posts.index);
     app.get('/posts/new',posts.new);
     app.post('/posts',posts.create);
     app.put('/posts/:id',posts.up);
     app.put('/posts',posts.retry);
     app.get('/posts/:id', posts.show);
-
+    app.delete('/posts',posts.destroy);
     app.post('/comment',posts.comment);
 
 

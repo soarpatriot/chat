@@ -5,24 +5,6 @@
  */
 
 (function() {
-  require.config({
-    baseUrl: '/javascripts',
-    shim: {
-      'underscore': {
-        exports: '_'
-      },
-      'bootstrap': {
-        deps: ['jquery']
-      }
-    },
-    paths: {
-      'jquery': 'jquery-1.9.1.min',
-      'bootstrap': 'bootstrap.min',
-      'underscore': 'underscore',
-      'jquery.colorbox': 'jquery.colorbox'
-    }
-  });
-
   require(['jquery', 'bootstrap', 'jquery.colorbox'], function($) {
     var groups;
     groups = $('.thumb-image');

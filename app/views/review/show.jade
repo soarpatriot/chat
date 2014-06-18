@@ -51,3 +51,7 @@ block content
                     div(class='col-md-8') <%- content %>
 
         script(data-main='#{jsPath}/review',src='/javascripts/require.js?v=#{appVersion}')
+        if 'production' === env
+            script(data-main='#{jsPath}/review',src='/javascripts/require.js?v=#{appVersion}')
+        else
+            script(src='#{jsPath}/review.js')

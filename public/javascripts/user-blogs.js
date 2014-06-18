@@ -5,21 +5,6 @@
  */
 
 (function() {
-  require.config({
-    baseUrl: '/javascripts',
-    shim: {
-      'bootstrap': {
-        deps: ['jquery']
-      }
-    },
-    paths: {
-      'jquery': 'jquery-1.9.1.min',
-      'bootstrap': 'bootstrap.min',
-      'bootstrapPaginator': 'bootstrap-paginator.min',
-      'jquery.colorbox': 'jquery.colorbox'
-    }
-  });
-
   require(['jquery', 'bootstrap', 'bootstrapPaginator', 'jquery.colorbox'], function($) {
     return $(function() {
       var currentPage, discoveriorId, groups, mod, options, pageSize, subTotal, totalPages;

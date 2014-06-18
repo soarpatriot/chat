@@ -209,4 +209,8 @@ block content
                     div.modal-footer
                         p
                             powered by github makedown
-        script(data-main='#{jsPath}/post-article',src='/javascripts/require.js?v=#{appVersion}')
+       
+        if 'production' === env
+            script(data-main='#{jsPath}/post-article',src='/javascripts/require.js?v=#{appVersion}')
+        else
+            script(src='#{jsPath}/post-article.js')

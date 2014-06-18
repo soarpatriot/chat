@@ -1,21 +1,7 @@
 ###
   review coffee-script
 ###
-require.config
-  baseUrl: '/javascripts',
-  shim:
-    'underscore': {
-      exports: '_'
-    },
-    'bootstrap':{
-      deps: ['jquery']
-    }
 
-  paths:
-    'jquery': 'jquery-1.9.1.min'
-    'bootstrap':'bootstrap.min'
-    'underscore': 'underscore'
-    'jquery.colorbox':'jquery.colorbox'
 require ['jquery','underscore','bootstrap','jquery.colorbox'], ($,_) ->
     $ ->
 

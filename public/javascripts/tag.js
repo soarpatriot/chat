@@ -6,23 +6,6 @@
  */
 
 (function() {
-  require.config({
-    baseUrl: '/javascripts',
-    shim: {
-      'bootstrap': {
-        deps: ['jquery']
-      },
-      'chosen': {
-        exports: 'chosen'
-      }
-    },
-    paths: {
-      'jquery': 'jquery-2.0.3.min',
-      'bootstrap': 'bootstrap.min',
-      'chosen': 'chosen.jquery.min'
-    }
-  });
-
   require(['jquery', 'bootstrap'], function($) {
     $('#cancel-del-btn').click(function() {
       return $('#tag-del-confirm').modal('hide');

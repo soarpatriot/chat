@@ -87,5 +87,7 @@ block content
                                     span(class='comment-header-date text-muted') #{comment.fromNow} 评论
                     hr
 
-
-        script(data-main='#{jsPath}/post-show',src='/javascripts/require.js?v=#{appVersion}')
+        if 'production' === env
+            script(data-main='#{jsPath}/post-show',src='/javascripts/require.js?v=#{appVersion}')
+        else
+            script(src='#{jsPath}/post-show.js')

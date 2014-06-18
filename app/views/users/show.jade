@@ -32,6 +32,11 @@ block content
                            td 注册时间
                            td #{user.regTimeStr}
 
-        script(data-main='#{jsPath}/user-show',src='/javascripts/require.js?v=#{appVersion}')
+        if 'production' === env
+            script(data-main='#{jsPath}/user-show',src='/javascripts/require.js?v=#{appVersion}')
+        else
+            script(src='#{jsPath}/user-show.js')
+
+
 
 
