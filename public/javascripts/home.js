@@ -259,8 +259,8 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     that.addOne.call(that,post);
                 });
                 var options = {
-                    currentPage: that.model.state.currentPage || 1,
-                    totalPages: that.model.state.totalPages,
+                    currentPage: that.model.state.currentPage || 0,
+                    totalPages: that.model.state.totalPages || 0,
 
                     size: "normal",
                     alignment: "left",
@@ -285,7 +285,9 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     }
                 };
                 this.content.append(this.template());
-                this.$('.pagination').bootstrapPaginator(options);
+                if(this.model.size>0){
+                    this.$('.pagination').bootstrapPaginator(options);
+                }
                 $spinner.spin(false);
             }
         });
