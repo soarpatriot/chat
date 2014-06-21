@@ -38,6 +38,7 @@ var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var session = require('express-session')
@@ -68,7 +69,7 @@ app.use(favicon(path.join(__dirname, 'public/images/eye.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-
+app.use(methodOverride());
 //envDev(app);
 app.use(cookieParser());
 //app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });

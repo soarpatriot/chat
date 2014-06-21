@@ -69,7 +69,7 @@ block content
                                         button(name='del-post-btn',data-post-id='#{post._id}',class='btn btn-danger')  删除
 
                                 form(id='#{post._id}',action='/posts',method='post')
-                                    input(id='#{post._id}-method',type='hidden',name='_method',value="delete")
+                                    input(id='#{post._id}-method',type='hidden',name='_method')
                                     input(id='#{post._id}-retried',type='hidden',name='retried',value='#{post.retried}')
                                     input(id='#{post._id}-postId',type='hidden',name='postId',value='#{post._id}')
                                     input(id='#{post._id}-page',type='hidden',name='currentPage',value='#{currentPage}')
