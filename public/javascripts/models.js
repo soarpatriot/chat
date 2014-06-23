@@ -63,7 +63,8 @@ define(["backbone","backbone-pageable"],function(Backbone) {
 
                 if(response.state){
                     totalRecords = response.state.totalRecords;
-                    currentPage = response.state.currentPage;
+                    currentPage = parseInt(response.state.currentPage,10);
+                    console.log("currnt page"+currentPage)
                 }else{
                     totalRecords = 0;
                     currentPage = 0;

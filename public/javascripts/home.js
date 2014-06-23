@@ -264,7 +264,7 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
 
                     size: "normal",
                     alignment: "left",
-
+                    bootstrapMajorVersion:3,
                     pageUrl: function(type, page, current){
                         return "#"+that.name+"/"+page;
                     },
@@ -285,7 +285,8 @@ require(["require","jquery","underscore","backbone","models","bootstrap","bootst
                     }
                 };
                 this.content.append(this.template());
-                if(this.model.size>0){
+                if(this.model.length>0){
+                    console.log('size: 0fff')
                     this.$('.pagination').bootstrapPaginator(options);
                 }
                 $spinner.spin(false);

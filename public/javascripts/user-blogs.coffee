@@ -29,11 +29,12 @@ require  ['jquery','bootstrap','bootstrapPaginator','jquery.colorbox'], ($) ->
       currentPage: currentPage,
       totalPages: totalPages,
       size:"normal",
+      bootstrapMajorVersion:3
       alignment:"right"
       pageUrl: (type, page, current) ->
                   "/users/"+discoveriorId+'/'+page
-    $('#pagination-div').bootstrapPaginator options
-
+    $('#pagination').bootstrapPaginator options
+    #$('#pagination-div ul').addClass('pagination')
     # cancel delete post
     $('#cancel-del-btn').click ->
       $('#post-del-confirm').modal('hide')

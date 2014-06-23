@@ -213,7 +213,7 @@ exports.doLogin = function(req,res){
     console.log("user:"+req.body.username);
     console.log("user:"+req.body.password);
     User.findOne({'name': req.body.username}, function(err, user){
-        console.log("user:"+user.name)
+       
         if(!user){
             valid = false;
         }else if(user.password !== password){

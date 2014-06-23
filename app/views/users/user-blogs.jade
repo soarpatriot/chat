@@ -75,11 +75,12 @@ block content
                                     input(id='#{post._id}-page',type='hidden',name='currentPage',value='#{currentPage}')
                         hr.soft
                 div.row
-                            div.col-md-12
-                                input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
-                                input(type='hidden',id='total-count',value='#{totalCount}')
-                                input(type='hidden',id='current-page',value='#{currentPage}')
-                                div(id='pagination-div',class='pagination pagination-right')
+                    div.col-md-12
+                        input(type='hidden',id='discoverior-id',value='#{discoverior._id}')
+                        input(type='hidden',id='total-count',value='#{totalCount}')
+                        input(type='hidden',id='current-page',value='#{currentPage}')
+
+                        ul(id='pagination')
 
         <!-- confirm dialog -->
         div(id='post-del-confirm',class='modal fade', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')

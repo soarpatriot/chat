@@ -6,7 +6,7 @@ module.exports = (grunt) ->
   cssFiles = ['public/stylesheets/bootstrap.css',
               'public/stylesheets/animate+animo.css',
               'public/stylesheets/select2.css',
-              'public/stylesheets/chosen.css',
+
               'public/stylesheets/jquery.fileupload.css',
               'public/stylesheets/jquery.fileupload-ui.css',
               'public/stylesheets/jquery.fileupload-ui-noscript.css',

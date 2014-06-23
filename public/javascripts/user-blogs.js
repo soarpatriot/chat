@@ -32,12 +32,13 @@
         currentPage: currentPage,
         totalPages: totalPages,
         size: "normal",
+        bootstrapMajorVersion: 3,
         alignment: "right",
         pageUrl: function(type, page, current) {
           return "/users/" + discoveriorId + '/' + page;
         }
       };
-      $('#pagination-div').bootstrapPaginator(options);
+      $('#pagination').bootstrapPaginator(options);
       $('#cancel-del-btn').click(function() {
         return $('#post-del-confirm').modal('hide');
       });
