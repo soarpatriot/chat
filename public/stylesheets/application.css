@@ -57,7 +57,6 @@
   text-overflow: ellipsis;
   -o-text-overflow: ellipsis;
   /*兼容opera*/
-
 }
 /**all page css**/
 .min-container {
@@ -75,7 +74,7 @@ body {
   font-size: 14px;
 }
 .spin-container {
-  top: 0;
+  top: 25px;
   left: 50%;
   position: fixed;
   z-index: 100000;
@@ -104,7 +103,6 @@ body {
   box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);**/
-
 }
 .content-div {
   min-height: 500px;
@@ -116,7 +114,6 @@ body {
   border: 1px solid #CCC;
 
   box-shadow: 0 0 2px rgba(0,0,0,.1),0 2px 2px rgba(0,0,0,.1);**/
-
 }
 .new-member {
   margin-top: 15px;
@@ -204,7 +201,6 @@ body {
   /**padding: 5px;
   min-height: 200px;
   border: 1px solid #dddddd;**/
-
 }
 .tag-select {
   width: 20%;

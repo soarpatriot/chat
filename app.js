@@ -50,7 +50,7 @@ var envDev = require('./config/environments/development');
 
 
 
-app.locals.appVersion = '0.6.10'
+app.locals.appVersion = '0.7.0'
 app.locals.env = options.env
 if('production'===options.env){
     app.locals.jsPath = '/build'
