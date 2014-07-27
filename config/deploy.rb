@@ -17,7 +17,7 @@ set :branch, 'master'
 set :ppy, true
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['config/database.js', 'log']
+set :shared_paths, ['node_modules','config/database.js','logs', 'tmp']
 
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
@@ -78,14 +78,39 @@ task :install_dependency do
        
 end
 
-task :start do 
+desc "Start the server."
+task :start do
+   queue %[nvm use 0.10.28]
+  queue %[cd #{deploy_to}/current && NODE_ENV=production kirua start]
+end
+
+desc "Restart the server."
+task :restart do
+   queue %[nvm use 0.10.28]
+  queue %[cd #{deploy_to}/current && NODE_ENV=production kirua restart]
+end
+
+desc "Stop the server."
+task :stop do
+   queue %[nvm use 0.10.28]
+  queue %[cd #{deploy_to}/current && NODE_ENV=production kirua stop]
+end
+
+task :start_node do 
    queue %[nvm use 0.10.28]
   
    in_directory "#{deploy_to}/current" do
-         queue %[forever start  app.js]
+         queue %[NODE_ENV=production forever restart  app.js ]
       end
 end 
 
+task :stop_node do 
+   queue %[nvm use 0.10.28]
+  
+   in_directory "#{deploy_to}/current" do
+         queue %[forever stop  app.js ]
+      end
+end 
 
 
 # For help in making your deploy script, see the Mina documentation:
