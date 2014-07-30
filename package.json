@@ -21,7 +21,6 @@
     "express-session": "*",
     "forever": "*",
     "github-flavored-markdown": "1.0.1",
-    "hiredis": ">=0.1.14",
     "jade": "~1.3.0",
     "jquery-file-upload-middleware": "0.0.8",
     "less": "1.3.3",
