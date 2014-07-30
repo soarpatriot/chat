@@ -15,6 +15,7 @@ set :deploy_to, '/data/www/chat'
 set :repository, 'https://github.com/soarpatriot/chat.git'
 set :branch, 'master'
 set :ppy, true
+set :socket_path, '/data/www/chat/shared/tmp/sockets/app.socket'
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
 set :shared_paths, ['node_modules','config/database.js','logs', 'tmp']
@@ -56,14 +57,11 @@ task :deploy => :environment do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
-    queue %[echo $PATH]
     
-    
-
     to :launch do
 
-      #invoke :install_dependency
-      #invoke :start
+      invoke :install_dependency
+      invoke :restart
        
       # queue "touch #{deploy_to}/tmp/restart.txt"
     end
@@ -81,13 +79,15 @@ end
 desc "Start the server."
 task :start do
    queue %[nvm use 0.10.28]
-  queue %[cd #{deploy_to}/current && NODE_ENV=production kirua start]
+   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua start]
+   queue 'chomd 777 #{socket_path}'
 end
 
 desc "Restart the server."
 task :restart do
    queue %[nvm use 0.10.28]
-  queue %[cd #{deploy_to}/current && NODE_ENV=production kirua restart]
+   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua restart]
+   queue 'chomd 777 #{socket_path}'
 end
 
 desc "Stop the server."
@@ -96,21 +96,7 @@ task :stop do
   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua stop]
 end
 
-task :start_node do 
-   queue %[nvm use 0.10.28]
-  
-   in_directory "#{deploy_to}/current" do
-         queue %[NODE_ENV=production forever restart  app.js ]
-      end
-end 
 
-task :stop_node do 
-   queue %[nvm use 0.10.28]
-  
-   in_directory "#{deploy_to}/current" do
-         queue %[forever stop  app.js ]
-      end
-end 
 
 
 # For help in making your deploy script, see the Mina documentation:

@@ -7,31 +7,15 @@
 
 var io = require('./app/models/socket.js')
     , http = require('http');
-
-//config
-var env = require('./config/environment');
-
-//NODE_ENV=development supervisor app
-
-options = {
-    path: __dirname,
-    port:process.env.PORT || 9000,
-    env: process.env.NODE_ENV || "development"
-}
-var app = env.createEnv(options);
-
-var server = http.createServer(app).listen(options.port, function(){
-    console.log("Express server listening on port " + options.port);
-});
-
-//socket.io  and node js module;
-io.listenServer(server);**/
+**/
 var options = {
     path: __dirname,
     port:process.env.PORT || 9000,
     env: process.env.NODE_ENV || "development"
 };
 
+var socket_url = "/data/www/chat/shared/tmp/sockets/app.socket";
+var production_env = 'production';
 
 var express = require('express');
 var path = require('path');
@@ -45,14 +29,13 @@ var session = require('express-session')
 var route = require('./config/routes');
 
 var app = express();
+app.locals.appVersion = '0.7.1';
+app.locals.env = options.env;
 var http = require("http");
 var envDev = require('./config/environments/development');
 
 
-
-app.locals.appVersion = '0.7.0'
-app.locals.env = options.env
-if('production'===options.env){
+if(production_env===options.env){
     app.locals.jsPath = '/build'
 }else{
     app.locals.jsPath = '/javascripts'
@@ -105,7 +88,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env') === 'development') {
+if (options.env === 'development') {
     app.use(function(err, req, res, next) {
         res.status(err.status || 500);
         res.render('error', {
@@ -125,9 +108,15 @@ app.use(function(err, req, res, next) {
     });
 });
 
-var server = http.createServer(app).listen(options.port, function(){
-    console.log("Express server listening on port " + options.port);
-});
+if(production_env===options.env){
+   var server = http.createServer(app).listen(socket_url, function(){
+      console.log("Express server listening on socket..... " );
+   });
+}else{
+  var server = http.createServer(app).listen(options.port, function(){
+        console.log("Express server listening on port " + options.port);
+  });
+}
 
 module.exports = app;
 
