@@ -37,7 +37,8 @@
     "static-favicon": "~1.0.0",
     "underscore": "1.4.2",
     "underscore.string": "2.3.0",
-    "weibo": "0.6.8"
+    "weibo": "0.6.8",
+    "compression": "~1.0.9"
   },
   "devDependencies": {
     "grunt": ">=0.4.1",

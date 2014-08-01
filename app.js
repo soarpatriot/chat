@@ -18,6 +18,7 @@ var socket_url = "/data/www/chat/shared/tmp/sockets/app.socket";
 var production_env = 'production';
 
 var express = require('express');
+var compression = require('compression');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
@@ -41,11 +42,10 @@ if(production_env===options.env){
     app.locals.jsPath = '/javascripts'
 }
 
+app.use(compression());
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
-
-
 
 
 app.use(favicon(path.join(__dirname, 'public/images/eye.ico')));
