@@ -32,9 +32,6 @@ exports.index = function(req, res){
 
 
     var renderResult = function(){
-
-        console.log("render......:")
-
         res.render('index', {
             title: '@_@ 发现',
             user:req.user,

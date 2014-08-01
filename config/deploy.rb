@@ -57,12 +57,15 @@ task :deploy => :environment do
     # instance of your project.
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
+    queue %[npm install]
     
     to :launch do
 
-      invoke :install_dependency
-      invoke :restart
-       
+      #invoke :install_dependency
+      # queue %[rm "#{socket_path}"]
+      # queue 'NODE_ENV=production kirua stop'
+      queue 'NODE_ENV=production kirua restart app.js'
+      # queue %[chmod -R 666 "#{socket_path}"]
       # queue "touch #{deploy_to}/tmp/restart.txt"
     end
   end
@@ -80,14 +83,14 @@ desc "Start the server."
 task :start do
    queue %[nvm use 0.10.28]
    queue %[cd #{deploy_to}/current && NODE_ENV=production kirua start]
-   queue 'chomd 777 #{socket_path}'
+   # queue 'chomd -R 777 #{socket_path}'
 end
 
 desc "Restart the server."
 task :restart do
    queue %[nvm use 0.10.28]
    queue %[cd #{deploy_to}/current && NODE_ENV=production kirua restart]
-   queue 'chomd 777 #{socket_path}'
+   # queue 'chmod 777 #{socket_path}'
 end
 
 desc "Stop the server."

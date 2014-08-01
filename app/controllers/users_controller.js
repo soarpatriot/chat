@@ -210,8 +210,7 @@ exports.doLogin = function(req,res){
     var md5 = crypto.createHash('md5');
     var password = md5.update(req.body.password).digest('base64');
     var valid = true;
-    console.log("user:"+req.body.username);
-    console.log("user:"+req.body.password);
+
     User.findOne({'name': req.body.username}, function(err, user){
        
         if(!user){
@@ -219,17 +218,13 @@ exports.doLogin = function(req,res){
         }else if(user.password !== password){
             valid = false;
         }
-        console.log("valid:"+valid);
         if(valid === false){
             req.flash('error','用户不存在,或用户名密码错误');
             req.flash('username',req.body.username);
-            req.flash('password',req.body.password);
             return res.redirect('/login');
         }
-
         //req.session.user = user;
         req.session.userId = user._id;
-
         if(req.session.lastUrl!== null){
             req.flash('success','登录成功,请继续您的操作...');
         }
@@ -407,7 +402,6 @@ exports.loadUser = function(req, res, next) {
             next();
         });
     }else{
-        console.log('sdfsdf')
         next();
     }
 }
