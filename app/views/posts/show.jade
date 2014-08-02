@@ -88,6 +88,6 @@ block content
                     hr
 
         if 'production' === env
-            script(data-main='#{jsPath}/post-show',src='/javascripts/require.js?v=#{appVersion}')
+            script(data-main='#{jsPath}/post-show',src='#{jsPath}/require.js?v=#{appVersion}')
         else
             script(src='#{jsPath}/post-show.js')

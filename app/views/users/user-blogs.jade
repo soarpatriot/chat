@@ -102,7 +102,7 @@ block content
 
 
         if 'production' === env
-            script(data-main='#{jsPath}/user-blogs',src='/javascripts/require.js?v=#{appVersion}')
+            script(data-main='#{jsPath}/user-blogs',src='#{jsPath}/require.js?v=#{appVersion}')
         else
             script(src='#{jsPath}/user-blogs.js')
 

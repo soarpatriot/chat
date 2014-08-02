@@ -34,7 +34,7 @@ block content
                         a(href='/reg') 注册
 
         if 'production' === env
-            script(data-main='#{jsPath}/user',src='/javascripts/require.js?v=#{appVersion}')
+            script(data-main='#{jsPath}/user',src='#{jsPath}/require.js?v=#{appVersion}')
         else
             script(src='#{jsPath}/user.js')
 

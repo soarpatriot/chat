@@ -74,6 +74,6 @@ block content
 
                                     | &nbsp;
         if 'production' === env
-            script(data-main='#{jsPath}/home',src='/javascripts/require.js?v=#{appVersion}')
+            script(data-main='#{jsPath}/home',src='#{jsPath}/require.js?v=#{appVersion}')
         else
             script(src='#{jsPath}/home.js')
