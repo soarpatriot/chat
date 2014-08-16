@@ -14,27 +14,28 @@ var options = {
     env: process.env.NODE_ENV || "development"
 };
 
-var socket_url = "/data/www/chat/shared/tmp/sockets/app.socket";
-var production_env = 'production';
+var socket_url = "/data/www/chat/shared/tmp/sockets/app.socket",
+      production_env = 'production',
+      express = require('express'),
+      compression = require('compression'),
+      path = require('path'),
+      favicon = require('static-favicon'),
+      logger = require('morgan'),
+      cookieParser = require('cookie-parser'),
+      methodOverride = require('method-override'),
+      bodyParser = require('body-parser'),
+      flash = require('connect-flash'),
+      session = require('express-session'),
+      RedisStore = require('connect-redis')(session),
+      route = require('./config/routes'),
+      app = express(),
+      http = require("http"),
+      envDev = require('./config/environments/development'),
+      redisConfig = require('./config/redis-config'),
+      mongoose = require("./config/mongoose");
 
-var express = require('express');
-var compression = require('compression');
-var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var methodOverride = require('method-override');
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
-var session = require('express-session')
-var route = require('./config/routes');
-
-var app = express();
-app.locals.appVersion = '0.7.1';
+app.locals.appVersion = '0.7.2';
 app.locals.env = options.env;
-var http = require("http");
-var envDev = require('./config/environments/development');
-
 
 if(production_env===options.env){
     app.locals.jsPath = '/build'
@@ -47,7 +48,6 @@ app.use(compression());
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'jade');
 
-
 app.use(favicon(path.join(__dirname, 'public/images/eye.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -55,26 +55,28 @@ app.use(bodyParser.urlencoded());
 app.use(methodOverride());
 //envDev(app);
 app.use(cookieParser());
-//app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });
+
+app.use(session({ store: new RedisStore(redisConfig[options.env]['options']), 
+      secret: 'keyboard cat' ,
+      cookie : {
+        maxAge :  1000 
+      }
+}))
+/**
+app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });
+
 app.use(session({
     secret : "keyboard cat",
     cookie : {
         maxAge :  1000 * 60 * 60 * 24 * 365
     }
-}));
-app.use(flash());
+}));**/
 
+app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',express.static(path.join(__dirname, 'bower_components')));
 
-
-var mongoose = require("./config/mongoose");
-    mongoose.init(app,options);
-
-//app.helpers({
-  //  env:options.env
-//})
-
+mongoose.init(app,options);
 route.createRoutes(app);
 
 /// catch 404 and forwarding to error handler
