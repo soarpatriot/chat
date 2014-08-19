@@ -13,12 +13,12 @@ require 'mina/git'
 set :domain, 'soaror.com'
 set :deploy_to, '/data/www/chat'
 set :repository, 'https://github.com/soarpatriot/chat.git'
-set :branch, 'dev'
+set :branch, 'master'
 set :ppy, true
 set :socket_path, 'shared/tmp/sockets/app.socket'
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['node_modules','config/database.js','logs', 'tmp']
+set :shared_paths, ['node_modules','config/database.js','logs', 'tmp','config/redis-config.js']
 
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
