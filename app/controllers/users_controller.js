@@ -290,7 +290,6 @@ exports.doForgot = function(req,res){
  * @param res
  */
 exports.show = function(req,res){
-
     res.render('users/show',{
         title: '用户资料',
         user: req.user,
