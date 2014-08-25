@@ -18,7 +18,7 @@ set :ppy, true
 set :socket_path, 'shared/tmp/sockets/app.socket'
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
 # They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['node_modules','config/database.js','logs', 'tmp','config/redis-config.js']
+set :shared_paths, ['node_modules','config/database.js','log', 'tmp','config/redis-config.js']
 
 # Optional settings:
 #   set :user, 'foobar'    # Username in the server to SSH to.
@@ -77,12 +77,12 @@ task :socket do
    queue %[chmod -R 666 "#{deploy_to}/#{socket_path}"]
 end
 
-task :install_dependency do 
+task :install_dependency do
       queue %[nvm use 0.10.28]
       in_directory "#{deploy_to}/current" do
         queue "npm  install"
       end
-       
+
 end
 
 desc "Start the server."
