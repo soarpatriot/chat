@@ -3,7 +3,7 @@ log4js.configure({
     appenders: [
         { type: 'console' },{
             type: 'file',
-            filename: 'logs/access.log',
+            filename: 'log/access.log',
             maxLogSize: 1024 * 1024,
             backups:4
         }
