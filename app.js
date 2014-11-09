@@ -56,7 +56,7 @@ app.use(methodOverride());
 //envDev(app);
 app.use(cookieParser());
 
-app.use(session({ store: new RedisStore(redisConfig[options.env]['options']), 
+app.use(session({ store: new RedisStore(redisConfig[options.env]['options']),
       secret: 'keyboard cat' ,
       cookie : {
         maxAge :  1000 * 60 * 60 * 10
@@ -110,15 +110,19 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
+var server = http.createServer(app).listen(options.port, function(){
+      console.log("Express server listening on port " + options.port);
+});
+
+/**
 if(production_env===options.env){
    var server = http.createServer(app).listen(socket_url, function(){
       console.log("Express server listening on socket..... " );
    });
 }else{
-  var server = http.createServer(app).listen(options.port, function(){
-        console.log("Express server listening on port " + options.port);
-  });
-}
+
+}**/
 
 module.exports = app;
 

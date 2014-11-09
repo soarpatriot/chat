@@ -88,7 +88,7 @@ end
 desc "Start the server."
 task :start do
    queue %[nvm use 0.10.28]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua start]
+   queue %[cd #{deploy_to}/current && NODE_ENV=production forever start app.js]
    # queue 'chomd -R 777 #{socket_path}'
 end
 
@@ -96,13 +96,13 @@ desc "Restart the server."
 task :restart do
    queue %[nvm use 0.10.28]
    queue %[rm "#{deploy_to}/#{socket_path}"]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua restart]
+   queue %[cd #{deploy_to}/current && NODE_ENV=production forever restart app.js]
 end
 
 desc "Stop the server."
 task :stop do
    queue %[nvm use 0.10.28]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production kirua stop]
+   queue %[cd #{deploy_to}/current && NODE_ENV=production forever stop app.js]
 end
 
 
