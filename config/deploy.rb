@@ -13,7 +13,7 @@ require 'mina/git'
 set :domain, 'soaror.com'
 set :deploy_to, '/data/www/chat'
 set :repository, 'https://github.com/soarpatriot/chat.git'
-set :branch, 'master'
+set :branch, 'pps'
 set :ppy, true
 set :socket_path, 'shared/tmp/sockets/app.socket'
 # Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
@@ -58,7 +58,7 @@ task :deploy => :environment do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
     queue %[npm install]
-    queue %[rm "#{deploy_to}/#{socket_path}"]
+    # queue %[rm "#{deploy_to}/#{socket_path}"]
 
     to :launch do
 
@@ -66,7 +66,7 @@ task :deploy => :environment do
       # queue %[rm "#{socket_path}"]
       # queue 'NODE_ENV=production kirua stop'
       #queue %[rm "#{deploy_to}/#{socket_path}"]
-      queue 'NODE_ENV=production kirua restart app.js'
+      queue 'NODE_ENV=production forever restart app.js'
       #queue %[chmod -R 666 "#{deploy_to}/#{socket_path}"]
       # queue "touch #{deploy_to}/tmp/restart.txt"
     end
@@ -95,7 +95,7 @@ end
 desc "Restart the server."
 task :restart do
    queue %[nvm use 0.10.28]
-   queue %[rm "#{deploy_to}/#{socket_path}"]
+   # queue %[rm "#{deploy_to}/#{socket_path}"]
    queue %[cd #{deploy_to}/current && NODE_ENV=production forever restart app.js]
 end
 
