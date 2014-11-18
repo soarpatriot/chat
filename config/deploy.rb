@@ -26,7 +26,7 @@ set :log_level, :debug
 set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/redis-config.js}
+set :linked_files, %w{config/redis-config.js config/database.js}
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{node_modules tmp/pids log}
@@ -37,6 +37,8 @@ set :supervisor, "/home/soar/.nvm/#{fetch(:nvm_node)}/bin/supervisor"
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+set :node_env, "NODE_ENV=production"
+
 namespace :deploy do
 
   desc 'Restart application'
@@ -46,13 +48,13 @@ namespace :deploy do
       within current_path  do
         if test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> restarting application"
-          execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js #{fetch(:node_env)}"
           info ">>>>>> restart application success"
         else
           info ">>>>>> no started application, begin to start"
-          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js #{fetch(:node_env)}"
           info ">>>>>> application started"
-        end
+        end 
         #with NODE_ENV: :development do
           # commands in this block execute as the "deploy" user.
           
@@ -71,7 +73,7 @@ namespace :deploy do
       within current_path  do
         unless test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> starting application"
-          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js #{fetch(:node_env)}"
           
         else
           error ">>>>>> application already started"
