@@ -1,4 +1,11 @@
 source 'http://ruby.taobao.org'
 
-gem 'mina'
-gem 'capistrano', '3.2.1'
+group :development do
+
+  gem 'capistrano'
+  gem 'capistrano-ext'
+  gem 'capistrano-nvm', require: false
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+end

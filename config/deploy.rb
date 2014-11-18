@@ -1,117 +1,120 @@
-require 'mina/bundler'
-require 'mina/rails'
-require 'mina/git'
-# require 'mina/rbenv'  # for rbenv support. (http://rbenv.org)
-# require 'mina/rvm'    # for rvm support. (http://rvm.io)
+# config valid only for Capistrano 3.1
+lock '3.2.1'
 
-# Basic settings:
-#   domain       - The hostname to SSH to.
-#   deploy_to    - Path to deploy into.
-#   repository   - Git repo to clone from. (needed by mina/git)
-#   branch       - Branch name to deploy. (needed by mina/git)
+set :application, 'chat'
+set :repo_url, 'git@github.com:soarpatriot/chat.git'
 
-set :domain, 'soaror.com'
-set :deploy_to, '/data/www/chat'
-set :repository, 'https://github.com/soarpatriot/chat.git'
-set :branch, 'pps'
-set :ppy, true
-set :socket_path, 'shared/tmp/sockets/app.socket'
-# Manually create these paths in shared/ (eg: shared/config/database.yml) in your server.
-# They will be linked in the 'deploy:link_shared_paths' step.
-set :shared_paths, ['node_modules','config/database.js','log', 'tmp','config/redis-config.js']
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-# Optional settings:
-#   set :user, 'foobar'    # Username in the server to SSH to.
-#   set :port, '30000'     # SSH port number.
+# Default deploy_to directory is /var/www/my_app
+# set :deploy_to, '/var/www/my_app'
+set :nvm_type, :user # or :system, depends on your nvm setup
+set :nvm_node, 'v0.10.28'
+set :nvm_map_bins, %w{node npm  forever}  #nvm supervisor
+# set :nvm_custom_path, '/home/soar/.nvm/'
+# Default value for :scm is :git
+set :scm, :git
 
-# This task is the environment that is loaded for most commands, such as
-# `mina deploy` or `mina rake`.
-task :environment do
-  # If you're using rbenv, use this to load the rbenv environment.
-  # Be sure to commit your .rbenv-version to your repository.
-  # invoke :'rbenv:load'
+# Default value for :format is :pretty
+set :format, :pretty
 
-  # For those using RVM, use this to load an RVM version@gemset.
-  # invoke :'rvm:use[ruby-1.9.3-p125@default]'
-  queue %[nvm  use 0.10.28]
-end
+# Default value for :log_level is :debug
+set :log_level, :debug
 
-# Put any custom mkdir's in here for when `mina setup` is ran.
-# For Rails apps, we'll make some of the shared paths that are shared between
-# all releases.
-task :setup => :environment do
-  queue! %[mkdir -p "#{deploy_to}/shared/log"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/log"]
+# Default value for :pty is false
+set :pty, true
 
-  queue! %[mkdir -p "#{deploy_to}/shared/config"]
-  queue! %[chmod g+rx,u+rwx "#{deploy_to}/shared/config"]
+# Default value for :linked_files is []
+set :linked_files, %w{config/redis-config.js}
 
-  queue! %[touch "#{deploy_to}/shared/config/database.yml"]
-  queue  %[echo "-----> Be sure to edit 'shared/config/database.yml'."]
-end
+# Default value for linked_dirs is []
+set :linked_dirs, %w{node_modules tmp/pids}
 
-desc "Deploys the current version to the server."
-task :deploy => :environment do
-  deploy do
-    # Put things that will set up an empty directory into a fully set-up
-    # instance of your project.
-    invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
-    queue %[npm install]
-    # queue %[rm "#{deploy_to}/#{socket_path}"]
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :supervisor, "/home/soar/.nvm/#{fetch(:nvm_node)}/bin/supervisor"
+# Default value for keep_releases is 5
+set :keep_releases, 5
 
-    to :launch do
+namespace :deploy do
 
-      #invoke :install_dependency
-      # queue %[rm "#{socket_path}"]
-      # queue 'NODE_ENV=production kirua stop'
-      #queue %[rm "#{deploy_to}/#{socket_path}"]
-      queue 'NODE_ENV=production forever restart app.js'
-      #queue %[chmod -R 666 "#{deploy_to}/#{socket_path}"]
-      # queue "touch #{deploy_to}/tmp/restart.txt"
+  desc 'Restart application'
+  task :restart do
+    
+    on roles(:app) do
+      within current_path  do
+        if test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> restarting application"
+          execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js"
+          info ">>>>>> restart application success"
+        else
+          info ">>>>>> no started application, begin to start"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
+          info ">>>>>> application started"
+        end
+        #with NODE_ENV: :development do
+          # commands in this block execute as the "deploy" user.
+          
+            # commands in this block execute with the environment
+            # variable RAILS_ENV=production
+            # execute "nvm use 0.10.28"
+            
+             
+      end
+      
     end
   end
-end
-
-task :socket do
-   queue %[chmod -R 666 "#{deploy_to}/#{socket_path}"]
-end
-
-task :install_dependency do
-      queue %[nvm use 0.10.28]
-      in_directory "#{deploy_to}/current" do
-        queue "npm  install"
+  
+  task :start do 
+    on roles(:app) do
+      within current_path  do
+        unless test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> starting application"
+          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
+          
+        else
+          error ">>>>>> application already started"
+        end
+        
       end
 
+    end
+  end 
+
+  task :stop do 
+    on roles(:app) do
+      within current_path  do
+        if test("[ -f #{fetch(:node_pid)} ]")
+          info ">>>>>> stop application"
+          execute :forever, "stop app.js"
+          
+        else
+          error ">>>>>> can not stop. there is no started "
+        end
+        
+      end
+
+    end
+  end 
+
+
+  after :publishing, "dependency:npm"
+  after :publishing, :restart
+
+
+  #after :restart do
+   # on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+    #    within current_path do
+
+     #     execute "ll"
+          #execute "supervisor app.js"
+     #   end
+    #end
+  #end
+
 end
+#after "deploy:check", "dependency:npm"
 
-desc "Start the server."
-task :start do
-   queue %[nvm use 0.10.28]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production forever start app.js]
-   # queue 'chomd -R 777 #{socket_path}'
-end
-
-desc "Restart the server."
-task :restart do
-   queue %[nvm use 0.10.28]
-   # queue %[rm "#{deploy_to}/#{socket_path}"]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production forever restart app.js]
-end
-
-desc "Stop the server."
-task :stop do
-   queue %[nvm use 0.10.28]
-   queue %[cd #{deploy_to}/current && NODE_ENV=production forever stop app.js]
-end
-
-
-
-
-# For help in making your deploy script, see the Mina documentation:
-#
-#  - http://nadarei.co/mina
-#  - http://nadarei.co/mina/tasks
-#  - http://nadarei.co/mina/settings
-#  - http://nadarei.co/mina/helpers
 
