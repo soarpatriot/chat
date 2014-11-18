@@ -29,7 +29,7 @@ set :pty, true
 set :linked_files, %w{config/redis-config.js}
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{node_modules tmp/pids}
+set :linked_dirs, %w{node_modules tmp/pids log}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
