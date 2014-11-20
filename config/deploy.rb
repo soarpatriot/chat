@@ -11,7 +11,7 @@ set :repo_url, 'git@github.com:soarpatriot/chat.git'
 # set :deploy_to, '/var/www/my_app'
 set :nvm_type, :user # or :system, depends on your nvm setup
 set :nvm_node, 'v0.10.28'
-set :nvm_map_bins, %w{node npm  forever}  #nvm supervisor
+set :nvm_map_bins, %w{node npm forever}  #nvm supervisor
 # set :nvm_custom_path, '/home/soar/.nvm/'
 # Default value for :scm is :git
 set :scm, :git
@@ -45,14 +45,18 @@ namespace :deploy do
   task :restart do
     
     on roles(:app) do
-      within current_path  do
+      
         if test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> restarting application"
-          execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js #{fetch(:node_env)}"
+          within current_path  do
+            
+            execute :forever, "--pidFile #{fetch(:node_pid)} restart app.js"
+            
+          end
           info ">>>>>> restart application success"
         else
           info ">>>>>> no started application, begin to start"
-          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js #{fetch(:node_env)}"
+          invoke "deploy:start"
           info ">>>>>> application started"
         end 
         #with NODE_ENV: :development do
@@ -63,7 +67,7 @@ namespace :deploy do
             # execute "nvm use 0.10.28"
             
              
-      end
+      
       
     end
   end
@@ -73,7 +77,9 @@ namespace :deploy do
       within current_path  do
         unless test("[ -f #{fetch(:node_pid)} ]")
           info ">>>>>> starting application"
-          execute :forever, "--pidFile #{fetch(:node_pid)} start app.js #{fetch(:node_env)}"
+          with NODE_ENV: :production do
+            execute :forever, "--pidFile #{fetch(:node_pid)} start app.js"
+          end 
           
         else
           error ">>>>>> application already started"
