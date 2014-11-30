@@ -274,5 +274,45 @@ Post.unDoDone = function(posts){
     return posts;
 }
 
+/**
+Post.clearError = function(){
+
+    console.log("ddddd");
+
+    Post.find(function(err, posts){
+        console.log("aaa");
+        _.each(posts,function(post){
+
+            console.log("bbb"+ post.images.length);
+            if (post.images.length > 0) {
+                var i = 0 ;
+                for(i=0;i<post.images.length;i++){
+                    var deleteUrl = post.images[i].deleteUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                        url = post.images[i].url.replace('128.199.205.154:8888','static.soaror.com'),
+                        thumbnailUrl = post.images[i].thumbnailUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                        smallUrl = post.images[i].smallUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                        miniUrl = post.images[i].miniUrl.replace('128.199.205.154:8888','static.soaror.com');
+
+                    console.log("update111....   "+post.images[i]._id);
+                    //Image.find()a
+                    post.images[i].deleteUrl = deleteUrl ;
+                    post.images[i].url = url ;
+                    post.images[i].thumbnailUrl = thumbnailUrl ;
+                    post.images[i].smallUrl = smallUrl ;
+                    post.images[i].miniUrl = miniUrl ;
+
+                    post.save(function(err){
+                        console.log("sssss")
+                    });
+
+                }
+            }
+
+        });
+    });
+
+
+};**/
+
 module.exports = Post;
 

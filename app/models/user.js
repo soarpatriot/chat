@@ -132,6 +132,49 @@ var User = mongoose.model('User', UserSchema);
 module.exports = User;
 
 
+
+
+/**
+User.clearError = function(){
+
+    console.log("ddddd");
+
+    User.find(function(err, users){
+        console.log("aaa");
+        _.each(users,function(user){
+
+             if(user.url){
+                 var deleteUrl = user.deleteUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                     url = user.url.replace('128.199.205.154:8888','static.soaror.com'),
+                     thumbnailUrl = user.thumbnailUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                     smallUrl = user.smallUrl.replace('128.199.205.154:8888','static.soaror.com'),
+                     miniUrl = user.miniUrl.replace('128.199.205.154:8888','static.soaror.com');
+
+                 //console.log("update111....   "+post.images[i]._id);
+                 //Image.find()a
+                 user.deleteUrl = deleteUrl ;
+                 user.url = url ;
+                 user.thumbnailUrl = thumbnailUrl ;
+                 user.smallUrl = smallUrl ;
+                 user.miniUrl = miniUrl ;
+
+                 user.save(function(err){
+                     console.log("sssss")
+                 });
+
+             }
+
+
+
+
+
+
+
+        });
+    });
+
+
+};**/
 /**
 User.top5 = function(callback){
     return User.where('passed').equals(true)
