@@ -1,4 +1,4 @@
-set :server_name, "www.soaror.com"
+set :server_name, "soaror.com"
 
 set :branch, "master"
 set :deploy_to, "/data/www/chat"

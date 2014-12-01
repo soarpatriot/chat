@@ -19,6 +19,17 @@ require 'capistrano/nvm'
 # require 'capistrano/rbenv'
 # require 'capistrano/chruby'
 require 'capistrano/bundler'
+
+require 'erb'
+
+def from_template file
+  tmp_file = "/tmp/#{file}.tmp"
+  info "Generating from 'config/deploy/templates/#{file}' to '#{tmp_file}'"
+  template = File.read "config/deploy/templates/#{file}"
+  result = ERB.new(template).result self.send(:binding)
+  File.open(tmp_file, "w"){|f| f.write result }
+  tmp_file
+end
 # require 'capistrano/rails/assets'
 # require 'capistrano/rails/migrations'
 
