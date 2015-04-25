@@ -26,13 +26,16 @@ var socket_url = "/data/www/chat/shared/tmp/sockets/app.socket",
       bodyParser = require('body-parser'),
       flash = require('connect-flash'),
       session = require('express-session'),
+      MongoStore = require('connect-mongo')(session),
       RedisStore = require('connect-redis')(session),
       route = require('./config/routes'),
       app = express(),
       http = require("http"),
       envDev = require('./config/environments/development'),
       redisConfig = require('./config/redis-config'),
-      mongoose = require("./config/mongoose");
+      mongooseConfig = require("./config/mongoose");
+
+var  mongoose  = mongooseConfig.init(options)
 
 app.locals.appVersion = '0.7.2';
 app.locals.env = options.env;
@@ -42,6 +45,7 @@ if(production_env===options.env){
 }else{
     app.locals.jsPath = '/javascripts'
 }
+
 
 app.use(compression());
 // view engine setup
@@ -56,15 +60,20 @@ app.use(methodOverride());
 //envDev(app);
 app.use(cookieParser());
 
+app.use(session({
+  secret: "keyboard cat",
+  store: new MongoStore({mongooseConnection: mongoose.connection  })
+}))
+/**  
 app.use(session({ store: new RedisStore(redisConfig[options.env]['options']),
       secret: 'keyboard cat' ,
       cookie : {
         maxAge :  1000 * 60 * 60 * 10
       }
-}))
-/**
-app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });
+}))**/
+// app.use(session({ secret: 'keyboard cat', key: 'sid', cookie: { secure: true });
 
+        /**
 app.use(session({
     secret : "keyboard cat",
     cookie : {
@@ -76,7 +85,6 @@ app.use(flash());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/bower_components',express.static(path.join(__dirname, 'bower_components')));
 
-mongoose.init(app,options);
 route.createRoutes(app);
 
 /// catch 404 and forwarding to error handler

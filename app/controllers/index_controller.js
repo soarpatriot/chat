@@ -39,8 +39,6 @@ exports.index = function(req, res){
             topPosts:result.posts,
             yearPosts:result.yearPosts,
             currentLink: 'HOME',
-            success : req.flash('success').toString(),
-            error : req.flash('error').toString()
         });
     };
 
@@ -67,7 +65,14 @@ exports.index = function(req, res){
         .then(setTop5);
 
     var allPromise = Q.all([ yearPostPromise,top10PostPromise, promise ]);
-
-    return allPromise.then(renderResult, showError);
+    /**
+    res.render('index', {
+            title: '@_@ 发现',
+            currentLink: 'HOME',
+            success : req.flash('success').toString(),
+            error : req.flash('error').toString()
+        });
+     **/
+     return allPromise.then(renderResult, showError);
 
 };

@@ -4,6 +4,7 @@ lib-cov
 *.csv
 *.out
 *.pid
+*.swp
 pids
 logs
 results
